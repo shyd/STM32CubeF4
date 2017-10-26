@@ -2,15 +2,15 @@
   ******************************************************************************
   * @file    USB_Device/HID_Standalone/Src/stm32f4xx_it.c 
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Main Interrupt Service Routines.
   *          This file provides template for all exceptions handler and 
   *          peripherals interrupt service routine.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
   * You may not use this file except in compliance with the License.
@@ -173,12 +173,31 @@ void OTG_FS_WKUP_IRQHandler(void)
     /* Reset SLEEPDEEP bit of Cortex System Control Register */
     SCB->SCR &= (uint32_t)~((uint32_t)(SCB_SCR_SLEEPDEEP_Msk | SCB_SCR_SLEEPONEXIT_Msk));  
     
+    
     /* Configures system clock after wake-up from STOP: enable HSE, PLL and select 
     PLL as system clock source (HSE and PLL are disabled in STOP mode) */
-    SystemClock_Config();
+    
+    __HAL_RCC_HSE_CONFIG(RCC_HSE_ON);
+    
+    /* Wait till HSE is ready */  
+    while(__HAL_RCC_GET_FLAG(RCC_FLAG_HSERDY) == RESET)
+    {}
+    
+    /* Enable the main PLL. */
+    __HAL_RCC_PLL_ENABLE();
+    
+    /* Wait till PLL is ready */  
+    while(__HAL_RCC_GET_FLAG(RCC_FLAG_PLLRDY) == RESET)
+    {}
+    
+    /* Select PLL as SYSCLK */
+    MODIFY_REG(RCC->CFGR, RCC_CFGR_SW, RCC_SYSCLKSOURCE_PLLCLK);
+    
+    while (__HAL_RCC_GET_SYSCLK_SOURCE() != RCC_CFGR_SWS_PLL)
+    {}
     
     /* ungate PHY clock */
-     __HAL_PCD_UNGATE_PHYCLOCK((&hpcd)); 
+    __HAL_PCD_UNGATE_PHYCLOCK((&hpcd)); 
   }
   /* Clear EXTI pending Bit*/
   __HAL_USB_OTG_FS_WAKEUP_EXTI_CLEAR_FLAG();

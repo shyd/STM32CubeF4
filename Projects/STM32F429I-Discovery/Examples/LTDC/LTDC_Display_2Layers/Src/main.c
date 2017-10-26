@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    LTDC/LTDC_Display_2Layers/Src/main.c 
   * @author  MCD Application Team
-  * @version V1.2.4
-  * @date    13-November-2015 
+  * @version V1.2.8
+  * @date    17-February-2017 
   * @brief   This example describes how to configure the LTDC peripheral 
   *          to display two Layers at the same time.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -55,7 +55,7 @@
 /* Private variables ---------------------------------------------------------*/
 LTDC_HandleTypeDef LtdcHandle;
 
-__IO uint32_t Pending = 0;
+__IO uint32_t ReloadFlag = 0;
 
 /* Pictures position */
 uint32_t Xpos1 = 0;
@@ -99,28 +99,48 @@ int main(void)
   
   /*##-1- LCD Configuration ##################################################*/ 
   /* Configure 2 layers w/ Blending */
-  LCD_Config(); 
-
-  
-  /*##-2- Configure line event ###############################################*/
-  HAL_LTDC_ProgramLineEvent(&LtdcHandle, 0);  
+  LCD_Config();
   
   /* Infinite loop */
   while (1)
   { 
-    for (index = 0; index < 41; index++)
+    for (index = 0; index < 40; index++)
     {
       /* calculate new picture position */
       PicturesPosition(&Xpos1, &Ypos1, &Xpos2, &Ypos2, (index+1));
-      HAL_Delay(50);
+      
+      /* reconfigure the layer1 position  without Reloading*/
+      HAL_LTDC_SetWindowPosition_NoReload(&LtdcHandle, Xpos1, Ypos1, 0);
+      /* reconfigure the layer2 position  without Reloading*/
+      HAL_LTDC_SetWindowPosition_NoReload(&LtdcHandle, Xpos2, Ypos2, 1);
+      /* Ask for LTDC reload within next vertical blanking*/
+      ReloadFlag = 0;
+      HAL_LTDC_Reload(&LtdcHandle,LTDC_SRCR_VBR);
+      
+      while(ReloadFlag == 0)
+      {
+        /* wait till reload takes effect (in the next vertical blanking period) */
+      }
     }
     HAL_Delay(500);
     
-    for (index = 0; index < 41; index++)
+    for (index = 0; index < 40; index++)
     {
       /* calculate new picture position */
       PicturesPosition(&Xpos2, &Ypos2, &Xpos1, &Ypos1, (index+1));
-      HAL_Delay(50);
+      
+      /* reconfigure the layer1 position  without Reloading*/
+      HAL_LTDC_SetWindowPosition_NoReload(&LtdcHandle, Xpos1, Ypos1, 0);
+      /* reconfigure the layer2 position  without Reloading*/
+      HAL_LTDC_SetWindowPosition_NoReload(&LtdcHandle, Xpos2, Ypos2, 1);
+      /* Ask for LTDC reload within next vertical blanking*/
+      ReloadFlag = 0;
+      HAL_LTDC_Reload(&LtdcHandle,LTDC_SRCR_VBR);
+      
+      while(ReloadFlag == 0)
+      {
+        /* wait till reload takes effect (in the next vertical blanking period) */
+      }
     }
     HAL_Delay(500);
   }
@@ -143,30 +163,18 @@ static void PicturesPosition(uint32_t* x1, uint32_t* y1, uint32_t* x2, uint32_t*
   
   /* picture2 position */
   *x2 = 0;
-  *y2 = 160 - index*4;       
-  
-  Pending = 1;
+  *y2 = 160 - index*4;
 }
 
 /**
-  * @brief  Line Event callback.
+  * @brief  Reload Event callback.
   * @param  hltdc: pointer to a LTDC_HandleTypeDef structure that contains
-  *                the configuration information for the specified LTDC.
+  *                the configuration information for the LTDC.
   * @retval None
   */
-void HAL_LTDC_LineEvenCallback(LTDC_HandleTypeDef *hltdc) 
+void HAL_LTDC_ReloadEventCallback(LTDC_HandleTypeDef *hltdc)
 {
-  if(Pending == 1)
-  {
-    /* reconfigure the layer1 position */
-    HAL_LTDC_SetWindowPosition(&LtdcHandle, Xpos1, Ypos1, 0);
-    /* reconfigure the layer2 position */
-    HAL_LTDC_SetWindowPosition(&LtdcHandle, Xpos2, Ypos2, 1);
-    
-    Pending = 0;
-  }
-  /* Reconfigure line event */
-  HAL_LTDC_ProgramLineEvent(hltdc, 0);   
+  ReloadFlag = 1;
 }
 
 /**

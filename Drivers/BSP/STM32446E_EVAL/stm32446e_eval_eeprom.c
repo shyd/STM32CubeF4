@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32446e_eval_eeprom.c
   * @author  MCD Application Team
-  * @version V1.1.0
-  * @date    14-August-2015
+  * @version V2.0.0
+  * @date    27-January-2017
   * @brief   This file provides a set of functions needed to manage an I2C M24LR64 
   *          EEPROM memory.
   *          To be able to use this driver, the switch EE_M24LR64 must be defined
@@ -59,7 +59,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -96,33 +96,33 @@
   * @{
   */ 
   
-/** @defgroup STM32446E_EVAL_EEPROM STM32446E-EVAL EEPROM
+/** @defgroup STM32446E_EVAL_EEPROM STM32446E EVAL EEPROM
   * @brief This file includes the I2C EEPROM driver of STM32446E-EVAL evaluation board.
   * @{
   */ 
 
-/** @defgroup STM32446E_EVAL_EEPROM_Private_Types STM32446E Eval Eeprom Private Types
+/** @defgroup STM32446E_EVAL_EEPROM_Private_Types STM32446E EVAL EEPROM Private Types
   * @{
   */ 
 /**
   * @}
   */ 
 
-/** @defgroup STM32446E_EVAL_EEPROM_Private_Defines STM32446E Eval Eeprom Private Defines
+/** @defgroup STM32446E_EVAL_EEPROM_Private_Defines STM32446E EVAL EEPROM Private Defines
   * @{
   */  
 /**
   * @}
   */ 
 
-/** @defgroup STM32446E_EVAL_EEPROM_Private_Macros STM32446E Eval Eeprom Private Macros
+/** @defgroup STM32446E_EVAL_EEPROM_Private_Macros STM32446E EVAL EEPROM Private Macros
   * @{
   */
 /**
   * @}
   */ 
   
-/** @defgroup STM32446E_EVAL_EEPROM_Private_Variables STM32446E Eval Eeprom Private Variables
+/** @defgroup STM32446E_EVAL_EEPROM_Private_Variables STM32446E EVAL EEPROM Private Variables
   * @{
   */
 __IO uint16_t EEPROMAddress = 0;
@@ -132,20 +132,19 @@ __IO uint8_t  EEPROMDataWrite;
   * @}
   */ 
 
-/** @defgroup STM32446E_EVAL_EEPROM_Private_Function_Prototypes STM32446E Eval Eeprom Private Prototypes
+/** @defgroup STM32446E_EVAL_EEPROM_Private_Function_Prototypes STM32446E EVAL EEPROM Private Function Prototypes
   * @{
   */ 
 /**
   * @}
   */ 
 
-/** @defgroup STM32446E_EVAL_EEPROM_Private_Functions STM32446E Eval Eeprom Private Functions
+/** @defgroup STM32446E_EVAL_EEPROM_Private_Functions STM32446E EVAL EEPROM Private Functions
   * @{
   */ 
 
 /**
   * @brief  Initializes peripherals used by the I2C EEPROM driver.
-  * @param  None
   * 
   * @note   There are 2 different versions of M24LR64 (A01 & A02).
   *             Then try to connect on 1st one (EEPROM_I2C_ADDRESS_A01) 
@@ -174,7 +173,6 @@ uint32_t BSP_EEPROM_Init(void)
 
 /**
   * @brief  DeInitializes the EEPROM.
-  * @param  None
   * @retval EEPROM state
   */
 uint8_t BSP_EEPROM_DeInit(void)
@@ -434,7 +432,6 @@ uint32_t BSP_EEPROM_WriteBuffer(uint8_t *pBuffer, uint16_t WriteAddr, uint16_t N
   *        I2C packets addressed to it. Once the write operation is complete
   *        the EEPROM responds to its address.
   * 
-  * @param  None
   * @retval EEPROM_OK (0) if operation is correctly performed, else return value 
   *         different from EEPROM_OK (0) or the timeout user callback.
   */
@@ -452,8 +449,6 @@ uint32_t BSP_EEPROM_WaitEepromStandbyState(void)
 
 /**
   * @brief  Basic management of the timeout situation.
-  * @param  None
-  * @retval None
   */
 __weak void BSP_EEPROM_TIMEOUT_UserCallback(void)
 {

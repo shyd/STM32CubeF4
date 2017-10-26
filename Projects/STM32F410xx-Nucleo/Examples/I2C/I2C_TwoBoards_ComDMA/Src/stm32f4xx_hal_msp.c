@@ -2,13 +2,13 @@
   ******************************************************************************
   * @file    I2C/I2C_TwoBoards_ComDMA/Src/stm32f4xx_hal_msp.c
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.0.5
+  * @date    17-February-2017
   * @brief   HAL MSP module.    
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -153,6 +153,14 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef *hi2c)
   /* NVIC configuration for DMA transfer complete interrupt (I2C1_RX) */
   HAL_NVIC_SetPriority(I2Cx_DMA_RX_IRQn, 0, 0);   
   HAL_NVIC_EnableIRQ(I2Cx_DMA_RX_IRQn);
+  
+  /*##-7- Configure the NVIC for I2C #########################################*/   
+  /* NVIC for I2C1 */
+
+  HAL_NVIC_SetPriority(I2Cx_ER_IRQn, 0, 1);
+  HAL_NVIC_EnableIRQ(I2Cx_ER_IRQn);
+  HAL_NVIC_SetPriority(I2Cx_EV_IRQn, 0, 2);
+  HAL_NVIC_EnableIRQ(I2Cx_EV_IRQn);
 }
 
 /**
@@ -188,6 +196,10 @@ void HAL_I2C_MspDeInit(I2C_HandleTypeDef *hi2c)
   /*##-4- Disable the NVIC for DMA ###########################################*/
   HAL_NVIC_DisableIRQ(I2Cx_DMA_TX_IRQn);
   HAL_NVIC_DisableIRQ(I2Cx_DMA_RX_IRQn);
+
+  /*##-5- Disable the NVIC for I2C ###########################################*/
+  HAL_NVIC_DisableIRQ(I2Cx_ER_IRQn);
+  HAL_NVIC_DisableIRQ(I2Cx_EV_IRQn);
 }
 
 /**

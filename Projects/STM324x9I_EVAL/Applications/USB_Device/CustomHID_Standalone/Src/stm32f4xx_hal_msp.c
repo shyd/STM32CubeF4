@@ -2,13 +2,13 @@
   ******************************************************************************
   * @file    USB_Device/CustomHID_Standalone/Src/stm32f4xx_hal_msp.c
   * @author  MCD Application Team
-  * @version V1.4.2
-  * @date    13-November-2015
+  * @version V1.5.0
+  * @date    17-February-2017
   * @brief   HAL MSP module.    
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -33,17 +33,17 @@
   * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************  
-  */ 
+  */
 
-/* Includes ------------------------------------------------------------------*/
+/* Includes ------------------------------------------------------------------ */
 #include "main.h"
 
-/* Private typedef -----------------------------------------------------------*/
-/* Private define ------------------------------------------------------------*/
-/* Private macro -------------------------------------------------------------*/
-/* Private variables ---------------------------------------------------------*/
-/* Private function prototypes -----------------------------------------------*/
-/* Private functions ---------------------------------------------------------*/
+/* Private typedef ----------------------------------------------------------- */
+/* Private define ------------------------------------------------------------ */
+/* Private macro ------------------------------------------------------------- */
+/* Private variables --------------------------------------------------------- */
+/* Private function prototypes ----------------------------------------------- */
+/* Private functions --------------------------------------------------------- */
 
 /**
   * @brief ADC MSP Initialization 
@@ -53,31 +53,31 @@
   * @param hadc: ADC handle pointer
   * @retval None
   */
-void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
+void HAL_ADC_MspInit(ADC_HandleTypeDef * hadc)
 {
-  GPIO_InitTypeDef          GPIO_InitStruct;
-  static DMA_HandleTypeDef  hdma_adc;
-  
-  /*##-1- Enable peripherals and GPIO Clocks #################################*/
+  GPIO_InitTypeDef GPIO_InitStruct;
+  static DMA_HandleTypeDef hdma_adc;
+
+  /* ##-1- Enable peripherals and GPIO Clocks ################################# */
   /* Enable GPIO clock */
   ADCx_CHANNEL_GPIO_CLK_ENABLE();
   /* ADC3 Periph clock enable */
   ADCx_CLK_ENABLE();
   /* Enable DMA2 clock */
-  DMAx_CLK_ENABLE(); 
-  
-  /*##-2- Configure peripheral GPIO ##########################################*/ 
+  DMAx_CLK_ENABLE();
+
+  /* ##-2- Configure peripheral GPIO ########################################## */
   /* ADC3 Channel8 GPIO pin configuration */
   GPIO_InitStruct.Pin = ADCx_CHANNEL_PIN;
   GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(ADCx_CHANNEL_GPIO_PORT, &GPIO_InitStruct);
-  
-  /*##-3- Configure the DMA streams ##########################################*/
+
+  /* ##-3- Configure the DMA streams ########################################## */
   /* Set the parameters to be configured */
   hdma_adc.Instance = ADCx_DMA_STREAM;
-  
-  hdma_adc.Init.Channel  = ADCx_DMA_CHANNEL;
+
+  hdma_adc.Init.Channel = ADCx_DMA_CHANNEL;
   hdma_adc.Init.Direction = DMA_PERIPH_TO_MEMORY;
   hdma_adc.Init.PeriphInc = DMA_PINC_DISABLE;
   hdma_adc.Init.MemInc = DMA_MINC_ENABLE;
@@ -85,22 +85,22 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
   hdma_adc.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
   hdma_adc.Init.Mode = DMA_CIRCULAR;
   hdma_adc.Init.Priority = DMA_PRIORITY_HIGH;
-  hdma_adc.Init.FIFOMode = DMA_FIFOMODE_DISABLE;         
+  hdma_adc.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
   hdma_adc.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_HALFFULL;
   hdma_adc.Init.MemBurst = DMA_MBURST_SINGLE;
-  hdma_adc.Init.PeriphBurst = DMA_PBURST_SINGLE; 
+  hdma_adc.Init.PeriphBurst = DMA_PBURST_SINGLE;
 
   HAL_DMA_Init(&hdma_adc);
-    
+
   /* Associate the initialized DMA handle to the the ADC handle */
   __HAL_LINKDMA(hadc, DMA_Handle, hdma_adc);
 
-  /*##-4- Configure the NVIC for DMA #########################################*/
+  /* ##-4- Configure the NVIC for DMA ######################################### */
   /* NVIC configuration for DMA transfer complete interrupt */
-  HAL_NVIC_SetPriority(ADCx_DMA_IRQn, 5, 0);   
+  HAL_NVIC_SetPriority(ADCx_DMA_IRQn, 5, 0);
   HAL_NVIC_EnableIRQ(ADCx_DMA_IRQn);
 }
-  
+
 /**
   * @brief ADC MSP De-Initialization 
   *        This function frees the hardware resources used in this application:
@@ -109,23 +109,23 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
   * @param hadc: ADC handle pointer
   * @retval None
   */
-void HAL_ADC_MspDeInit(ADC_HandleTypeDef *hadc)
+void HAL_ADC_MspDeInit(ADC_HandleTypeDef * hadc)
 {
-  static DMA_HandleTypeDef  hdma_adc;
-  
-  /*##-1- Reset peripherals ##################################################*/
+  static DMA_HandleTypeDef hdma_adc;
+
+  /* ##-1- Reset peripherals ################################################## */
   ADCx_FORCE_RESET();
   ADCx_RELEASE_RESET();
 
-  /*##-2- Disable peripherals and GPIO Clocks ################################*/
+  /* ##-2- Disable peripherals and GPIO Clocks ################################ */
   /* De-initialize the ADC3 Channel8 GPIO pin */
   HAL_GPIO_DeInit(ADCx_CHANNEL_GPIO_PORT, ADCx_CHANNEL_PIN);
-  
-  /*##-3- Disable the DMA Streams ############################################*/
+
+  /* ##-3- Disable the DMA Streams ############################################ */
   /* De-Initialize the DMA Stream associate to transmission process */
-  HAL_DMA_DeInit(&hdma_adc); 
-    
-  /*##-4- Disable the NVIC for DMA ###########################################*/
+  HAL_DMA_DeInit(&hdma_adc);
+
+  /* ##-4- Disable the NVIC for DMA ########################################### */
   HAL_NVIC_DisableIRQ(ADCx_DMA_IRQn);
 }
 

@@ -2,11 +2,11 @@
   @page TIM_PWMInput TIM PWM Input example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    TIM/TIM_PWMInput/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the TIM PWM_Input example.
   ******************************************************************************
   *
@@ -85,11 +85,11 @@ The minimum frequency value to measure is (TIM3 counter clock / CCR MAX)
 
   - This example runs on STM32F429xx devices.
     
-  - This example has been tested with STMicroelectronics NUCLEO-429ZI  Rev.B 
+  - This example has been tested with STMicroelectronics NUCLEO-F429ZI  Rev.B 
     board and can be easily tailored to any other supported device 
     and development board.
 
-  - NUCLEO-429ZI  Rev.B Set-up
+  - NUCLEO-F429ZI  Rev.B Set-up
     - Connect the external signal to measure to the TIM3 CH2 pin (PB.05) (connect to pin 13 in CN7 connector).
 
 @par How to use it ? 

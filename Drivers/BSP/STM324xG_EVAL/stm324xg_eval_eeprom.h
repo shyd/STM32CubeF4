@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm324xg_eval_eeprom.h
   * @author  MCD Application Team
-  * @version V2.1.0
-  * @date    14-August-2015
+  * @version V3.0.0
+  * @date    27-January-2017
   * @brief   This file contains all the functions prototypes for 
   *          the stm32f4xg_eval_eeprom.c firmware driver.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -59,15 +59,8 @@
   * @brief This file includes the I2C EEPROM driver of STM32F4xG-EVAL evaluation board.
   * @{
   */
-
-/** @defgroup STM324xG_EVAL_EEPROM_Exported_Types
-  * @{
-  */ 
-/**
-  * @}
-  */
   
-/** @defgroup STM324xG_EVAL_EEPROM_Exported_Constants
+/** @defgroup STM324xG_EVAL_EEPROM_Exported_Constants STM324xG EVAL EEPROM Exported Constants
   * @{
   */
 /* EEPROM hardware address and page size */ 
@@ -89,15 +82,8 @@
 /**
   * @}
   */ 
-  
-/** @defgroup STM324xG_EVAL_EEPROM_Exported_Macros
-  * @{
-  */    
-/**
-  * @}
-  */ 
 
-/** @defgroup STM324xG_EVAL_EEPROM_Exported_Functions
+/** @defgroup STM324xG_EVAL_EEPROM_Exported_Functions STM324xG EVAL EEPROM Exported Functions
   * @{
   */ 
 uint32_t BSP_EEPROM_Init(void);

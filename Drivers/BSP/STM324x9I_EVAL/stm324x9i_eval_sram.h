@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm324x9i_eval_sram.h
   * @author  MCD Application Team
-  * @version V2.2.1
-  * @date    07-October-2015
+  * @version V3.0.0
+  * @date    27-January-2017
   * @brief   This file contains the common defines and functions prototypes for
   *          the stm324x9i_eval_sram.c driver.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -55,18 +55,11 @@
   * @{
   */
     
-/** @defgroup STM324x9I_EVAL_SRAM
+/** @defgroup STM324x9I_EVAL_SRAM STM324x9I EVAL SRAM
   * @{
   */    
 
-/** @defgroup STM324x9I_EVAL_SRAM_Exported_Types
-  * @{
-  */
-/**
-  * @}
-  */
-
-/** @defgroup STM324x9I_EVAL_SRAM_Exported_Constants
+/** @defgroup STM324x9I_EVAL_SRAM_Exported_Constants STM324x9I EVAL SRAM Exported Constants
   * @{
   */ 
 
@@ -77,7 +70,7 @@
 #define   SRAM_ERROR      0x01
 
 #define SRAM_DEVICE_ADDR  ((uint32_t)0x64000000)
-#define SRAM_DEVICE_SIZE  ((uint32_t)0x200000)  /* SRAM device size in MBytes */  
+#define SRAM_DEVICE_SIZE  ((uint32_t)0x200000)  /* SRAM device size in Bytes */  
   
 /* #define SRAM_MEMORY_WIDTH    FMC_NORSRAM_MEM_BUS_WIDTH_8  */
 #define SRAM_MEMORY_WIDTH    FMC_NORSRAM_MEM_BUS_WIDTH_16
@@ -92,7 +85,7 @@
 /* #define CONTINUOUSCLOCK_FEATURE     FMC_CONTINUOUS_CLOCK_SYNC_ASYNC */ 
 
 /* DMA definitions for SRAM DMA transfer */
-#define __SRAM_DMAx_CLK_ENABLE            __DMA2_CLK_ENABLE
+#define __SRAM_DMAx_CLK_ENABLE            __HAL_RCC_DMA2_CLK_ENABLE
 #define SRAM_DMAx_CHANNEL                 DMA_CHANNEL_0
 #define SRAM_DMAx_STREAM                  DMA2_Stream0  
 #define SRAM_DMAx_IRQn                    DMA2_Stream0_IRQn
@@ -100,15 +93,8 @@
 /**
   * @}
   */ 
-  
-/** @defgroup STM324x9I_EVAL_SRAM_Exported_Macro
-  * @{
-  */  
-/**
-  * @}
-  */ 
    
-/** @defgroup STM324x9I_EVAL_SRAM_Exported_Functions
+/** @defgroup STM324x9I_EVAL_SRAM_Exported_Functions STM324x9I EVAL SRAM Exported Functions
   * @{
   */    
 uint8_t BSP_SRAM_Init(void);
@@ -117,7 +103,7 @@ uint8_t BSP_SRAM_ReadData_DMA(uint32_t uwStartAddress, uint16_t *pData, uint32_t
 uint8_t BSP_SRAM_WriteData(uint32_t uwStartAddress, uint16_t *pData, uint32_t uwDataSize);
 uint8_t BSP_SRAM_WriteData_DMA(uint32_t uwStartAddress, uint16_t *pData, uint32_t uwDataSize);
 void    BSP_SRAM_DMA_IRQHandler(void);
-
+void    BSP_SRAM_MspInit(void);
 /**
   * @}
   */ 

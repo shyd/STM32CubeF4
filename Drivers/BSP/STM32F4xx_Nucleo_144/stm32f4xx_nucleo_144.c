@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32f4xx_nucleo_144.c
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    13-November-2015
+  * @version V1.0.2
+  * @date    22-April-2016
   * @brief   This file provides set of firmware functions to manage:
   *          - LEDs and push-button available on STM32F4XX-Nucleo-144 Kit 
   *            from STMicroelectronics
@@ -12,7 +12,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -43,21 +43,21 @@
 #include "stm32f4xx_nucleo_144.h"
 
 
-/** @addtogroup BSP
+/** @defgroup BSP BSP
   * @{
   */ 
 
-/** @addtogroup STM32F4XX_NUCLEO_144
+/** @defgroup STM32F4XX_NUCLEO_144 STM32F4XX NUCLEO 144
   * @{
   */   
     
-/** @addtogroup STM32F4XX_NUCLEO_144_LOW_LEVEL 
+/** @defgroup STM32F4XX_NUCLEO_144_LOW_LEVEL STM32F4XX NUCLEO 144 LOW LEVEL
   * @brief This file provides set of firmware functions to manage Leds and push-button
   *        available on STM32F4xx-Nucleo Kit from STMicroelectronics.
   * @{
   */ 
 
-/** @defgroup STM32F4XX_NUCLEO_144_LOW_LEVEL_Private_TypesDefinitions
+/** @defgroup STM32F4XX_NUCLEO_144_LOW_LEVEL_Private_TypesDefinitions STM32F4XX NUCLEO 144 LOW LEVEL Private TypesDefinitions
   * @{
   */ 
 /**
@@ -65,16 +65,16 @@
   */ 
 
 
-/** @defgroup STM32F4XX_NUCLEO_144_LOW_LEVEL_Private_Defines
+/** @defgroup STM32F4XX_NUCLEO_144_LOW_LEVEL_Private_Defines STM32F4XX NUCLEO 144 LOW LEVEL Private Defines
   * @{
   */ 
 
 /**
-  * @brief STM32F4xx NUCLEO BSP Driver version number V1.0.0
+  * @brief STM32F4xx NUCLEO BSP Driver version number V1.0.2
   */
 #define __STM32F4xx_NUCLEO_BSP_VERSION_MAIN   (0x01) /*!< [31:24] main version */
 #define __STM32F4xx_NUCLEO_BSP_VERSION_SUB1   (0x00) /*!< [23:16] sub1 version */
-#define __STM32F4xx_NUCLEO_BSP_VERSION_SUB2   (0x00) /*!< [15:8]  sub2 version */
+#define __STM32F4xx_NUCLEO_BSP_VERSION_SUB2   (0x02) /*!< [15:8]  sub2 version */
 #define __STM32F4xx_NUCLEO_BSP_VERSION_RC     (0x00) /*!< [7:0]  release candidate */ 
 #define __STM32F4xx_NUCLEO_BSP_VERSION        ((__STM32F4xx_NUCLEO_BSP_VERSION_MAIN << 24)\
                                              |(__STM32F4xx_NUCLEO_BSP_VERSION_SUB1 << 16)\
@@ -84,21 +84,21 @@
 /**
   * @brief LINK SD Card
   */
-#define SD_DUMMY_BYTE            0xFF    
+#define SD_DUMMY_BYTE            0xFF
 #define SD_NO_RESPONSE_EXPECTED  0x80
 
 /**
   * @}
   */ 
 
-/** @defgroup STM32F4XX_NUCLEO_144_LOW_LEVEL_Private_Macros
+/** @defgroup STM32F4XX_NUCLEO_144_LOW_LEVEL_Private_Macros STM32F4XX NUCLEO 144 LOW LEVEL Private Macros
   * @{
   */ 
 /**
   * @}
   */ 
 
-/** @defgroup STM32F4XX_NUCLEO_144_LOW_LEVEL_Private_Variables
+/** @defgroup STM32F4XX_NUCLEO_144_LOW_LEVEL_Private_Variables STM32F4XX NUCLEO 144 LOW LEVEL Private Variables
   * @{
   */ 
 GPIO_TypeDef* GPIO_PORT[LEDn] = {LED1_GPIO_PORT, LED2_GPIO_PORT, LED3_GPIO_PORT};
@@ -130,7 +130,7 @@ static ADC_ChannelConfTypeDef sConfig;
   * @}
   */ 
 
-/** @defgroup STM32F4XX_NUCLEO_144_LOW_LEVEL_Private_FunctionPrototypes
+/** @defgroup STM32F4XX_NUCLEO_144_LOW_LEVEL_Private_FunctionPrototypes STM32F4XX NUCLEO 144 LOW LEVEL Private FunctionPrototypes
   * @{
   */
 #ifdef ADAFRUIT_TFT_JOY_SD_ID802
@@ -168,13 +168,12 @@ static void ADCx_MspDeInit(ADC_HandleTypeDef *hadc);
   * @}
   */ 
 
-/** @defgroup STM32F4XX_NUCLEO_144_LOW_LEVEL_Private_Functions
+/** @defgroup STM32F4XX_NUCLEO_144_LOW_LEVEL_Private_Functions STM32F4XX NUCLEO 144 LOW LEVEL Private Functions
   * @{
   */ 
 
 /**
   * @brief  This method returns the STM32F4xx NUCLEO BSP Driver revision
-  * @param  None
   * @retval version: 0xXYZR (8bits for each decimal, R for RC)
   */
 uint32_t BSP_GetVersion(void)
@@ -189,7 +188,6 @@ uint32_t BSP_GetVersion(void)
   *     @arg  LED1
   *     @arg  LED2
   *     @arg  LED3
-  * @retval None
   */
 void BSP_LED_Init(Led_TypeDef Led)
 {
@@ -216,7 +214,6 @@ void BSP_LED_Init(Led_TypeDef Led)
   *     @arg  LED2
   *     @arg  LED3
   * @note Led DeInit does not disable the GPIO clock nor disable the Mfx 
-  * @retval None
   */
 void BSP_LED_DeInit(Led_TypeDef Led)
 {
@@ -234,7 +231,6 @@ void BSP_LED_DeInit(Led_TypeDef Led)
   * @param  Led: Specifies the Led to be set on. 
   *   This parameter can be one of following parameters:
   *     @arg LED2
-  * @retval None
   */
 void BSP_LED_On(Led_TypeDef Led)
 {
@@ -248,7 +244,6 @@ void BSP_LED_On(Led_TypeDef Led)
   *     @arg  LED1
   *     @arg  LED2
   *     @arg  LED3
-  * @retval None
   */
 void BSP_LED_Off(Led_TypeDef Led)
 {
@@ -262,7 +257,6 @@ void BSP_LED_Off(Led_TypeDef Led)
   *     @arg  LED1
   *     @arg  LED2
   *     @arg  LED3 
-  * @retval None
   */
 void BSP_LED_Toggle(Led_TypeDef Led)
 {
@@ -278,7 +272,6 @@ void BSP_LED_Toggle(Led_TypeDef Led)
   *     @arg BUTTON_MODE_GPIO: Button will be used as simple IO 
   *     @arg BUTTON_MODE_EXTI: Button will be connected to EXTI line with interrupt
   *                            generation capability  
-  * @retval None
   */
 void BSP_PB_Init(Button_TypeDef Button, ButtonMode_TypeDef ButtonMode)
 {
@@ -316,7 +309,6 @@ void BSP_PB_Init(Button_TypeDef Button, ButtonMode_TypeDef ButtonMode)
   * @param  Button: Button to be configured
   *   This parameter should be: BUTTON_USER
   * @note PB DeInit does not disable the GPIO clock
-  * @retval None
   */
 void BSP_PB_DeInit(Button_TypeDef Button)
 {
@@ -348,8 +340,6 @@ uint32_t BSP_PB_GetState(Button_TypeDef Button)
 
 /**
   * @brief  Initializes SPI MSP.
-  * @param  None
-  * @retval None
   */
 static void SPIx_MspInit(SPI_HandleTypeDef *hspi)
 {
@@ -385,8 +375,6 @@ static void SPIx_MspInit(SPI_HandleTypeDef *hspi)
 
 /**
   * @brief  Initializes SPI HAL.
-  * @param  None
-  * @retval None
   */
 static void SPIx_Init(void)
 {
@@ -394,14 +382,15 @@ static void SPIx_Init(void)
   {
     /* SPI Config */
     hnucleo_Spi.Instance = NUCLEO_SPIx;
-      /* SPI baudrate is set to 12,5 MHz maximum (APB2/SPI_BaudRatePrescaler = 90/8 = 11,25 MHz) 
-       to verify these constraints:
+    /* SPI configuration contraints
           - ST7735 LCD SPI interface max baudrate is 15MHz for write and 6.66MHz for read
             Since the provided driver doesn't use read capability from LCD, only constraint 
             on write baudrate is considered.
           - SD card SPI interface max baudrate is 25MHz for write/read
-          - PCLK2 max frequency is 90 MHz 
-       */ 
+       to feat these constraints SPI baudrate is set to:
+	      - For STM32F412ZG devices: 12,5 MHz maximum (PCLK2/SPI_BAUDRATEPRESCALER_8 = 100 MHz/8 = 12,5 MHz)
+		  - For STM32F446ZE/STM32F429ZI devices: 11,25 MHz maximum (PCLK2/SPI_BAUDRATEPRESCALER_8 = 90 MHz/8 = 11,25 MHz)
+    */ 
     hnucleo_Spi.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
     hnucleo_Spi.Init.Direction = SPI_DIRECTION_2LINES;
     hnucleo_Spi.Init.CLKPhase = SPI_PHASE_2EDGE;
@@ -421,8 +410,9 @@ static void SPIx_Init(void)
 
 /**
   * @brief  SPI Write a byte to device
-  * @param  Value: value to be written
-  * @retval None
+  * @param  DataIn: value to be written
+  * @param  DataOut: value to read
+  * @param  DataLegnth: length of data
   */
 static void SPIx_WriteReadData(const uint8_t *DataIn, uint8_t *DataOut, uint16_t DataLegnth)
 {
@@ -441,7 +431,6 @@ static void SPIx_WriteReadData(const uint8_t *DataIn, uint8_t *DataOut, uint16_t
 /**
   * @brief  SPI Write a byte to device.
   * @param  Value: value to be written
-  * @retval None
   */
 static void SPIx_Write(uint8_t Value)
 {
@@ -460,8 +449,6 @@ static void SPIx_Write(uint8_t Value)
 
 /**
   * @brief  SPI error treatment function
-  * @param  None
-  * @retval None
   */
 static void SPIx_Error (void)
 {
@@ -480,8 +467,6 @@ static void SPIx_Error (void)
 /**
   * @brief  Initializes the SD Card and put it into StandBy State (Ready for 
   *         data transfer).
-  * @param  None
-  * @retval None
   */
 void SD_IO_Init(void)
 {
@@ -527,8 +512,7 @@ void SD_IO_Init(void)
 
 /**
   * @brief  Set the SD_CS pin.
-  * @param  pin value.
-  * @retval None
+  * @param  val: pin value.
   */
 void SD_IO_CSState(uint8_t val)
 {
@@ -544,8 +528,9 @@ void SD_IO_CSState(uint8_t val)
 
 /**
   * @brief  Write a byte on the SD.
-  * @param  Data: byte to send.
-  * @retval None
+  * @param  DataIn: byte to send.
+  * @param  DataOut: byte to read
+  * @param  DataLength: length of data
   */
 void SD_IO_WriteReadData(const uint8_t *DataIn, uint8_t *DataOut, uint16_t DataLength)
 {
@@ -556,7 +541,6 @@ void SD_IO_WriteReadData(const uint8_t *DataIn, uint8_t *DataOut, uint16_t DataL
 /**
   * @brief  Writes a byte on the SD.
   * @param  Data: byte to send.
-  * @retval None
   */
 uint8_t SD_IO_WriteByte(uint8_t Data)
 {
@@ -569,8 +553,6 @@ uint8_t SD_IO_WriteByte(uint8_t Data)
 /********************************* LINK LCD ***********************************/
 /**
   * @brief  Initializes the LCD
-  * @param  None
-  * @retval None
   */
 void LCD_IO_Init(void)
 {
@@ -601,7 +583,6 @@ void LCD_IO_Init(void)
 /**
   * @brief  Writes command to select the LCD register.
   * @param  LCDReg: Address of the selected register.
-  * @retval None
   */
 void LCD_IO_WriteReg(uint8_t LCDReg)
 {
@@ -622,7 +603,6 @@ void LCD_IO_WriteReg(uint8_t LCDReg)
   * @brief  Writes data to select the LCD register.
   *         This function must be used after st7735_WriteReg() function
   * @param  Data: data to write to the selected register.
-  * @retval None
   */
 void LCD_IO_WriteData(uint8_t Data)
 {
@@ -643,7 +623,6 @@ void LCD_IO_WriteData(uint8_t Data)
   * @brief  Write register value.
   * @param  pData Pointer on the register value
   * @param  Size Size of byte to transmit to the register
-  * @retval None
   */
 void LCD_IO_WriteMultipleData(uint8_t *pData, uint32_t Size)
 {
@@ -699,7 +678,6 @@ void LCD_IO_WriteMultipleData(uint8_t *pData, uint32_t Size)
 /**
   * @brief  Wait for loop in ms.
   * @param  Delay in ms.
-  * @retval None
   */
 void LCD_Delay(uint32_t Delay)
 {
@@ -712,8 +690,6 @@ void LCD_Delay(uint32_t Delay)
 
 /**
   * @brief  Initializes ADC MSP.
-  * @param  None
-  * @retval None
   */
 static void ADCx_MspInit(ADC_HandleTypeDef *hadc)
 {
@@ -736,9 +712,7 @@ static void ADCx_MspInit(ADC_HandleTypeDef *hadc)
 
 /**
   * @brief  DeInitializes ADC MSP.
-  * @param  None
   * @note ADC DeInit does not disable the GPIO clock
-  * @retval None
   */
 static void ADCx_MspDeInit(ADC_HandleTypeDef *hadc)
 {
@@ -758,8 +732,6 @@ static void ADCx_MspDeInit(ADC_HandleTypeDef *hadc)
 
 /**
   * @brief  Initializes ADC HAL.
-  * @param  None
-  * @retval None
   */
 static void ADCx_Init(void)
 {
@@ -784,8 +756,6 @@ static void ADCx_Init(void)
 
 /**
   * @brief  Initializes ADC HAL.
-  * @param  None
-  * @retval None
   */
 static void ADCx_DeInit(void)
 {
@@ -800,7 +770,6 @@ static void ADCx_DeInit(void)
 /**
   * @brief  Configures joystick available on adafruit 1.8" TFT shield 
   *         managed through ADC to detect motion.
-  * @param  None
   * @retval Joystickstatus (0=> success, 1=> fail) 
   */
 uint8_t BSP_JOY_Init(void)
@@ -822,7 +791,6 @@ uint8_t BSP_JOY_Init(void)
 /**
   * @brief  DeInit joystick GPIOs.
   * @note   JOY DeInit does not disable the Mfx, just set the Mfx pins in Off mode
-  * @retval None.
   */
 void BSP_JOY_DeInit(void)
 {
@@ -853,7 +821,7 @@ JOYState_TypeDef BSP_JOY_GetState(void)
   HAL_ADC_PollForConversion(&hnucleo_Adc, 10);
   
   /* Check if the continuous conversion of regular channel is finished */
-  if(HAL_ADC_GetState(&hnucleo_Adc) == HAL_ADC_STATE_EOC_REG)
+  if((HAL_ADC_GetState(&hnucleo_Adc) & HAL_ADC_STATE_EOC_REG) == HAL_ADC_STATE_EOC_REG)
   {
     /* Get the converted value of regular channel */
     keyconvertedvalue = HAL_ADC_GetValue(&hnucleo_Adc);

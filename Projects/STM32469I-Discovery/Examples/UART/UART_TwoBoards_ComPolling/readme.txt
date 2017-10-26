@@ -2,11 +2,11 @@
   @page UART_TwoBoards_ComPolling UART TwoBoards Communication Polling example
 
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    UART/UART_TwoBoards_ComPolling/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date  09-October-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the UART Two Boards Communication Polling example.
   ******************************************************************************
   *
@@ -37,7 +37,7 @@
 
 @par Example Description 
 
-This example describes a UART transmission (transmit/receive) in polling mode
+This example describes an UART transmission (transmit/receive) in polling mode
 between two boards.
 
 Board: STM32469I-DISCOVERY (embeds a STM32469I device)

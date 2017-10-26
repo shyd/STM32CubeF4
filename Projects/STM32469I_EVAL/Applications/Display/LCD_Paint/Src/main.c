@@ -2,29 +2,48 @@
   ******************************************************************************
   * @file    LCD_Paint/Src/main.c
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   This file provides main program functions
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics International N.V. 
+  * All rights reserved.</center></h2>
   *
-  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-  * You may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at:
+  * Redistribution and use in source and binary forms, with or without 
+  * modification, are permitted, provided that the following conditions are met:
   *
-  *        http://www.st.com/software_license_agreement_liberty_v2
+  * 1. Redistribution of source code must retain the above copyright notice, 
+  *    this list of conditions and the following disclaimer.
+  * 2. Redistributions in binary form must reproduce the above copyright notice,
+  *    this list of conditions and the following disclaimer in the documentation
+  *    and/or other materials provided with the distribution.
+  * 3. Neither the name of STMicroelectronics nor the names of other 
+  *    contributors to this software may be used to endorse or promote products 
+  *    derived from this software without specific written permission.
+  * 4. This software, including modifications and/or derivative works of this 
+  *    software, must execute solely and exclusively on microcontroller or
+  *    microprocessor devices manufactured by or for STMicroelectronics.
+  * 5. Redistribution and use of this software other than as permitted under 
+  *    this license is void and will automatically terminate your rights under 
+  *    this license. 
   *
-  * Unless required by applicable law or agreed to in writing, software
-  * distributed under the License is distributed on an "AS IS" BASIS,
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
+  * THIS SOFTWARE IS PROVIDED BY STMICROELECTRONICS AND CONTRIBUTORS "AS IS" 
+  * AND ANY EXPRESS, IMPLIED OR STATUTORY WARRANTIES, INCLUDING, BUT NOT 
+  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+  * PARTICULAR PURPOSE AND NON-INFRINGEMENT OF THIRD PARTY INTELLECTUAL PROPERTY
+  * RIGHTS ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED BY LAW. IN NO EVENT 
+  * SHALL STMICROELECTRONICS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, 
+  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
+  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
   */
-
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "color.h"
@@ -42,29 +61,29 @@
 
 typedef struct
 {
-    uint16_t bfType;  /* specifies the file type */
-    uint32_t bfSize;  /* specifies the size in bytes of the bitmap file */
-    uint16_t bfReserved1;  /* reserved : must be 0 */
-    uint16_t bfReserved2;  /* reserved : must be 0 */
-    uint32_t bOffBits;  /* species the offset in bytes from the bitmapfileheader to the bitmap bits */
-    uint16_t Padding;   /* padding to multiple of 32 bits */
-
+  uint16_t bfType;       /* specifies the file type */
+  uint32_t bfSize;       /* specifies the size in bytes of the bitmap file */
+  uint16_t bfReserved1;  /* reserved : must be 0 */
+  uint16_t bfReserved2;  /* reserved : must be 0 */
+  uint32_t bOffBits;     /* species the offset in bytes from the bitmapfileheader to the bitmap bits */
+  uint16_t Padding;      /* padding to multiple of 32 bits */
+  
 } BitMapFileHeader_Typedef;
 
 typedef struct
 {
-  uint32_t biSize;  /* specifies the number of bytes required by the struct */
-  uint32_t biWidth;  /* specifies width in pixels */
-  uint32_t biHeight;  /* species height in pixels */
-  uint16_t biPlanes; /* specifies the number of color planes, must be 1 */
-    uint16_t biBitCount; /* specifies the number of bit per pixel */
-    uint32_t biCompression; /* specifies the type of compression */
-    uint32_t biSizeImage;  /* size of image in bytes */
-    uint32_t biXPelsPerMeter;  /* number of pixels per meter in x axis */
-    uint32_t biYPelsPerMeter;  /* number of pixels per meter in y axis */
-    uint32_t biClrUsed;  /* number of colors used by the bitmap */
-    uint32_t biClrImportant;  /* number of colors that are important */
-
+  uint32_t biSize;           /* specifies the number of bytes required by the struct */
+  uint32_t biWidth;          /* specifies width in pixels */
+  uint32_t biHeight;         /* species height in pixels */
+  uint16_t biPlanes;         /* specifies the number of color planes, must be 1 */
+  uint16_t biBitCount;       /* specifies the number of bit per pixel */
+  uint32_t biCompression;    /* specifies the type of compression */
+  uint32_t biSizeImage;      /* size of image in bytes */
+  uint32_t biXPelsPerMeter;  /* number of pixels per meter in x axis */
+  uint32_t biYPelsPerMeter;  /* number of pixels per meter in y axis */
+  uint32_t biClrUsed;        /* number of colors used by the bitmap */
+  uint32_t biClrImportant;   /* number of colors that are important */
+  
 } BitMapFileInfoHeader_Typedef;
 
 /* Private define ------------------------------------------------------------*/
@@ -148,7 +167,7 @@ int main(void)
   BSP_TS_ResetTouchData(&TS_State);
 
   /* If calibration is not yet done, proceed with calibration */
-  if (TouchScreen_IsCalibrationDone() == 0)
+  if(TouchScreen_IsCalibrationDone() == 0)
   {
     ts_status = Touchscreen_Calibration();
     if(ts_status == TS_OK)
@@ -180,24 +199,24 @@ int main(void)
   if(FATFS_LinkDriver(&SD_Driver, SDPath) != 0)
   {
     /* FatFs Initialization Error */
-  BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize()/2 + 3, (uint8_t*)"FAT FS Error !!", CENTER_MODE);
-    Error_Handler();
-  }
-
-/*##-4- Register the file system object to the FatFs module ################*/
-  if(f_mount(&SDFatFs, (TCHAR const*)SDPath, 0) != FR_OK)
-    {
-    /* FatFs Initialization Error */
-  BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize()/2 + 3, (uint8_t*)"FAT FS Error !!", CENTER_MODE);
-    Error_Handler();
-   }
-  /* Create a FAT file system (format) on the logical drive */
-  if(f_mkfs((TCHAR const*)SDPath, 0, 0) != FR_OK)
-     {
     BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize()/2 + 3, (uint8_t*)"FAT FS Error !!", CENTER_MODE);
     Error_Handler();
-     }
-
+  }
+  
+  /*##-4- Register the file system object to the FatFs module ################*/
+  if(f_mount(&SDFatFs, (TCHAR const*)SDPath, 0) != FR_OK)
+  {
+    /* FatFs Initialization Error */
+    BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize()/2 + 3, (uint8_t*)"FAT FS Error !!", CENTER_MODE);
+    Error_Handler();
+  }
+  /* Create a FAT file system (format) on the logical drive */
+  if(f_mkfs((TCHAR const*)SDPath, 0, 0) != FR_OK)
+  {
+    BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize()/2 + 3, (uint8_t*)"FAT FS Error !!", CENTER_MODE);
+    Error_Handler();
+  }
+  
   /*##-5- Draw the menu ######################################################*/
   Draw_Menu();
 
@@ -419,29 +438,29 @@ void Save_Picture(void)
     /* Offset in bytes from start of file to first pixel data = size in bytes of complete BMP header          */
     /* careful the structure is padded on multiple of 32 bits by the compiler : the Padding should be removed */
     bmpFileHeader.bOffBits = sizeof(BitMapFileHeader_Typedef) +
-                         sizeof(BitMapFileInfoHeader_Typedef) - sizeof(uint32_t) - sizeof(uint16_t);
+                             sizeof(BitMapFileInfoHeader_Typedef) - sizeof(uint32_t) - sizeof(uint16_t);
 
     /* BMP complete file size is size of pad in RGB888 : 24bpp = 3 bytes per pixel + complete header size */
-    bmpFileHeader.bfSize = ((BSP_LCD_GetXSize() - 80) * (BSP_LCD_GetYSize() - 80) * RGB888_BYTE_PER_PIXEL);
+    bmpFileHeader.bfSize = ((BSP_LCD_GetXSize() - 105) * (BSP_LCD_GetYSize() - 105 + 1) * RGB888_BYTE_PER_PIXEL);
     bmpFileHeader.bfSize += bmpFileHeader.bOffBits;
 
     bmpFileHeader.bfReserved1 = 0x0000;
     bmpFileHeader.bfReserved2 = 0x0000;
 
-    bmpFileInfoHeader.biSize = 40; /* 40 bytes in bitmap info header */
-    bmpFileInfoHeader.biWidth = (BSP_LCD_GetXSize() - 80);
-    bmpFileInfoHeader.biHeight = (BSP_LCD_GetYSize() - 80);
-    bmpFileInfoHeader.biPlanes = 1; /* one single plane */
-    bmpFileInfoHeader.biBitCount = 24; /* RGB888 : 24 bits per pixel */
+    bmpFileInfoHeader.biSize = 40;       /* 40 bytes in bitmap info header */
+    bmpFileInfoHeader.biWidth = (BSP_LCD_GetXSize() - 105);
+    bmpFileInfoHeader.biHeight = (BSP_LCD_GetYSize() - 105);
+    bmpFileInfoHeader.biPlanes = 1;      /* one single plane */
+    bmpFileInfoHeader.biBitCount = 24;   /* RGB888 : 24 bits per pixel */
     bmpFileInfoHeader.biCompression = 0; /* no compression */
 
-    /* This is number of pixel bytes in file : sizeX * sizeY * RGB888_BYTE_PER_PIXEL */
-    bmpFileInfoHeader.biSizeImage = ((BSP_LCD_GetXSize() - 80) * (BSP_LCD_GetYSize() - 80) * RGB888_BYTE_PER_PIXEL);
+    /* This is number of pixel bytes in file : sizeX * (sizeY + padding pixels) * RGB888_BYTE_PER_PIXEL */
+    bmpFileInfoHeader.biSizeImage = ((BSP_LCD_GetXSize() - 105) * (BSP_LCD_GetYSize() - 105 + 1) * RGB888_BYTE_PER_PIXEL);
 
     bmpFileInfoHeader.biXPelsPerMeter = 0; /* not used */
     bmpFileInfoHeader.biYPelsPerMeter = 0; /* not used */
-    bmpFileInfoHeader.biClrUsed = 0; /* not used */
-    bmpFileInfoHeader.biClrImportant = 0; /* not used */
+    bmpFileInfoHeader.biClrUsed = 0;       /* not used */
+    bmpFileInfoHeader.biClrImportant = 0;  /* not used */
 
     /* -- End Prepare Bitmap file (BMP) header */
 
@@ -463,45 +482,45 @@ void Save_Picture(void)
     {
       /*##-3- Write data to the BMP file #####################################*/
       /* Write the BMP header step 1 : first write BMP header : all but padding is written to file */
-        res1 = f_write(&MyFile, (uint16_t *)&(bmpFileHeader.bfType),
+      res1 = f_write(&MyFile, (uint16_t *)&(bmpFileHeader.bfType),
                      sizeof(uint16_t),
                      (void *)&bmpHeaderByteCnt);
-        byteswritten += bmpHeaderByteCnt;
-
-        /* LSB of size in bytes of BMP file */
-        tmp_size = (uint16_t)(bmpFileHeader.bfSize & 0x0000FFFF);
-        res1 = f_write(&MyFile, (uint16_t *)&(tmp_size),
+      byteswritten += bmpHeaderByteCnt;
+      
+      /* LSB of size in bytes of BMP file */
+      tmp_size = (uint16_t)(bmpFileHeader.bfSize & 0x0000FFFF);
+      res1 = f_write(&MyFile, (uint16_t *)&(tmp_size),
                      sizeof(uint16_t),
                      (void *)&bmpHeaderByteCnt);
-        byteswritten += bmpHeaderByteCnt;
-
-        /* MSB of size in bytes of BMP file */
-        tmp_size = (uint16_t)((bmpFileHeader.bfSize & 0xFFFF0000) >> 16);
-        res1 = f_write(&MyFile, (uint16_t *)&(tmp_size),
+      byteswritten += bmpHeaderByteCnt;
+      
+      /* MSB of size in bytes of BMP file */
+      tmp_size = (uint16_t)((bmpFileHeader.bfSize & 0xFFFF0000) >> 16);
+      res1 = f_write(&MyFile, (uint16_t *)&(tmp_size),
                      sizeof(uint16_t),
                      (void *)&bmpHeaderByteCnt);
-        byteswritten += bmpHeaderByteCnt;
-
-        res1 = f_write(&MyFile, (uint16_t *)&(bmpFileHeader.bfReserved1),
+      byteswritten += bmpHeaderByteCnt;
+      
+      res1 = f_write(&MyFile, (uint16_t *)&(bmpFileHeader.bfReserved1),
                      sizeof(uint16_t),
                      (void *)&bmpHeaderByteCnt);
-        byteswritten += bmpHeaderByteCnt;
-
-        res1 = f_write(&MyFile, (uint16_t *)&(bmpFileHeader.bfReserved2),
+      byteswritten += bmpHeaderByteCnt;
+      
+      res1 = f_write(&MyFile, (uint16_t *)&(bmpFileHeader.bfReserved2),
                      sizeof(uint16_t),
                      (void *)&bmpHeaderByteCnt);
-        byteswritten += bmpHeaderByteCnt;
-
-        res1 = f_write(&MyFile, (uint32_t *)&(bmpFileHeader.bOffBits),
+      byteswritten += bmpHeaderByteCnt;
+      
+      res1 = f_write(&MyFile, (uint32_t *)&(bmpFileHeader.bOffBits),
                      sizeof(uint32_t),
                      (void *)&bmpHeaderByteCnt);
-        byteswritten += bmpHeaderByteCnt;
-
+      byteswritten += bmpHeaderByteCnt;
+      
       if(res1 != FR_OK)
       {
       /* Reactivate LTDC */
         LTDC_Operation(1);
-      f_close(&MyFile);
+        f_close(&MyFile);
         BSP_LCD_ClearStringLine(BSP_LCD_GetYSize() - 20);
         BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize() - 20, (uint8_t*)"     BMP File Header Saving Error !!", RIGHT_MODE);
         Error_Handler();
@@ -513,19 +532,18 @@ void Save_Picture(void)
       {
         /* Write the BMP header step 2 : second write BMP file info header */
         res2 = f_write(&MyFile, (BitMapFileInfoHeader_Typedef *)&bmpFileInfoHeader,
-                   sizeof(BitMapFileInfoHeader_Typedef),
-                   (void *)&bmpFileInfoHeaderByteCnt);
-
-
-          if(res2 != FR_OK)
-          {
-            /* Reactivate LTDC */
-            LTDC_Operation(1);
+                       sizeof(BitMapFileInfoHeader_Typedef),
+                       (void *)&bmpFileInfoHeaderByteCnt);
+        
+        if(res2 != FR_OK)
+        {
+          /* Reactivate LTDC */
+          LTDC_Operation(1);
           f_close(&MyFile);
-            BSP_LCD_ClearStringLine(BSP_LCD_GetYSize() - 20);
-            BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize() - 20, (uint8_t*)"     BMP File Header Info Saving Error !!", RIGHT_MODE);
-            Error_Handler();
-          }
+          BSP_LCD_ClearStringLine(BSP_LCD_GetYSize() - 20);
+          BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize() - 20, (uint8_t*)"     BMP File Header Info Saving Error !!", RIGHT_MODE);
+          Error_Handler();
+        }
       }
 
       byteswritten += bmpFileInfoHeaderByteCnt;
@@ -534,24 +552,23 @@ void Save_Picture(void)
       {
         /* Write pixel data in the the BMP file */
         res3 = f_write(&MyFile, (uint8_t *)p_bmp_converted_pixel_data,
-                   bmpFileInfoHeader.biSizeImage,
-                   (void *)&bmpFilePixelBytesCnt);
+                       bmpFileInfoHeader.biSizeImage,
+                       (void *)&bmpFilePixelBytesCnt);
 
-          /* Reactivate LTDC */
-          LTDC_Operation(1);
-
+        /* Reactivate LTDC */
+        LTDC_Operation(1);
+        
         if(res3 != FR_OK)
         {
           if(res3 == FR_DISK_ERR)
           {
-              f_close(&MyFile);
-                    BSP_LCD_ClearStringLine(BSP_LCD_GetYSize() - 20);
-              BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize() - 20, (uint8_t*)"     File Saving Error DISKERR !!", RIGHT_MODE);
+            f_close(&MyFile);
+            BSP_LCD_ClearStringLine(BSP_LCD_GetYSize() - 20);
+            BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize() - 20, (uint8_t*)"     File Saving Error DISKERR !!", RIGHT_MODE);
           }
 
           Error_Handler();
         }
-
       }
 
       byteswritten += bmpFilePixelBytesCnt;
@@ -559,24 +576,24 @@ void Save_Picture(void)
       if((res1 != FR_OK) || (res2 != FR_OK) || (res3 != FR_OK) || (byteswritten == 0))
       {
         /* 'image.bmp' file Write or EOF Error */
-      BSP_LCD_ClearStringLine(BSP_LCD_GetYSize() - 20);
-      BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize() - 20, (uint8_t*)"     BMP File Saving Error !!", RIGHT_MODE);
+        BSP_LCD_ClearStringLine(BSP_LCD_GetYSize() - 20);
+        BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize() - 20, (uint8_t*)"     BMP File Saving Error !!", RIGHT_MODE);
         Error_Handler();
       }
       else
       {
         /*##-4- Close the open BMP file ######################################*/
         f_close(&MyFile);
-
+        
         /* Success of the demo: no error occurrence */
         BSP_LED_On(LED1);
-
-      BSP_LCD_ClearStringLine(BSP_LCD_GetYSize() - 20);
-      BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize() - 20, (uint8_t*)"             BMP File Saved.", RIGHT_MODE);
-
+        
+        BSP_LCD_ClearStringLine(BSP_LCD_GetYSize() - 20);
+        BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize() - 20, (uint8_t*)"             BMP File Saved.", RIGHT_MODE);
+        
         /* Wait for 2s */
         HAL_Delay(2000);
-
+        
         BSP_LCD_ClearStringLine(BSP_LCD_GetYSize() - 20);
 
         /* Select Layer 1 */
@@ -613,6 +630,10 @@ static void LTDC_Operation(uint32_t Enable_LTDC)
   */
 static void Prepare_Picture(void)
 {
+  const uint32_t x0 = 98;
+  const uint32_t x1 = BSP_LCD_GetXSize()- 7;
+  const uint32_t y0 = 7;
+  const uint32_t y1 = BSP_LCD_GetYSize()- 98;
   uint32_t addrSrc = LCD_FRAME_BUFFER;
   uint32_t addrDst = CONVERTED_FRAME_BUFFER;
   static DMA2D_HandleTypeDef hdma2d_eval;
@@ -627,35 +648,40 @@ static void Prepare_Picture(void)
   /* Foreground Configuration */
   hdma2d_eval.LayerCfg[1].AlphaMode = DMA2D_NO_MODIF_ALPHA;
   hdma2d_eval.LayerCfg[1].InputAlpha = 0xFF;
-  hdma2d_eval.LayerCfg[1].InputColorMode = DMA2D_ARGB8888; /* DMA2D input format */
-  hdma2d_eval.LayerCfg[1].InputOffset = 70; /* skip 70 pixels on left when reading addrSrc : the left margin */
+  hdma2d_eval.LayerCfg[1].InputColorMode = DMA2D_INPUT_ARGB8888; /* DMA2D input format */
+  hdma2d_eval.LayerCfg[1].InputOffset = 0;
 
   hdma2d_eval.Instance = DMA2D;
-
+  
+  /* DMA2D Initialization */
+  if(HAL_DMA2D_Init(&hdma2d_eval) == HAL_OK)
+  {
+    if(HAL_DMA2D_ConfigLayer(&hdma2d_eval, 1) != HAL_OK)
+    {
+      Error_Handler();
+    }
+  }
+  else 
+  {
+    Error_Handler();
+  }
+  
   /* Go to start of last drawing pad useful line from LCD frame buffer */
-  addrSrc += ((BSP_LCD_GetYSize() - 70 - 1) * BSP_LCD_GetXSize() * ARGB8888_BYTE_PER_PIXEL);
-
+  addrSrc += (((y1 * BSP_LCD_GetXSize()) + x0) * ARGB8888_BYTE_PER_PIXEL);
+  
   /* Copy and Convert picture from LCD frame buffer in ARGB8888 to Converted frame buffer in
    * RGB888 pixel format for all the useful lines of the drawing pad */
-  for(lineCnt=0; lineCnt < (BSP_LCD_GetYSize() - 80); lineCnt++)
+  for(lineCnt = y0; lineCnt <= y1; lineCnt++)
   {
-    /* DMA2D Initialization */
-    if(HAL_DMA2D_Init(&hdma2d_eval) == HAL_OK)
+    if (HAL_DMA2D_Start(&hdma2d_eval, addrSrc, addrDst, (x1 - x0), 1) == HAL_OK)
     {
-      if(HAL_DMA2D_ConfigLayer(&hdma2d_eval, 1) == HAL_OK)
-      {
-        if (HAL_DMA2D_Start(&hdma2d_eval, addrSrc, addrDst,
-                        (BSP_LCD_GetXSize() - 80), 1) == HAL_OK)
-        {
-          /* Polling For DMA transfer */
-          HAL_DMA2D_PollForTransfer(&hdma2d_eval, 10);
-        }
-      }
+      /* Polling For DMA transfer */
+      HAL_DMA2D_PollForTransfer(&hdma2d_eval, 20);
     }
 
-    /* Increment the destination address by one line RGB888 */
-    addrDst += ((BSP_LCD_GetXSize() - 80) * RGB888_BYTE_PER_PIXEL);
-
+    /* Increment the destination address by one line RGB888, this will add one padding pixel */
+    addrDst += ((x1 - x0) * RGB888_BYTE_PER_PIXEL) + RGB888_BYTE_PER_PIXEL;
+    
     /* Decrement the source address by one line */
     addrSrc -= (BSP_LCD_GetXSize() * ARGB8888_BYTE_PER_PIXEL);
   }

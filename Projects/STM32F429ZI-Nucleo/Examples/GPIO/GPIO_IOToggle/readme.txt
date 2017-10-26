@@ -2,11 +2,11 @@
   @page GPIO_IOToggle GPIO IO Toggle example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    GPIO/GPIO_IOToggle/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the GPIO IO Toggle example.
   ******************************************************************************
   *
@@ -40,7 +40,7 @@
 This example describes how to configure and use GPIOs through the HAL API. 
 
 PB.00 and PB.07 IOs (configured in output pushpull mode) toggle in a forever loop.
-On NUCLEO-429ZI  Rev.B board these IOs are connected to LED1 and LED2.
+On NUCLEO-F429ZI  Rev.B board these IOs are connected to LED1 and LED2.
 
 In this example, HCLK is configured at 180 MHz.
 
@@ -67,7 +67,7 @@ In this example, HCLK is configured at 180 MHz.
 
   - This example runs on STM32F429ZI devices.
     
-  - This example has been tested with NUCLEO-429ZI  Rev.B board and can be
+  - This example has been tested with NUCLEO-F429ZI  Rev.B board and can be
     easily tailored to any other supported device and development board.
 
 

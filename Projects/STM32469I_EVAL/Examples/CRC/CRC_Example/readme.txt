@@ -2,11 +2,11 @@
   @page CRC_Example Cyclic Redundancy Check Example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    CRC/CRC_Example/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of Cyclic Redundancy Check Example.
   ******************************************************************************
   *
@@ -86,7 +86,7 @@ STM32 Eval board LEDs are used to monitor the example status:
 
   - This example runs on STM32F469xx/STM32F479xx devices.
   
-  - This example has been tested and validated with STM32469I-EVAL revB 
+  - This example has been tested and validated with STM32469I-EVAL RevC 
     board and can be easily tailored to any other supported device 
     and development board.
 

@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    PWR/PWR_CurrentConsumption/Src/main.c 
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   This example shows how to use STM32F4xx PWR HAL API to enter
   *          and exit the stop mode.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -75,30 +75,30 @@ int main(void)
 
   /* Configure the system clock to 180 MHz */
   SystemClock_Config();
-    
+
   /* Configure LED1 and LED2 */
   BSP_LED_Init(LED1);
   BSP_LED_Init(LED2);
 
   /* Enable Power Clock */
   __HAL_RCC_PWR_CLK_ENABLE();
-  
+
   /* Check and handle if the system was resumed from Standby mode */ 
   if(__HAL_PWR_GET_FLAG(PWR_FLAG_SB) != RESET)
   {
     __HAL_PWR_CLEAR_FLAG(PWR_FLAG_SB);
-  
+
     /* Infinite loop */
     while (1)
     {
       /* Toggle LED1 */
       BSP_LED_Toggle(LED1);
-   
+
       /* Insert a 100ms delay */
       HAL_Delay(100);
     }
   }
-  
+
   /* Configure USER Button */
   BSP_PB_Init(BUTTON_USER, BUTTON_MODE_GPIO);
 
@@ -107,7 +107,7 @@ int main(void)
   {
     /* Toggle LED1 */
     BSP_LED_Toggle(LED1);
-   
+
     /* Insert 1s Delay */
     HAL_Delay(1000);
   }
@@ -127,6 +127,7 @@ int main(void)
       - Wake-up using EXTI Line (User Button)
    */
   SleepMode_Measure();
+
 #elif defined (STOP_MODE)
   /* STOP Mode Entry 
       - RTC Clocked by LSI
@@ -137,6 +138,19 @@ int main(void)
       - Automatic Wake-up using RTC clocked by LSI (after ~20s)
    */
   StopMode_Measure();
+
+#elif defined (STOP_UNDERDRIVE_MODE)
+  /* Under-Drive STOP Mode Entry 
+      - RTC Clocked by LSI
+      - Regulator in LP mode
+      - Under drive feature enabled
+      - HSI, HSE OFF and LSI OFF if not used as RTC Clock source  
+      - No IWDG
+      - FLASH in deep power down mode
+      - Automatic Wake-up using RTC clocked by LSI (after ~20s)
+   */
+  StopUnderDriveMode_Measure();
+
 #elif defined (STANDBY_MODE)
   /* STANDBY Mode Entry 
       - Backup SRAM and RTC OFF
@@ -168,13 +182,13 @@ int main(void)
   {
     BSP_LED_Init(LED1);
   }
-  
+
   /* Infinite loop */
   while (1)
   {
     /* Toggle LED1 */
     BSP_LED_Toggle(LED1);
-   
+
     /* Inserted Delay */
     HAL_Delay(100);
   }

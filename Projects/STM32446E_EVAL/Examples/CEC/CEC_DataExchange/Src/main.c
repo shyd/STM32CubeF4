@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    CEC/CEC_DataExchange/Src/main.c 
   * @author  MCD Application Team
-  * @version V1.1.2
-  * @date    13-November-2015
+  * @version V1.2.0
+  * @date    17-February-2017
   * @brief   This example describes how to configure and use the CEC through 
   *          the STM32F4xx HAL API.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -67,7 +67,9 @@ uint8_t StartSending        = 0x0;  /* Set when a transmission is triggered by t
 uint32_t TxSize             = 0x0;  /* Number of bytes to transmit in addition to the header. 
                                      * In case of ping operation (only the header sent),
                                      * TxSize = 0 */
-uint8_t DestinationAddress;         /* Destination logical address */                            
+uint8_t DestinationAddress = 0;     /* Destination logical address */  
+uint8_t InitiatorAddress = 0;       /* Initiator logical address */  
+__IO uint8_t TxStatus = 0;                            
 CEC_HandleTypeDef hcec;             /* CEC IP handle */ 
 
 /* Private function prototypes -----------------------------------------------*/
@@ -120,9 +122,11 @@ int main(void)
   /* CEC device initialization */
   
 #if defined (DEVICE_1)
-  DestinationAddress = DEVICE_ADDRESS_2; /* follower address */
+  DestinationAddress = 0x3; /* follower address */
+  InitiatorAddress = 0x1;
 #elif defined (DEVICE_2)
-  DestinationAddress = DEVICE_ADDRESS_1; /* follower address */
+  DestinationAddress = 0x1; /* follower address */
+  InitiatorAddress = 0x3;
 #endif  
     
   /* -4- CEC configuration (transfer will take place in Interrupt mode) */
@@ -139,27 +143,15 @@ int main(void)
   NbOfReceivedBytes = 0;
   CEC_FlushRxBuffer();
   
-  
-  /* Test start */
-    
-  /* Enter infinite reception loop: the CEC device is set in
-   * waiting to receive mode. 
-   * The CEC "background" state is HAL_CEC_STATE_STANDBY_RX.
-   * Upon any message reception or transmission, the CEC 
-   * comes back to that state.
-   * It is up to the user to define exit conditions in modifying
-   * accordingly the RX, TX or Error callback functions. */
-  HAL_CEC_Receive_IT(&hcec, (uint8_t *)&Tab_Rx); 
-  while (HAL_CEC_GetState(&hcec) != HAL_CEC_STATE_READY)
-  {
-    
+ while (1)
+  { 
     /* if no reception has occurred and no error has been detected,
      * transmit a message if the user has pushed a button */
-    if( (StartSending == 1) && (ReceivedFrame == 0))
+     while( (StartSending == 1) && (ReceivedFrame == 0))
     { 
-      HAL_CEC_Transmit_IT(&hcec, DestinationAddress, (uint8_t *)&Tab_Tx, TxSize);
+      HAL_CEC_Transmit_IT(&hcec,InitiatorAddress ,DestinationAddress, (uint8_t *)&Tab_Tx, TxSize);
       /* loop until TX ends or TX error reported */
-        while (HAL_CEC_GetState(&hcec) != HAL_CEC_STATE_STANDBY_RX);
+        while (TxStatus != 1);
       StartSending = 0;
     }  
     
@@ -199,6 +191,7 @@ int main(void)
         BSP_LED_On(LED4);
       }
       ReceivedFrame = 0;
+      CEC_FlushRxBuffer();
     }
     else if (ReceivedFrame == 2) /* means CEC error detected */
     { 
@@ -206,8 +199,7 @@ int main(void)
       BSP_LED_On(LED3);
       ReceivedFrame = 0;
     }
-  }  /*  while (HAL_CEC_GetState(&hcec) != HAL_CEC_STATE_READY) */
-  return 0;
+  }  
 }
 
 /**
@@ -219,9 +211,9 @@ static void CEC_Config(CEC_HandleTypeDef *hcec)
 {
   /* CEC configuration parameters */    
 #if defined (DEVICE_1)
-  hcec->Init.InitiatorAddress          = DEVICE_ADDRESS_1;
+  hcec->Init.OwnAddress          = CEC_OWN_ADDRESS_1;
 #elif defined (DEVICE_2)
-  hcec->Init.InitiatorAddress          = DEVICE_ADDRESS_2;
+  hcec->Init.OwnAddress          = CEC_OWN_ADDRESS_3;
 #endif  
 
 
@@ -232,8 +224,8 @@ static void CEC_Config(CEC_HandleTypeDef *hcec)
   hcec->Init.LBPEErrorBitGen           = CEC_LBPE_ERRORBIT_NO_GENERATION;
   hcec->Init.BroadcastMsgNoErrorBitGen = CEC_BROADCASTERROR_NO_ERRORBIT_GENERATION;
   hcec->Init.SignalFreeTimeOption      = CEC_SFT_START_ON_TXSOM;
-  hcec->Init.OwnAddress                = (0x1 <<  hcec->Init.InitiatorAddress); 
-  hcec->Init.ListenMode                =  CEC_FULL_LISTENING_MODE;
+  hcec->Init.ListenMode                = CEC_REDUCED_LISTENING_MODE;
+  hcec->Init.RxBuffer                  = Tab_Rx;
   
   HAL_CEC_Init(hcec);
 }
@@ -245,8 +237,8 @@ static void CEC_Config(CEC_HandleTypeDef *hcec)
   */
 void HAL_CEC_TxCpltCallback(CEC_HandleTypeDef *hcec)
 {
-  /* after transmission, return to stand-by mode */
-  hcec->State = HAL_CEC_STATE_STANDBY_RX;
+  /* End of transmission */
+  TxStatus =1;
 }
 
 
@@ -255,18 +247,9 @@ void HAL_CEC_TxCpltCallback(CEC_HandleTypeDef *hcec)
   * @param hcec: CEC handle
   * @retval None
   */
-void HAL_CEC_RxCpltCallback(CEC_HandleTypeDef *hcec)
+void HAL_CEC_RxCpltCallback(CEC_HandleTypeDef *hcec, uint32_t RxFrameSize)
 {
     ReceivedFrame = 1;
-    /* Reminder: hcec->RxXferSize is the sum of opcodes + operands 
-     * (0 to 14 operands max).
-     * If only a header is received, hcec->RxXferSize = 0 */   
-    NbOfReceivedBytes = hcec->RxXferSize;
-    hcec->RxXferSize = 0;
-    hcec->pRxBuffPtr = Tab_Rx;
-    hcec->ErrorCode = HAL_CEC_ERROR_NONE;
-    /* return to stand-by mode */
-    hcec->State = HAL_CEC_STATE_STANDBY_RX;
 }
 
 /**
@@ -277,11 +260,6 @@ void HAL_CEC_RxCpltCallback(CEC_HandleTypeDef *hcec)
 void HAL_CEC_ErrorCallback(CEC_HandleTypeDef *hcec)
 {
   ReceivedFrame = 2;
-
-  hcec->RxXferSize = 0;
-  hcec->pRxBuffPtr = Tab_Rx;
-  hcec->ErrorCode = HAL_CEC_ERROR_NONE;
-  hcec->State = HAL_CEC_STATE_STANDBY_RX;
 }
 
 

@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    FLASH/FLASH_WriteProtection/Src/main.c 
   * @author  MCD Application Team
-  * @version V1.3.2
-  * @date    13-November-2015
+  * @version V1.4.0
+  * @date    17-February-2017
   * @brief   This example provides a description of how to erase and program the 
   *	     STM32F4xx FLASH.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -104,10 +104,10 @@ int main(void)
   BSP_LCD_SetTextColor(LCD_COLOR_BLUE);  
 
   /* Display test name on LCD */  
-  BSP_LCD_DisplayStringAtLine(0,(uint8_t*)"         Flash Write        ");
-  BSP_LCD_DisplayStringAtLine(1,(uint8_t*)"       protection test      ");
-  BSP_LCD_DisplayStringAtLine(2,(uint8_t*)"          Press User        ");
-  BSP_LCD_DisplayStringAtLine(3,(uint8_t*)"      Tamper/Key-button     ");
+  BSP_LCD_DisplayStringAt(0, 0, (uint8_t*)"Flash Write", CENTER_MODE);
+  BSP_LCD_DisplayStringAt(0, 20, (uint8_t*)"protection test", CENTER_MODE);
+  BSP_LCD_DisplayStringAt(0, 40, (uint8_t*)"Press User", CENTER_MODE);
+  BSP_LCD_DisplayStringAt(0, 60, (uint8_t*)"Tamper/Key-button", CENTER_MODE);
   
   /* Infinite loop */
   while (1)
@@ -164,18 +164,18 @@ int main(void)
          /* Set the LCD Text Color */
          BSP_LCD_SetTextColor(LCD_COLOR_GREEN);  
 
-         BSP_LCD_DisplayStringAtLine(5,(uint8_t*)"            Write             ");
-         BSP_LCD_DisplayStringAtLine(6,(uint8_t*)"        protection is         ");
-         BSP_LCD_DisplayStringAtLine(7,(uint8_t*)"           disabled           ");
+         BSP_LCD_DisplayStringAt(0, 100, (uint8_t*)"Write", CENTER_MODE);
+         BSP_LCD_DisplayStringAt(0, 120, (uint8_t*)"protection is", CENTER_MODE);
+         BSP_LCD_DisplayStringAt(0, 140, (uint8_t*)"disabled", CENTER_MODE);
       }
       else
       {
          /* Set the LCD Text Color */
          BSP_LCD_SetTextColor(LCD_COLOR_RED);  
 
-         BSP_LCD_DisplayStringAtLine(5,(uint8_t*)"            Write             ");
-         BSP_LCD_DisplayStringAtLine(6,(uint8_t*)"        protection is         ");
-         BSP_LCD_DisplayStringAtLine(7,(uint8_t*)"         not disabled         ");
+         BSP_LCD_DisplayStringAt(0, 100, (uint8_t*)"Write", CENTER_MODE);
+         BSP_LCD_DisplayStringAt(0, 120, (uint8_t*)"protection is", CENTER_MODE);
+         BSP_LCD_DisplayStringAt(0, 140, (uint8_t*)"not disabled", CENTER_MODE);
       }
     }
     else
@@ -220,18 +220,18 @@ int main(void)
          /* Set the LCD Text Color */
          BSP_LCD_SetTextColor(LCD_COLOR_GREEN);  
 
-         BSP_LCD_DisplayStringAtLine(5,(uint8_t*)"            Write             ");
-         BSP_LCD_DisplayStringAtLine(6,(uint8_t*)"        protection is         ");
-         BSP_LCD_DisplayStringAtLine(7,(uint8_t*)"           enabled            ");
+         BSP_LCD_DisplayStringAt(0, 100, (uint8_t*)"Write", CENTER_MODE);
+         BSP_LCD_DisplayStringAt(0, 120, (uint8_t*)"protection is", CENTER_MODE);
+         BSP_LCD_DisplayStringAt(0, 140, (uint8_t*)"  enabled  ", CENTER_MODE);
       }
       else
       {
          /* Set the LCD Text Color */
          BSP_LCD_SetTextColor(LCD_COLOR_RED);  
 
-         BSP_LCD_DisplayStringAtLine(5,(uint8_t*)"            Write             ");
-         BSP_LCD_DisplayStringAtLine(6,(uint8_t*)"        protection is         ");
-         BSP_LCD_DisplayStringAtLine(7,(uint8_t*)"         not enabled          ");
+         BSP_LCD_DisplayStringAt(0, 100, (uint8_t*)"Write", CENTER_MODE);
+         BSP_LCD_DisplayStringAt(0, 120, (uint8_t*)"protection is", CENTER_MODE);
+         BSP_LCD_DisplayStringAt(0, 140, (uint8_t*)"not enabled", CENTER_MODE);
       }
     }
   }

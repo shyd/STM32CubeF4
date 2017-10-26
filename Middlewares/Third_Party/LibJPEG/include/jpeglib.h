@@ -949,10 +949,12 @@ EXTERN(void) jpeg_CreateDecompress JPP((j_decompress_ptr cinfo,
 EXTERN(void) jpeg_destroy_compress JPP((j_compress_ptr cinfo));
 EXTERN(void) jpeg_destroy_decompress JPP((j_decompress_ptr cinfo));
 
+#ifdef JFILE
 /* Standard data source and destination managers: stdio streams. */
 /* Caller is responsible for opening the file before and closing after. */
-EXTERN(void) jpeg_stdio_dest JPP((j_compress_ptr cinfo, FIL * outfile));
-EXTERN(void) jpeg_stdio_src JPP((j_decompress_ptr cinfo, FIL * infile));
+EXTERN(void) jpeg_stdio_dest JPP((j_compress_ptr cinfo, JFILE * outfile));
+EXTERN(void) jpeg_stdio_src JPP((j_decompress_ptr cinfo, JFILE * infile));
+#endif /* JFILE */
 
 /* Data source and destination managers: memory buffers. */
 EXTERN(void) jpeg_mem_dest JPP((j_compress_ptr cinfo,

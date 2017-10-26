@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32f429i_discovery_eeprom.c
   * @author  MCD Application Team
-  * @version V2.1.2
-  * @date    02-March-2015
+  * @version V2.1.5
+  * @date    27-January-2017
   * @brief   This file provides a set of functions needed to manage an I2C M24LR64 
   *          EEPROM memory.
   *          To be able to use this driver, the switch EE_M24LR64 must be defined
@@ -59,7 +59,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -98,33 +98,33 @@
   * @{
   */
   
-/** @addtogroup STM32F429I_DISCOVERY_EEPROM
+/** @defgroup STM32F429I_DISCOVERY_EEPROM STM32F429I DISCOVERY EEPROM
   * @brief      This file includes the I2C EEPROM driver of STM32F429I Discovery Kit.
   * @{
   */ 
 
-/** @defgroup STM32F429I_DISCOVERY EEPROM_Private_Types
+/** @defgroup STM32F429I_DISCOVERY_EEPROM_Private_Types STM32F429I DISCOVERY EEPROM Private Types
   * @{
   */ 
 /**
   * @}
   */ 
 
-/** @defgroup STM32F429I_DISCOVERY_EEPROM_Private_Defines
+/** @defgroup STM32F429I_DISCOVERY_EEPROM_Private_Defines STM32F429I DISCOVERY EEPROM Private Defines
   * @{
   */  
 /**
   * @}
   */ 
 
-/** @defgroup STM32F429I_DISCOVERY_EEPROM_Private_Macros
+/** @defgroup STM32F429I_DISCOVERY_EEPROM_Private_Macros STM32F429I DISCOVERY EEPROM Private Macros
   * @{
   */
 /**
   * @}
   */ 
   
-/** @defgroup STM32F429I_DISCOVERY_EEPROM_Private_Variables
+/** @defgroup STM32F429I_DISCOVERY_EEPROM_Private_Variables STM32F429I DISCOVERY EEPROM Private Variables
   * @{
   */
 __IO uint16_t  EEPROMAddress = 0;
@@ -136,20 +136,19 @@ __IO uint8_t   EEPROMDataWrite;
   * @}
   */ 
 
-/** @defgroup STM32F429I_DISCOVERY_EEPROM_Private_Function_Prototypes
+/** @defgroup STM32F429I_DISCOVERY_EEPROM_Private_Function_Prototypes STM32F429I DISCOVERY EEPROM Private Function Prototypes
   * @{
   */ 
 /**
   * @}
   */ 
 
-/** @defgroup STM32F429I_DISCOVERY_EEPROM_Private_Functions
+/** @defgroup STM32F429I_DISCOVERY_EEPROM_Private_Functions STM32F429I DISCOVERY EEPROM Private Functions
   * @{
   */ 
 
 /**
   * @brief  Initializes peripherals used by the I2C EEPROM driver.
-  * @param  None
   * @note   There are 2 different versions of M24LR64 (A01 & A02).
   *         Then try to connect on 1st one (EEPROM_I2C_ADDRESS_A01) 
   *         and if problem, check the 2nd one (EEPROM_I2C_ADDRESS_A02)
@@ -445,7 +444,6 @@ uint32_t BSP_EEPROM_WriteBuffer(uint8_t *pBuffer, uint16_t WriteAddr, uint16_t N
   *        I2C packets addressed to it. Once the write operation is complete
   *        the EEPROM responds to its address.
   * 
-  * @param  None
   * @retval EEPROM_OK (0) if operation is correctly performed, else return value 
   *         different from EEPROM_OK (0) or the timeout user callback.
   */
@@ -464,7 +462,6 @@ uint32_t BSP_EEPROM_WaitEepromStandbyState(void)
 /**
   * @brief  Memory Tx Transfer completed callbacks.
   * @param  hi2c: I2C handle
-  * @retval None
   */
 void HAL_I2C_MemTxCpltCallback(I2C_HandleTypeDef *hi2c)
 {
@@ -474,7 +471,6 @@ void HAL_I2C_MemTxCpltCallback(I2C_HandleTypeDef *hi2c)
 /**
   * @brief  Memory Rx Transfer completed callbacks.
   * @param  hi2c: I2C handle
-  * @retval None
   */
 void HAL_I2C_MemRxCpltCallback(I2C_HandleTypeDef *hi2c)
 {
@@ -483,8 +479,6 @@ void HAL_I2C_MemRxCpltCallback(I2C_HandleTypeDef *hi2c)
 
 /**
   * @brief  Basic management of the timeout situation.
-  * @param  None.
-  * @retval None.
   */
 __weak void BSP_EEPROM_TIMEOUT_UserCallback(void)
 {

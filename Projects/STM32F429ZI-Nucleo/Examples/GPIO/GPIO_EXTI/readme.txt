@@ -2,11 +2,11 @@
   @page GPIO_EXTI GPIO EXTI example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    GPIO/GPIO_EXTI/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the GPIO EXTI example.
   ******************************************************************************
   *
@@ -47,7 +47,7 @@ In this example:
     - EXTI_Line15_10 is connected to PC.13 pin
       - when falling edge is detected on EXTI_Line15_10 by pressing User push-button, LED1 toggles once
 
-On NUCLEO-429ZI  Rev.B:
+On NUCLEO-F429ZI  Rev.B:
     - EXTI_Line15_10 is connected to User push-button
 
 In this example, HCLK is configured at 180 MHz.
@@ -74,7 +74,7 @@ In this example, HCLK is configured at 180 MHz.
 
   - This example runs on STM32F429ZI devices.
     
-  - This example has been tested with NUCLEO-429ZI  Rev.B board and can be
+  - This example has been tested with NUCLEO-F429ZI  Rev.B board and can be
     easily tailored to any other supported device and development board.
 
 @par How to use it ? 

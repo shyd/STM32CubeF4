@@ -26,6 +26,11 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>Doc/readme.txt</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/readme.txt</locationURI>
+		</link>
+		<link>
 			<name>Application/SW4STM32/startup_stm32f469xx.s</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/startup_stm32f469xx.s</locationURI>
@@ -629,6 +634,11 @@
 			<name>Application/User/Modules/sys_info/settings_win.c</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/Modules/settings/settings_win.c</locationURI>
+		</link>
+		<link>
+			<name>Application/User/Modules/third_party/third_party_win.c</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Modules/thirdparty/third_party_win.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/USBH_Library/Class/MSC/usbh_msc.c</name>

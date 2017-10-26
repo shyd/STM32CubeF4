@@ -1,16 +1,16 @@
 /**
   @page IAP_Binary_Template Binary Template Readme file
 
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    IAP/IAP_Binary_Template/readme.txt 
   * @author  MCD Application Team
-  * @version V1.3.2
-  * @date    13-November-2015
+  * @version V1.4.0
+  * @date    17-February-2017
   * @brief   Description of the IAP_Binary_Template directory.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -102,5 +102,12 @@ In order to load the SysTick example with the IAP, you must do the following:
       then click on Project->build project menu.
     - Load this image with the IAP application (Select option 1 in IAP_Main menu)
 
- * <h2><center>&copy; COPYRIGHT 2015 STMicroelectronics</center></h2>
+ - TrueSTUDIO:
+    - Open TrueSTUDIO toolchain 
+    - Browse to the TrueSTUDIO workspace directory, select the project (.project file in \IAP_Binary_Template\TrueStudio\STM324xG-EVAL directory). 
+    - Rebuild all project files: Select the project in the "Project explorer" window then click on Project->build project menu.
+    - A binary file "STM324xG-EVAL.elf.bin" will be generated under "STM324xG-EVAL/Debug" folder. 
+
+
+ * <h2><center>&copy; COPYRIGHT 2016 STMicroelectronics</center></h2>
  */

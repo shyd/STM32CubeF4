@@ -2,11 +2,11 @@
   @page DMA2D_MemToMemWithBlending DMA2D Memory to Memory with blending example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics  *******************
   * @file    DMA2D/DMA2D_MemToMemWithBlending/readme.txt 
   * @author  MCD Application Team
-  * @version V1.2.4
-  * @date    13-November-2015 
+  * @version V1.2.8
+  * @date    17-February-2017 
   * @brief   Description of the DMA2D Memory to Memory with blending example.
   ******************************************************************************
   *
@@ -47,7 +47,7 @@
  
   In this transfer mode two input sources are fetched : foreground and background.
   In this example, the foreground and background are configured as following :
-   - input memory address at FLASH memory 
+   - input memory address at Flash memory 
    - Color mode : RGB565 format
    - The constant alpha for foreground is decreased to see the background.
    - The alpha mode for foreground and background is configured to see two 

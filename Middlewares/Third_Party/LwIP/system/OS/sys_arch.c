@@ -36,25 +36,22 @@
 #include "lwip/sys.h"
 #include "lwip/mem.h"
 #include "lwip/stats.h"
-#include "FreeRTOS.h"
-#include "task.h"
 
+#if !NO_SYS
 
-xTaskHandle xTaskGetCurrentTaskHandle( void ) PRIVILEGED_FUNCTION;
+#include "cmsis_os.h"
 
-/* This is the number of threads that can be started with sys_thread_new() */
-#define SYS_THREAD_MAX 6
-
-static u16_t s_nextthread = 0;
-
+#if defined(LWIP_SOCKET_SET_ERRNO) && defined(LWIP_PROVIDE_ERRNO)
+int errno;
+#endif
 
 /*-----------------------------------------------------------------------------------*/
 //  Creates an empty mailbox.
 err_t sys_mbox_new(sys_mbox_t *mbox, int size)
 {
-	(void ) size;
-	
-	*mbox = xQueueCreate( archMESG_QUEUE_LENGTH, sizeof( void * ) );
+  osMessageQDef(QUEUE, size, void *);
+  
+  *mbox = osMessageCreate(osMessageQ(QUEUE), NULL);
 
 #if SYS_STATS
       ++lwip_stats.sys.mbox.used;
@@ -76,7 +73,7 @@ err_t sys_mbox_new(sys_mbox_t *mbox, int size)
 */
 void sys_mbox_free(sys_mbox_t *mbox)
 {
-	if( uxQueueMessagesWaiting( *mbox ) )
+	if( osMessageWaiting(*mbox) )
 	{
 		/* Line for breakpoint.  Should never break here! */
 		portNOP();
@@ -87,7 +84,7 @@ void sys_mbox_free(sys_mbox_t *mbox)
 		// TODO notify the user of failure.
 	}
 
-	vQueueDelete( *mbox );
+	osMessageDelete(*mbox);
 
 #if SYS_STATS
      --lwip_stats.sys.mbox.used;
@@ -98,7 +95,7 @@ void sys_mbox_free(sys_mbox_t *mbox)
 //   Posts the "msg" to the mailbox.
 void sys_mbox_post(sys_mbox_t *mbox, void *data)
 {
-	while ( xQueueSendToBack(*mbox, &data, portMAX_DELAY ) != pdTRUE ){}
+  while(osMessagePut(*mbox, (uint32_t)data, osWaitForever) != osOK);
 }
 
 
@@ -108,7 +105,7 @@ err_t sys_mbox_trypost(sys_mbox_t *mbox, void *msg)
 {
 err_t result;
 
-   if ( xQueueSend( *mbox, &msg, 0 ) == pdPASS )
+   if ( osMessagePut(*mbox, (uint32_t)msg, 0) == osOK)
    {
       result = ERR_OK;
    }
@@ -143,40 +140,29 @@ err_t result;
 */
 u32_t sys_arch_mbox_fetch(sys_mbox_t *mbox, void **msg, u32_t timeout)
 {
-void *dummyptr;
-portTickType StartTime, EndTime, Elapsed;
-
-	StartTime = xTaskGetTickCount();
-
-	if ( msg == NULL )
-	{
-		msg = &dummyptr;
-	}
-		
-	if ( timeout != 0 )
-	{
-		if ( pdTRUE == xQueueReceive( *mbox, &(*msg), timeout / portTICK_RATE_MS ) )
-		{
-			EndTime = xTaskGetTickCount();
-			Elapsed = (EndTime - StartTime) * portTICK_RATE_MS;
-			
-			return ( Elapsed );
-		}
-		else // timed out blocking for message
-		{
-			*msg = NULL;
-			
-			return SYS_ARCH_TIMEOUT;
-		}
-	}
-	else // block forever for a message.
-	{
-		while( pdTRUE != xQueueReceive( *mbox, &(*msg), portMAX_DELAY ) ){} // time is arbitrary
-		EndTime = xTaskGetTickCount();
-		Elapsed = (EndTime - StartTime) * portTICK_RATE_MS;
-		
-		return ( Elapsed ); // return time blocked TODO test	
-	}
+  osEvent event;
+  uint32_t starttime = osKernelSysTick();;
+  
+  if(timeout != 0)
+  { 
+    event = osMessageGet (*mbox, timeout);
+    
+    if(event.status == osEventMessage)
+    {
+      *msg = (void *)event.value.v;
+      return (osKernelSysTick() - starttime);
+    }
+    else
+    {
+      return SYS_ARCH_TIMEOUT;
+    } 
+  }
+  else
+  {
+    event = osMessageGet (*mbox, osWaitForever);
+    *msg = (void *)event.value.v;
+    return (osKernelSysTick() - starttime);
+  }
 }
 
 /*-----------------------------------------------------------------------------------*/
@@ -186,21 +172,19 @@ portTickType StartTime, EndTime, Elapsed;
 */
 u32_t sys_arch_mbox_tryfetch(sys_mbox_t *mbox, void **msg)
 {
-void *dummyptr;
-
-	if ( msg == NULL )
-	{
-		msg = &dummyptr;
-	}
-
-   if ( pdTRUE == xQueueReceive( *mbox, &(*msg), 0 ) )
-   {
-      return ERR_OK;
-   }
-   else
-   {
-      return SYS_MBOX_EMPTY;
-   }
+  osEvent event;
+  
+  event = osMessageGet (*mbox, 0);
+  
+  if(event.status == osEventMessage)
+  {
+    *msg = (void *)event.value.v;
+    return ERR_OK;
+  }
+  else
+  {
+    return SYS_MBOX_EMPTY;
+  }
 }
 /*----------------------------------------------------------------------------------*/
 int sys_mbox_valid(sys_mbox_t *mbox)          
@@ -221,19 +205,22 @@ void sys_mbox_set_invalid(sys_mbox_t *mbox)
 //  the initial state of the semaphore.
 err_t sys_sem_new(sys_sem_t *sem, u8_t count)
 {
-	vSemaphoreCreateBinary(*sem );
-	if(*sem == NULL)
-	{
+  osSemaphoreDef(SEM);
+
+  *sem = osSemaphoreCreate (osSemaphore(SEM), 1);
+	
+  if(*sem == NULL)
+  {
 #if SYS_STATS
       ++lwip_stats.sys.sem.err;
 #endif /* SYS_STATS */	
 		return ERR_MEM;
-	}
+  }
 	
-	if(count == 0)	// Means it can't be taken
-	{
-		xSemaphoreTake(*sem,1);
-	}
+  if(count == 0)	// Means it can't be taken
+  {
+    osSemaphoreWait(*sem,0);
+  }
 
 #if SYS_STATS
 	++lwip_stats.sys.sem.used;
@@ -263,40 +250,31 @@ err_t sys_sem_new(sys_sem_t *sem, u8_t count)
 */
 u32_t sys_arch_sem_wait(sys_sem_t *sem, u32_t timeout)
 {
-portTickType StartTime, EndTime, Elapsed;
-
-	StartTime = xTaskGetTickCount();
-
-	if(	timeout != 0)
-	{
-		if( xSemaphoreTake( *sem, timeout / portTICK_RATE_MS ) == pdTRUE )
-		{
-			EndTime = xTaskGetTickCount();
-			Elapsed = (EndTime - StartTime) * portTICK_RATE_MS;
-			
-			return (Elapsed); // return time blocked TODO test	
-		}
-		else
-		{
-			return SYS_ARCH_TIMEOUT;
-		}
-	}
-	else // must block without a timeout
-	{
-		while( xSemaphoreTake(*sem, portMAX_DELAY) != pdTRUE){}
-		EndTime = xTaskGetTickCount();
-		Elapsed = (EndTime - StartTime) * portTICK_RATE_MS;
-
-		return ( Elapsed ); // return time blocked	
-		
-	}
+  uint32_t starttime = osKernelSysTick();
+  
+  if(timeout != 0)
+  {    
+    if(osSemaphoreWait (*sem, timeout) == osOK)
+    {
+      return (osKernelSysTick() - starttime);
+    }
+    else
+    {
+      return SYS_ARCH_TIMEOUT;
+    } 
+  }
+  else
+  {
+    while(osSemaphoreWait (*sem, osWaitForever) != osOK);
+    return (osKernelSysTick() - starttime);
+  }
 }
 
 /*-----------------------------------------------------------------------------------*/
 // Signals a semaphore
 void sys_sem_signal(sys_sem_t *sem)
 {
-	xSemaphoreGive(*sem);
+  osSemaphoreRelease(*sem);
 }
 
 /*-----------------------------------------------------------------------------------*/
@@ -304,10 +282,10 @@ void sys_sem_signal(sys_sem_t *sem)
 void sys_sem_free(sys_sem_t *sem)
 {
 #if SYS_STATS
-      --lwip_stats.sys.sem.used;
+  --lwip_stats.sys.sem.used;
 #endif /* SYS_STATS */
-			
-	vQueueDelete(*sem);
+  
+  osSemaphoreDelete(*sem);
 }
 /*-----------------------------------------------------------------------------------*/
 int sys_sem_valid(sys_sem_t *sem)                                               
@@ -324,12 +302,13 @@ void sys_sem_set_invalid(sys_sem_t *sem)
   *sem = SYS_SEM_NULL;                                                          
 } 
 
-/*-----------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------*/ 
+osMutexId lwip_sys_mutex;
+osMutexDef(lwip_sys_mutex);
 // Initialize sys arch
 void sys_init(void)
 {
-	// keep track of how many threads have been created
-	s_nextthread = 0;
+  lwip_sys_mutex = osMutexCreate(osMutex(lwip_sys_mutex));
 }
 /*-----------------------------------------------------------------------------------*/
                                       /* Mutexes*/
@@ -338,23 +317,28 @@ void sys_init(void)
 #if LWIP_COMPAT_MUTEX == 0
 /* Create a new mutex*/
 err_t sys_mutex_new(sys_mutex_t *mutex) {
-
-  *mutex = xSemaphoreCreateMutex();
-		if(*mutex == NULL)
-	{
+  
+  osMutexDef(MUTEX);
+  
+  *mutex = osMutexCreate(osMutex(MUTEX));
+  
+  
+  //*mutex = xSemaphoreCreateMutex();
+  if(*mutex == NULL)
+  {
 #if SYS_STATS
-      ++lwip_stats.sys.mutex.err;
+    ++lwip_stats.sys.mutex.err;
 #endif /* SYS_STATS */	
-		return ERR_MEM;
-	}
-
+    return ERR_MEM;
+  }
+  
 #if SYS_STATS
-	++lwip_stats.sys.mutex.used;
- 	if (lwip_stats.sys.mutex.max < lwip_stats.sys.mutex.used) {
-		lwip_stats.sys.mutex.max = lwip_stats.sys.mutex.used;
-	}
+  ++lwip_stats.sys.mutex.used;
+  if (lwip_stats.sys.mutex.max < lwip_stats.sys.mutex.used) {
+    lwip_stats.sys.mutex.max = lwip_stats.sys.mutex.used;
+  }
 #endif /* SYS_STATS */
-        return ERR_OK;
+  return ERR_OK;
 }
 /*-----------------------------------------------------------------------------------*/
 /* Deallocate a mutex*/
@@ -364,20 +348,20 @@ void sys_mutex_free(sys_mutex_t *mutex)
       --lwip_stats.sys.mutex.used;
 #endif /* SYS_STATS */
 			
-	vQueueDelete(*mutex);
+  osMutexDelete(*mutex);
 }
 /*-----------------------------------------------------------------------------------*/
 /* Lock a mutex*/
 void sys_mutex_lock(sys_mutex_t *mutex)
 {
-	sys_arch_sem_wait(mutex, 0);
+  osMutexWait (*mutex, osWaitForever);
 }
 
 /*-----------------------------------------------------------------------------------*/
 /* Unlock a mutex*/
 void sys_mutex_unlock(sys_mutex_t *mutex)
 {
-	xSemaphoreGive(*mutex);
+  osMutexRelease(*mutex);
 }
 #endif /*LWIP_COMPAT_MUTEX*/
 /*-----------------------------------------------------------------------------------*/
@@ -391,30 +375,8 @@ void sys_mutex_unlock(sys_mutex_t *mutex)
 */
 sys_thread_t sys_thread_new(const char *name, lwip_thread_fn thread , void *arg, int stacksize, int prio)
 {
-xTaskHandle CreatedTask;
-int result;
-
-   if ( s_nextthread < SYS_THREAD_MAX )
-   {
-      result = xTaskCreate( thread, ( signed portCHAR * ) name, stacksize, arg, prio, &CreatedTask );
-
-	   // For each task created, store the task handle (pid) in the timers array.
-	   // This scheme doesn't allow for threads to be deleted
-	   //s_timeoutlist[s_nextthread++].pid = CreatedTask;
-
-	   if(result == pdPASS)
-	   {
-		   return CreatedTask;
-	   }
-	   else
-	   {
-		   return NULL;
-	   }
-   }
-   else
-   {
-      return NULL;
-   }
+  const osThreadDef_t os_thread_def = { (char *)name, (os_pthread)thread, (osPriority)prio, 0, stacksize};
+  return osThreadCreate(&os_thread_def, arg);
 }
 
 /*
@@ -429,36 +391,30 @@ int result;
 
   sys_arch_protect() is only required if your port is supporting an operating
   system.
+
+  Note: This function is based on FreeRTOS API, because no equivalent CMSIS-RTOS
+        API is available
 */
 sys_prot_t sys_arch_protect(void)
 {
-	vPortEnterCritical();
-	return 1;
+  osMutexWait(lwip_sys_mutex, osWaitForever);
+  return (sys_prot_t)1;
 }
+
 
 /*
   This optional function does a "fast" set of critical region protection to the
   value specified by pval. See the documentation for sys_arch_protect() for
   more information. This function is only required if your port is supporting
   an operating system.
+
+  Note: This function is based on FreeRTOS API, because no equivalent CMSIS-RTOS
+        API is available
 */
 void sys_arch_unprotect(sys_prot_t pval)
 {
-	( void ) pval;
-	vPortExitCritical();
+  ( void ) pval;
+  osMutexRelease(lwip_sys_mutex);
 }
 
-/*
- * Prints an assertion messages and aborts execution.
- */
-void sys_assert( const char *msg )
-{	
-	( void ) msg;
-	/*FSL:only needed for debugging
-	printf(msg);
-	printf("\n\r");
-	*/
-    vPortEnterCritical(  );
-    for(;;)
-    ;
-}
+#endif /* !NO_SYS */

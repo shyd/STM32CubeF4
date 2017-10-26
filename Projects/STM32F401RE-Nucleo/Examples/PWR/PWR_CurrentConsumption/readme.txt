@@ -2,11 +2,11 @@
   @page PWR_CurrentConsumption PWR Current Consumption example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    PWR/PWR_CurrentConsumption/readme.txt 
   * @author  MCD Application Team
-  * @version V1.2.3
-  * @date    13-November-2015
+  * @version V1.2.7
+  * @date    17-February-2017
   * @brief   Description of the PWR Current Consumption example.
   ******************************************************************************
   *
@@ -38,8 +38,8 @@
 @par Example Description 
 
 This example shows how to configure the STM32F4xx system to measure different
-Low Power modes current consumption.
- The Low Power modes are:
+Low-power modes current consumption.
+The Low Power modes are:
   - Sleep Mode
   - STOP mode with RTC
   - STANDBY mode without RTC and BKPSRAM
@@ -158,8 +158,8 @@ Here below a detailed description of the example code:
     - Use LED2 connected respectively to PA05 pin.
       * LED2 (GREEN) will keep ON if initialization fails.
       * LED2 (GREEN) will slowly toggle (1sec.) waiting for user to launch test, then be turn OFF
-      * LED2 (GREEN) will toggle fast (200ms) while returning from STANDBY mode (PWR flag check callback) 
-      * LED2 (GREEN) will toggle fast (200ms) at the end of test in case of 
+      * LED2 (GREEN) will slowly toggle (1sec.) while returning from STANDBY mode
+      * LED2 (GREEN) will toggle fast (100ms) at the end of test in case of 
       success.
     - Use Key Button connected to PC13 pin.
     - Connect PA0 (pin 28 in CN7 connector) to 3.3v to wake up from STANDBY mode.

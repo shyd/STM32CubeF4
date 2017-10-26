@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    PWR/PWR_STANDBY/Src/main.c
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   This sample code shows how to use STM32F4xx PWR HAL API to enter
   *          and exit the Standby mode.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -53,11 +53,16 @@
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* RTC handler declaration */
+RTC_HandleTypeDef RTCHandle;
+RTC_TimeTypeDef RTC_TimeStructure;
+RTC_DateTypeDef RTC_DateStructure;
+RTC_AlarmTypeDef RTC_AlarmStructure;
 static __IO uint32_t TimingDelay = 0;
 static __IO uint32_t AuthorizeToggle = 0;
 
 /* Private function prototypes -----------------------------------------------*/
 static void SystemClock_Config(void);
+static void RTC_Config(void);
 
 /* Private functions ---------------------------------------------------------*/
 
@@ -85,6 +90,11 @@ int main(void)
 
   /* Configure Key Button */
   BSP_PB_Init(BUTTON_TAMPER, BUTTON_MODE_EXTI);
+
+  /* The RTC configuration will not be lost when the system was resumed from StandBy mode */
+
+  /* RTC configuration */
+  RTC_Config();
 
   /* Turn on LED1 */
   BSP_LED_On(LED1);
@@ -178,6 +188,84 @@ static void SystemClock_Config(void)
 }
 
 /**
+  * @brief  Configures the RTC.
+  * @param  None
+  * @retval None
+  */
+static void RTC_Config(void)
+{
+  RTCHandle.Instance = RTC;
+  /* Set the RTC time base to 1s */
+  /* Configure RTC prescaler and RTC data registers as follow:
+  - Hour Format = Format 24
+  - Asynch Prediv = Value according to source clock
+  - Synch Prediv = Value according to source clock
+  - OutPut = Output Disable
+  - OutPutPolarity = High Polarity
+  - OutPutType = Open Drain */
+  RTCHandle.Init.HourFormat = RTC_HOURFORMAT_24;
+  RTCHandle.Init.AsynchPrediv = RTC_ASYNCH_PREDIV;
+  RTCHandle.Init.SynchPrediv = RTC_SYNCH_PREDIV;
+  RTCHandle.Init.OutPut = RTC_OUTPUT_DISABLE;
+  RTCHandle.Init.OutPutPolarity = RTC_OUTPUT_POLARITY_HIGH;
+  RTCHandle.Init.OutPutType = RTC_OUTPUT_TYPE_OPENDRAIN;
+  if(HAL_RTC_Init(&RTCHandle) != HAL_OK)
+  {
+    /* Initialization Error */
+    Error_Handler();
+  }
+
+  /* Check and Clear the Wakeup flag */
+  if(__HAL_PWR_GET_FLAG(PWR_FLAG_WU) != RESET)
+  {
+    __HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU);
+  }
+
+  /* Check if the system was resumed from StandBy mode */
+  if(__HAL_PWR_GET_FLAG(PWR_FLAG_SB) != RESET)
+  {
+    /* Clear StandBy flag */
+    __HAL_PWR_CLEAR_FLAG(PWR_FLAG_SB);
+
+    /* Disable the write protection for RTC registers */
+    __HAL_RTC_WRITEPROTECTION_DISABLE(&RTCHandle);
+
+    /* Wait for RTC APB registers synchronisation (needed after start-up from Reset)*/
+    if(HAL_RTC_WaitForSynchro(&RTCHandle) != HAL_OK)
+    {
+      /* Initialization Error */
+      Error_Handler();
+    }
+    
+    /* Enable the write protection for RTC registers */
+    __HAL_RTC_WRITEPROTECTION_ENABLE(&RTCHandle);
+    
+    /* Check and Clear the Alarm A flag */
+    if (__HAL_RTC_ALARM_GET_FLAG(&RTCHandle, RTC_FLAG_ALRAF) != RESET)
+    {
+      /* Clear the Alarm Flag */
+      __HAL_RTC_ALARM_CLEAR_FLAG(&RTCHandle, RTC_FLAG_ALRAF);
+      
+      /* RTC Wakeup flag workaround */
+      HAL_NVIC_SystemReset();
+    }
+  }
+  else
+  {
+    /* Set the time to 01h 00mn 00s AM */
+    RTC_TimeStructure.TimeFormat = RTC_HOURFORMAT12_AM;
+    RTC_TimeStructure.Hours = 0x01;
+    RTC_TimeStructure.Minutes = 0x00;
+    RTC_TimeStructure.Seconds = 0x00;
+    if(HAL_RTC_SetTime(&RTCHandle, &RTC_TimeStructure, RTC_FORMAT_BCD) == HAL_ERROR)
+    {
+      /* Initialization Error */
+      Error_Handler();
+    }
+  }
+}
+
+/**
   * @brief  This function is executed in case of error occurrence.
   * @param  None
   * @retval None
@@ -220,6 +308,20 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
   if(GPIO_Pin == TAMPER_BUTTON_PIN)
   {
+    HAL_RTC_GetTime(&RTCHandle, &RTC_TimeStructure, RTC_FORMAT_BIN);
+    HAL_RTC_GetDate(&RTCHandle, &RTC_DateStructure, RTC_FORMAT_BIN);
+
+    /* Set the alarm to current time + 5s */
+    RTC_AlarmStructure.Alarm  = RTC_ALARM_A;
+    RTC_AlarmStructure.AlarmTime.TimeFormat = RTC_TimeStructure.TimeFormat;
+    RTC_AlarmStructure.AlarmTime.Hours = RTC_TimeStructure.Hours;
+    RTC_AlarmStructure.AlarmTime.Minutes = RTC_TimeStructure.Minutes;
+    RTC_AlarmStructure.AlarmTime.Seconds = (RTC_TimeStructure.Seconds + 0x05) % 60;
+    RTC_AlarmStructure.AlarmDateWeekDay = 0x31;
+    RTC_AlarmStructure.AlarmDateWeekDaySel = RTC_ALARMDATEWEEKDAYSEL_DATE;
+    RTC_AlarmStructure.AlarmMask = RTC_ALARMMASK_DATEWEEKDAY | RTC_ALARMMASK_HOURS | RTC_ALARMMASK_MINUTES;
+    RTC_AlarmStructure.AlarmSubSecondMask = RTC_ALARMSUBSECONDMASK_NONE;
+
     /* The Following Wakeup sequence is highly recommended prior to each Standby
        mode entry mainly  when using more than one wakeup source this is to not
        miss any wakeup event:
@@ -233,11 +335,20 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
     /* Disable Wake-up timer */
     HAL_PWR_DisableWakeUpPin(PWR_WAKEUP_PIN1);
 
+    /* Disable RTC Alarm */
+    HAL_RTC_DeactivateAlarm(&RTCHandle, RTC_ALARM_A);
+
     /*## Clear all related wakeup flags ######################################*/
     /* Clear PWR wake up Flag */
     __HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU);
 
     /*## Re-enable all used wakeup sources ###################################*/
+    /* Set RTC alarm */
+    if(HAL_RTC_SetAlarm_IT(&RTCHandle, &RTC_AlarmStructure, RTC_FORMAT_BIN) != HAL_OK)
+    {
+      /* Initialization Error */
+      Error_Handler();
+    }
 
     /* Enable WKUP pin */
     HAL_PWR_EnableWakeUpPin(PWR_WAKEUP_PIN1);

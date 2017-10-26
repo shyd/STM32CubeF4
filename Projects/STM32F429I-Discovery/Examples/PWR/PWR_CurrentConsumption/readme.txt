@@ -2,11 +2,11 @@
   @page PWR_CurrentConsumption PWR Current Consumption example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics  *******************
   * @file    PWR/PWR_CurrentConsumption/readme.txt 
   * @author  MCD Application Team
-  * @version V1.2.4
-  * @date    13-November-2015 
+  * @version V1.2.8
+  * @date    17-February-2017 
   * @brief   Description of the PWR Current Consumption example.
   ******************************************************************************
   *
@@ -38,10 +38,11 @@
 @par Example Description 
 
 This example shows how to configure the STM32F4xx system to measure different
-Low Power modes current consumption. 
+Low-power modes current consumption.
 The Low Power modes are:
   - Sleep Mode
   - STOP mode with RTC
+  - Under-Drive STOP mode with RTC
   - STANDBY mode without RTC and BKPSRAM
   - STANDBY mode with RTC
   - STANDBY mode with RTC and BKPSRAM.
@@ -50,11 +51,12 @@ To run this example, user has to follow the following steps:
  1. Select the Low power modes to be measured by uncommenting the corresponding
     line inside the stm32f4xx_lp_modes.h file.
     @code
-       /*#define SLEEP_MODE*/
-       /*#define STOP_MODE*/
-       /*#define STANDBY_MODE*/
-       #define STANDBY_RTC_MODE
-       /*#define STANDBY_RTC_BKPSRAM_MODE*/
+       /* #define SLEEP_MODE               */
+       /* #define STOP_MODE                */
+       /* #define STOP_UNDERDRIVE_MODE     */
+       /* #define STANDBY_MODE             */
+       /* #define STANDBY_RTC_MODE         */
+       /* #define STANDBY_RTC_BKPSRAM_MODE */
     @endcode       
 
  2. Use an external amperemeter to measure the IDD current. 
@@ -100,6 +102,16 @@ Here below a detailed description of the example code:
             - FLASH in deep power down mode
             - Automatic Wakeup using RTC clocked by LSI (after ~20s)
 
+    - Under Drive STOP Mode
+    =======================
+            - RTC Clocked by LSI
+            - Regulator in LP mode
+            - Under drive feature enabled
+            - HSI, HSE OFF and LSI if not used as RTC Clock source
+            - No IWDG
+            - FLASH in deep power down mode
+            - Automatic Wakeup using RTC clocked by LSI (after ~20s)
+
     - STANDBY Mode
     ==============
             - Backup SRAM and RTC OFF
@@ -107,14 +119,14 @@ Here below a detailed description of the example code:
             - Wakeup using WakeUp Pin (PA.00) 
                         
     - STANDBY Mode with RTC clocked by LSI 
-    ==========================================
+    ======================================
             - RTC Clocked by LSI
             - IWDG OFF and LSI OFF  if not used as RTC Clock source
             - Backup SRAM OFF
             - Automatic Wakeup using RTC clocked by LSI (after ~20s)
 
     - STANDBY Mode with RTC clocked by LSI and BKPSRAM
-    ======================================================
+    ==================================================
             - RTC Clocked by LSI
             - Backup SRAM ON
             - IWDG OFF

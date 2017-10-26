@@ -2,30 +2,53 @@
   @page LwIP_IAP  LwIP IAP over Ethernet application. 
  
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    LwIP/LwIP_IAP/readme.txt 
   * @author  MCD Application Team
-  * @version V1.3.2
-  * @date    13-November-2015
+  * @version V1.4.0
+  * @date    17-February-2017
   * @brief   Description of the In-Application Programming (IAP) over Ethernet application. 
   ******************************************************************************
+  * @attention
   *
-  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-  * You may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at:
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics International N.V. 
+  * All rights reserved.</center></h2>
   *
-  *        http://www.st.com/software_license_agreement_liberty_v2
+  * Redistribution and use in source and binary forms, with or without 
+  * modification, are permitted, provided that the following conditions are met:
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
+  * 1. Redistribution of source code must retain the above copyright notice, 
+  *    this list of conditions and the following disclaimer.
+  * 2. Redistributions in binary form must reproduce the above copyright notice,
+  *    this list of conditions and the following disclaimer in the documentation
+  *    and/or other materials provided with the distribution.
+  * 3. Neither the name of STMicroelectronics nor the names of other 
+  *    contributors to this software may be used to endorse or promote products 
+  *    derived from this software without specific written permission.
+  * 4. This software, including modifications and/or derivative works of this 
+  *    software, must execute solely and exclusively on microcontroller or
+  *    microprocessor devices manufactured by or for STMicroelectronics.
+  * 5. Redistribution and use of this software other than as permitted under 
+  *    this license is void and will automatically terminate your rights under 
+  *    this license. 
+  *
+  * THIS SOFTWARE IS PROVIDED BY STMICROELECTRONICS AND CONTRIBUTORS "AS IS" 
+  * AND ANY EXPRESS, IMPLIED OR STATUTORY WARRANTIES, INCLUDING, BUT NOT 
+  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+  * PARTICULAR PURPOSE AND NON-INFRINGEMENT OF THIRD PARTY INTELLECTUAL PROPERTY
+  * RIGHTS ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED BY LAW. IN NO EVENT 
+  * SHALL STMICROELECTRONICS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, 
+  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
+  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
    @endverbatim
 
-@par Description
+@par Application Description
 
 This application guides STM32Cube HAL API users to run In-Application Programming 
 (IAP) over Ethernet. 
@@ -48,10 +71,33 @@ will be ensured by LEDs:
 If a DHCP server is available, a dynamic IP address can be allocated by enabling 
 the DHCP process (#define USE_DHCP in main.h) 
 
-Note: In this application the Ethernet Link ISR need the System tick interrupt 
-to configure the Ethernet MAC, so the Ethernet Link interrupt priority must be 
-set lower (numerically greater) than the Systick interrupt priority to ensure 
-that the System tick increments while executing the Ethernet Link ISR.
+1- LwIP/LwIP_IAP/Binary directory contains the following binaries: 
+
+- STM324xG_EVAL_Demonstration_Builder.bin: provides an overview of different modules in the demonstration: 
+
+* Connection modes ( ethernet, USB,Serial)
+
+* Multimedia (Audio,Image viewer,Camera,Recorder)
+
+* Utilities: system, calendar,file browser, ...)
+
+- STM324xG_EVAL_HTTP_Server: run a http server application whuich can be excuted to:
+
+* provide informations about STM32F4 and LwIP stack.
+
+* allow to control the four LEDs located in the STM324xG_EVAL board
+
+* show the ADC3 channel 7 analog input converted value
+ 
+
+- STM324xG_EVAL_SysTick.bin: can be used to be transfered and executed. It toggles the 4 LEDs.
+
+2-  The required userID and password are set, and can be modified, in the main.h file.
+
+Note: In this application the Ethernet Link ISR need the HAL time base to configure 
+the Ethernet MAC, so the Ethernet Link interrupt priority must be set lower (numerically greater) 
+than the HAL tick interrupt priority to ensure that the System tick increments while executing 
+the Ethernet Link ISR.
 
 @note Care must be taken when using HAL_Delay(), this function provides accurate delay (in milliseconds)
       based on variable incremented in SysTick ISR. This implies that if HAL_Delay() is called from
@@ -96,7 +142,7 @@ For more details about this application, refer to UM1709 "STM32Cube Ethernet IAP
     
   - This application has been tested with the following environments:
      - STM324xG-EVAL board
-     - Http clients: Firefox Mozilla (v24) or Microsoft Internet Explorer (v8 and later)
+     - Http clients: Firefox Mozilla V24 or Microsoft Internet Explorer V8.
      - TFTP client and DHCP server: PC utility TFTPD32 (http://tftpd32.jounin.net/)
       
   - STM324xG-EVAL RevC Set-up

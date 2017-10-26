@@ -2,11 +2,11 @@
   @page DAC_SignalsGeneration DAC Signals generation example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    DAC/DAC_SignalsGeneration/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date  09-October-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the DAC Signals generation example.
   ******************************************************************************
   *
@@ -37,8 +37,9 @@
 
 @par Example Description 
 
-This example provides a description of how to use the DAC peripheral to 
-generate several signals using DMA controller.
+This example provides a short description of how to use the DAC peripheral to generate 
+several signals using DMA controller.
+
 For each press on User push-button, a signal has been selected and can be monitored on  
 the DAC channel one:
     - Triangle waveform (Channel 1), amplitude: ~1V, frequency: order of tens Hz.

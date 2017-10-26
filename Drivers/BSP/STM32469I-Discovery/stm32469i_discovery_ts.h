@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32469i_discovery_ts.h
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    29-September-2015
+  * @version V2.0.0
+  * @date    27-January-2017
   * @brief   This file contains the common defines and functions prototypes for
   *          the stm32469i_discovery_ts.c driver.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -55,15 +55,15 @@
   * @{
   */
 
-/** @addtogroup STM32469I-Discovery
+/** @addtogroup STM32469I_Discovery
   * @{
   */
 
-/** @defgroup STM32469I-Discovery_TS STM32469I-Discovery TS
+/** @addtogroup STM32469I-Discovery_TS 
   * @{
   */
 
- /** @defgroup STM32469I-Discovery_TS_Exported_Constants TS Exported Constants
+ /** @defgroup STM32469I-Discovery_TS_Exported_Constants STM32469I Discovery TS Exported Constants
    * @{
    */
 /** @brief With FT6206 : maximum 2 touches detected simultaneously
@@ -81,7 +81,7 @@
    * @}
    */
 
-/** @defgroup STM32469I-Discovery_TS_Exported_Types  TS Exported Types
+/** @defgroup STM32469I-Discovery_TS_Exported_Types  STM32469I Discovery TS Exported Types
   * @{
   */
 /**
@@ -169,7 +169,7 @@ extern char * ts_gesture_id_string_tab[GEST_ID_NB_MAX];
   * @}
   */
 
-/** @defgroup STM32469I-Discovery_TS_Exported_Functions TS Exported Functions
+/** @defgroup STM32469I-Discovery_TS_Exported_Functions STM32469I Discovery TS Exported Functions
   * @{
   */
 uint8_t BSP_TS_Init(uint16_t ts_SizeX, uint16_t ts_SizeY);

@@ -2,13 +2,13 @@
   ******************************************************************************
   * @file    CEC/CEC_DataExchange/Inc/main.h 
   * @author  MCD Application Team
-  * @version V1.1.2
-  * @date    13-November-2015
+  * @version V1.2.0
+  * @date    17-February-2017
   * @brief   Header for main.c module
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -49,11 +49,10 @@
 #define CEC_MAX_PAYLOAD                  16
 
 /* Uncomment the line below if you use the CEC peripheral as a Device 1 */
-//#define DEVICE_1   
+#define DEVICE_1   
 /* Uncomment the line below if you use the CEC peripheral as a Device 2 */ 
-#define DEVICE_2 
-#define DEVICE_ADDRESS_1               0x01  /* CEC device 1 address   */
-#define DEVICE_ADDRESS_2               0x03  /* CEC device 2 address   */
+//#define DEVICE_2 
+
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 

@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32469i_discovery.c
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    29-September-2015
+  * @version V2.0.0
+  * @date    27-January-2017
   * @brief   This file provides a set of firmware functions to manage LEDs,
   *          push-buttons, external SDRAM, external QSPI Flash, RF EEPROM,
   *          available on STM32469I-Discovery
@@ -11,7 +11,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -41,34 +41,34 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32469i_discovery.h"
 
-/** @addtogroup BSP
+/** @defgroup BSP BSP
   * @{
   */
 
-/** @addtogroup STM32469I_Discovery
+/** @defgroup STM32469I_Discovery STM32469I Discovery
   * @{
   */
 
-/** @defgroup STM32469I_Discovery_LOW_LEVEL STM32469I-Discovery LOW LEVEL
+/** @defgroup STM32469I_Discovery_LOW_LEVEL STM32469I Discovery LOW LEVEL
   * @{
   */
 
-/** @defgroup STM32469I_Discovery_LOW_LEVEL_Private_TypesDefinitions STM32469I Discovery Low Level Private Typedef
+/** @defgroup STM32469I_Discovery_LOW_LEVEL_Private_TypesDefinitions STM32469I Discovery LOW LEVEL Private TypesDefinitions
   * @{
   */
 /**
   * @}
   */
 
-/** @defgroup STM32469I_Discovery_LOW_LEVEL_Private_Defines LOW_LEVEL Private Defines
+/** @defgroup STM32469I_Discovery_LOW_LEVEL_Private_Defines STM32469I Discovery LOW LEVEL Private Defines
   * @{
   */
 /**
- * @brief STM32469I Discovery BSP Driver version number V1.0.1
+ * @brief STM32469I Discovery BSP Driver version number V2.0.0
    */
-#define __STM32469I_DISCOVERY_BSP_VERSION_MAIN   (0x01) /*!< [31:24] main version */
+#define __STM32469I_DISCOVERY_BSP_VERSION_MAIN   (0x02) /*!< [31:24] main version */
 #define __STM32469I_DISCOVERY_BSP_VERSION_SUB1   (0x00) /*!< [23:16] sub1 version */
-#define __STM32469I_DISCOVERY_BSP_VERSION_SUB2   (0x01) /*!< [15:8]  sub2 version */
+#define __STM32469I_DISCOVERY_BSP_VERSION_SUB2   (0x00) /*!< [15:8]  sub2 version */
 #define __STM32469I_DISCOVERY_BSP_VERSION_RC     (0x00) /*!< [7:0]  release candidate */
 #define __STM32469I_DISCOVERY_BSP_VERSION        ((__STM32469I_DISCOVERY_BSP_VERSION_MAIN << 24)\
                                                  |(__STM32469I_DISCOVERY_BSP_VERSION_SUB1 << 16)\
@@ -78,14 +78,14 @@
   * @}
   */
 
-/** @defgroup STM32469I_Discovery_LOW_LEVEL_Private_Macros  LOW_LEVEL Private Macros
+/** @defgroup STM32469I_Discovery_LOW_LEVEL_Private_Macros  STM32469I Discovery LOW LEVEL Private Macros
   * @{
   */
 /**
   * @}
   */
 
-/** @defgroup STM32469I_Discovery_LOW_LEVEL_Private_Variables LOW_LEVEL Private Variables
+/** @defgroup STM32469I_Discovery_LOW_LEVEL_Private_Variables STM32469I Discovery LOW LEVEL Private Variables
   * @{
   */
 uint32_t GPIO_PIN[LEDn] = {LED1_PIN,
@@ -112,7 +112,7 @@ static I2C_HandleTypeDef heval_I2c2;
   * @}
   */
 
-/** @defgroup STM32469I_Discovery_LOW_LEVEL_Private_FunctionPrototypes LOW_LEVEL Private FunctionPrototypes
+/** @defgroup STM32469I_Discovery_LOW_LEVEL_Private_FunctionPrototypes STM32469I Discovery LOW LEVEL Private FunctionPrototypes
   * @{
   */
 static void            I2C1_MspInit(void);
@@ -158,7 +158,7 @@ void     OTM8009A_IO_Delay(uint32_t Delay);
   * @}
   */
 
-/** @defgroup STM32469I_Discovery_BSP_Public_Functions BSP Public Functions
+/** @defgroup STM32469I_Discovery_BSP_Public_Functions STM32469I Discovery BSP Public Functions
   * @{
   */
 
@@ -179,7 +179,6 @@ uint32_t BSP_GetVersion(void)
   *            @arg  LED2
   *            @arg  LED3
   *            @arg  LED4
-  * @retval None
   */
 void BSP_LED_Init(Led_TypeDef Led)
 {
@@ -231,7 +230,6 @@ void BSP_LED_Init(Led_TypeDef Led)
   *            @arg  LED3
   *            @arg  LED4
   * @note Led DeInit does not disable the GPIO clock nor disable the Mfx
-  * @retval None
   */
 void BSP_LED_DeInit(Led_TypeDef Led)
 {
@@ -257,7 +255,6 @@ void BSP_LED_DeInit(Led_TypeDef Led)
   *            @arg  LED2
   *            @arg  LED3
   *            @arg  LED4
-  * @retval None
   */
 void BSP_LED_On(Led_TypeDef Led)
 {
@@ -276,7 +273,6 @@ void BSP_LED_On(Led_TypeDef Led)
   *            @arg  LED2
   *            @arg  LED3
   *            @arg  LED4
-  * @retval None
   */
 void BSP_LED_Off(Led_TypeDef Led)
 {
@@ -294,7 +290,6 @@ void BSP_LED_Off(Led_TypeDef Led)
   *            @arg  LED2
   *            @arg  LED3
   *            @arg  LED4
-  * @retval None
   */
 void BSP_LED_Toggle(Led_TypeDef Led)
 {
@@ -315,7 +310,6 @@ void BSP_LED_Toggle(Led_TypeDef Led)
   *            @arg  BUTTON_MODE_GPIO: Button will be used as simple IO
   *            @arg  BUTTON_MODE_EXTI: Button will be connected to EXTI line
   *                                    with interrupt generation capability
-  * @retval None
   */
 void BSP_PB_Init(Button_TypeDef Button, ButtonMode_TypeDef Button_Mode)
 {
@@ -358,7 +352,6 @@ void BSP_PB_Init(Button_TypeDef Button, ButtonMode_TypeDef Button_Mode)
   *            @arg  BUTTON_WAKEUP: Wakeup Push Button
   *            @arg  BUTTON_USER: User Push Button
   * @note PB DeInit does not disable the GPIO clock
-  * @retval None
   */
 void BSP_PB_DeInit(Button_TypeDef Button)
 {
@@ -387,7 +380,7 @@ uint32_t BSP_PB_GetState(Button_TypeDef Button)
   * @}
   */
 
-/** @defgroup STM32469I_Discovery_LOW_LEVEL_Private_Functions STM32469I_Discovery_LOW_LEVEL Private Functions
+/** @defgroup STM32469I_Discovery_LOW_LEVEL_Private_Functions STM32469I Discovery LOW LEVEL Private Functions
   * @{
   */
 
@@ -714,7 +707,6 @@ static HAL_StatusTypeDef I2C1_IsDeviceReady(uint16_t DevAddress, uint32_t Trials
 /**
   * @brief  Manages error callback by re-initializing I2C.
   * @param  Addr: I2C Address
-  * @retval None
   */
 static void I2C1_Error(uint8_t Addr)
 {
@@ -899,7 +891,6 @@ uint16_t TS_IO_ReadMultiple(uint8_t Addr, uint8_t Reg, uint8_t *Buffer, uint16_t
   * @param  Reg: Register address
   * @param  Buffer: Pointer to data buffer
   * @param  Length: Length of the data
-  * @retval None
   */
 void TS_IO_WriteMultiple(uint8_t Addr, uint8_t Reg, uint8_t *Buffer, uint16_t Length)
 {
@@ -909,7 +900,6 @@ void TS_IO_WriteMultiple(uint8_t Addr, uint8_t Reg, uint8_t *Buffer, uint16_t Le
 /**
   * @brief  Delay function used in TouchScreen low level driver.
   * @param  Delay: Delay in ms
-  * @retval None
   */
 void TS_IO_Delay(uint32_t Delay)
 {

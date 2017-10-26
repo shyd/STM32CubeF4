@@ -2,11 +2,11 @@
   @page FMC_SDRAM_DataMemory SDRAM memory functionalities example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    FMC/FMC_SDRAM_DataMemory/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the FMC SDRAM example.
   ******************************************************************************
   *
@@ -92,7 +92,7 @@ If uwTabAddr and MSPValue values are in the external SDRAM memory, LED1 is ON, o
 
   - This example runs on STM32F469xx/STM32F479xx devices.
 
-  - This example has been tested and validated with STMicroelectronics STM32469I-EVAL revB board and can be
+  - This example has been tested and validated with STMicroelectronics STM32469I-EVAL RevC board and can be
     easily tailored to any other supported device and development board.
 
 

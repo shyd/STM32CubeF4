@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32f429i_discovery_ts.h
   * @author  MCD Application Team
-  * @version V2.1.2
-  * @date    02-March-2015
+  * @version V2.1.5
+  * @date    27-January-2017
   * @brief   This file contains all the functions prototypes for the
   *          stm32f429i_discovery_ts.c driver.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -57,11 +57,11 @@
   * @{
   */ 
 
-/** @defgroup STM32F429I_DISCOVERY_TS
+/** @addtogroup STM32F429I_DISCOVERY_TS
   * @{
   */
 
-/** @defgroup STM32F429I_DISCOVERY_TS_Exported_Types
+/** @defgroup STM32F429I_DISCOVERY_TS_Exported_Types STM32F429I DISCOVERY TS Exported Types
   * @{
   */ 
 typedef struct
@@ -75,7 +75,7 @@ typedef struct
   * @}
   */
 
-/** @defgroup STM32F429I_DISCOVERY_TS_Exported_Constants
+/** @defgroup STM32F429I_DISCOVERY_TS_Exported_Constants STM32F429I DISCOVERY TS Exported Constants
   * @{
   */ 
 #define TS_SWAP_NONE                    0x00
@@ -93,14 +93,14 @@ typedef enum
   * @}
   */
 
-/** @defgroup STM32F429I_DISCOVERY_TS_Exported_Macros
+/** @defgroup STM32F429I_DISCOVERY_TS_Exported_Macros STM32F429I DISCOVERY TS Exported Macros
   * @{
   */
 /**
   * @}
   */
 
-/** @defgroup STM32F429I_DISCOVERY_TS_Exported_Functions
+/** @defgroup STM32F429I_DISCOVERY_TS_Exported_Functions STM32F429I DISCOVERY TS Exported Functions
   * @{
   */
 uint8_t BSP_TS_Init(uint16_t XSize, uint16_t YSize);

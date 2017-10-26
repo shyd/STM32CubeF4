@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32469i_eval_sdram.h
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    29-September-2015
+  * @version V2.0.0
+  * @date    27-January-2017
   * @brief   This file contains the common defines and functions prototypes for
   *          the stm32469i_eval_sdram.c driver.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -51,7 +51,7 @@
   * @{
   */
 
-/** @addtogroup STM32469I-EVAL
+/** @addtogroup STM32469I_EVAL
   * @{
   */
 
@@ -62,7 +62,11 @@
 /** @defgroup STM32469I-EVAL_SDRAM_Exported_Types STM32469I EVAL SDRAM Exported Types
   * @{
   */
-
+    
+/**
+  * @}
+  */ 
+  
 /**
   * @brief  SDRAM status structure definition
   */
@@ -74,8 +78,8 @@
   */
 #define SDRAM_DEVICE_ADDR  ((uint32_t)0xC0000000)
 
- /* SDRAM device size in MBytes */
- #define SDRAM_DEVICE_SIZE  ((uint32_t)0x800000)
+ /* SDRAM device size in Bytes */
+ #define SDRAM_DEVICE_SIZE  ((uint32_t)0x2000000)
 
 #define SDRAM_MEMORY_WIDTH FMC_SDRAM_MEM_BUS_WIDTH_32
 #define SDCLOCK_PERIOD     FMC_SDRAM_CLOCK_PERIOD_2
@@ -109,9 +113,6 @@
 #define SDRAM_MODEREG_OPERATING_MODE_STANDARD    ((uint16_t)0x0000)
 #define SDRAM_MODEREG_WRITEBURST_MODE_PROGRAMMED ((uint16_t)0x0000)
 #define SDRAM_MODEREG_WRITEBURST_MODE_SINGLE     ((uint16_t)0x0200)
-/**
-  * @}
-  */
 
 /** @defgroup STM32469I-EVAL_SDRAM_Exported_Macro STM32469I EVAL SDRAM Exported Macro
   * @{
@@ -120,7 +121,7 @@
   * @}
   */
 
-/** @defgroup STM32469I-EVAL_SDRAM_Exported_Functions STM32469I EVAL SDRAM Exported Functions
+/** @addtogroup STM32469I_EVAL_SDRAM_Exported_Functions
   * @{
   */
 uint8_t BSP_SDRAM_Init(void);
@@ -138,6 +139,14 @@ void    BSP_SDRAM_DMA_IRQHandler(void);
 void    BSP_SDRAM_MspInit(SDRAM_HandleTypeDef  *hsdram, void *Params);
 void    BSP_SDRAM_MspDeInit(SDRAM_HandleTypeDef  *hsdram, void *Params);
 
+/**
+  * @}
+  */
+  
+/**
+  * @}
+  */
+  
 /**
   * @}
   */

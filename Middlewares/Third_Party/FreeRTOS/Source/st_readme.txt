@@ -2,8 +2,8 @@
   @verbatim
   ******************************************************************************
   *
-  *           Portions COPYRIGHT 2015 STMicroelectronics
-  *           Portions Copyright (C) 2015 Real Time Engineers Ltd, All rights reserved
+  *           Portions Copyright © 2016 STMicroelectronics International N.V. All rights reserved.
+  *           Portions Copyright (C) 2016 Real Time Engineers Ltd, All rights reserved
   *
   * @file    st_readme.txt 
   * @author  MCD Application Team
@@ -13,20 +13,110 @@
   *          to UM1722 "Developing Applications on STM32Cube with FreeRTOS"  
   ******************************************************************************
   *
-  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-  * You may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at:
+  * Redistribution and use in source and binary forms, with or without 
+  * modification, are permitted, provided that the following conditions are met:
   *
-  *        http://www.st.com/software_license_agreement_liberty_v2
+  * 1. Redistribution of source code must retain the above copyright notice, 
+  *    this list of conditions and the following disclaimer.
+  * 2. Redistributions in binary form must reproduce the above copyright notice,
+  *    this list of conditions and the following disclaimer in the documentation
+  *    and/or other materials provided with the distribution.
+  * 3. Neither the name of STMicroelectronics nor the names of other 
+  *    contributors to this software may be used to endorse or promote products 
+  *    derived from this software without specific written permission.
+  * 4. This software, including modifications and/or derivative works of this 
+  *    software, must execute solely and exclusively on microcontroller or
+  *    microprocessor devices manufactured by or for STMicroelectronics.
+  * 5. Redistribution and use of this software other than as permitted under 
+  *    this license is void and will automatically terminate your rights under 
+  *    this license. 
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
+  * THIS SOFTWARE IS PROVIDED BY STMICROELECTRONICS AND CONTRIBUTORS "AS IS" 
+  * AND ANY EXPRESS, IMPLIED OR STATUTORY WARRANTIES, INCLUDING, BUT NOT 
+  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+  * PARTICULAR PURPOSE AND NON-INFRINGEMENT OF THIRD PARTY INTELLECTUAL PROPERTY
+  * RIGHTS ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED BY LAW. IN NO EVENT 
+  * SHALL STMICROELECTRONICS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, 
+  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
+  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
   @endverbatim
+
+### 03-March-2017 ###
+=========================
+  Update CMSIS-RTOS drivers to support both CMSIS Core V4.x and V5.x
+  
+  Bug fixes:
+  + CMSIS-RTOS: Wrong return value for osSignalWait()
+  + CMSIS-RTOS: Not all queue size is 0 initialized with osMailCAlloc() 
+  
+  Limitation:
+  + CMSIS-RTOS: osSignalWAit() function is not fully compliant with the specification
+
+
+### 30-September-2016 ###
+=========================
+  The purpose of this release is to Upgrade to use FreeRTOS V9.0.0, this version
+  is a drop-in compatible replacement for FreeRTOS V8.2.3.
+  For more details please refer to http://www.freertos.org/History.txt 
+
+  + Add support to tickless mode for MPU ports:
+    - GCC/ARM_CM3_MPU/port.c
+    - GCC/ARM_CM4_MPU/port.c
+    - RVDS/ARM_CM4_MPU/port.c
+
+  + Update CM0 ports, add possibility to use a timebase different than Systick:
+    - IAR/ARM_CM0/port.c
+    - RVDS/ARM_CM0/port.c
+    - GCC/ARM_CM0/port.c
+
+  + Fix compilation error in CM3_MPU and CM4_MPU ports:
+    - GCC/ARM_CM3_MPU/portmacro.h
+    - GCC/ARM_CM4_MPU/portmacro.h 
+    - RVDS/ARM_CM4_MPU/portmacro.h
+    - Add "Source\portable\Common\" directory
+  
+  + cmsis_os.c
+    - Add support of Statically Allocated Systems introduced with FreeRTOS V9.0.0
+    - Add new wrappers CMSIS-RTOS APIs
+
+         FreeRTOS APIs       |     CMSIS-RTOS APIs        |               Description
+   ==================================================================================================================
+    uxQueueMessagesWaiting() |  osMessageWaiting()        |  Return the number of messages stored in a queue
+   ------------------------------------------------------------------------------------------------------------------
+    xTaskAbortDelay()        |  osAbortDelay()            |  Force a thread to get out the blocked state immediately
+   ------------------------------------------------------------------------------------------------------------------
+    uxSemaphoreGetCount()    |  osSemaphoreGetCount()     |  Return the current count of a semaphore
+   ------------------------------------------------------------------------------------------------------------------
+    uxQueueSpacesAvailable() |  osMessageAvailableSpace() |  Return the available space in a message queue
+   ------------------------------------------------------------------------------------------------------------------
+    vQueueDelete()           |  osMessageDelete()         |  Delete a message Queue
+   ------------------------------------------------------------------------------------------------------------------
+
+
+### 22-January-2016 ###
+=======================
+  The purpose of this release is to Upgrade to use FreeRTOS V8.2.3.
+  It also provides fixes for minor issues.
+  
+  + cmsis_os.c
+    - Implementation of functions "osSignalSet" and "osSignalWait" are now delimited by 
+         #define configUSE_TASK_NOTIFICATIONS.
+    - Function "osTimerStart" : fix for an assert issue when called from an ISR.
+    - Function "osMailCreate"  : internal variables initialization.
+    - Function "osSignalWait" : signals value is now compared versus integer zero for error checking.
+
+  + freeRTOS sources
+    - FreeRTOS.h file : Add configuration sanity check in case of configUSE_RECURSIVE_MUTEXES  set 
+      and configUSE_MUTEXES  not set.
+
+  + STMicroelectronics license simplifications, see license disclaimer within this file's header
+
 
 ### 27-March-2015 ###
 =====================
@@ -55,13 +145,13 @@
     - Fix compilation issue with osMailQDef macro.
     - Enabling Mail queue management APIs (temporary removed in previous version)
 
-  + freeRTOS sources : 
+  + freeRTOS sources
     - ARM_CM3 port.c and ARM_CM4 port.c:
       function vPortSuppressTicksAndSleep : configPRE_SLEEP_PROCESSING and configPOST_SLEEP_PROCESSING are now taking
       as parameter as pointer to TickType_t.
       The purpose of this change is to align the CM3 and CM4 implementation with CM0 one.       
 
-  + Note :
+  + Note
     - osSignalSet returns an int32_t value which is a a status (osOK or osError) 
       instead of the previous signal value as specified in cmsis_os template by ARM. 
       This is mainly due to freeRTOS implementation, the return value will be aligned (with the cmsis os template by ARM) as soon as the freeRTOS next version will allow it.

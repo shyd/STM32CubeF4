@@ -2,11 +2,11 @@
   @page TIM_DMABurst TIM_DMABurst example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    TIM/TIM_DMABurst/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the TIM DMA Burst example.
   ******************************************************************************
   *
@@ -37,8 +37,8 @@
 
 @par Example Description 
 
-This example shows how to update the TIMER channel1 period and the duty cycle 
-using the TIMER DMA burst feature.
+This example shows how to update the TIM1 channel1 period and the duty cycle 
+using the TIM1 DMA burst feature.
 
 Every update DMA request, the DMA will do 3 transfers of half words into Timer 
 registers beginning from ARR register.
@@ -88,7 +88,7 @@ The PWM waveform can be displayed using an oscilloscope.
   - This example runs on STM32F469xx/STM32F479xx devices.
   - In this example, the clock is set to 180 MHz.
     
-  - This example has been tested and validated with STMicroelectronics STM32469I-EVAL revB 
+  - This example has been tested and validated with STMicroelectronics STM32469I-EVAL RevC 
     board and can be easily tailored to any other supported device 
     and development board.
 

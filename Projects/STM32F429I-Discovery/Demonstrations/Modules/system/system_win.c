@@ -2,29 +2,48 @@
   ******************************************************************************
   * @file    system_win.c
   * @author  MCD Application Team
-  * @version V1.4.2
-  * @date    13-November-2015   
+  * @version V1.4.7
+  * @date    17-February-2017 
   * @brief   System information functions
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright © 2017 STMicroelectronics International N.V. 
+  * All rights reserved.</center></h2>
   *
-  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-  * You may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at:
+  * Redistribution and use in source and binary forms, with or without 
+  * modification, are permitted, provided that the following conditions are met:
   *
-  *        http://www.st.com/software_license_agreement_liberty_v2
+  * 1. Redistribution of source code must retain the above copyright notice, 
+  *    this list of conditions and the following disclaimer.
+  * 2. Redistributions in binary form must reproduce the above copyright notice,
+  *    this list of conditions and the following disclaimer in the documentation
+  *    and/or other materials provided with the distribution.
+  * 3. Neither the name of STMicroelectronics nor the names of other 
+  *    contributors to this software may be used to endorse or promote products 
+  *    derived from this software without specific written permission.
+  * 4. This software, including modifications and/or derivative works of this 
+  *    software, must execute solely and exclusively on microcontroller or
+  *    microprocessor devices manufactured by or for STMicroelectronics.
+  * 5. Redistribution and use of this software other than as permitted under 
+  *    this license is void and will automatically terminate your rights under 
+  *    this license. 
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
+  * THIS SOFTWARE IS PROVIDED BY STMICROELECTRONICS AND CONTRIBUTORS "AS IS" 
+  * AND ANY EXPRESS, IMPLIED OR STATUTORY WARRANTIES, INCLUDING, BUT NOT 
+  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+  * PARTICULAR PURPOSE AND NON-INFRINGEMENT OF THIRD PARTY INTELLECTUAL PROPERTY
+  * RIGHTS ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED BY LAW. IN NO EVENT 
+  * SHALL STMICROELECTRONICS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, 
+  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
+  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
   */
-
 /* Includes ------------------------------------------------------------------*/
 #include "dialog.h"
 #include "k_module.h"
@@ -74,9 +93,8 @@ SystemSettingsTypeDef settings;
 #define ID_IMAGE_LOGO           (GUI_ID_USER + 0x0B)    
 
 #define ID_CHECKBOX_SPRITES           (GUI_ID_USER + 0x12)
-#define ID_CHECKBOX_BACKGROUND           (GUI_ID_USER + 0x13)
-#define ID_CHECKBOX_CPU180           (GUI_ID_USER + 0x14)
-#define ID_CHECKBOX_FLEXSKIN           (GUI_ID_USER + 0x16)
+#define ID_CHECKBOX_CPU180            (GUI_ID_USER + 0x14)
+#define ID_CHECKBOX_FLEXSKIN          (GUI_ID_USER + 0x16)
 
 #define ID_TEXT_WARNING0                  (GUI_ID_USER + 0x22)
 #define ID_TEXT_WARNING1                 (GUI_ID_USER + 0x23)
@@ -117,15 +135,14 @@ static const GUI_WIDGET_CREATE_INFO _aDialogSystemInformation[] = {
   { TEXT_CreateIndirect, "CPU Speed : up to 180MHz", ID_TEXT_CPU, 10, 75, 200, 20, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Firmware Version : 1.0", ID_TEXT_VERSION, 10, 95, 200, 20, 0, 0x0, 0 },
   { IMAGE_CreateIndirect, "Image", ID_IMAGE_LOGO, 90, 130, 40, 20, 0, 0, 0 },  
-  { TEXT_CreateIndirect, "Copyright (c) STMicroelectronics 2015", ID_TEXT_COPYRIGHT, 10, 160, 200, 20, 0, 0x0, 0 },  
+  { TEXT_CreateIndirect, "Copyright (c) STMicroelectronics 2017", ID_TEXT_COPYRIGHT, 10, 160, 200, 20, 0, 0x0, 0 },  
 };
 
 static const GUI_WIDGET_CREATE_INFO _aDialogGeneralSettings[] = {
   { WINDOW_CreateIndirect, "General Settings", 0, 0,   0, 220, 240, FRAMEWIN_CF_MOVEABLE },
   { CHECKBOX_CreateIndirect, "Checkbox", ID_CHECKBOX_SPRITES, 26, 30, 147, 20, 0, 0x0, 0 },
-  { CHECKBOX_CreateIndirect, "Checkbox", ID_CHECKBOX_BACKGROUND, 26, 60, 227, 20, 0, 0x0, 0 },
-  { CHECKBOX_CreateIndirect, "Checkbox", ID_CHECKBOX_CPU180, 26, 90, 215, 20, 0, 0x0, 0 },
-  { CHECKBOX_CreateIndirect, "Checkbox", ID_CHECKBOX_FLEXSKIN, 26, 120, 147, 20, 0, 0x0, 0 },
+  { CHECKBOX_CreateIndirect, "Checkbox", ID_CHECKBOX_CPU180, 26, 60, 215, 20, 0, 0x0, 0 },
+  { CHECKBOX_CreateIndirect, "Checkbox", ID_CHECKBOX_FLEXSKIN, 26, 90, 147, 20, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "[!! Restart the demonstration to apply", ID_TEXT_WARNING0, 6, 180, 210, 20, 0, 0x0, 0 }, 
   { TEXT_CreateIndirect, "    the new settings !!]", ID_TEXT_WARNING1, 6, 200, 210, 20, 0, 0x0, 0 },
 };
@@ -277,7 +294,7 @@ static void _cbSystemInformation(WM_MESSAGE * pMsg)
     hItem = WM_GetDialogItem(pMsg->hWin, ID_TEXT_VERSION);
     TEXT_SetFont(hItem, GUI_FONT_13_ASCII);
     TEXT_SetTextColor(hItem, GUI_DARKGRAY);
-    strcpy(str, "Demo rev: 1.4.0");
+    strcpy(str, "Demo rev: 1.4.7");
     TEXT_SetText(hItem, str);
 
     /* ST Copyright */
@@ -317,12 +334,7 @@ static void _cbGeneralSettings(WM_MESSAGE * pMsg) {
     hItem = WM_GetDialogItem(pMsg->hWin, ID_CHECKBOX_SPRITES);
     CHECKBOX_SetText(hItem, "Enable Sprites");
     CHECKBOX_SetState(hItem, settings.b.enable_sprite);
-    
-    /* Initialization of 'Checkbox' (Background field) */
-    hItem = WM_GetDialogItem(pMsg->hWin, ID_CHECKBOX_BACKGROUND);
-    CHECKBOX_SetText(hItem, "Enable background mode");
-    CHECKBOX_SetState(hItem, settings.b.enable_background);
-    WM_DisableWindow(hItem); 
+        
     /* Initialization of 'Checkbox' (CPU field) */
     hItem = WM_GetDialogItem(pMsg->hWin, ID_CHECKBOX_CPU180);
     CHECKBOX_SetText(hItem, "Run CPU at 180 MHz");
@@ -343,9 +355,6 @@ static void _cbGeneralSettings(WM_MESSAGE * pMsg) {
     /* Save Setting before delete settings frame */
     hItem = WM_GetDialogItem(pMsg->hWin, ID_CHECKBOX_SPRITES);
     settings.b.enable_sprite = CHECKBOX_IsChecked(hItem);
-    
-    hItem = WM_GetDialogItem(pMsg->hWin, ID_CHECKBOX_BACKGROUND);
-    settings.b.enable_background = CHECKBOX_IsChecked(hItem);
     
     hItem = WM_GetDialogItem(pMsg->hWin, ID_CHECKBOX_CPU180);
     settings.b.use_180Mhz = CHECKBOX_IsChecked(hItem);

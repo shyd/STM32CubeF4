@@ -2,49 +2,71 @@
   ******************************************************************************
   * @file    USB_Host/DualCore_Standalone/Src/dual_menu.c 
   * @author  MCD Application Team
-  * @version V1.4.2
-  * @date    13-November-2015
+  * @version V1.5.0
+  * @date    17-February-2017
   * @brief   Dual Core Process
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics International N.V. 
+  * All rights reserved.</center></h2>
   *
-  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-  * You may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at:
+  * Redistribution and use in source and binary forms, with or without 
+  * modification, are permitted, provided that the following conditions are met:
   *
-  *        http://www.st.com/software_license_agreement_liberty_v2
+  * 1. Redistribution of source code must retain the above copyright notice, 
+  *    this list of conditions and the following disclaimer.
+  * 2. Redistributions in binary form must reproduce the above copyright notice,
+  *    this list of conditions and the following disclaimer in the documentation
+  *    and/or other materials provided with the distribution.
+  * 3. Neither the name of STMicroelectronics nor the names of other 
+  *    contributors to this software may be used to endorse or promote products 
+  *    derived from this software without specific written permission.
+  * 4. This software, including modifications and/or derivative works of this 
+  *    software, must execute solely and exclusively on microcontroller or
+  *    microprocessor devices manufactured by or for STMicroelectronics.
+  * 5. Redistribution and use of this software other than as permitted under 
+  *    this license is void and will automatically terminate your rights under 
+  *    this license. 
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
+  * THIS SOFTWARE IS PROVIDED BY STMICROELECTRONICS AND CONTRIBUTORS "AS IS" 
+  * AND ANY EXPRESS, IMPLIED OR STATUTORY WARRANTIES, INCLUDING, BUT NOT 
+  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+  * PARTICULAR PURPOSE AND NON-INFRINGEMENT OF THIRD PARTY INTELLECTUAL PROPERTY
+  * RIGHTS ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED BY LAW. IN NO EVENT 
+  * SHALL STMICROELECTRONICS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, 
+  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
+  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
   */
-
-/* Includes ------------------------------------------------------------------*/
+/* Includes ------------------------------------------------------------------ */
 #include "main.h"
 
-/* Private typedef -----------------------------------------------------------*/
-uint8_t *DEMO_main_menu[] = 
-{
-  (uint8_t *)"      1 - Mass Storage demo                                                 ",
-  (uint8_t *)"      2 - Humain Interface demo                                             ",
-  (uint8_t *)"      3 - Re-Enumerate MSC                                                  ",  
-  (uint8_t *)"      4 - Re-Enumerate HID                                                  ", 
+/* Private typedef ----------------------------------------------------------- */
+uint8_t *DEMO_main_menu[] = {
+  (uint8_t *)
+    "      1 - Mass Storage demo                                                 ",
+  (uint8_t *)
+    "      2 - Humain Interface demo                                             ",
+  (uint8_t *)
+    "      3 - Re-Enumerate MSC                                                  ",
+  (uint8_t *)
+    "      4 - Re-Enumerate HID                                                  ",
 };
 
-/* Private define ------------------------------------------------------------*/
-/* Private macro -------------------------------------------------------------*/
-/* Private variables ---------------------------------------------------------*/
+/* Private define ------------------------------------------------------------ */
+/* Private macro ------------------------------------------------------------- */
+/* Private variables --------------------------------------------------------- */
 uint8_t prev_select = 0;
 DEMO_StateMachine demo;
 
-/* Private function prototypes -----------------------------------------------*/
-/* Private functions ---------------------------------------------------------*/
+/* Private function prototypes ----------------------------------------------- */
+/* Private functions --------------------------------------------------------- */
 
 /**
   * @brief  Menu Init
@@ -57,11 +79,15 @@ void DUAL_MenuInit(void)
   LCD_UsrLogY("USB Host Full speed initialized.\n");
   /* Start MSC Interface */
   LCD_UsrLogY("USB Host High speed initialized.\n");
-  
+
   BSP_LCD_SetTextColor(LCD_COLOR_GREEN);
-  BSP_LCD_DisplayStringAtLine(17, (uint8_t *)"Use [Joystick Left/Right] to scroll up/down");
-  BSP_LCD_DisplayStringAtLine(18, (uint8_t *)"Use [Joystick Up/Down] to scroll DUAL menu");
-  Demo_SelectItem(DEMO_main_menu, 0); 
+  BSP_LCD_DisplayStringAtLine(17,
+                              (uint8_t *)
+                              "Use [Joystick Left/Right] to scroll up/down");
+  BSP_LCD_DisplayStringAtLine(18,
+                              (uint8_t *)
+                              "Use [Joystick Up/Down] to scroll DUAL menu");
+  Demo_SelectItem(DEMO_main_menu, 0);
 }
 
 /**
@@ -71,121 +97,121 @@ void DUAL_MenuInit(void)
   */
 void DUAL_MenuProcess(void)
 {
-  switch(demo.state)
+  switch (demo.state)
   {
   case DEMO_IDLE:
-    Demo_SelectItem(DEMO_main_menu, 0); 
+    Demo_SelectItem(DEMO_main_menu, 0);
     LCD_UsrLog("Select an operation to continue.\n");
     demo.state = DEMO_WAIT;
     demo.select = 0;
-    break;    
+    break;
   case DEMO_WAIT:
-    
-    if(demo.select != prev_select)
+
+    if (demo.select != prev_select)
     {
       prev_select = demo.select;
       Demo_SelectItem(DEMO_main_menu, demo.select & 0x7F);
-      
+
       /* Handle select item */
-      if(demo.select & 0x80)
+      if (demo.select & 0x80)
       {
         demo.select &= 0x7F;
-        
-        switch(demo.select)
+
+        switch (demo.select)
         {
         case 0:
-          demo.state = DEMO_MSC_START;  
+          demo.state = DEMO_MSC_START;
           break;
-          
+
         case 1:
-          demo.state = DEMO_HID_START;  
+          demo.state = DEMO_HID_START;
           break;
-          
+
         case 2:
           demo.state = DEMO_MSC_REENUMERATE;
           break;
-          
+
         case 3:
           demo.state = DEMO_HID_REENUMERATE;
           break;
-          
+
         default:
           break;
         }
       }
     }
     break;
-    
+
   case DEMO_MSC_START:
-    if(Appli_HS_state == APPLICATION_HS_READY) 
+    if (Appli_HS_state == APPLICATION_HS_READY)
     {
-      /* If HS device connected*/
-      demo.state = DEMO_MSC; 
+      /* If HS device connected */
+      demo.state = DEMO_MSC;
       demo.msc_state = APPLI_MSC_IDLE;
     }
     else
     {
       LCD_ErrLog("No Mass storage device connected.\n");
-      demo.state = DEMO_WAIT; 
+      demo.state = DEMO_WAIT;
     }
     break;
-    
+
   case DEMO_HID_START:
-    if(Appli_FS_state == APPLICATION_FS_READY)
+    if (Appli_FS_state == APPLICATION_FS_READY)
     {
-      /*if FS device connected*/
-      demo.state = DEMO_HID; 
+      /* if FS device connected */
+      demo.state = DEMO_HID;
       demo.hid_state = APPLI_HID_IDLE;
     }
     else
     {
       LCD_ErrLog("No HID device connected.\n");
-      demo.state = DEMO_WAIT; 
+      demo.state = DEMO_WAIT;
     }
     break;
-    
-  case DEMO_MSC: 
+
+  case DEMO_MSC:
     MSC_MenuProcess();
     break;
-    
+
   case DEMO_HID:
     HID_MenuProcess();
     break;
-    
-  case DEMO_MSC_REENUMERATE: /* Re-Enumeration MSC */
-    LCD_DbgLog("Starting Enumeration MSC...."); 
+
+  case DEMO_MSC_REENUMERATE:   /* Re-Enumeration MSC */
+    LCD_DbgLog("Starting Enumeration MSC....");
     LCD_DbgLog("\n");
-    USBH_ReEnumerate(&hUSBHost_HS); 
+    USBH_ReEnumerate(&hUSBHost_HS);
     demo.state = DEMO_WAIT;
     break;
-    
-  case DEMO_HID_REENUMERATE: /* Re-Enumeration HID */
-    LCD_DbgLog("Starting Enumeration HID...."); 
+
+  case DEMO_HID_REENUMERATE:   /* Re-Enumeration HID */
+    LCD_DbgLog("Starting Enumeration HID....");
     LCD_DbgLog("\n");
     USBH_ReEnumerate(&hUSBHost_FS);
     demo.state = DEMO_WAIT;
     break;
-    
+
   default:
     break;
   }
-  
-  if(Appli_FS_state == APPLICATION_FS_DISCONNECT)
+
+  if (Appli_FS_state == APPLICATION_FS_DISCONNECT)
   {
-    Appli_FS_state = APPLICATION_IDLE; 
+    Appli_FS_state = APPLICATION_IDLE;
     LCD_LOG_ClearTextZone();
     LCD_ErrLog("device FS disconnected!\n");
     demo.state = DEMO_IDLE;
-    demo.select = 0; 
+    demo.select = 0;
   }
-  
-  if(Appli_HS_state == APPLICATION_HS_DISCONNECT)
+
+  if (Appli_HS_state == APPLICATION_HS_DISCONNECT)
   {
-    Appli_HS_state = APPLICATION_IDLE; 
+    Appli_HS_state = APPLICATION_IDLE;
     LCD_LOG_ClearTextZone();
     LCD_ErrLog("device HS disconnected!\n");
     demo.state = DEMO_IDLE;
-    demo.select = 0; 
+    demo.select = 0;
   }
 }
 
@@ -196,20 +222,23 @@ void DUAL_MenuProcess(void)
   */
 void Demo_ProbeKey(JOYState_TypeDef state)
 {
-  if((state == JOY_UP) && (demo.select > 0))
+  if ((state == JOY_UP) && (demo.select > 0))
   {
     demo.select--;
   }
-  else if(((demo.state == DEMO_WAIT) && (state == JOY_DOWN) && (demo.select < 3)) ||
-          ((demo.state == DEMO_MSC)  && (state == JOY_DOWN) && (demo.select < 2)) ||
-          ((demo.state == DEMO_HID)  && (state == JOY_DOWN) && (demo.select < 1)))           
+  else
+    if (((demo.state == DEMO_WAIT) && (state == JOY_DOWN) && (demo.select < 3))
+        || ((demo.state == DEMO_MSC) && (state == JOY_DOWN)
+            && (demo.select < 2)) || ((demo.state == DEMO_HID)
+                                      && (state == JOY_DOWN)
+                                      && (demo.select < 1)))
   {
     demo.select++;
   }
-  else if(state == JOY_SEL)
+  else if (state == JOY_SEL)
   {
     demo.select |= 0x80;
-  }  
+  }
 }
 
 /**
@@ -218,51 +247,51 @@ void Demo_ProbeKey(JOYState_TypeDef state)
   * @param  item: Selected item to be highlighted
   * @retval None
   */
-void Demo_SelectItem(uint8_t **menu, uint8_t item)
+void Demo_SelectItem(uint8_t ** menu, uint8_t item)
 {
   BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
-  
-  switch(item)
+
+  switch (item)
   {
-  case 0: 
+  case 0:
     BSP_LCD_SetBackColor(LCD_COLOR_MAGENTA);
     BSP_LCD_DisplayStringAtLine(19, menu[0]);
-    BSP_LCD_SetBackColor(LCD_COLOR_BLUE);    
+    BSP_LCD_SetBackColor(LCD_COLOR_BLUE);
     BSP_LCD_DisplayStringAtLine(20, menu[1]);
     BSP_LCD_DisplayStringAtLine(21, menu[2]);
     break;
-    
-  case 1: 
+
+  case 1:
     BSP_LCD_SetBackColor(LCD_COLOR_BLUE);
     BSP_LCD_DisplayStringAtLine(19, menu[0]);
-    BSP_LCD_SetBackColor(LCD_COLOR_MAGENTA);    
+    BSP_LCD_SetBackColor(LCD_COLOR_MAGENTA);
     BSP_LCD_DisplayStringAtLine(20, menu[1]);
-    BSP_LCD_SetBackColor(LCD_COLOR_BLUE);  
-    BSP_LCD_DisplayStringAtLine(21, menu[2]); 
+    BSP_LCD_SetBackColor(LCD_COLOR_BLUE);
+    BSP_LCD_DisplayStringAtLine(21, menu[2]);
     break;
-    
-  case 2: 
+
+  case 2:
     BSP_LCD_SetBackColor(LCD_COLOR_BLUE);
     BSP_LCD_DisplayStringAtLine(19, menu[0]);
-    BSP_LCD_SetBackColor(LCD_COLOR_BLUE);    
+    BSP_LCD_SetBackColor(LCD_COLOR_BLUE);
     BSP_LCD_DisplayStringAtLine(20, menu[1]);
-    BSP_LCD_SetBackColor(LCD_COLOR_MAGENTA);  
-    BSP_LCD_DisplayStringAtLine(21, menu[2]); 
+    BSP_LCD_SetBackColor(LCD_COLOR_MAGENTA);
+    BSP_LCD_DisplayStringAtLine(21, menu[2]);
     break;
-    
-  case 3: 
+
+  case 3:
     BSP_LCD_SetBackColor(LCD_COLOR_BLUE);
     BSP_LCD_DisplayStringAtLine(19, menu[1]);
-    BSP_LCD_SetBackColor(LCD_COLOR_BLUE);    
+    BSP_LCD_SetBackColor(LCD_COLOR_BLUE);
     BSP_LCD_DisplayStringAtLine(20, menu[2]);
-    BSP_LCD_SetBackColor(LCD_COLOR_MAGENTA);  
-    BSP_LCD_DisplayStringAtLine(21, menu[3]); 
+    BSP_LCD_SetBackColor(LCD_COLOR_MAGENTA);
+    BSP_LCD_DisplayStringAtLine(21, menu[3]);
     break;
-    
+
   default:
     break;
   }
-  BSP_LCD_SetBackColor(LCD_COLOR_BLACK); 
+  BSP_LCD_SetBackColor(LCD_COLOR_BLACK);
 }
 
 /**
@@ -271,30 +300,30 @@ void Demo_SelectItem(uint8_t **menu, uint8_t item)
   * @retval None
   */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
-{  
+{
   static JOYState_TypeDef JoyState = JOY_NONE;
-  
-  if(GPIO_Pin == GPIO_PIN_8)
-  {    
+
+  if (GPIO_Pin == GPIO_PIN_8)
+  {
     /* Get the Joystick State */
     JoyState = BSP_JOY_GetState();
-    
-    Demo_ProbeKey(JoyState); 
-    
-    switch(JoyState)
+
+    Demo_ProbeKey(JoyState);
+
+    switch (JoyState)
     {
     case JOY_LEFT:
       LCD_LOG_ScrollBack();
       break;
-      
+
     case JOY_RIGHT:
       LCD_LOG_ScrollForward();
-      break;          
-      
+      break;
+
     default:
-      break;           
+      break;
     }
-    
+
     /* Clear joystick interrupt pending bits */
     BSP_IO_ITClear();
   }

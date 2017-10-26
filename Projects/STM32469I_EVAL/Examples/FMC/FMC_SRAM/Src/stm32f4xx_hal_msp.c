@@ -2,13 +2,13 @@
   ******************************************************************************
   * @file    FMC/FMC_SRAM/Src/stm32f4xx_hal_msp.c
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   HAL MSP module.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -80,7 +80,7 @@ void HAL_SRAM_MspInit(SRAM_HandleTypeDef *hsram)
 
   /* Common GPIO configuration */
   GPIO_Init_Structure.Mode      = GPIO_MODE_AF_PP;
-  GPIO_Init_Structure.Pull      = GPIO_PULLUP;
+  GPIO_Init_Structure.Pull      = GPIO_NOPULL;
   GPIO_Init_Structure.Speed     = GPIO_SPEED_HIGH;
   GPIO_Init_Structure.Alternate = GPIO_AF12_FMC;
 
@@ -113,7 +113,7 @@ void HAL_SRAM_MspInit(SRAM_HandleTypeDef *hsram)
   HAL_GPIO_Init(GPIOD, &GPIO_Init_Structure);
 
   /* GPIOE configuration */  
-  GPIO_Init_Structure.Pin   = GPIO_PIN_3 | GPIO_PIN_4 | GPIO_PIN_5;
+  GPIO_Init_Structure.Pin   = GPIO_PIN_3 | GPIO_PIN_4;
   HAL_GPIO_Init(GPIOE, &GPIO_Init_Structure);
 
   /*## NOE and NWE configuration #######*/ 

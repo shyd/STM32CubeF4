@@ -12,7 +12,7 @@
       <name>General</name>
       <archiveVersion>3</archiveVersion>
       <data>
-        <version>22</version>
+        <version>24</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>1</debug>
         <option>
@@ -26,11 +26,6 @@
         <option>
           <name>ListPath</name>
           <state>STM324x9I_EVAL_MB1046\List</state>
-        </option>
-        <option>
-          <name>Variant</name>
-          <version>21</version>
-          <state>40</state>
         </option>
         <option>
           <name>GEndianMode</name>
@@ -59,11 +54,6 @@
           <state>0</state>
         </option>
         <option>
-          <name>FPU</name>
-          <version>4</version>
-          <state>6</state>
-        </option>
-        <option>
           <name>OGCoreOrChip</name>
           <state>1</state>
         </option>
@@ -87,7 +77,7 @@
         </option>
         <option>
           <name>OGLastSavedByProductVersion</name>
-          <state>7.40.1.8463</state>
+          <state>7.70.1.11471</state>
         </option>
         <option>
           <name>GeneralEnableMisra</name>
@@ -136,13 +126,8 @@
           <state>$TOOLKIT_DIR$\INC\c\DLib_Config_Full.h</state>
         </option>
         <option>
-          <name>GFPUCoreSlave</name>
-          <version>21</version>
-          <state>40</state>
-        </option>
-        <option>
           <name>GBECoreSlave</name>
-          <version>21</version>
+          <version>24</version>
           <state>40</state>
         </option>
         <option>
@@ -156,6 +141,34 @@
         <option>
           <name>GRuntimeLibThreads</name>
           <state>0</state>
+        </option>
+        <option>
+          <name>CoreVariant</name>
+          <version>24</version>
+          <state>39</state>
+        </option>
+        <option>
+          <name>GFPUDeviceSlave</name>
+          <state>STM32F429NI	ST STM32F429NI</state>
+        </option>
+        <option>
+          <name>FPU2</name>
+          <version>0</version>
+          <state>4</state>
+        </option>
+        <option>
+          <name>NrRegs</name>
+          <version>0</version>
+          <state>1</state>
+        </option>
+        <option>
+          <name>NEON</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GFPUCoreSlave2</name>
+          <version>24</version>
+          <state>39</state>
         </option>
       </data>
     </settings>
@@ -307,7 +320,7 @@
           <state>$PROJ_DIR$\..\Inc</state>
           <state>$PROJ_DIR$\..\Demo</state>
           <state>$PROJ_DIR$\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Include</state>
-          <state>$PROJ_DIR$\..\..\..\..\..\..\Drivers\CMSIS\Include</state>
+          
           <state>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F4xx_HAL_Driver\Inc</state>
           <state>$PROJ_DIR$\..\..\..\..\..\..\Drivers\BSP\STM324x9I_EVAL</state>
           <state>$PROJ_DIR$\..\..\..\..\..\..\Drivers\BSP\Components\Common</state>
@@ -597,7 +610,7 @@
         <debug>1</debug>
         <option>
           <name>OOCOutputFormat</name>
-          <version>2</version>
+          <version>3</version>
           <state>0</state>
         </option>
         <option>
@@ -644,7 +657,7 @@
       <name>ILINK</name>
       <archiveVersion>0</archiveVersion>
       <data>
-        <version>16</version>
+        <version>17</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>1</debug>
         <option>
@@ -928,6 +941,10 @@
           <name>IlinkThreadsSlave</name>
           <state>1</state>
         </option>
+        <option>
+          <name>IlinkLogCallGraph</name>
+          <state>0</state>
+        </option>
       </data>
     </settings>
     <settings>
@@ -967,7 +984,7 @@
       <name>General</name>
       <archiveVersion>3</archiveVersion>
       <data>
-        <version>22</version>
+        <version>24</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>1</debug>
         <option>
@@ -981,11 +998,6 @@
         <option>
           <name>ListPath</name>
           <state>STM324x9I_EVAL_MB1063\List</state>
-        </option>
-        <option>
-          <name>Variant</name>
-          <version>21</version>
-          <state>40</state>
         </option>
         <option>
           <name>GEndianMode</name>
@@ -1014,11 +1026,6 @@
           <state>0</state>
         </option>
         <option>
-          <name>FPU</name>
-          <version>4</version>
-          <state>6</state>
-        </option>
-        <option>
           <name>OGCoreOrChip</name>
           <state>1</state>
         </option>
@@ -1042,7 +1049,7 @@
         </option>
         <option>
           <name>OGLastSavedByProductVersion</name>
-          <state>6.70.1.5793</state>
+          <state>7.70.1.11471</state>
         </option>
         <option>
           <name>GeneralEnableMisra</name>
@@ -1091,13 +1098,8 @@
           <state>$TOOLKIT_DIR$\INC\c\DLib_Config_Full.h</state>
         </option>
         <option>
-          <name>GFPUCoreSlave</name>
-          <version>21</version>
-          <state>40</state>
-        </option>
-        <option>
           <name>GBECoreSlave</name>
-          <version>21</version>
+          <version>24</version>
           <state>40</state>
         </option>
         <option>
@@ -1111,6 +1113,34 @@
         <option>
           <name>GRuntimeLibThreads</name>
           <state>0</state>
+        </option>
+        <option>
+          <name>CoreVariant</name>
+          <version>24</version>
+          <state>39</state>
+        </option>
+        <option>
+          <name>GFPUDeviceSlave</name>
+          <state>STM32F429NI	ST STM32F429NI</state>
+        </option>
+        <option>
+          <name>FPU2</name>
+          <version>0</version>
+          <state>4</state>
+        </option>
+        <option>
+          <name>NrRegs</name>
+          <version>0</version>
+          <state>1</state>
+        </option>
+        <option>
+          <name>NEON</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GFPUCoreSlave2</name>
+          <version>24</version>
+          <state>39</state>
         </option>
       </data>
     </settings>
@@ -1262,7 +1292,7 @@
           <state>$PROJ_DIR$\..\Inc</state>
           <state>$PROJ_DIR$\..\Demo</state>
           <state>$PROJ_DIR$\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Include</state>
-          <state>$PROJ_DIR$\..\..\..\..\..\..\Drivers\CMSIS\Include</state>
+          
           <state>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F4xx_HAL_Driver\Inc</state>
           <state>$PROJ_DIR$\..\..\..\..\..\..\Drivers\BSP\STM324x9I_EVAL</state>
           <state>$PROJ_DIR$\..\..\..\..\..\..\Drivers\BSP\Components\Common</state>
@@ -1552,7 +1582,7 @@
         <debug>1</debug>
         <option>
           <name>OOCOutputFormat</name>
-          <version>2</version>
+          <version>3</version>
           <state>0</state>
         </option>
         <option>
@@ -1599,7 +1629,7 @@
       <name>ILINK</name>
       <archiveVersion>0</archiveVersion>
       <data>
-        <version>16</version>
+        <version>17</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>1</debug>
         <option>
@@ -1883,6 +1913,10 @@
           <name>IlinkThreadsSlave</name>
           <state>1</state>
         </option>
+        <option>
+          <name>IlinkLogCallGraph</name>
+          <state>0</state>
+        </option>
       </data>
     </settings>
     <settings>
@@ -1920,18 +1954,6 @@
         <name>$PROJ_DIR$\..\Demo\GUIDEMO.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\Demo\GUIDEMO.h</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\Demo\GUIDEMO_AntialiasedText.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\Demo\GUIDEMO_Automotive.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\Demo\GUIDEMO_BarGraph.c</name>
-      </file>
-      <file>
         <name>$PROJ_DIR$\..\Demo\GUIDEMO_Bitmap.c</name>
       </file>
       <file>
@@ -1944,16 +1966,10 @@
         <name>$PROJ_DIR$\..\Demo\GUIDEMO_Cursor.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\Demo\GUIDEMO_Fading.c</name>
-      </file>
-      <file>
         <name>$PROJ_DIR$\..\Demo\GUIDEMO_Graph.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\Demo\GUIDEMO_IconView.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\Demo\GUIDEMO_ImageFlow.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\Demo\GUIDEMO_Intro.c</name>
@@ -1968,31 +1984,16 @@
         <name>$PROJ_DIR$\..\Demo\GUIDEMO_Resource.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\Demo\GUIDEMO_Skinning.c</name>
-      </file>
-      <file>
         <name>$PROJ_DIR$\..\Demo\GUIDEMO_Speed.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\Demo\GUIDEMO_Speedometer.c</name>
-      </file>
-      <file>
         <name>$PROJ_DIR$\..\Demo\GUIDEMO_Start.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\Demo\GUIDEMO_TransparentDialog.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\Demo\GUIDEMO_Treeview.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\Demo\GUIDEMO_VScreen.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\Demo\GUIDEMO_WashingMachine.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\Demo\GUIDEMO_ZoomAndRotate.c</name>
       </file>
     </group>
     <group>
@@ -2033,6 +2034,9 @@
           <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\BSP\Components\exc7200\exc7200.c</name>
         </file>
         <file>
+          <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\BSP\Components\stmpe1600\stmpe1600.c</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\BSP\Components\stmpe811\stmpe811.c</name>
         </file>
         <file>
@@ -2043,6 +2047,9 @@
         <name>STM324x9I_EVAL</name>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\BSP\STM324x9I_EVAL\stm324x9i_eval.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\BSP\STM324x9I_EVAL\stm324x9i_eval_io.c</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\BSP\STM324x9I_EVAL\stm324x9i_eval_sdram.c</name>
@@ -2157,291 +2164,9 @@
         </file>
       </group>
       <group>
-        <name>inc</name>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\BUTTON.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\BUTTON_Private.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\CALENDAR.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\CHECKBOX.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\CHECKBOX_Private.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\CHOOSECOLOR.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\CHOOSEFILE.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\DIALOG.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\DIALOG_Intern.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\DROPDOWN.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\DROPDOWN_Private.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\EDIT.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\EDIT_Private.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\FRAMEWIN.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\FRAMEWIN_Private.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\Global.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\GRAPH.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\GRAPH_Private.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\GUI.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\GUI_ARRAY.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\GUI_ARRAY_Private.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\GUI_BMP_Private.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\GUI_ConfDefaults.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\GUI_Debug.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\GUI_FontIntern.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\GUI_GIF_Private.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\GUI_HOOK.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\GUI_JPEG_Private.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\GUI_Private.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\GUI_SetOrientation.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\GUI_SetOrientationCX.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\GUI_SPRITE_Private.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\GUI_Type.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\GUI_Version.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\GUI_VNC.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\GUIDRV_DCache.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\GUIDRV_DCache_Private.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\GUIDRV_Dist.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\GUIDRV_FlexColor.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\GUIDRV_FlexColor_Private.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\GUIDRV_Generic.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\GUIDRV_Lin.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\GUIDRV_Lin_Opt_16.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\GUIDRV_Lin_Opt_24.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\GUIDRV_Lin_Opt_32.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\GUIDRV_Lin_Opt_8.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\GUIDRV_Lin_Private.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\GUIDRV_NoOpt_1_8.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\GUIDRV_Template.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\GUIDRV_TemplateI.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\GUIDRV_TemplateI_Private.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\HEADER.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\HEADER_Private.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\ICONVIEW.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\ICONVIEW_Private.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\IMAGE.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\IMAGE_Private.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\LCD.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\LCD_ConfDefaults.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\LCD_Private.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\LCD_Protected.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\LCD_SIM.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\LISTBOX.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\LISTBOX_Private.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\LISTVIEW.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\LISTVIEW_Private.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\LISTWHEEL.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\LISTWHEEL_Private.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\MENU.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\MENU_Private.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\MESSAGEBOX.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\MULTIEDIT.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\MULTIPAGE.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\MULTIPAGE_Private.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\PROGBAR.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\PROGBAR_Private.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\RADIO.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\RADIO_Private.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\SCROLLBAR.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\SCROLLBAR_Private.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\SLIDER.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\SLIDER_Private.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\SPINBOX.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\SPINBOX_Private.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\TEXT.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\TEXT_Private.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\TREEVIEW.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\TREEVIEW_Private.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\WIDGET.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\WINDOW_Private.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\WM.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\WM_GUI.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc\WM_Intern.h</name>
-        </file>
-      </group>
-      <group>
         <name>Lib</name>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\Lib\STemWin528_CM4_IAR.a</name>
+          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\Lib\STemWin532_CM4_IAR.a</name>
         </file>
       </group>
     </group>

@@ -2,13 +2,13 @@
   ******************************************************************************
   * @file    stm32469i_eval_audio.c
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    29-September-2015
+  * @version V2.0.0
+  * @date    27-January-2017
   * @brief   This file provides the Audio driver for the STM32469I-EVAL evaluation board.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -102,24 +102,24 @@ Known Limitations:
   * @{
   */
 
-/** @addtogroup STM32469I-EVAL
+/** @addtogroup STM32469I_EVAL
   * @{
   */
 
-/** @defgroup STM32469I-EVAL_AUDIO STM32469I-EVAL AUDIO
+/** @defgroup STM32469I-EVAL_AUDIO STM32469I EVAL AUDIO
   * @brief This file includes the low layer driver for wm8994 Audio Codec
   *        available on STM32469I-EVAL evaluation board(MB1165).
   * @{
   */
 
-/** @defgroup STM32469I-EVAL_AUDIO_Private_Types STM32469I Eval Audio Private Types
+/** @defgroup STM32469I-EVAL_AUDIO_Private_Types STM32469I EVAL AUDIO Private Types
   * @{
   */
 /**
   * @}
   */
 
-/** @defgroup STM32469I-EVAL_AUDIO_Private_Defines STM32469I Eval Audio Private Defines
+/** @defgroup STM32469I-EVAL_AUDIO_Private_Defines STM32469I EVAL AUDIO Private Defines
  *  @brief Headphone1 (CN27 of STM32469I-EVAL board) is connected to the
  *         HEADPHONE output of wm8994 Audio Codec.
  *         Headphone2 (CN26 of STM32469I-EVAL board) is connected to the
@@ -132,14 +132,14 @@ Known Limitations:
   * @}
   */
 
-/** @defgroup STM32469I-EVAL_AUDIO_Private_Macros STM32469I Eval Audio Private macros 
+/** @defgroup STM32469I-EVAL_AUDIO_Private_Macros STM32469I EVAL AUDIO Private Macros 
   * @{
   */
 /**
   * @}
   */
 
-/** @defgroup STM32469I-EVAL_AUDIO_Private_Variables STM32469I Eval Audio Private Variables
+/** @defgroup STM32469I-EVAL_AUDIO_Private_Variables STM32469I EVAL AUDIO Private Variables
   * @{
   */
   
@@ -182,7 +182,7 @@ uint16_t __IO AudioInVolume = DEFAULT_AUDIO_IN_VOLUME;
   * @}
   */
 
-/** @defgroup STM32469I-EVAL_AUDIO_Private_Function_Prototypes STM32469I Eval Audio Private Prototypes
+/** @defgroup STM32469I-EVAL_AUDIO_Private_Function_Prototypes STM32469I EVAL AUDIO Private Function Prototypes
   * @{
   */
 static void SAIx_Init(uint32_t AudioFreq);
@@ -198,7 +198,7 @@ static void PDMDecoder_Init(uint32_t AudioFreq, uint32_t ChnlNbr);
   * @}
   */
 
-/** @defgroup STM32469I-EVAL_AUDIO_out_Private_Functions STM32469I Eval AudioOut Private Functions
+/** @defgroup STM32469I-EVAL_AUDIO_out_Private_Functions STM32469I EVAL AUDIO out Private Functions
   * @{
   */
 
@@ -708,7 +708,7 @@ static void SAIx_Init(uint32_t AudioFreq)
   haudio_out_sai.Init.Protocol = SAI_FREE_PROTOCOL;
   haudio_out_sai.Init.DataSize = SAI_DATASIZE_16;
   haudio_out_sai.Init.FirstBit = SAI_FIRSTBIT_MSB;
-  haudio_out_sai.Init.ClockStrobing = SAI_CLOCKSTROBING_RISINGEDGE;
+  haudio_out_sai.Init.ClockStrobing = SAI_CLOCKSTROBING_FALLINGEDGE;
   haudio_out_sai.Init.Synchro = SAI_ASYNCHRONOUS;
   haudio_out_sai.Init.OutputDrive = SAI_OUTPUTDRIVE_ENABLE;
   haudio_out_sai.Init.FIFOThreshold = SAI_FIFOTHRESHOLD_1QF;
@@ -759,7 +759,7 @@ static void SAIx_DeInit(void)
   * @}
   */
 
-/** @defgroup STM32469I-EVAL_AUDIO_in_Exported_Functions STM32469I Eval AudioIn Exported functions
+/** @defgroup STM32469I-EVAL_AUDIO_in_Exported_Functions STM32469I EVAL AUDIO IN Exported functions
   * @{
   */
 
@@ -822,7 +822,6 @@ uint8_t BSP_AUDIO_IN_Record(uint16_t* pbuf, uint32_t size)
 
 /**
   * @brief  Stops audio recording.
-  * @param  None
   * @retval AUDIO_OK if correct communication, else wrong communication
   */
 uint8_t BSP_AUDIO_IN_Stop(void)
@@ -843,7 +842,6 @@ uint8_t BSP_AUDIO_IN_Stop(void)
 
 /**
   * @brief  Pauses the audio file stream.
-  * @param  None
   * @retval AUDIO_OK if correct communication, else wrong communication
   */
 uint8_t BSP_AUDIO_IN_Pause(void)
@@ -856,8 +854,7 @@ uint8_t BSP_AUDIO_IN_Pause(void)
 }
 
 /**
-  * @brief  Resumes the audio file stream.
-  * @param  None    
+  * @brief  Resumes the audio file stream.  
   * @retval AUDIO_OK if correct communication, else wrong communication
   */
 uint8_t BSP_AUDIO_IN_Resume(void)
@@ -886,8 +883,6 @@ uint8_t BSP_AUDIO_IN_SetVolume(uint8_t Volume)
 
 /**
   * @brief  Deinit the audio IN peripherals.
-  * @param  None
-  * @retval None
   */
 void BSP_AUDIO_IN_DeInit(void)
 {
@@ -931,7 +926,6 @@ uint8_t BSP_AUDIO_IN_PDMToPCM(uint16_t* PDMBuf, uint16_t* PCMBuf)
  /**
   * @brief  Rx Transfer completed callbacks.
   * @param  hi2s: I2S handle
-  * @retval None
   */
 void HAL_I2S_RxCpltCallback(I2S_HandleTypeDef *hi2s)
 {
@@ -942,7 +936,6 @@ void HAL_I2S_RxCpltCallback(I2S_HandleTypeDef *hi2s)
 /**
   * @brief  Rx Half Transfer completed callbacks.
   * @param  hi2s: I2S handle
-  * @retval None
   */
 void HAL_I2S_RxHalfCpltCallback(I2S_HandleTypeDef *hi2s)
 {
@@ -954,7 +947,6 @@ void HAL_I2S_RxHalfCpltCallback(I2S_HandleTypeDef *hi2s)
 /**
   * @brief  I2S error callbacks.
   * @param  hi2s: I2S handle
-  * @retval None
   */
 void HAL_I2S_ErrorCallback(I2S_HandleTypeDef *hi2s)
 {
@@ -965,8 +957,6 @@ void HAL_I2S_ErrorCallback(I2S_HandleTypeDef *hi2s)
 
 /**
   * @brief  User callback when record buffer is filled.
-  * @param  None  
-  * @retval None
   */
 __weak void BSP_AUDIO_IN_TransferComplete_CallBack(void)
 {
@@ -977,8 +967,6 @@ __weak void BSP_AUDIO_IN_TransferComplete_CallBack(void)
 
 /**
   * @brief  Manages the DMA Half Transfer complete event.
-  * @param  None
-  * @retval None
   */
 __weak void BSP_AUDIO_IN_HalfTransfer_CallBack(void)
 {
@@ -989,8 +977,6 @@ __weak void BSP_AUDIO_IN_HalfTransfer_CallBack(void)
 
 /**
   * @brief  Audio IN Error callback function.
-  * @param  None
-  * @retval None
   */
 __weak void BSP_AUDIO_IN_Error_Callback(void)
 {
@@ -1108,7 +1094,6 @@ __weak void BSP_AUDIO_IN_MspDeInit(I2S_HandleTypeDef *hi2s, void *Params)
   * @brief  Initializes the PDM library.
   * @param  AudioFreq: Audio sampling frequency
   * @param  ChnlNbr: Number of audio channels (1: mono; 2: stereo)
-  * @retval None
   */
 static void PDMDecoder_Init(uint32_t AudioFreq, uint32_t ChnlNbr)
 {
@@ -1134,7 +1119,6 @@ static void PDMDecoder_Init(uint32_t AudioFreq, uint32_t ChnlNbr)
   * @note   This function assumes that the I2S input clock (through dedicated PLLI2S_R)
   *         is already configured and ready to be used.
   * @param  AudioFreq: Audio frequency to be configured for the I2S peripheral.
-  * @retval None
   */
 static void I2Sx_Init(uint32_t AudioFreq)
 {
@@ -1163,8 +1147,6 @@ static void I2Sx_Init(uint32_t AudioFreq)
 
 /**
   * @brief  Deinitializes the Audio Codec audio interface (I2S).
-  * @param  None
-  * @retval None
   */
 static void I2Sx_DeInit(void)
 {
@@ -1182,7 +1164,6 @@ static void I2Sx_DeInit(void)
 /**
   * @brief  Initializes the TIM INput Capture MSP.
   * @param  htim: TIM handle
-  * @retval None
   */
 static void TIMx_IC_MspInit(TIM_HandleTypeDef *htim)
 {
@@ -1215,7 +1196,6 @@ static void TIMx_IC_MspInit(TIM_HandleTypeDef *htim)
 /**
   * @brief  Initializes the TIM INput Capture MSP.
   * @param  htim: TIM handle
-  * @retval None
   */
 static void TIMx_IC_MspDeInit(TIM_HandleTypeDef *htim)
 {
@@ -1229,8 +1209,6 @@ static void TIMx_IC_MspDeInit(TIM_HandleTypeDef *htim)
 /**
   * @brief  Configure TIM as a clock divider by 2.
   *         I2S_SCK is externally connected to TIMx input channel
-  * @param  None
-  * @retval None
   */
 static void TIMx_Init(void)
 {
@@ -1303,8 +1281,6 @@ static void TIMx_Init(void)
 /**
   * @brief  Configure TIM as a clock divider by 2.
   *         I2S_SCK is externally connected to TIMx input channel
-  * @param  None
-  * @retval None
   */
 static void TIMx_DeInit(void)
 {

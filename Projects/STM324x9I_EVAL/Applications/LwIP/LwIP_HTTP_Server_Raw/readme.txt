@@ -1,26 +1,49 @@
 /**
-  @page LwIP_HTTP_Server_Socket_RTOS LwIP HTTP Server Raw Application
+  @page LwIP_HTTP_Server_Raw LwIP HTTP Server Raw Application
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
-  * @file    LwIP/LwIP_HTTP_Server_Socket_RTOS/readme.txt 
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
+  * @file    LwIP/LwIP_HTTP_Server_Raw/readme.txt 
   * @author  MCD Application Team
-  * @version V1.4.2
-  * @date    13-November-2015
+  * @version V1.5.0
+  * @date    17-February-2017
   * @brief   Description of the LwIP http server Raw API.
   ******************************************************************************
+  * @attention
   *
-  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-  * You may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at:
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics International N.V. 
+  * All rights reserved.</center></h2>
   *
-  *        http://www.st.com/software_license_agreement_liberty_v2
+  * Redistribution and use in source and binary forms, with or without 
+  * modification, are permitted, provided that the following conditions are met:
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
+  * 1. Redistribution of source code must retain the above copyright notice, 
+  *    this list of conditions and the following disclaimer.
+  * 2. Redistributions in binary form must reproduce the above copyright notice,
+  *    this list of conditions and the following disclaimer in the documentation
+  *    and/or other materials provided with the distribution.
+  * 3. Neither the name of STMicroelectronics nor the names of other 
+  *    contributors to this software may be used to endorse or promote products 
+  *    derived from this software without specific written permission.
+  * 4. This software, including modifications and/or derivative works of this 
+  *    software, must execute solely and exclusively on microcontroller or
+  *    microprocessor devices manufactured by or for STMicroelectronics.
+  * 5. Redistribution and use of this software other than as permitted under 
+  *    this license is void and will automatically terminate your rights under 
+  *    this license. 
+  *
+  * THIS SOFTWARE IS PROVIDED BY STMICROELECTRONICS AND CONTRIBUTORS "AS IS" 
+  * AND ANY EXPRESS, IMPLIED OR STATUTORY WARRANTIES, INCLUDING, BUT NOT 
+  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+  * PARTICULAR PURPOSE AND NON-INFRINGEMENT OF THIRD PARTY INTELLECTUAL PROPERTY
+  * RIGHTS ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED BY LAW. IN NO EVENT 
+  * SHALL STMICROELECTRONICS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, 
+  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
+  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
   @endverbatim
@@ -48,10 +71,10 @@ will be ensured by LEDs:
 If a DHCP server is available, a dynamic IP address can be allocated by enabling 
 the DHCP process (#define USE_DHCP in main.h)
 
-Note: In this application the Ethernet Link ISR need the System tick interrupt 
-to configure the Ethernet MAC, so the Ethernet Link interrupt priority must be 
-set lower (numerically greater) than the Systick interrupt priority to ensure 
-that the System tick increments while executing the Ethernet Link ISR.
+Note: In this application the Ethernet Link ISR need the HAL time base to configure 
+the Ethernet MAC, so the Ethernet Link interrupt priority must be set lower (numerically greater) 
+than the HAL tick interrupt priority to ensure that the System tick increments while executing 
+the Ethernet Link ISR.
 
 Note: By default, the Ethernet Half duplex mode is not supported in the 
 STM324x9I-EVAL board, for more information refer to the HAL_ETH_MspInit() 
@@ -78,19 +101,13 @@ For more details about this application, refer to UM1713 "STM32Cube interfacing 
   - LwIP/LwIP_HTTP_Server_Raw/Inc/stm32f4xx_it.h          STM32 interrupt handlers header file
   - LwIP/LwIP_HTTP_Server_Raw/Inc/main.h                  Main program header file
   - LwIP/LwIP_HTTP_Server_Raw/Inc/lwipopts.h              LwIP stack configuration options
-  - LwIP/LwIP_HTTP_Server_Raw/Inc/httpd_structs.h         HTTP headers
-  - LwIP/LwIP_HTTP_Server_Raw/Inc/httpd.h                 header for httpd.c
-  - LwIP/LwIP_HTTP_Server_Raw/Inc/fs.h                    header for fs.c
-  - LwIP/LwIP_HTTP_Server_Raw/Inc/fsdata.h                header for fsdata.c
   - LwIP/LwIP_HTTP_Server_Raw/Src/app_ethernet.c          Ethernet specific module
   - LwIP/LwIP_HTTP_Server_Raw/Src/stm32f4xx_it.c          STM32 interrupt handlers
   - LwIP/LwIP_HTTP_Server_Raw/Src/main.c                  Main program
   - LwIP/LwIP_HTTP_Server_Raw/Src/system_stm32f4xx.c      STM32F4xx system clock configuration file
   - LwIP/LwIP_HTTP_Server_Raw/Src/ethernetif.c            Interfacing LwIP to ETH driver
-  - LwIP/LwIP_HTTP_Server_Raw/Src/httpd.c                 httpd server supports
   - LwIP/LwIP_HTTP_Server_Raw/Src/httpd_cgi_ssi.c         Webserver SSI and CGI handlers
-  - LwIP/LwIP_HTTP_Server_Raw/Src/fs.c                    file system functions
-  - LwIP/LwIP_HTTP_Server_Raw/Src/fsdata.c                ROM filesystem data (html pages)
+  - LwIP/LwIP_HTTP_Server_Raw/Src/fsdata_custom.c         ROM filesystem data (html pages)
   
                      
 @par Hardware and Software environment

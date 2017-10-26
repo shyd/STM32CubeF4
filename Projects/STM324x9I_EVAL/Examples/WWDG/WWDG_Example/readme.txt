@@ -2,11 +2,11 @@
   @page WWDG_Example Window Watchdog example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    WWDG/WWDG_Example/readme.txt 
   * @author  MCD Application Team
-  * @version V1.3.2
-  * @date    13-November-2015
+  * @version V1.4.0
+  * @date    17-February-2017
   * @brief   Description of the Window Watchdog example.
   ******************************************************************************
   *
@@ -51,9 +51,10 @@ This later is calling the HAL_WWDG_MspInit()function which core is implementing
 the configuration of the needed WWDG resources according to the used hardware (CLOCK, 
 GPIO, DMA and NVIC). You may update this function to change WWDG configuration.
 
-The WWDG timeout is set to 41.94 ms and the refresh window is set to 80. 
-The WWDG counter is refreshed each 40ms in the main program infinite loop to 
-prevent a WWDG reset.
+The WWDG timeout is set, through counter value, to 46 ms. 
+The refresh window is set in order to make user wait 35 ms after a wadchdog refresh, 
+before writing again counter. Hence the WWDG counter is refreshed each (35 + 1) ms in the 
+main program infinite loop to prevent a WWDG reset. 
 LED2 is also toggled each 40 ms indicating that the program is running.
 
 An EXTI Line is connected to a GPIO pin, and configured to generate an interrupt

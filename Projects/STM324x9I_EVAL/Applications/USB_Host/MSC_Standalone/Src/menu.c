@@ -2,50 +2,71 @@
   ******************************************************************************
   * @file    USB_Host/MSC_Standalone/Src/menu.c 
   * @author  MCD Application Team
-  * @version V1.4.2
-  * @date    13-November-2015
+  * @version V1.5.0
+  * @date    17-February-2017
   * @brief   This file implements Menu Functions
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics International N.V. 
+  * All rights reserved.</center></h2>
   *
-  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-  * You may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at:
+  * Redistribution and use in source and binary forms, with or without 
+  * modification, are permitted, provided that the following conditions are met:
   *
-  *        http://www.st.com/software_license_agreement_liberty_v2
+  * 1. Redistribution of source code must retain the above copyright notice, 
+  *    this list of conditions and the following disclaimer.
+  * 2. Redistributions in binary form must reproduce the above copyright notice,
+  *    this list of conditions and the following disclaimer in the documentation
+  *    and/or other materials provided with the distribution.
+  * 3. Neither the name of STMicroelectronics nor the names of other 
+  *    contributors to this software may be used to endorse or promote products 
+  *    derived from this software without specific written permission.
+  * 4. This software, including modifications and/or derivative works of this 
+  *    software, must execute solely and exclusively on microcontroller or
+  *    microprocessor devices manufactured by or for STMicroelectronics.
+  * 5. Redistribution and use of this software other than as permitted under 
+  *    this license is void and will automatically terminate your rights under 
+  *    this license. 
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
+  * THIS SOFTWARE IS PROVIDED BY STMICROELECTRONICS AND CONTRIBUTORS "AS IS" 
+  * AND ANY EXPRESS, IMPLIED OR STATUTORY WARRANTIES, INCLUDING, BUT NOT 
+  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+  * PARTICULAR PURPOSE AND NON-INFRINGEMENT OF THIRD PARTY INTELLECTUAL PROPERTY
+  * RIGHTS ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED BY LAW. IN NO EVENT 
+  * SHALL STMICROELECTRONICS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, 
+  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
+  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
   */
-
-/* Includes ------------------------------------------------------------------*/
+/* Includes ------------------------------------------------------------------ */
 #include "main.h"
 
-/* Private typedef -----------------------------------------------------------*/
-/* Private define ------------------------------------------------------------*/
-/* Private macro -------------------------------------------------------------*/
-/* Private variables ---------------------------------------------------------*/
+/* Private typedef ----------------------------------------------------------- */
+/* Private define ------------------------------------------------------------ */
+/* Private macro ------------------------------------------------------------- */
+/* Private variables --------------------------------------------------------- */
 MSC_DEMO_StateMachine msc_demo;
 uint8_t prev_select = 0;
-uint8_t *MSC_main_menu[] = 
-{
-  (uint8_t *)"      1 - File Operations                                                   ",
-  (uint8_t *)"      2 - Explorer Disk                                                     ",
-  (uint8_t *)"      3 - Re-Enumerate                                                      ",
+uint8_t *MSC_main_menu[] = {
+  (uint8_t *)
+    "      1 - File Operations                                                   ",
+  (uint8_t *)
+    "      2 - Explorer Disk                                                     ",
+  (uint8_t *)
+    "      3 - Re-Enumerate                                                      ",
 };
 
-/* Private function prototypes -----------------------------------------------*/
-static void MSC_SelectItem(uint8_t **menu, uint8_t item);
+/* Private function prototypes ----------------------------------------------- */
+static void MSC_SelectItem(uint8_t ** menu, uint8_t item);
 static void MSC_DEMO_ProbeKey(JOYState_TypeDef state);
 
-/* Private functions ---------------------------------------------------------*/
+/* Private functions --------------------------------------------------------- */
 
 /**
   * @brief  Demo state machine.
@@ -55,10 +76,14 @@ static void MSC_DEMO_ProbeKey(JOYState_TypeDef state);
 void Menu_Init(void)
 {
   BSP_LCD_SetTextColor(LCD_COLOR_GREEN);
-  BSP_LCD_DisplayStringAtLine(17, (uint8_t *)"Use [Joystick Left/Right] to scroll up/down");
-  BSP_LCD_DisplayStringAtLine(18, (uint8_t *)"Use [Joystick Up/Down] to scroll MSC menu");
+  BSP_LCD_DisplayStringAtLine(17,
+                              (uint8_t *)
+                              "Use [Joystick Left/Right] to scroll up/down");
+  BSP_LCD_DisplayStringAtLine(18,
+                              (uint8_t *)
+                              "Use [Joystick Up/Down] to scroll MSC menu");
   msc_demo.state = MSC_DEMO_IDLE;
-  MSC_SelectItem(MSC_main_menu, 0); 
+  MSC_SelectItem(MSC_main_menu, 0);
 }
 
 /**
@@ -68,73 +93,73 @@ void Menu_Init(void)
   */
 void MSC_MenuProcess(void)
 {
-  switch(msc_demo.state)
+  switch (msc_demo.state)
   {
   case MSC_DEMO_IDLE:
-    MSC_SelectItem(MSC_main_menu, 0); 
+    MSC_SelectItem(MSC_main_menu, 0);
     msc_demo.state = MSC_DEMO_WAIT;
     msc_demo.select = 0;
-    break;    
-    
+    break;
+
   case MSC_DEMO_WAIT:
-    if(msc_demo.select != prev_select)
+    if (msc_demo.select != prev_select)
     {
       prev_select = msc_demo.select;
       MSC_SelectItem(MSC_main_menu, msc_demo.select & 0x7F);
-      
+
       /* Handle select item */
-      if(msc_demo.select & 0x80)
+      if (msc_demo.select & 0x80)
       {
-        switch(msc_demo.select & 0x7F)
+        switch (msc_demo.select & 0x7F)
         {
         case 0:
-          msc_demo.state = MSC_DEMO_FILE_OPERATIONS;  
+          msc_demo.state = MSC_DEMO_FILE_OPERATIONS;
           break;
-          
+
         case 1:
-          msc_demo.state = MSC_DEMO_EXPLORER;  
+          msc_demo.state = MSC_DEMO_EXPLORER;
           break;
-          
+
         case 2:
-          msc_demo.state = MSC_REENUMERATE;  
+          msc_demo.state = MSC_REENUMERATE;
           break;
-          
+
         default:
           break;
         }
       }
     }
     break;
-    
+
   case MSC_DEMO_FILE_OPERATIONS:
     /* Read and Write File Here */
-    if(Appli_state == APPLICATION_READY)
+    if (Appli_state == APPLICATION_READY)
     {
       MSC_File_Operations();
     }
     msc_demo.state = MSC_DEMO_WAIT;
-    break; 
-    
+    break;
+
   case MSC_DEMO_EXPLORER:
     /* Display disk content */
-    if(Appli_state == APPLICATION_READY)
-    {        
+    if (Appli_state == APPLICATION_READY)
+    {
       Explore_Disk("0:/", 1);
     }
     msc_demo.state = MSC_DEMO_WAIT;
-    break; 
-    
+    break;
+
   case MSC_REENUMERATE:
     /* Force MSC Device to re-enumerate */
-    USBH_ReEnumerate(&hUSBHost); 
+    USBH_ReEnumerate(&hUSBHost);
     msc_demo.state = MSC_DEMO_WAIT;
     break;
-    
+
   default:
     break;
   }
   msc_demo.select &= 0x7F;
-} 
+}
 
 /**
   * @brief  Manages the menu on the screen.
@@ -142,39 +167,39 @@ void MSC_MenuProcess(void)
   * @param  item: Selected item to be highlighted
   * @retval None
   */
-static void MSC_SelectItem(uint8_t **menu, uint8_t item)
+static void MSC_SelectItem(uint8_t ** menu, uint8_t item)
 {
   BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
-  
-  switch(item)
+
+  switch (item)
   {
-  case 0: 
+  case 0:
     BSP_LCD_SetBackColor(LCD_COLOR_MAGENTA);
     BSP_LCD_DisplayStringAtLine(19, menu[0]);
-    BSP_LCD_SetBackColor(LCD_COLOR_BLUE);    
+    BSP_LCD_SetBackColor(LCD_COLOR_BLUE);
     BSP_LCD_DisplayStringAtLine(20, menu[1]);
-    BSP_LCD_DisplayStringAtLine(21, menu[2]); 
+    BSP_LCD_DisplayStringAtLine(21, menu[2]);
     break;
-    
-  case 1: 
+
+  case 1:
     BSP_LCD_SetBackColor(LCD_COLOR_BLUE);
     BSP_LCD_DisplayStringAtLine(19, menu[0]);
-    BSP_LCD_SetBackColor(LCD_COLOR_MAGENTA);    
+    BSP_LCD_SetBackColor(LCD_COLOR_MAGENTA);
     BSP_LCD_DisplayStringAtLine(20, menu[1]);
-    BSP_LCD_SetBackColor(LCD_COLOR_BLUE);  
-    BSP_LCD_DisplayStringAtLine(21, menu[2]); 
+    BSP_LCD_SetBackColor(LCD_COLOR_BLUE);
+    BSP_LCD_DisplayStringAtLine(21, menu[2]);
     break;
-    
-  case 2: 
+
+  case 2:
     BSP_LCD_SetBackColor(LCD_COLOR_BLUE);
     BSP_LCD_DisplayStringAtLine(19, menu[0]);
-    BSP_LCD_SetBackColor(LCD_COLOR_BLUE);    
+    BSP_LCD_SetBackColor(LCD_COLOR_BLUE);
     BSP_LCD_DisplayStringAtLine(20, menu[1]);
-    BSP_LCD_SetBackColor(LCD_COLOR_MAGENTA);  
-    BSP_LCD_DisplayStringAtLine(21, menu[2]); 
+    BSP_LCD_SetBackColor(LCD_COLOR_MAGENTA);
+    BSP_LCD_DisplayStringAtLine(21, menu[2]);
     break;
   }
-  BSP_LCD_SetBackColor(LCD_COLOR_BLACK); 
+  BSP_LCD_SetBackColor(LCD_COLOR_BLACK);
 }
 
 /**
@@ -185,18 +210,18 @@ static void MSC_SelectItem(uint8_t **menu, uint8_t item)
 static void MSC_DEMO_ProbeKey(JOYState_TypeDef state)
 {
   /* Handle Menu inputs */
-  if((state == JOY_UP) && (msc_demo.select > 0))
+  if ((state == JOY_UP) && (msc_demo.select > 0))
   {
     msc_demo.select--;
   }
-  else if((state == JOY_DOWN) && (msc_demo.select < 2))
+  else if ((state == JOY_DOWN) && (msc_demo.select < 2))
   {
     msc_demo.select++;
   }
-  else if(state == JOY_SEL)
+  else if (state == JOY_SEL)
   {
     msc_demo.select |= 0x80;
-  }  
+  }
 }
 
 /**
@@ -207,26 +232,26 @@ static void MSC_DEMO_ProbeKey(JOYState_TypeDef state)
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
   static JOYState_TypeDef JoyState = JOY_NONE;
-  
-  if(GPIO_Pin == GPIO_PIN_8)
-  {    
+
+  if (GPIO_Pin == GPIO_PIN_8)
+  {
     /* Get the Joystick State */
     JoyState = BSP_JOY_GetState();
-    
-    MSC_DEMO_ProbeKey(JoyState); 
-    
-    switch(JoyState)
+
+    MSC_DEMO_ProbeKey(JoyState);
+
+    switch (JoyState)
     {
     case JOY_LEFT:
       LCD_LOG_ScrollBack();
       break;
-           
+
     case JOY_RIGHT:
       LCD_LOG_ScrollForward();
-      break;          
-      
+      break;
+
     default:
-      break;           
+      break;
     }
     /* Clear joystick interrupt pending bits */
     BSP_IO_ITClear();

@@ -2,16 +2,16 @@
   @page LibJPEG_Decoding LibJPEG decoding application
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    LibJPEG/LibJPEG_Decoding/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the LibJPEG decoding application.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -44,7 +44,7 @@ This application demonstrates how to read a jpeg file from SDCard memory, decode
 and display the final BMP image on the LCD.
 
 The JPEG images should be copied at the micro SD card's root.
-Image samples can be found in ../../../../../Utilities/Media/Pictures/JPG_320x240
+Image samples can be found in ../../../../../Utilities/Media/Pictures/JPG
 
 The images must have the following properties:
  - named as "image.jpg"
@@ -52,6 +52,10 @@ The images must have the following properties:
 
 The image size can be modified by changing IMAGE_WIDTH and IMAGE_HEIGHT defines 
 in "main.h" file to decode other resolution than 320x240.
+
+@note IMAGE_WIDTH and IMAGE_HEIGHT values must be lower or equal to LCD screen resolution.
+ - LCD width  = 320 
+ - LCD height = 240
 
 @note If the displayed image's colors are inverted, please uncomment "SWAP_RB" define in "main.h" file.
 
@@ -74,17 +78,19 @@ in "main.h" file to decode other resolution than 320x240.
     - LibJPEG/LibJPEG_Decoding/Inc/decode.h                    Decoder header file
     - LibJPEG/LibJPEG_Decoding/Inc/jmorecfg.h                  Lib JPEG configuration file (advanced configuration)
     - LibJPEG/LibJPEG_Decoding/Inc/jconfig.h                   Lib JPEG configuration file
+    - LibJPEG/LibJPEG_Decoding/Inc/jdata_conf.h                Write/Read methods definition
     - LibJPEG/LibJPEG_Decoding/Src/main.c                      Main program  
     - LibJPEG/LibJPEG_Decoding/Src/stm32f4xx_it.c              Interrupt handlers
     - LibJPEG/LibJPEG_Decoding/Src/system_stm32f4xx.c          STM32F4xx system clock configuration file
     - LibJPEG/LibJPEG_Decoding/Src/decode.c                    Decoder file
+    - LibJPEG/LibJPEG_Decoding/Src/jdata_conf.c                Write/Read methods definition
 
 
 @par Hardware and Software environment
 
   - This application runs on STM32F469xx and STM32F479xx devices.
 
-  - This application has been tested with STMicroelectronics STM32469I-EVAL revB
+  - This application has been tested with STMicroelectronics STM32469I-EVAL revC
 evaluation boards and can be easily tailored to any other supported device 
 and development board.
 

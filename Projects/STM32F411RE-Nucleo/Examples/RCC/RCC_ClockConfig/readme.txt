@@ -2,11 +2,11 @@
   @page RCC_ClockConfig RCC Clock Configuration example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    RCC/RCC_ClockConfig/readme.txt 
   * @author  MCD Application Team
-  * @version V1.1.3
-  * @date    13-November-2015
+  * @version V1.1.5
+  * @date    17-February-2017
   * @brief   Description of the RCC Clock Configuration example.
   ******************************************************************************
   *

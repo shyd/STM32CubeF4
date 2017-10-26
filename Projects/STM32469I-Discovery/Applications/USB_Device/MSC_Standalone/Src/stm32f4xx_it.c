@@ -2,15 +2,15 @@
   ******************************************************************************
   * @file    USB_Device/MSC_Standalone/Src/stm32f4xx_it.c 
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Main Interrupt Service Routines.
   *          This file provides template for all exceptions handler and 
   *          peripherals interrupt service routine.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
   * You may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 extern PCD_HandleTypeDef hpcd;
-
+extern SD_HandleTypeDef uSdHandle;
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
 
@@ -139,7 +139,6 @@ void PendSV_Handler(void)
 void SysTick_Handler(void)
 {
   HAL_IncTick();
-  Toggle_Leds();
 }
 
 /******************************************************************************/
@@ -175,9 +174,9 @@ void SDMMC1_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void DMA2_Stream3_IRQHandler(void)
+void BSP_SD_DMA_Rx_IRQHandler(void)
 {
-  BSP_SD_DMA_Rx_IRQHandler();
+  HAL_DMA_IRQHandler(uSdHandle.hdmarx);
 }
 
 /**
@@ -185,9 +184,10 @@ void DMA2_Stream3_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void DMA2_Stream6_IRQHandler(void)
+void BSP_SD_DMA_Tx_IRQHandler(void)
 {
-  BSP_SD_DMA_Tx_IRQHandler(); 
+  HAL_DMA_IRQHandler(uSdHandle.hdmatx);
 }
+
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -2,29 +2,48 @@
   ******************************************************************************
   * @file    main.c
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   This file provides main program functions
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics International N.V. 
+  * All rights reserved.</center></h2>
   *
-  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-  * You may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at:
+  * Redistribution and use in source and binary forms, with or without 
+  * modification, are permitted, provided that the following conditions are met:
   *
-  *        http://www.st.com/software_license_agreement_liberty_v2
+  * 1. Redistribution of source code must retain the above copyright notice, 
+  *    this list of conditions and the following disclaimer.
+  * 2. Redistributions in binary form must reproduce the above copyright notice,
+  *    this list of conditions and the following disclaimer in the documentation
+  *    and/or other materials provided with the distribution.
+  * 3. Neither the name of STMicroelectronics nor the names of other 
+  *    contributors to this software may be used to endorse or promote products 
+  *    derived from this software without specific written permission.
+  * 4. This software, including modifications and/or derivative works of this 
+  *    software, must execute solely and exclusively on microcontroller or
+  *    microprocessor devices manufactured by or for STMicroelectronics.
+  * 5. Redistribution and use of this software other than as permitted under 
+  *    this license is void and will automatically terminate your rights under 
+  *    this license. 
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
+  * THIS SOFTWARE IS PROVIDED BY STMICROELECTRONICS AND CONTRIBUTORS "AS IS" 
+  * AND ANY EXPRESS, IMPLIED OR STATUTORY WARRANTIES, INCLUDING, BUT NOT 
+  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+  * PARTICULAR PURPOSE AND NON-INFRINGEMENT OF THIRD PARTY INTELLECTUAL PROPERTY
+  * RIGHTS ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED BY LAW. IN NO EVENT 
+  * SHALL STMICROELECTRONICS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, 
+  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
+  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
   */
-
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "rtc.h"
@@ -126,9 +145,6 @@ int main(void)
   
   /* Activate the use of memory device feature */
   WM_SetCreateFlags(WM_CF_MEMDEV);
-
-  /* Do the calibration if needed */
-  CALIBRATION_Check();
   
   /* Start Demo */
   GUIDEMO_Main();
@@ -186,7 +202,7 @@ static void BSP_Config(void)
   BSP_LED_Init(LED4);
   
   /* Initialize the Touch screen */
-  BSP_TS_Init(240, 320);
+  BSP_TS_Init (800, 480);
  
   /* Enable the CRC Module */
   __CRC_CLK_ENABLE();
@@ -216,44 +232,46 @@ void BSP_Background(void)
   */
 void BSP_Pointer_Update(void)
 {
-  GUI_PID_STATE TS_State;
-  static TS_StateTypeDef prev_state;
-  TS_StateTypeDef  ts;
-  uint16_t xDiff, yDiff;  
+  static GUI_PID_STATE TS_State = {0, 0, 0, 0};
+  __IO TS_StateTypeDef  ts;
+  uint16_t xDiff, yDiff;
   
-  BSP_TS_GetState(&ts);
-  
-  TS_State.Pressed = ts.touchDetected;
+  BSP_TS_GetState((TS_StateTypeDef *)&ts);
 
-  xDiff = (prev_state.touchX[0] > ts.touchX[0]) ? (prev_state.touchX[0] - ts.touchX[0]) : (ts.touchX[0] - prev_state.touchX[0]);
-  yDiff = (prev_state.touchY[0] > ts.touchY[0]) ? (prev_state.touchY[0] - ts.touchY[0]) : (ts.touchY[0] - prev_state.touchY[0]);
-  
-  if((prev_state.touchDetected != ts.touchDetected )||
-     (xDiff > 3 )||
-       (yDiff > 3))
+  if((ts.touchX[0] >= LCD_GetXSize()) ||(ts.touchY[0] >= LCD_GetYSize()) ) 
   {
-    prev_state.touchDetected = ts.touchDetected;
-    
-    if((ts.touchX[0] != 0) &&  (ts.touchY[0] != 0)) 
+    ts.touchX[0] = 0;
+    ts.touchY[0] = 0;
+  }
+
+  xDiff = (TS_State.x > ts.touchX[0]) ? (TS_State.x - ts.touchX[0]) : (ts.touchX[0] - TS_State.x);
+  yDiff = (TS_State.y > ts.touchY[0]) ? (TS_State.y - ts.touchY[0]) : (ts.touchY[0] - TS_State.y);
+  
+  if((TS_State.Pressed != ts.touchDetected ) ||
+     (xDiff > 20 )||
+       (yDiff > 20))
+  {
+    TS_State.Pressed = ts.touchDetected;
+    TS_State.Layer = 0;
+    if(ts.touchDetected) 
     {
-      prev_state.touchX[0] = ts.touchX[0];
-      prev_state.touchY[0] = ts.touchY[0];
-    }
-      
-    if(CALIBRATION_IsDone())
-    {
-      TS_State.Layer = 0;
-      TS_State.x = CALIBRATION_GetX (prev_state.touchX[0]);
-      TS_State.y = CALIBRATION_GetY (prev_state.touchY[0]);
+      TS_State.x = ts.touchX[0];
+      if(ts.touchY[0] < 240)
+      {
+        TS_State.y = ts.touchY[0] ;
+      }
+      else
+      {
+        TS_State.y = (ts.touchY[0] * 480) / 450;
+      }
+      GUI_TOUCH_StoreStateEx(&TS_State);
     }
     else
     {
-      TS_State.Layer = 0;
-      TS_State.x = prev_state.touchX[0];
-      TS_State.y = prev_state.touchY[0];
+      GUI_TOUCH_StoreStateEx(&TS_State);
+      TS_State.x = 0;
+      TS_State.y = 0;      
     }
-    
-    GUI_TOUCH_StoreStateEx(&TS_State);
   }
 }
 

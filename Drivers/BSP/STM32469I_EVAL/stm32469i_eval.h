@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32469i_eval.h
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    29-September-2015
+  * @version V2.0.0
+  * @date    27-January-2017
   * @brief   This file contains definitions for STM32469I-EVAL's LEDs,
   *          push-buttons and COM ports hardware resources.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -63,11 +63,11 @@
   * @{
   */
 
-/** @defgroup STM32469I_EVAL_LOW_LEVEL STM32469I-EVAL LOW LEVEL
+/** @defgroup STM32469I_EVAL_LOW_LEVEL STM32469I EVAL LOW LEVEL
   * @{
   */
 
-/** @defgroup STM32469I_EVAL_LOW_LEVEL_Exported_Types STM32469I EVAL Low Level Exported Types
+/** @defgroup STM32469I_EVAL_LOW_LEVEL_Exported_Types STM32469I EVAL LOW LEVEL Exported Types
  * @{
  */
 
@@ -158,7 +158,7 @@ typedef enum
   * @}
   */
 
-/** @defgroup STM32469I_EVAL_LOW_LEVEL_Exported_Constants STM32469I EVAL Low Level Exported Constants
+/** @defgroup STM32469I_EVAL_LOW_LEVEL_Exported_Constants STM32469I EVAL LOW LEVEL Exported Constants
   * @{
   */
 
@@ -169,7 +169,7 @@ typedef enum
  #define USE_STM32469I_EVAL
 #endif
 
-/** @addtogroup STM32469I_EVAL_LOW_LEVEL_LED STM32469I EVAL Low Level Led
+/** @defgroup STM32469I_EVAL_LOW_LEVEL_LED STM32469I EVAL LOW LEVEL LED
   * @{
   */
 /* Always four leds for all revisions of Eval boards */
@@ -206,7 +206,7 @@ typedef enum
 #define MFX_IRQOUT_EXTI_IRQn              EXTI9_5_IRQn
 #define MFX_IRQOUT_EXTI_IRQnHandler       EXTI9_5_IRQHandler
 
-/** @addtogroup STM32469I_EVAL_LOW_LEVEL_BUTTON STM32469I EVAL Low Level Button
+/** @defgroup STM32469I_EVAL_LOW_LEVEL_BUTTON STM32469I EVAL LOW LEVEL BUTTON
   * @{
   */
 /* Joystick pins are connected to IO Expander (accessible through I2C1 interface) */
@@ -249,7 +249,7 @@ typedef enum
   * @}
   */
 
-/** @addtogroup STM32469I_EVAL_LOW_LEVEL_COM
+/** @defgroup STM32469I_EVAL_LOW_LEVEL_COM STM32469I EVAL LOW LEVEL COM
   * @{
   */
 #define COMn                             ((uint8_t)1)
@@ -313,9 +313,14 @@ typedef enum
 /* Exported constant IO ------------------------------------------------------*/
 
 /**
-  * @brief TouchScreen FT6206 Slave I2C address
+  * @brief TouchScreen FT6206 Slave I2C address 1
   */
 #define TS_I2C_ADDRESS                   ((uint16_t)0x54)
+
+/**
+  * @brief TouchScreen FT6336G Slave I2C address 2
+  */
+#define TS_I2C_ADDRESS_A02               ((uint16_t)0x70)
 
 /**
   * @brief MFX_I2C_ADDR 0
@@ -381,14 +386,18 @@ typedef enum
   * @}
   */
 
-/** @defgroup STM32469I_EVAL_LOW_LEVEL_Exported_Macros STM32469I EVAL Low Level Exported Macros
+/**
+  * @}
+  */
+  
+/** @defgroup STM32469I_EVAL_LOW_LEVEL_Exported_Macros STM32469I EVAL LOW LEVEL Exported Macros
   * @{
   */
 /**
   * @}
   */
 
-/** @defgroup STM32469I_EVAL_LOW_LEVEL_Exported_Functions STM32469I EVAL Low Level Exported Functions
+/** @defgroup STM32469I_EVAL_LOW_LEVEL_Exported_Functions STM32469I EVAL LOW LEVEL Exported Functions
   * @{
   */
 uint32_t         BSP_GetVersion(void);
@@ -407,10 +416,6 @@ uint8_t          BSP_JOY_Init(JOYMode_TypeDef Joy_Mode);
 void             BSP_JOY_DeInit(void);
 JOYState_TypeDef BSP_JOY_GetState(void);
 #endif /* USE_IOEXPANDER */
-
-/**
-  * @}
-  */
 
 /**
   * @}

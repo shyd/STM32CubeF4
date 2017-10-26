@@ -1,6 +1,7 @@
 /*
 *****************************************************************************
 **
+
 **  File        : stm32_flash.ld
 **
 **  Abstract    : Linker script for STM32F429NI Device with
@@ -15,7 +16,7 @@
 **
 **  Environment : Atollic TrueSTUDIO(R)
 **
-**  Distribution: The file is distributed “as is,” without any warranty
+**  Distribution: The file is distributed as is, without any warranty
 **                of any kind.
 **
 **  (c)Copyright Atollic AB.
@@ -31,8 +32,7 @@
 ENTRY(Reset_Handler)
 
 /* Highest address of the user mode stack */
-_estack = 0x2002FFFF;    /* end of RAM */
-
+_estack = 0x20030000;    /* end of RAM */
 /* Generate a link error if heap and stack don't fit into RAM */
 _Min_Heap_Size = 0x200;      /* required amount of heap  */
 _Min_Stack_Size = 0x800; /* required amount of stack */
@@ -40,9 +40,9 @@ _Min_Stack_Size = 0x800; /* required amount of stack */
 /* Specify the memory areas */
 MEMORY
 {
-FLASH (rx)      : ORIGIN = 0x8000000, LENGTH = 2048K
 RAM (xrw)      : ORIGIN = 0x20000000, LENGTH = 192K
 CCMRAM (rw)      : ORIGIN = 0x10000000, LENGTH = 64K
+FLASH (rx)      : ORIGIN = 0x8000000, LENGTH = 2048K
 }
 
 /* Define output sections */
@@ -130,7 +130,7 @@ SECTIONS
   /* CCM-RAM section 
   * 
   * IMPORTANT NOTE! 
-  * If initialized variables will be placed in this section, 
+  * If initialized variables will be placed in this section,
   * the startup code needs to be modified to copy the init-values.  
   */
   .ccmram :
@@ -184,3 +184,5 @@ SECTIONS
 
   .ARM.attributes 0 : { *(.ARM.attributes) }
 }
+
+

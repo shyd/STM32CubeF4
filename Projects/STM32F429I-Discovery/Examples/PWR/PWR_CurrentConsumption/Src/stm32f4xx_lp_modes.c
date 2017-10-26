@@ -2,19 +2,20 @@
   ******************************************************************************
   * @file    PWR/PWR_CurrentConsumption/stm32f4xx_lp_modes.c 
   * @author  MCD Application Team
-  * @version V1.2.4
-  * @date    13-November-2015 
+  * @version V1.2.8
+  * @date    17-February-2017 
   * @brief   This file provides firmware functions to manage the following 
   *          functionalities of the STM32F4xx Low Power Modes:
   *           - Sleep Mode
   *           - STOP mode with RTC
+  *           - Under-Drive STOP mode with RTC
   *           - STANDBY mode without RTC and BKPSRAM
   *           - STANDBY mode with RTC
   *           - STANDBY mode with RTC and BKPSRAM
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -85,40 +86,46 @@ void SleepMode_Measure(void)
 
   /* Configure all GPIO as analog to reduce current consumption on non used IOs */
   /* Enable GPIOs clock */
-   __HAL_RCC_GPIOA_CLK_ENABLE();
-   __HAL_RCC_GPIOB_CLK_ENABLE();
-   __HAL_RCC_GPIOC_CLK_ENABLE();
-   __HAL_RCC_GPIOD_CLK_ENABLE();
-   __HAL_RCC_GPIOE_CLK_ENABLE();
-   __HAL_RCC_GPIOF_CLK_ENABLE();
-   __HAL_RCC_GPIOG_CLK_ENABLE();
-   __HAL_RCC_GPIOH_CLK_ENABLE();
-   __HAL_RCC_GPIOI_CLK_ENABLE();
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+  __HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOD_CLK_ENABLE();
+  __HAL_RCC_GPIOE_CLK_ENABLE();
+  __HAL_RCC_GPIOF_CLK_ENABLE();
+  __HAL_RCC_GPIOG_CLK_ENABLE();
+  __HAL_RCC_GPIOH_CLK_ENABLE();
+  __HAL_RCC_GPIOI_CLK_ENABLE();
+  __HAL_RCC_GPIOJ_CLK_ENABLE();
+  __HAL_RCC_GPIOK_CLK_ENABLE();
 
   GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
   GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Pin = GPIO_PIN_All;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct); 
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
   HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
   HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
   HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
-  HAL_GPIO_Init(GPIOH, &GPIO_InitStruct); 
+  HAL_GPIO_Init(GPIOH, &GPIO_InitStruct);
   HAL_GPIO_Init(GPIOI, &GPIO_InitStruct);
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct); 
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOJ, &GPIO_InitStruct); 
+  HAL_GPIO_Init(GPIOK, &GPIO_InitStruct);
 
   /* Disable GPIOs clock */
-   __HAL_RCC_GPIOA_CLK_DISABLE();
-   __HAL_RCC_GPIOB_CLK_DISABLE();
-   __HAL_RCC_GPIOC_CLK_DISABLE();
-   __HAL_RCC_GPIOD_CLK_DISABLE();
-   __HAL_RCC_GPIOE_CLK_DISABLE();
-   __HAL_RCC_GPIOF_CLK_DISABLE();
-   __HAL_RCC_GPIOG_CLK_DISABLE();
-   __HAL_RCC_GPIOH_CLK_DISABLE();
-   __HAL_RCC_GPIOI_CLK_DISABLE();
+  __HAL_RCC_GPIOA_CLK_DISABLE();
+  __HAL_RCC_GPIOB_CLK_DISABLE();
+  __HAL_RCC_GPIOC_CLK_DISABLE();
+  __HAL_RCC_GPIOD_CLK_DISABLE();
+  __HAL_RCC_GPIOE_CLK_DISABLE();
+  __HAL_RCC_GPIOF_CLK_DISABLE();
+  __HAL_RCC_GPIOG_CLK_DISABLE();
+  __HAL_RCC_GPIOH_CLK_DISABLE();
+  __HAL_RCC_GPIOI_CLK_DISABLE();
+  __HAL_RCC_GPIOJ_CLK_DISABLE();
+  __HAL_RCC_GPIOK_CLK_DISABLE();
    
   /* Configure USER Button */
   BSP_PB_Init(BUTTON_KEY, BUTTON_MODE_EXTI);
@@ -160,66 +167,72 @@ void SleepMode_Measure(void)
 void StopMode_Measure(void)
 {
   GPIO_InitTypeDef GPIO_InitStruct;
-  
+
   /* Configure all GPIO as analog to reduce current consumption on non used IOs */
   /* Enable GPIOs clock */
-   __HAL_RCC_GPIOA_CLK_ENABLE();
-   __HAL_RCC_GPIOB_CLK_ENABLE();
-   __HAL_RCC_GPIOC_CLK_ENABLE();
-   __HAL_RCC_GPIOD_CLK_ENABLE();
-   __HAL_RCC_GPIOE_CLK_ENABLE();
-   __HAL_RCC_GPIOF_CLK_ENABLE();
-   __HAL_RCC_GPIOG_CLK_ENABLE();
-   __HAL_RCC_GPIOH_CLK_ENABLE();
-   __HAL_RCC_GPIOI_CLK_ENABLE();
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+  __HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOD_CLK_ENABLE();
+  __HAL_RCC_GPIOE_CLK_ENABLE();
+  __HAL_RCC_GPIOF_CLK_ENABLE();
+  __HAL_RCC_GPIOG_CLK_ENABLE();
+  __HAL_RCC_GPIOH_CLK_ENABLE();
+  __HAL_RCC_GPIOI_CLK_ENABLE();
+  __HAL_RCC_GPIOJ_CLK_ENABLE();
+  __HAL_RCC_GPIOK_CLK_ENABLE();
 
   GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
   GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Pin = GPIO_PIN_All;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct); 
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
   HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
   HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
   HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
-  HAL_GPIO_Init(GPIOH, &GPIO_InitStruct); 
+  HAL_GPIO_Init(GPIOH, &GPIO_InitStruct);
   HAL_GPIO_Init(GPIOI, &GPIO_InitStruct);
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct); 
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOJ, &GPIO_InitStruct); 
+  HAL_GPIO_Init(GPIOK, &GPIO_InitStruct);
 
   /* Disable GPIOs clock */
-   __HAL_RCC_GPIOA_CLK_DISABLE();
-   __HAL_RCC_GPIOB_CLK_DISABLE();
-   __HAL_RCC_GPIOC_CLK_DISABLE();
-   __HAL_RCC_GPIOD_CLK_DISABLE();
-   __HAL_RCC_GPIOE_CLK_DISABLE();
-   __HAL_RCC_GPIOF_CLK_DISABLE();
-   __HAL_RCC_GPIOG_CLK_DISABLE();
-   __HAL_RCC_GPIOH_CLK_DISABLE();
-   __HAL_RCC_GPIOI_CLK_DISABLE();
- 
+  __HAL_RCC_GPIOA_CLK_DISABLE();
+  __HAL_RCC_GPIOB_CLK_DISABLE();
+  __HAL_RCC_GPIOC_CLK_DISABLE();
+  __HAL_RCC_GPIOD_CLK_DISABLE();
+  __HAL_RCC_GPIOE_CLK_DISABLE();
+  __HAL_RCC_GPIOF_CLK_DISABLE();
+  __HAL_RCC_GPIOG_CLK_DISABLE();
+  __HAL_RCC_GPIOH_CLK_DISABLE();
+  __HAL_RCC_GPIOI_CLK_DISABLE();
+  __HAL_RCC_GPIOJ_CLK_DISABLE();
+  __HAL_RCC_GPIOK_CLK_DISABLE();
+
   RTCHandle.Instance = RTC;
-    
+
   /* Configure RTC prescaler and RTC data registers as follow:
-  - Hour Format = Format 24
-  - Asynch Prediv = Value according to source clock
-  - Synch Prediv = Value according to source clock
-  - OutPut = Output Disable
-  - OutPutPolarity = High Polarity
-  - OutPutType = Open Drain */ 
+       - Hour Format = Format 24
+       - Asynch Prediv = Value according to source clock
+       - Synch Prediv = Value according to source clock
+       - OutPut = Output Disable
+       - OutPutPolarity = High Polarity
+       - OutPutType = Open Drain */ 
   RTCHandle.Init.HourFormat = RTC_HOURFORMAT_24;
   RTCHandle.Init.AsynchPrediv = RTC_ASYNCH_PREDIV;
   RTCHandle.Init.SynchPrediv = RTC_SYNCH_PREDIV;
   RTCHandle.Init.OutPut = RTC_OUTPUT_DISABLE;
   RTCHandle.Init.OutPutPolarity = RTC_OUTPUT_POLARITY_HIGH;
   RTCHandle.Init.OutPutType = RTC_OUTPUT_TYPE_OPENDRAIN;
-  
+
   if(HAL_RTC_Init(&RTCHandle) != HAL_OK)
   {
     /* Initialization Error */
     Error_Handler(); 
   }
-  
+
   /*## Configure the Wake up timer ###########################################*/
   /*  RTC Wakeup Interrupt Generation:
       Wakeup Time Base = (RTC_WAKEUPCLOCK_RTCCLK_DIV /(LSI))
@@ -243,7 +256,123 @@ void StopMode_Measure(void)
   /* Configures system clock after wake-up from STOP: enable HSE, PLL and select 
   PLL as system clock source (HSE and PLL are disabled in STOP mode) */
   SYSCLKConfig_STOP();
-  
+
+  /* Disable Wake-up timer */
+  if(HAL_RTCEx_DeactivateWakeUpTimer(&RTCHandle) != HAL_OK)
+  {
+    /* Initialization Error */
+    Error_Handler(); 
+  }
+}
+
+/**
+  * @brief  This function configures the system to enter in Under-Drive stop mode with RTC 
+  *         clocked by LSE or LSI  for current consumption measurement purpose.
+  *         STOP Mode with RTC clocked by LSE/LSI
+  *         =====================================   
+  *           - RTC Clocked by LSE or LSI
+  *           - Regulator in LP mode
+  *           - Under drive feature enabled
+  *           - HSI, HSE OFF and LSI OFF if not used as RTC Clock source
+  *           - No IWDG
+  *           - FLASH in deep power down mode
+  *           - Automatic Wakeup using RTC clocked by LSE/LSI (~20s)
+  * @param  None
+  * @retval None
+  */
+void StopUnderDriveMode_Measure(void)
+{
+  GPIO_InitTypeDef GPIO_InitStruct;
+
+  /* Configure all GPIO as analog to reduce current consumption on non used IOs */
+  /* Enable GPIOs clock */
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+  __HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOD_CLK_ENABLE();
+  __HAL_RCC_GPIOE_CLK_ENABLE();
+  __HAL_RCC_GPIOF_CLK_ENABLE();
+  __HAL_RCC_GPIOG_CLK_ENABLE();
+  __HAL_RCC_GPIOH_CLK_ENABLE();
+  __HAL_RCC_GPIOI_CLK_ENABLE();
+  __HAL_RCC_GPIOJ_CLK_ENABLE();
+  __HAL_RCC_GPIOK_CLK_ENABLE();
+
+  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+  GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pin = GPIO_PIN_All;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct); 
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOH, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOI, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOJ, &GPIO_InitStruct); 
+  HAL_GPIO_Init(GPIOK, &GPIO_InitStruct);
+
+  /* Disable GPIOs clock */
+  __HAL_RCC_GPIOA_CLK_DISABLE();
+  __HAL_RCC_GPIOB_CLK_DISABLE();
+  __HAL_RCC_GPIOC_CLK_DISABLE();
+  __HAL_RCC_GPIOD_CLK_DISABLE();
+  __HAL_RCC_GPIOE_CLK_DISABLE();
+  __HAL_RCC_GPIOF_CLK_DISABLE();
+  __HAL_RCC_GPIOG_CLK_DISABLE();
+  __HAL_RCC_GPIOH_CLK_DISABLE();
+  __HAL_RCC_GPIOI_CLK_DISABLE();
+  __HAL_RCC_GPIOJ_CLK_DISABLE();
+  __HAL_RCC_GPIOK_CLK_DISABLE();
+
+  RTCHandle.Instance = RTC;
+
+  /* Configure RTC prescaler and RTC data registers as follow:
+      - Hour Format = Format 24
+      - Asynch Prediv = Value according to source clock
+      - Synch Prediv = Value according to source clock
+      - OutPut = Output Disable
+      - OutPutPolarity = High Polarity
+      - OutPutType = Open Drain */ 
+  RTCHandle.Init.HourFormat = RTC_HOURFORMAT_24;
+  RTCHandle.Init.AsynchPrediv = RTC_ASYNCH_PREDIV;
+  RTCHandle.Init.SynchPrediv = RTC_SYNCH_PREDIV;
+  RTCHandle.Init.OutPut = RTC_OUTPUT_DISABLE;
+  RTCHandle.Init.OutPutPolarity = RTC_OUTPUT_POLARITY_HIGH;
+  RTCHandle.Init.OutPutType = RTC_OUTPUT_TYPE_OPENDRAIN;
+
+  if(HAL_RTC_Init(&RTCHandle) != HAL_OK)
+  {
+    /* Initialization Error */
+    Error_Handler(); 
+  }
+
+  /*## Configure the Wake up timer ###########################################*/
+  /*  RTC Wakeup Interrupt Generation:
+      Wakeup Time Base = (RTC_WAKEUPCLOCK_RTCCLK_DIV /(LSI))
+      Wakeup Time = Wakeup Time Base * WakeUpCounter 
+                  = (RTC_WAKEUPCLOCK_RTCCLK_DIV /(LSI)) * WakeUpCounter
+      ==> WakeUpCounter = Wakeup Time / Wakeup Time Base
+
+      To configure the wake up timer to 20s the WakeUpCounter is set to 0xA017:
+        RTC_WAKEUPCLOCK_RTCCLK_DIV = RTCCLK_Div16 = 16 
+        Wakeup Time Base = 16 /(~32.768KHz) = ~0,488 ms
+        Wakeup Time = ~20s = 0,488ms  * WakeUpCounter
+        ==> WakeUpCounter = ~20s/0,488ms = 40983 = 0xA017 */
+  HAL_RTCEx_SetWakeUpTimer_IT(&RTCHandle, 0xA017, RTC_WAKEUPCLOCK_RTCCLK_DIV16);
+
+  /* FLASH Deep Power Down Mode enabled */
+  HAL_PWREx_EnableFlashPowerDown();
+
+  /* Enter under-drive Stop Mode */
+  HAL_PWREx_EnterUnderDriveSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
+
+  /* Configures system clock after wake-up from STOP: enable HSE, PLL and select 
+     PLL as system clock source (HSE and PLL are disabled in STOP mode) */
+  SYSCLKConfig_STOP();
+
   /* Disable Wake-up timer */
   if(HAL_RTCEx_DeactivateWakeUpTimer(&RTCHandle) != HAL_OK)
   {

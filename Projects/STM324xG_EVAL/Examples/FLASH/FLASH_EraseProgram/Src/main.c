@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    FLASH/FLASH_EraseProgram/Src/main.c 
   * @author  MCD Application Team
-  * @version V1.2.4
-  * @date    13-November-2015
+  * @version V1.3.0
+  * @date    17-February-2017
   * @brief   This example provides a description of how to erase and program the 
   *			 STM32F4xx FLASH.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -50,7 +50,7 @@
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 #define FLASH_USER_START_ADDR   ADDR_FLASH_SECTOR_2   /* Start @ of user Flash area */
-#define FLASH_USER_END_ADDR     ADDR_FLASH_SECTOR_5   /* End @ of user Flash area */
+#define FLASH_USER_END_ADDR     ADDR_FLASH_SECTOR_11  +  GetSectorSize(ADDR_FLASH_SECTOR_11) -1 /* End @ of user Flash area : sector start address + sector size -1 */
 
 #define DATA_32                 ((uint32_t)0x12345678)
 
@@ -66,6 +66,7 @@ static FLASH_EraseInitTypeDef EraseInitStruct;
 /* Private function prototypes -----------------------------------------------*/
 static void SystemClock_Config(void);
 static uint32_t GetSector(uint32_t Address);
+static uint32_t GetSectorSize(uint32_t Sector);
 
 /* Private functions ---------------------------------------------------------*/
 
@@ -256,6 +257,30 @@ static uint32_t GetSector(uint32_t Address)
   }
 
   return sector;
+}
+
+/**
+  * @brief  Gets sector Size
+  * @param  None
+  * @retval The size of a given sector
+  */
+static uint32_t GetSectorSize(uint32_t Sector)
+{
+  uint32_t sectorsize = 0x00;
+
+  if((Sector == FLASH_SECTOR_0) || (Sector == FLASH_SECTOR_1) || (Sector == FLASH_SECTOR_2) || (Sector == FLASH_SECTOR_3))
+  {
+    sectorsize = 16 * 1024;
+  }
+  else if(Sector == FLASH_SECTOR_4)
+  {
+    sectorsize = 64 * 1024;
+  }
+  else
+  {
+    sectorsize = 128 * 1024;
+  }  
+  return sectorsize;
 }
 
 /**

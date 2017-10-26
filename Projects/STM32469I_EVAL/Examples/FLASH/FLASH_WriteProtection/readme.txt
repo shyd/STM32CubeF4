@@ -2,11 +2,11 @@
   @page FLASH_WriteProtection FLASH write protection
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    FLASH/FLASH_WriteProtection/readme.txt
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the FLASH write protection example.
   ******************************************************************************
   *
@@ -38,7 +38,7 @@
 @par Example Description 
 
 This example describes how to configure and use the FLASH HAL API to enable and 
-disable the write protection of the internal FLASH memory.
+disable the write protection of the internal Flash memory.
   
 At the beginning of the main program the HAL_Init() function is called to 
 reset all the peripherals, initialize the Flash interface and the systick.
@@ -86,7 +86,7 @@ write protection status of FLASH_WRP_SECTORS (defined in main.c)
 @par Hardware and Software environment 
   - This example runs on STM32F469xx/STM32F479xx devices.
 
-  - This example has been tested and validated with STMicroelectronics STM32469I-EVAL revB board and can be
+  - This example has been tested and validated with STMicroelectronics STM32469I-EVAL RevC board and can be
     easily tailored to any other supported device and development board.
 
 

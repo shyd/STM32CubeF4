@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32f411e_discovery_accelerometer.c
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    12-November-2015
+  * @version V1.0.2
+  * @date    27-January-2017
   * @brief   This file provides a set of functions needed to manage the
   *          MEMS accelerometer available on STM32F411E-Discovery Kit.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -47,32 +47,32 @@
   * @{
   */ 
 
-/** @addtogroup STM32F411E_DISCOVERY_ACCELEROMETER
+/** @defgroup STM32F411E_DISCOVERY_ACCELEROMETER STM32F411E DISCOVERY ACCELEROMETER
   * @{
   */
 
-/** @defgroup STM32F411E_DISCOVERY_ACCELEROMETER_Private_TypesDefinitions
+/** @defgroup STM32F411E_DISCOVERY_ACCELEROMETER_Private_TypesDefinitions STM32F411E DISCOVERY ACCELEROMETER Private TypesDefinitions
   * @{
   */ 
 /**
   * @}
   */
 
-/** @defgroup STM32F411E_DISCOVERY_ACCELEROMETER_Private_Defines
+/** @defgroup STM32F411E_DISCOVERY_ACCELEROMETER_Private_Defines STM32F411E DISCOVERY ACCELEROMETER Private Defines
   * @{
   */
 /**
   * @}
   */
 
-/** @defgroup STM32F411E_DISCOVERY_ACCELEROMETER_Private_Macros
+/** @defgroup STM32F411E_DISCOVERY_ACCELEROMETER_Private_Macros STM32F411E DISCOVERY ACCELEROMETER Private Macros
   * @{
   */
 /**
   * @}
   */ 
   
-/** @defgroup STM32F411E_DISCOVERY_ACCELEROMETER_Private_Variables
+/** @defgroup STM32F411E_DISCOVERY_ACCELEROMETER_Private_Variables STM32F411E DISCOVERY ACCELEROMETER Private Variables
   * @{
   */ 
 static ACCELERO_DrvTypeDef *AccelerometerDrv;
@@ -80,20 +80,19 @@ static ACCELERO_DrvTypeDef *AccelerometerDrv;
   * @}
   */
 
-/** @defgroup STM32F411E_DISCOVERY_ACCELEROMETER_Private_FunctionPrototypes
+/** @defgroup STM32F411E_DISCOVERY_ACCELEROMETER_Private_FunctionPrototypes STM32F411E DISCOVERY ACCELEROMETER Private FunctionPrototypes
   * @{
   */
 /**
   * @}
   */
 
-/** @defgroup STM32F411E_DISCOVERY_ACCELEROMETER_Private_Functions
+/** @defgroup STM32F411E_DISCOVERY_ACCELEROMETER_Private_Functions STM32F411E DISCOVERY ACCELEROMETER Private Functions
   * @{
   */
 
 /**
   * @brief  Set Accelerometer Initialization.
-  * @param  None
   * @retval ACCELERO_OK if no problem during initialization
   */
 uint8_t BSP_ACCELERO_Init(void)
@@ -155,8 +154,6 @@ uint8_t BSP_ACCELERO_Init(void)
 
 /**
   * @brief  Reboot memory content of Accelerometer.
-  * @param  None
-  * @retval None
   */
 void BSP_ACCELERO_Reset(void)
 {
@@ -168,8 +165,6 @@ void BSP_ACCELERO_Reset(void)
 
 /**
   * @brief  Configure Accelerometer click IT. 
-  * @param  None
-  * @retval None
   */
 void BSP_ACCELERO_Click_ITConfig(void)
 {
@@ -183,7 +178,6 @@ void BSP_ACCELERO_Click_ITConfig(void)
   * @brief  Get XYZ axes acceleration.
   * @param  pDataXYZ: Pointer to 3 angular acceleration axes.  
   *                   pDataXYZ[0] = X axis, pDataXYZ[1] = Y axis, pDataXYZ[2] = Z axis
-  * @retval None
   */
 void BSP_ACCELERO_GetXYZ(int16_t *pDataXYZ)
 {

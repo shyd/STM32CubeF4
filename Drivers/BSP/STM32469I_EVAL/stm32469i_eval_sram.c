@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32469i_eval_sram.c
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    29-September-2015
+  * @version V2.0.0
+  * @date    27-January-2017
   * @brief   This file includes the SRAM driver for the IS61WV102416BLL-10M memory
   *          device mounted on STM32469I-EVAL evaluation board.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -77,36 +77,36 @@
   * @{
   */
 
-/** @addtogroup STM32469I-EVAL
+/** @addtogroup STM32469I_EVAL
   * @{
   */
 
-/** @defgroup STM32469I-EVAL_SRAM STM32469I-EVAL SRAM
+/** @defgroup STM32469I-EVAL_SRAM STM32469I EVAL SRAM
   * @{
   */
 
-/** @defgroup STM32469I-EVAL_SRAM_Private_Types_Definitions STM32469I-EVAL SRAM Private Types Definitions
-  * @{
-  */
-/**
-  * @}
-  */
-
-/** @defgroup STM32469I-EVAL_SRAM_Private_Defines STM32469I-EVAL Private Defines
+/** @defgroup STM32469I-EVAL_SRAM_Private_Types_Definitions STM32469I EVAL SRAM Private Types Definitions
   * @{
   */
 /**
   * @}
   */
 
-/** @defgroup STM32469I-EVAL_SRAM_Private_Macros STM32469I-EVAL Private Macros
+/** @defgroup STM32469I-EVAL_SRAM_Private_Defines STM32469I EVAL SRAM Private Defines
   * @{
   */
 /**
   * @}
   */
 
-/** @defgroup STM32469I-EVAL_SRAM_Private_Variables STM32469I-EVAL Private Variables
+/** @defgroup STM32469I-EVAL_SRAM_Private_Macros STM32469I EVAL SRAM Private Macros
+  * @{
+  */
+/**
+  * @}
+  */
+
+/** @defgroup STM32469I-EVAL_SRAM_Private_Variables STM32469I EVAL SRAM Private Variables
   * @{
   */
 static SRAM_HandleTypeDef sramHandle;
@@ -115,7 +115,7 @@ static FMC_NORSRAM_TimingTypeDef Timing;
   * @}
   */
 
-/** @defgroup STM32469I-EVAL_SRAM_Private_Function_Prototypes STM32469I-EVAL Private Function Prototypes
+/** @defgroup STM32469I-EVAL_SRAM_Private_Function_Prototypes STM32469I EVAL SRAM Private Function Prototypes
   * @{
   */
 
@@ -123,7 +123,7 @@ static FMC_NORSRAM_TimingTypeDef Timing;
   * @}
   */
 
-/** @defgroup STM32469I-EVAL_SRAM_Private_Functions STM32469I-EVAL Private Functions
+/** @defgroup STM32469I-EVAL_SRAM_Private_Functions STM32469I EVAL SRAM Private Functions
   * @{
   */
 
@@ -131,7 +131,7 @@ static FMC_NORSRAM_TimingTypeDef Timing;
   * @}
   */
 
-/** @defgroup STM32469I-EVAL_SRAM_Exported_Functions STM32469I-EVAL Exported Functions
+/** @defgroup STM32469I-EVAL_SRAM_Exported_Functions STM32469I EVAL SRAM Exported Functions
   * @{
   */
 
@@ -377,7 +377,6 @@ __weak void BSP_SRAM_MspInit(SRAM_HandleTypeDef *hsram, void *Params)
   * @note   This function can be surcharged by application code.
   * @param  hsram : pointer on SRAM handle
   * @param  Params: pointer on additional configuration parameters, can be NULL.
-  * @retval None
   */
 __weak void BSP_SRAM_MspDeInit(SRAM_HandleTypeDef *hsram, void *Params)
 {

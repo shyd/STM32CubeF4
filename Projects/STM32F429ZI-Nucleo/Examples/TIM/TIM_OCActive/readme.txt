@@ -2,11 +2,11 @@
   @page TIM_OCActive TIM_OCActive example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    TIM/TIM_OCActive/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   This example shows how to configure the Timer to generate four 
   *          delayed signals.
   ******************************************************************************
@@ -38,9 +38,8 @@
 
 @par Example Description 
 
-  This example shows how to configure the TIM peripheral in Output Compare Active 
-  mode (when the counter matches the capture/compare register, the concerned output
-  pin is set to its active state).
+  This example shows how to configure the TIM peripheral to generate four different signals with four
+  different delays.
 
   The TIM3 frequency is set to SystemCoreClock, and the objective is
   to get TIM3 counter clock at 10 kHz so the Prescaler is computed as following:
@@ -95,11 +94,11 @@
 
   - This example runs on STM32F429xx devices.
     
-  - This example has been tested with STMicroelectronics NUCLEO-429ZI  Rev.B 
+  - This example has been tested with STMicroelectronics NUCLEO-F429ZI  Rev.B 
     board and can be easily tailored to any other supported device 
     and development board.      
 
-  - NUCLEO-429ZI  Rev.B Set-up
+  - NUCLEO-F429ZI  Rev.B Set-up
    Connect the following pins to an oscilloscope to monitor the different waveforms:
       - Use LED2 connected to PB.07 (Reference)
       - PB.04: (TIM3_CH1) (connected to PB.04 (pin 19 in CN7 connector))

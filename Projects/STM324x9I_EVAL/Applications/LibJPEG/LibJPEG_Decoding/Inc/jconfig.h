@@ -27,16 +27,8 @@
  * to process big images.
  * Note that the max_memory_to_use option is ignored by this implementation.
  */
-#include "ff.h"
-        
-      
-/*
- * These defines indicate the memory allocation methods.
- */
-   
-#define JMALLOC   malloc    
-#define JFREE     free  
-   
+#include "jdata_conf.h"
+     
 /*
  * These symbols indicate the properties of your machine or compiler.
  * #define the symbol if yes, #undef it if no.

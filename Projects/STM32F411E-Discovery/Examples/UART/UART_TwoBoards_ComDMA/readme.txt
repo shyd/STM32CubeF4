@@ -2,11 +2,11 @@
   @page UART_TwoBoards_ComDMA UART Two Boards Communication DMA example
 
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    UART/UART_TwoBoards_ComDMA/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    13-November-2015
+  * @version V1.0.4
+  * @date    17-February-2017
   * @brief   Description of the UART Two Boards Communication DMA example.
   ******************************************************************************
   *

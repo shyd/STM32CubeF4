@@ -2,15 +2,15 @@
   ******************************************************************************
   * @file    DMA/DMA_FLASHToRAM/Src/main.c  
   * @author  MCD Application Team
-  * @version V1.2.4
-  * @date    13-November-2015 
+  * @version V1.2.8
+  * @date    17-February-2017 
   * @brief   This example provides a description of how to use a DMA channel 
   *          to transfer a word data buffer from FLASH memory to embedded 
   *          SRAM memory through the STM32F4xx HAL API.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -122,32 +122,28 @@ int main(void)
   * @retval None
   */
 static void DMA_Config(void)
-{   
+{
   /*## -1- Enable DMA2 clock #################################################*/
   __HAL_RCC_DMA2_CLK_ENABLE();
 
   /*##-2- Select the DMA functional Parameters ###############################*/
-  DmaHandle.Init.Channel = DMA_CHANNEL;                     /* DMA_CHANNEL_0                    */                     
-  DmaHandle.Init.Direction = DMA_MEMORY_TO_MEMORY;          /* M2M transfer mode                */           
-  DmaHandle.Init.PeriphInc = DMA_PINC_ENABLE;               /* Peripheral increment mode Enable */                 
-  DmaHandle.Init.MemInc = DMA_MINC_ENABLE;                  /* Memory increment mode Enable     */                   
-  DmaHandle.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD; /* Peripheral data alignment : Word */    
-  DmaHandle.Init.MemDataAlignment = DMA_MDATAALIGN_WORD;    /* memory data alignment : Word     */     
-  DmaHandle.Init.Mode = DMA_NORMAL;                         /* Normal DMA mode                  */  
-  DmaHandle.Init.Priority = DMA_PRIORITY_HIGH;              /* priority level : high            */  
-  DmaHandle.Init.FIFOMode = DMA_FIFOMODE_DISABLE;           /* FIFO mode disabled               */        
-  DmaHandle.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;  
-  DmaHandle.Init.MemBurst = DMA_MBURST_SINGLE;              /* Memory burst                     */  
+  DmaHandle.Init.Channel = DMA_CHANNEL;                     /* DMA_CHANNEL_0                    */
+  DmaHandle.Init.Direction = DMA_MEMORY_TO_MEMORY;          /* M2M transfer mode                */
+  DmaHandle.Init.PeriphInc = DMA_PINC_ENABLE;               /* Peripheral increment mode Enable */
+  DmaHandle.Init.MemInc = DMA_MINC_ENABLE;                  /* Memory increment mode Enable     */
+  DmaHandle.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD; /* Peripheral data alignment : Word */
+  DmaHandle.Init.MemDataAlignment = DMA_MDATAALIGN_WORD;    /* memory data alignment : Word     */
+  DmaHandle.Init.Mode = DMA_NORMAL;                         /* Normal DMA mode                  */
+  DmaHandle.Init.Priority = DMA_PRIORITY_HIGH;              /* priority level : high            */
+  DmaHandle.Init.FIFOMode = DMA_FIFOMODE_ENABLE;            /* FIFO mode enabled                */
+  DmaHandle.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_1QUARTERFULL; /* FIFO threshold: 1/4 full   */
+  DmaHandle.Init.MemBurst = DMA_MBURST_SINGLE;              /* Memory burst                     */
   DmaHandle.Init.PeriphBurst = DMA_PBURST_SINGLE;           /* Peripheral burst                 */
-  
+
   /*##-3- Select the DMA instance to be used for the transfer : DMA2_Stream0 #*/
   DmaHandle.Instance = DMA_STREAM;
 
-  /*##-4- Select Callbacks functions called after Transfer complete and Transfer error */
-  DmaHandle.XferCpltCallback  = TransferComplete;
-  DmaHandle.XferErrorCallback = TransferError;
-  
-  /*##-5- Initialize the DMA stream ##########################################*/
+  /*##-4- Initialize the DMA stream ##########################################*/
   if(HAL_DMA_Init(&DmaHandle) != HAL_OK)
   {
     /* Turn LED3/LED4 on: in case of Initialization Error */
@@ -157,7 +153,11 @@ static void DMA_Config(void)
     {
     }
   }
-  
+ 
+  /*##-5- Select Callbacks functions called after Transfer complete and Transfer error */
+  HAL_DMA_RegisterCallback(&DmaHandle, HAL_DMA_XFER_CPLT_CB_ID, TransferComplete);
+  HAL_DMA_RegisterCallback(&DmaHandle, HAL_DMA_XFER_ERROR_CB_ID, TransferError);
+
   /*##-6- Configure NVIC for DMA transfer complete/error interrupts ##########*/
   HAL_NVIC_SetPriority(DMA_STREAM_IRQ, 0, 0);
   HAL_NVIC_EnableIRQ(DMA_STREAM_IRQ);

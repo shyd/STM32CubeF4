@@ -2,11 +2,11 @@
   @page TIM_InputCapture Input Capture example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    TIM/TIM_InputCapture/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the TIM_InputCapture example.
   ******************************************************************************
   *
@@ -85,11 +85,11 @@
   - This example runs on STM32F429xx devices.
   - In this example, the clock is set to 180 MHz.
     
-  - This example has been tested with STMicroelectronics NUCLEO-429ZI  Rev.B
+  - This example has been tested with STMicroelectronics NUCLEO-F429ZI  Rev.B
     board and can be easily tailored to any other supported device 
     and development board.      
 
-  - NUCLEO-429ZI  Rev.B Set-up
+  - NUCLEO-F429ZI  Rev.B Set-up
     - Connect the external signal to measure to the TIM3 CH2 pin (PB.05) : Pin 13 in CN7 Connector
 
 @par How to use it ? 

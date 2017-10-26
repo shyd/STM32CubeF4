@@ -2,16 +2,16 @@
   @page LibJPEG_Decoding LibJPEG decoding application
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics  *******************
   * @file    LibJPEG/LibJPEG_Decoding/readme.txt 
   * @author  MCD Application Team
-  * @version V1.3.2
-  * @date    13-November-2015
+  * @version V1.4.0
+  * @date    17-February-2017
   * @brief   Description of the LibJPEG decoding application.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -52,6 +52,10 @@ The images must have the following properties:
 The image size can be modified by changing IMAGE_WIDTH and IMAGE_HEIGHT defines 
 in "main.h" file to decode other resolution than 240x320.
 
+@note IMAGE_WIDTH and IMAGE_HEIGHT values must be lower or equal to LCD screen resolution.
+ - LCD width  = 240 
+ - LCD height = 320
+
 Uncomment "SWAP_RB" define in "main.h" file if the displayed image color 
 are inverted
 
@@ -78,10 +82,12 @@ with CPU or with DMA2D. Uncomment "USE_DMA2D" define for DMA2D transfer and
     - LibJPEG/LibJPEG_Decoding/Inc/decode.h                    Decoder header file
     - LibJPEG/LibJPEG_Decoding/Inc/jmorecfg.h                  Lib JPEG configuration file (advanced configuration)
     - LibJPEG/LibJPEG_Decoding/Inc/jconfig.h                   Lib JPEG configuration file
+    - LibJPEG/LibJPEG_Decoding/Inc/jdata_conf.h                Write/Read methods definition
     - LibJPEG/LibJPEG_Decoding/Src/main.c                      Main program  
     - LibJPEG/LibJPEG_Decoding/Src/stm32f4xx_it.c              Interrupt handlers
     - LibJPEG/LibJPEG_Decoding/Src/system_stm32f4xx.c          STM32F4xx system clock configuration file
     - LibJPEG/LibJPEG_Decoding/Src/decode.c                    Decoder file
+    - LibJPEG/LibJPEG_Decoding/Src/jdata_conf.c                Write/Read methods definition
 
 
 @par Hardware and Software environment

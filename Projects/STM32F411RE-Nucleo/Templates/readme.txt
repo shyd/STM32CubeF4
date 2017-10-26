@@ -2,11 +2,11 @@
   @page Templates  Description of the Templates example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    Templates/readme.txt 
   * @author  MCD Application Team
-  * @version V1.1.3
-  * @date    13-November-2015
+  * @version V1.1.8
+  * @date    17-February-2017
   * @brief   Description of the Templates example.
   ******************************************************************************
   *
@@ -37,7 +37,7 @@
 
 @par Example Description
 
-This projects provides a reference template that can be used to build any firmware application.
+This project provides a reference template that can be used to build any firmware application.
 
 This directory provides a reference template project that can be used to build any firmware application for
 STM32F401xEx devices using STM32CubeF4 HAL and running on STM32F4xx-Nucleo board from STMicroelectronics. 

@@ -2,11 +2,11 @@
   @page SPI_FullDuplex_ComDMA SPI Full Duplex DMA example
 
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    SPI/SPI_FullDuplex_ComDMA/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date  09-October-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the SPI Full Duplex DMA example.
   ******************************************************************************
   *
@@ -37,8 +37,8 @@
 
 @par Example Description 
 
-This example shows how to ensure SPI Data buffer transmission and reception with 
-DMA. The communication is done with 2 boards through SPI.
+This example shows how to perform SPI data buffer transmission/reception between 
+two boards via DMA. 
 
    _________________________                       __________________________
   |       __________________|                      |__________________       |

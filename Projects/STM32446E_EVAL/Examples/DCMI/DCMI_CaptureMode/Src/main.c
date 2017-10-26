@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    DCMI/DCMI_CaptureMode/Src/main.c
   * @author  MCD Application Team
-  * @version V1.1.2
-  * @date    13-November-2015
+  * @version V1.2.0
+  * @date    17-February-2017
   * @brief   This example discribe how to configure the camera in continuous mode
   *          and QVGA resolution.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -51,8 +51,11 @@
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
+uint8_t EndFrame = 0;
+
 /* Private function prototypes -----------------------------------------------*/
 static void SystemClock_Config(void);
+
 /* Private functions ---------------------------------------------------------*/
 
 /**
@@ -62,7 +65,6 @@ static void SystemClock_Config(void);
   */
 int main(void)
 {
-
   /* STM32F4xx HAL library initialization:
        - Configure the Flash prefetch
        - Systick timer is configured by default as source of time base, but user 
@@ -78,13 +80,11 @@ int main(void)
   /* Configure the system clock to 180 MHz */
   SystemClock_Config();
 
-
   /*##-1- Initialize the SDRAM  ##############################################*/
   BSP_SDRAM_Init();
 
   /*##-2- Initialize the LCD #################################################*/
   BSP_LCD_Init();
-
 
   /*##-3- Camera Initialisation and start capture ############################*/
   /* Initialize the Camera */
@@ -95,6 +95,13 @@ int main(void)
 
   while (1)
   {
+    if (EndFrame)
+    {
+      /* Display on LCD */
+      BSP_LCD_DrawRGBImage(0, 0, 320, 240, (uint8_t *)CAMERA_FRAME_BUFFER);
+
+      EndFrame = 0;
+    }
   }
 }
 
@@ -105,8 +112,7 @@ int main(void)
 */
 void BSP_CAMERA_FrameEventCallback(void)
 {
-  /* Display on LCD */
-  BSP_LCD_DrawRGBImage(0, 0, 320, 240, (uint8_t *)CAMERA_FRAME_BUFFER);
+  EndFrame = 1;
 }
 
 /**

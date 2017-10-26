@@ -2,13 +2,13 @@
   ******************************************************************************
   * @file    BSP/Src/sd.c 
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   This example code shows how to use the SD Driver
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -88,7 +88,7 @@ void SD_demo (void)
   {
     BSP_LCD_DisplayStringAt(5, 75, (uint8_t *)"SD Init : OK.", LEFT_MODE);
     
-    SD_state = BSP_SD_Erase(BLOCK_START_ADDR, (BLOCKSIZE * NUM_OF_BLOCKS));
+    SD_state = BSP_SD_Erase(BLOCK_START_ADDR, NUM_OF_BLOCKS);
     
     if(SD_state != SD_OK)
     {
@@ -101,7 +101,7 @@ void SD_demo (void)
       
       /* Fill the buffer to write */
       Fill_Buffer(aTxBuffer, BUFFER_WORDS_SIZE, 0x22FF);
-      SD_state = BSP_SD_WriteBlocks(aTxBuffer, BLOCK_START_ADDR, BLOCKSIZE, NUM_OF_BLOCKS);
+      SD_state = BSP_SD_WriteBlocks(aTxBuffer, BLOCK_START_ADDR, NUM_OF_BLOCKS, 1);
       
       if(SD_state != SD_OK)
       {
@@ -111,7 +111,7 @@ void SD_demo (void)
       else
       {
         BSP_LCD_DisplayStringAt(5, 105, (uint8_t *)"SD WRITE : OK.", LEFT_MODE);
-        SD_state = BSP_SD_ReadBlocks(aRxBuffer, BLOCK_START_ADDR, BLOCKSIZE, NUM_OF_BLOCKS);
+        SD_state = BSP_SD_ReadBlocks(aRxBuffer, BLOCK_START_ADDR, NUM_OF_BLOCKS, 1);
         if(SD_state != SD_OK)
         {
           BSP_LCD_DisplayStringAt(5, 120, (uint8_t *)"SD READ : FAILED.", LEFT_MODE);

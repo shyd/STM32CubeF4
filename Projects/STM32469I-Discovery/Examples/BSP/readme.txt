@@ -2,11 +2,11 @@
   @page BSP  Example on how to use the BSP drivers
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    BSP/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date  09-October-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the BSP example.
   ******************************************************************************
   *

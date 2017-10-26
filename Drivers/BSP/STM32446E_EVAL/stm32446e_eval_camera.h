@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32446e_eval_camera.h
   * @author  MCD Application Team
-  * @version V1.1.0
-  * @date    14-August-2015
+  * @version V2.0.0
+  * @date    27-January-2017
   * @brief   This file contains the common defines and functions prototypes for
   *          the stm32446e_eval_camera.c driver.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -59,11 +59,11 @@
   * @{
   */
     
-/** @defgroup STM32446E_EVAL_CAMERA STM32446E-EVAL CAMERA
+/** @addtogroup STM32446E_EVAL_CAMERA
   * @{
   */ 
    
-/** @defgroup STM32446E_EVAL_CAMERA_Exported_Types STM32446E EVAL Camera Exported Types
+/** @defgroup STM32446E_EVAL_CAMERA_Exported_Types STM32446E EVAL CAMERA Exported Types
   * @{
   */
   
@@ -85,14 +85,14 @@ typedef enum
   * @}
   */ 
  
-/** @defgroup STM32446E_EVAL_CAMERA_Exported_Constants STM32446E EVAL Camera Exported Constants
+/** @defgroup STM32446E_EVAL_CAMERA_Exported_Constants STM32446E EVAL CAMERA Exported Constants
   * @{
   */
 /**
   * @}
   */
 
-/** @defgroup STM32446E_EVAL_CAMERA_Exported_Functions STM32446E EVAL Camera Exported Functions
+/** @defgroup STM32446E_EVAL_CAMERA_Exported_Functions STM32446E EVAL CAMERA Exported Functions
   * @{
   */    
 uint8_t BSP_CAMERA_Init(uint32_t Resolution);  

@@ -2,16 +2,16 @@
   @page DMA2D_MemToMemWithBlending DMA2D Memory to Memory with blending example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    DMA2D/DMA2D_MemToMemWithBlending/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date  09-October-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the STM32F4xx DMA2D Memory to Memory with blending example.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -51,11 +51,11 @@
   In this transfer mode two input sources are fetched : foreground and background.
   In this example, the foreground and background are configured as following :
    - Foreground object 
-   - input memory address at FLASH memory (static image arrays coded in FLASH).
+   - input memory address at Flash memory (static image arrays coded in FLASH).
    - Format : RGB565
    - Size   : 240x130
    - Background object 
-   - input memory address at FLASH memory (static image arrays coded in FLASH).
+   - input memory address at Flash memory (static image arrays coded in FLASH).
    - Format : RGB565
    - Size   : 240x130
    - The constant alpha for foreground is decreased to see the background.

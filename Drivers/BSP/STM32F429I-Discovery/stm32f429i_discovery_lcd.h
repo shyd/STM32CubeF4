@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32f429i_discovery_lcd.h
   * @author  MCD Application Team
-  * @version V2.1.2
-  * @date    02-March-2015
+  * @version V2.1.5
+  * @date    27-January-2017
   * @brief   This file contains all the functions prototypes for the 
   *          stm32f429i_discovery_lcd.c driver.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -60,11 +60,11 @@
   * @{
   */ 
     
-/** @defgroup STM32F429I_DISCOVERY_LCD
+/** @addtogroup STM32F429I_DISCOVERY_LCD
   * @{
   */ 
 
-/** @defgroup STM32F429I_DISCOVERY_LCD_Exported_Types
+/** @defgroup STM32F429I_DISCOVERY_LCD_Exported_Types STM32F429I DISCOVERY LCD Exported Types
   * @{
   */
 typedef enum 
@@ -100,7 +100,7 @@ typedef enum
   * @}
   */ 
 
-/** @defgroup STM32F429I_DISCOVERY_LCD_Exported_Constants
+/** @defgroup STM32F429I_DISCOVERY_LCD_Exported_Constants STM32F429I DISCOVERY LCD Exported Constants
   * @{
   */ 
 #define LCD_LayerCfgTypeDef    LTDC_LayerCfgTypeDef
@@ -147,6 +147,12 @@ typedef enum
 #define LCD_DEFAULT_FONT         Font24
 
 /** 
+  * @brief  LCD Reload Types
+  */
+#define LCD_RELOAD_IMMEDIATE               ((uint32_t)LTDC_SRCR_IMR)
+#define LCD_RELOAD_VERTICAL_BLANKING       ((uint32_t)LTDC_SRCR_VBR)
+
+/** 
   * @brief  LCD Layer  
   */ 
 #define LCD_BACKGROUND_LAYER     0x0000
@@ -156,7 +162,7 @@ typedef enum
   * @}
   */ 
 
-/** @defgroup STM32F429I_DISCOVERY_LCD_Exported_Macros
+/** @defgroup STM32F429I_DISCOVERY_LCD_Exported_Macros STM32F429I DISCOVERY LCD Exported Macros
   * @{
   */ 
 /** 
@@ -174,7 +180,7 @@ typedef enum
   * @}
   */ 
 
-/** @defgroup STM32F429I_DISCOVERY_LCD_Exported_Functions
+/** @defgroup STM32F429I_DISCOVERY_LCD_Exported_Functions STM32F429I DISCOVERY LCD Exported Functions
   * @{
   */ 
 uint8_t  BSP_LCD_Init(void);
@@ -184,12 +190,19 @@ uint32_t BSP_LCD_GetYSize(void);
 /* functions using the LTDC controller */
 void     BSP_LCD_LayerDefaultInit(uint16_t LayerIndex, uint32_t FrameBuffer);
 void     BSP_LCD_SetTransparency(uint32_t LayerIndex, uint8_t Transparency);
+void     BSP_LCD_SetTransparency_NoReload(uint32_t LayerIndex, uint8_t Transparency);
 void     BSP_LCD_SetLayerAddress(uint32_t LayerIndex, uint32_t Address);
+void     BSP_LCD_SetLayerAddress_NoReload(uint32_t LayerIndex, uint32_t Address);
 void     BSP_LCD_SetColorKeying(uint32_t LayerIndex, uint32_t RGBValue);
+void     BSP_LCD_SetColorKeying_NoReload(uint32_t LayerIndex, uint32_t RGBValue);
 void     BSP_LCD_ResetColorKeying(uint32_t LayerIndex);
+void     BSP_LCD_ResetColorKeying_NoReload(uint32_t LayerIndex);
 void     BSP_LCD_SetLayerWindow(uint16_t LayerIndex, uint16_t Xpos, uint16_t Ypos, uint16_t Width, uint16_t Height);
+void     BSP_LCD_SetLayerWindow_NoReload(uint16_t LayerIndex, uint16_t Xpos, uint16_t Ypos, uint16_t Width, uint16_t Height);
 void     BSP_LCD_SelectLayer(uint32_t LayerIndex);
 void     BSP_LCD_SetLayerVisible(uint32_t LayerIndex, FunctionalState state);
+void     BSP_LCD_SetLayerVisible_NoReload(uint32_t LayerIndex, FunctionalState State);
+void     BSP_LCD_Relaod(uint32_t ReloadType);
 
 void     BSP_LCD_SetTextColor(uint32_t Color);
 void     BSP_LCD_SetBackColor(uint32_t Color);
@@ -223,6 +236,10 @@ void     BSP_LCD_FillEllipse(int Xpos, int Ypos, int XRadius, int YRadius);
 
 void     BSP_LCD_DisplayOff(void);
 void     BSP_LCD_DisplayOn(void);
+
+/* This function can be modified in case the current settings need to be changed 
+   for specific application needs */
+void    BSP_LCD_MspInit(void);
 
 /**
   * @}

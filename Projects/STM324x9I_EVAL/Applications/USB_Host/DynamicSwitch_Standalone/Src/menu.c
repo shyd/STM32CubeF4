@@ -2,41 +2,60 @@
   ******************************************************************************
   * @file    USB_Host/DynamicSwitch_Standalone/Src/menu.c 
   * @author  MCD Application Team
-  * @version V1.4.2
-  * @date    13-November-2015
+  * @version V1.5.0
+  * @date    17-February-2017
   * @brief   This file implements Menu Functions
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics International N.V. 
+  * All rights reserved.</center></h2>
   *
-  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-  * You may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at:
+  * Redistribution and use in source and binary forms, with or without 
+  * modification, are permitted, provided that the following conditions are met:
   *
-  *        http://www.st.com/software_license_agreement_liberty_v2
+  * 1. Redistribution of source code must retain the above copyright notice, 
+  *    this list of conditions and the following disclaimer.
+  * 2. Redistributions in binary form must reproduce the above copyright notice,
+  *    this list of conditions and the following disclaimer in the documentation
+  *    and/or other materials provided with the distribution.
+  * 3. Neither the name of STMicroelectronics nor the names of other 
+  *    contributors to this software may be used to endorse or promote products 
+  *    derived from this software without specific written permission.
+  * 4. This software, including modifications and/or derivative works of this 
+  *    software, must execute solely and exclusively on microcontroller or
+  *    microprocessor devices manufactured by or for STMicroelectronics.
+  * 5. Redistribution and use of this software other than as permitted under 
+  *    this license is void and will automatically terminate your rights under 
+  *    this license. 
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
+  * THIS SOFTWARE IS PROVIDED BY STMICROELECTRONICS AND CONTRIBUTORS "AS IS" 
+  * AND ANY EXPRESS, IMPLIED OR STATUTORY WARRANTIES, INCLUDING, BUT NOT 
+  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+  * PARTICULAR PURPOSE AND NON-INFRINGEMENT OF THIRD PARTY INTELLECTUAL PROPERTY
+  * RIGHTS ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED BY LAW. IN NO EVENT 
+  * SHALL STMICROELECTRONICS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, 
+  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
+  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
   */
-
-/* Includes ------------------------------------------------------------------*/
+/* Includes ------------------------------------------------------------------ */
 #include "main.h"
 
-/* Private typedef -----------------------------------------------------------*/
-/* Private define ------------------------------------------------------------*/
-/* Private macro -------------------------------------------------------------*/
-/* Private variables ---------------------------------------------------------*/
-extern char SD_Path[4];  /* SD logical drive path */
-char USBDISKPath[4];     /* USB Host logical drive path */
+/* Private typedef ----------------------------------------------------------- */
+/* Private define ------------------------------------------------------------ */
+/* Private macro ------------------------------------------------------------- */
+/* Private variables --------------------------------------------------------- */
+extern char SD_Path[4];         /* SD logical drive path */
+char USBDISKPath[4];            /* USB Host logical drive path */
 
-/* Private function prototypes -----------------------------------------------*/
-/* Private functions ---------------------------------------------------------*/
+/* Private function prototypes ----------------------------------------------- */
+/* Private functions --------------------------------------------------------- */
 
 /**
   * @brief  Demo state machine.
@@ -56,37 +75,37 @@ void Menu_Init(void)
   * @retval None
   */
 void DS_MenuProcess(void)
-{       
-  switch(Appli_state)
+{
+  switch (Appli_state)
   {
   case APPLICATION_IDLE:
     break;
-    
+
   case APPLICATION_MSC:
     MSC_MenuProcess();
     break;
-    
+
   case APPLICATION_AUDIO:
     AUDIO_MenuProcess();
     break;
-    
+
   case APPLICATION_HID:
     HID_MenuProcess();
     break;
 
   default:
-	break;
+    break;
   }
-  if(Appli_state == APPLICATION_DISCONNECT)
+  if (Appli_state == APPLICATION_DISCONNECT)
   {
-    Appli_state = APPLICATION_IDLE; 
+    Appli_state = APPLICATION_IDLE;
     Menu_Init();
     /* Unlink the micro SD disk I/O driver */
     FATFS_UnLinkDriver(SD_Path);
     /* Unlink the USB disk I/O driver */
     FATFS_UnLinkDriver(USBDISKPath);
   }
-} 
+}
 
 /**
   * @brief  EXTI line detection callbacks.
@@ -97,55 +116,55 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
   static JOYState_TypeDef JoyState = JOY_NONE;
   static uint32_t debounce_time = 0;
-  
-  if(GPIO_Pin == GPIO_PIN_8)
-  {    
+
+  if (GPIO_Pin == GPIO_PIN_8)
+  {
     /* Get the Joystick State */
     JoyState = BSP_JOY_GetState();
-    
+
     /* Clear joystick interrupt pending bits */
     BSP_IO_ITClear();
-    
-    if(Appli_state == APPLICATION_MSC)
+
+    if (Appli_state == APPLICATION_MSC)
     {
-      MSC_DEMO_ProbeKey(JoyState); 
+      MSC_DEMO_ProbeKey(JoyState);
     }
-    else if(Appli_state == APPLICATION_HID)
+    else if (Appli_state == APPLICATION_HID)
     {
-      HID_DEMO_ProbeKey(JoyState); 
+      HID_DEMO_ProbeKey(JoyState);
     }
-    else if(Appli_state == APPLICATION_AUDIO)
+    else if (Appli_state == APPLICATION_AUDIO)
     {
-      if(audio_select_mode == AUDIO_SELECT_MENU)
-      {  
-        AUDIO_MenuProbeKey(JoyState); 
+      if (audio_select_mode == AUDIO_SELECT_MENU)
+      {
+        AUDIO_MenuProbeKey(JoyState);
       }
-      else if(audio_select_mode == AUDIO_PLAYBACK_CONTROL)
+      else if (audio_select_mode == AUDIO_PLAYBACK_CONTROL)
       {
         AUDIO_PlaybackProbeKey(JoyState);
       }
     }
-    switch(JoyState)
+    switch (JoyState)
     {
     case JOY_LEFT:
       LCD_LOG_ScrollBack();
       break;
-           
+
     case JOY_RIGHT:
       LCD_LOG_ScrollForward();
-      break;          
-      
+      break;
+
     default:
-      break;           
+      break;
     }
   }
-  
-  if(audio_demo.state == AUDIO_DEMO_PLAYBACK)
+
+  if (audio_demo.state == AUDIO_DEMO_PLAYBACK)
   {
-    if(GPIO_Pin == KEY_BUTTON_PIN)
-    { 
+    if (GPIO_Pin == KEY_BUTTON_PIN)
+    {
       /* Prevent debounce effect for user key */
-      if((HAL_GetTick() - debounce_time) > 50)
+      if ((HAL_GetTick() - debounce_time) > 50)
       {
         debounce_time = HAL_GetTick();
       }
@@ -153,18 +172,18 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
       {
         return;
       }
-      
+
       /* Change the selection type */
-      if(audio_select_mode == AUDIO_SELECT_MENU)
+      if (audio_select_mode == AUDIO_SELECT_MENU)
       {
-        Audio_ChangeSelectMode(AUDIO_PLAYBACK_CONTROL); 
+        Audio_ChangeSelectMode(AUDIO_PLAYBACK_CONTROL);
       }
-      else if(audio_select_mode == AUDIO_PLAYBACK_CONTROL)
-      {       
+      else if (audio_select_mode == AUDIO_PLAYBACK_CONTROL)
+      {
         Audio_ChangeSelectMode(AUDIO_SELECT_MENU);
       }
     }
   }
-} 
+}
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

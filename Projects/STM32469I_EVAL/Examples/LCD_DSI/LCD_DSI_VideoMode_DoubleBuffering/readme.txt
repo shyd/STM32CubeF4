@@ -2,11 +2,11 @@
   @page LCD_DSI_VideoMode_DoubleBuffering : LCD DSI examples in DSI mode Video Burst
 
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    LCD_DSI/LCD_DSI_VideoMode_DoubleBuffering/readme.txt
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the LCD DSI in mode video burst example.
   ******************************************************************************
   *

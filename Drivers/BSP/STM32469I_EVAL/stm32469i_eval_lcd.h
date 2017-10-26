@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32469i_eval_lcd.h
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    29-September-2015
+  * @version V2.0.0
+  * @date    27-January-2017
   * @brief   This file contains the common defines and functions prototypes for
   *          the stm32469i_eval_lcd.c driver.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -62,15 +62,15 @@
   * @{
   */
 
-/** @addtogroup STM32469I-EVAL
+/** @addtogroup STM32469I_EVAL
   * @{
   */
 
-/** @addtogroup STM32469I-EVAL_LCD STM32469I EVAL LCD
+/** @addtogroup STM32469I_EVAL_LCD STM32469I EVAL LCD
   * @{
   */
 
-/** @defgroup STM32469I-EVAL_LCD_Exported_Constants STM32469I EVAL LCD Exported Constants
+/** @defgroup STM32469I_EVAL_LCD_Exported_Constants STM32469I EVAL LCD Exported Constants
   * @{
   */
 
@@ -225,10 +225,19 @@
   * @brief LCD default font
   */
 #define LCD_DEFAULT_FONT        Font24
+
+/**
+ *  @brief  Possible values of
+ *  pixel data format (ie color coding) transmitted on DSI Data lane in DSI packets
+ */
+
+#define   LCD_DSI_PIXEL_DATA_FMT_RBG888  DSI_RGB888 /*!< DSI packet pixel format chosen is RGB888 : 24 bpp */
+#define   LCD_DSI_PIXEL_DATA_FMT_RBG565  DSI_RGB565 /*!< DSI packet pixel format chosen is RGB565 : 16 bpp */
+
 /**
   * @}
   */
-
+   
 /** @defgroup STM32469I-EVAL_LCD_Exported_Types STM32469I EVAL LCD Exported Types
   * @{
   */
@@ -283,26 +292,18 @@ typedef enum
 } LCD_OrientationTypeDef;
 
 /**
- *  @brief  Possible values of
- *  pixel data format (ie color coding) transmitted on DSI Data lane in DSI packets
- */
-typedef enum
-{
-  LCD_DSI_PIXEL_DATA_FMT_RBG888  = 0x00, /*!< DSI packet pixel format chosen is RGB888 : 24 bpp */
-  LCD_DSI_PIXEL_DATA_FMT_RBG565  = 0x02, /*!< DSI packet pixel format chosen is RGB565 : 16 bpp */
-  LCD_DSI_PIXEL_DATA_FMT_INVALID = 0x03  /*!< Invalid DSI packet pixel format                   */
-
-} LCD_DsiPixelDataFmtTypeDef;
-
-/**
   * @}
   */
 
 /** @defgroup STM32469I-EVAL_LCD_Exported_Macro STM32469I EVAL LCD Exported Macro
   * @{
   */
+  
+/**
+  * @}
+  */
 
-/** @defgroup STM32469I-EVAL_LCD_Exported_Functions STM32469I EVAL LCD Exported Functions
+/** @addtogroup STM32469I-EVAL_LCD_Exported_Functions 
   * @{
   */
 
@@ -369,16 +370,12 @@ void     BSP_LCD_DisplayOn(void);
   * @}
   */
 
-/** @defgroup STM32469I-EVAL_LCD_Exported_Variables STM32469I EVAL LCD Exported Variables
+/** @addtogroup STM32469I-EVAL_LCD_Exported_Variables 
   * @{
   */
 
 /* @brief DMA2D handle variable */
 extern DMA2D_HandleTypeDef hdma2d_eval;
-
-/**
-  * @}
-  */
 
 /**
   * @}

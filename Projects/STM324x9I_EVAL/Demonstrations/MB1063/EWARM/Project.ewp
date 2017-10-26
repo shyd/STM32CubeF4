@@ -12,7 +12,7 @@
       <name>General</name>
       <archiveVersion>3</archiveVersion>
       <data>
-        <version>22</version>
+        <version>24</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>1</debug>
         <option>
@@ -26,11 +26,6 @@
         <option>
           <name>ListPath</name>
           <state>STM324x9I-EVAL-MB1063\List</state>
-        </option>
-        <option>
-          <name>Variant</name>
-          <version>21</version>
-          <state>40</state>
         </option>
         <option>
           <name>GEndianMode</name>
@@ -59,11 +54,6 @@
           <state>0</state>
         </option>
         <option>
-          <name>FPU</name>
-          <version>4</version>
-          <state>6</state>
-        </option>
-        <option>
           <name>OGCoreOrChip</name>
           <state>1</state>
         </option>
@@ -87,7 +77,7 @@
         </option>
         <option>
           <name>OGLastSavedByProductVersion</name>
-          <state>7.40.1.8463</state>
+          <state>7.80.3.12143</state>
         </option>
         <option>
           <name>GeneralEnableMisra</name>
@@ -136,14 +126,9 @@
           <state>$TOOLKIT_DIR$\INC\c\DLib_Config_Full.h</state>
         </option>
         <option>
-          <name>GFPUCoreSlave</name>
-          <version>21</version>
-          <state>40</state>
-        </option>
-        <option>
           <name>GBECoreSlave</name>
-          <version>21</version>
-          <state>40</state>
+          <version>24</version>
+          <state>39</state>
         </option>
         <option>
           <name>OGUseCmsis</name>
@@ -156,6 +141,34 @@
         <option>
           <name>GRuntimeLibThreads</name>
           <state>0</state>
+        </option>
+        <option>
+          <name>CoreVariant</name>
+          <version>24</version>
+          <state>39</state>
+        </option>
+        <option>
+          <name>GFPUDeviceSlave</name>
+          <state>STM32F439NI	ST STM32F439NI</state>
+        </option>
+        <option>
+          <name>FPU2</name>
+          <version>0</version>
+          <state>4</state>
+        </option>
+        <option>
+          <name>NrRegs</name>
+          <version>0</version>
+          <state>1</state>
+        </option>
+        <option>
+          <name>NEON</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GFPUCoreSlave2</name>
+          <version>24</version>
+          <state>39</state>
         </option>
       </data>
     </settings>
@@ -306,9 +319,9 @@
           <name>CCIncludePath2</name>
           <state>$PROJ_DIR$\..\Core\inc</state>
           <state>$PROJ_DIR$\..\Config</state>
-          <state>$PROJ_DIR$\..\Modules\vncserver</state>
           <state>$PROJ_DIR$\..\..\..\..\..\Utilities\CPU</state>
           <state>$PROJ_DIR$\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Include</state>
+          <state>$PROJ_DIR$\..\..\..\..\..\Drivers\CMSIS\Include</state>
           <state>$PROJ_DIR$\..\..\..\..\..\Drivers\STM32F4xx_HAL_Driver\Inc</state>
           <state>$PROJ_DIR$\..\..\..\..\..\Drivers\BSP\STM324x9I_EVAL</state>
           <state>$PROJ_DIR$\..\..\..\..\..\Drivers\BSP\Components</state>
@@ -605,7 +618,7 @@
         <debug>1</debug>
         <option>
           <name>OOCOutputFormat</name>
-          <version>2</version>
+          <version>3</version>
           <state>1</state>
         </option>
         <option>
@@ -614,7 +627,7 @@
         </option>
         <option>
           <name>OOCOutputFile</name>
-          <state>STM32CubeDemo_STM32439I-EVAL_1.4.0.hex</state>
+          <state>STM32CubeDemo_STM32439I-EVAL_1.5.0.hex</state>
         </option>
         <option>
           <name>OOCCommandLineProducer</name>
@@ -652,7 +665,7 @@
       <name>ILINK</name>
       <archiveVersion>0</archiveVersion>
       <data>
-        <version>16</version>
+        <version>18</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>1</debug>
         <option>
@@ -924,7 +937,7 @@
         </option>
         <option>
           <name>CrcAlgorithm</name>
-          <version>0</version>
+          <version>1</version>
           <state>1</state>
         </option>
         <option>
@@ -935,6 +948,14 @@
         <option>
           <name>IlinkThreadsSlave</name>
           <state>1</state>
+        </option>
+        <option>
+          <name>IlinkLogCallGraph</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>IlinkIcfFile_AltDefault</name>
+          <state></state>
         </option>
       </data>
     </settings>
@@ -1101,6 +1122,12 @@
     </group>
   </group>
   <group>
+    <name>Doc</name>
+    <file>
+      <name>$PROJ_DIR$\..\readme.txt</name>
+    </file>
+  </group>
+  <group>
     <name>Drivers</name>
     <group>
       <name>BSP</name>
@@ -1229,6 +1256,9 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\..\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_i2s.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_i2s_ex.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\..\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_irda.c</name>
@@ -1394,6 +1424,12 @@
       </file>
     </group>
     <group>
+      <name>PDM</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\libPDMFilter_CM4_IAR.a</name>
+      </file>
+    </group>
+    <group>
       <name>STemWin</name>
       <group>
         <name>Config</name>
@@ -1407,7 +1443,7 @@
       <group>
         <name>Library</name>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\Middlewares\ST\STemWin\Lib\STemWin528_CM4_OS_IAR.a</name>
+          <name>$PROJ_DIR$\..\..\..\..\..\Middlewares\ST\STemWin\Lib\STemWin532_CM4_OS_IAR.a</name>
         </file>
       </group>
       <group>

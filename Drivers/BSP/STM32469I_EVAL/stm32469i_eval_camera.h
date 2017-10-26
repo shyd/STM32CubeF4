@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32469i_eval_camera.h
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    29-September-2015
+  * @version V2.0.0
+  * @date    27-January-2017
   * @brief   This file contains the common defines and functions prototypes for
   *          the stm32469i_eval_camera.c driver.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -55,7 +55,7 @@
   * @{
   */
 
-/** @addtogroup STM32469I-EVAL
+/** @addtogroup STM32469I_EVAL
   * @{
   */
 
@@ -63,7 +63,7 @@
   * @{
   */
 
-/** @defgroup STM32469I-EVAL_CAMERA_Exported_Types STM32469I EVAL Camera Exported Types
+/** @defgroup STM32469I-EVAL_CAMERA_Exported_Types STM32469I EVAL CAMERA Exported Types
   * @{
   */
 
@@ -110,14 +110,14 @@ typedef enum
   * @}
   */
 
-/** @defgroup STM32469I-EVAL_CAMERA_Exported_Constants STM32469I-EVAL CAMERA Exported Constants
+/** @defgroup STM32469I-EVAL_CAMERA_Exported_Constants STM32469I EVAL CAMERA Exported Constants
   * @{
   */
 /**
   * @}
   */
 
-/** @defgroup STM32469I-EVAL_CAMERA_Exported_Functions STM32469I-EVAL CAMERA Exported Functions
+/** @defgroup STM32469I-EVAL_CAMERA_Exported_Functions STM32469I EVAL CAMERA Exported Functions
   * @{
   */
 

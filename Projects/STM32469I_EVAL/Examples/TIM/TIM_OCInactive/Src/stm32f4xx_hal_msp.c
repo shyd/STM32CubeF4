@@ -2,13 +2,13 @@
   ******************************************************************************
   * @file    TIM/TIM_OCInactive/Src/stm32f4xx_hal_msp.c
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   HAL MSP module.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -68,41 +68,35 @@
   * @retval None
   */
 void HAL_TIM_OC_MspInit(TIM_HandleTypeDef *htim)
-{
-  GPIO_InitTypeDef   GPIO_InitStruct;
+{  
+  GPIO_InitTypeDef  GPIO_InitStruct;
   
-  
-  /*##-1- Enable peripherals and GPIO Clocks #################################*/
   /* TIM1 Peripheral clock enable */
   TIMx_CLK_ENABLE();
-    
-  /* Enable GPIO Channels Clock */
-  TIMx_CHANNEL_GPIO_PORT;
   
-  /*##-2- Configure I/Os #####################################################*/
-  /* Configure PA.08 (TIM1_Channel1), PA.09 (TIM1_Channel2), PA.10 (TIM1_Channel3),
-     PA.11 (TIM1_Channel4) in output, pull-up, alternate function mode
-  */
-  /* Common configuration for all channels */
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    /* Enable GPIO Clock */
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+  
+  /* Configure the GPIO pins: used to display the 4 wave forms */
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
-  GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
   
-  GPIO_InitStruct.Alternate = TIMx_GPIO_AF_CHANNEL1;
-  GPIO_InitStruct.Pin = TIMx_GPIO_PIN_CHANNEL1;
-  HAL_GPIO_Init(TIMx_GPIO_PORT_CHANNEL1, &GPIO_InitStruct);
+  /* Configure PB.00 to display wave form of channel1 */
+  GPIO_InitStruct.Pin = GPIO_PIN_0;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
   
-  GPIO_InitStruct.Alternate = TIMx_GPIO_AF_CHANNEL2;
-  GPIO_InitStruct.Pin = TIMx_GPIO_PIN_CHANNEL2;
-  HAL_GPIO_Init(TIMx_GPIO_PORT_CHANNEL2, &GPIO_InitStruct);
+  /* Configure PB.01 to display wave form of channel2 */
+  GPIO_InitStruct.Pin = GPIO_PIN_1;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
   
-  GPIO_InitStruct.Alternate = TIMx_GPIO_AF_CHANNEL3;
-  GPIO_InitStruct.Pin = TIMx_GPIO_PIN_CHANNEL3;
-  HAL_GPIO_Init(TIMx_GPIO_PORT_CHANNEL3, &GPIO_InitStruct);
+  /* Configure PB.03 to display wave form of channel3 */  
+  GPIO_InitStruct.Pin = GPIO_PIN_3;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
   
-  GPIO_InitStruct.Alternate = TIMx_GPIO_AF_CHANNEL4;
-  GPIO_InitStruct.Pin = TIMx_GPIO_PIN_CHANNEL4;
-  HAL_GPIO_Init(TIMx_GPIO_PORT_CHANNEL4, &GPIO_InitStruct);
+  /* Configure PB.05 to display wave form of channel4 */
+  GPIO_InitStruct.Pin = GPIO_PIN_5;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
   
   /* Enable the TIM1 global Interrupt & set priority */
   HAL_NVIC_SetPriority(TIM1_CC_IRQn, 0, 1);

@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32469i_eval_io.c
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    29-September-2015
+  * @version V2.0.0
+  * @date    27-January-2017
   * @brief   This file provides a set of functions needed to manage the IO pins
   *          on STM32469I-EVAL evaluation board.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -76,36 +76,36 @@
   * @{
   */
 
-/** @addtogroup STM32469I-EVAL
+/** @addtogroup STM32469I_EVAL
   * @{
   */
 
-/** @defgroup STM32469I-EVAL_IO STM32469I-EVAL IO
+/** @defgroup STM32469I-EVAL_IO STM32469I EVAL IO
   * @{
   */
 
-/** @defgroup STM32469I-EVAL_IO_Private_Types_Definitions STM32469I-EVAL IO Private Types Definitions
-  * @{
-  */
-/**
-  * @}
-  */
-
-/** @defgroup STM32469I-EVAL_IO_Private_Defines STM32469I-EVAL IO Private Defines
+/** @defgroup STM32469I-EVAL_IO_Private_Types_Definitions STM32469I EVAL IO Private Types Definitions
   * @{
   */
 /**
   * @}
   */
 
-/** @defgroup STM32469I-EVAL_IO_Private_Macros STM32469I-EVAL IO Private Macros
+/** @defgroup STM32469I-EVAL_IO_Private_Defines STM32469I EVAL IO Private Defines
   * @{
   */
 /**
   * @}
   */
 
-/** @defgroup STM32469I-EVAL_IO_Private_Variables STM32469I-EVAL IO Private Variables
+/** @defgroup STM32469I-EVAL_IO_Private_Macros STM32469I EVAL IO Private Macros
+  * @{
+  */
+/**
+  * @}
+  */
+
+/** @defgroup STM32469I-EVAL_IO_Private_Variables STM32469I EVAL IO Private Variables
   * @{
   */
 static IO_DrvTypeDef *IoDrv = NULL;
@@ -113,14 +113,14 @@ static IO_DrvTypeDef *IoDrv = NULL;
   * @}
   */
 
-/** @defgroup STM32469I-EVAL_IO_Private_Function_Prototypes STM32469I-EVAL IO Private Function Prototypes
+/** @defgroup STM32469I-EVAL_IO_Private_Function_Prototypes STM32469I EVAL IO Private Function Prototypes
   * @{
   */
 /**
   * @}
   */
 
-/** @defgroup STM32469I-EVAL_IO_Private_Functions STM32469I-EVAL IO Private Functions
+/** @defgroup STM32469I-EVAL_IO_Private_Functions STM32469I EVAL IO Private Functions
   * @{
   */
 

@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32469i_discovery_lcd.c
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    29-September-2015
+  * @version V2.0.0
+  * @date    27-January-2017
   * @brief   This file includes the driver for Liquid Crystal Display (LCD) module
   *          mounted on STM32469I-Discovery evaluation board.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -85,15 +85,15 @@
   * @{
   */
 
-/** @addtogroup STM32469I-Discovery
+/** @addtogroup STM32469I_Discovery
   * @{
   */
 
-/** @addtogroup STM32469I-Discovery_LCD
+/** @defgroup STM32469I-Discovery_LCD STM32469I Discovery LCD
   * @{
   */
 
-/** @defgroup STM32469I-Discovery_LCD_Private_TypesDefinitions LCD Private TypesDefinitions
+/** @defgroup STM32469I-Discovery_LCD_Private_TypesDefinitions STM32469I Discovery LCD Private TypesDefinitions
   * @{
   */
 static DSI_VidCfgTypeDef hdsivideo_handle;
@@ -102,14 +102,14 @@ static DSI_VidCfgTypeDef hdsivideo_handle;
   * @}
   */
 
-/** @defgroup STM32469I-Discovery_LCD_Private_Defines LCD Private Defines
+/** @defgroup STM32469I-Discovery_LCD_Private_Defines STM32469I Discovery LCD Private Defines
   * @{
   */
 /**
   * @}
   */
 
-/** @defgroup STM32469I-Discovery_LCD_Private_Macros LCD Private Macros
+/** @defgroup STM32469I-Discovery_LCD_Private_Macros STM32469I Discovery LCD Private Macros
   * @{
   */
 #define ABS(X)                 ((X) > 0 ? (X) : -(X))
@@ -129,7 +129,7 @@ static DSI_VidCfgTypeDef hdsivideo_handle;
   */
 
 
-/** @defgroup STM32469I-Discovery_LCD_Private_Variables LCD Private Variables
+/** @defgroup STM32469I-Discovery_LCD_Private_Variables STM32469I Discovery LCD Private Variables
   * @{
   */
 
@@ -144,7 +144,7 @@ uint32_t lcd_y_size = OTM8009A_800X480_HEIGHT;
   */
 
 
-/** @defgroup STM32469I-Discovery_LCD_Private_Variables LCD Private Variables
+/** @defgroup STM32469I-Discovery_LCD_Private_Variables STM32469I Discovery LCD Private Variables
   * @{
   */
 
@@ -161,7 +161,7 @@ static LCD_DrawPropTypeDef DrawProp[LTDC_MAX_LAYER_NUMBER];
   * @}
   */
 
-/** @defgroup STM32469I-Discovery_LCD_Private_FunctionPrototypes LCD Private FunctionPrototypes
+/** @defgroup STM32469I-Discovery_LCD_Private_FunctionPrototypes STM32469I Discovery LCD Private FunctionPrototypes
   * @{
   */
 static void DrawChar(uint16_t Xpos, uint16_t Ypos, const uint8_t *c);
@@ -172,13 +172,12 @@ static void LL_ConvertLineToARGB8888(void * pSrc, void *pDst, uint32_t xSize, ui
   * @}
   */
 
-/** @defgroup STM32469I-Discovery_LCD_Exported_Functions LCD Exported Functions
+/** @defgroup STM32469I-Discovery_LCD_Exported_Functions STM32469I Discovery LCD Exported Functions
   * @{
   */
 
 /**
   * @brief  Initializes the DSI LCD.
-  * @param  None
   * @retval LCD state
   */
 uint8_t BSP_LCD_Init(void)
@@ -193,15 +192,15 @@ uint8_t BSP_LCD_Init(void)
   *     - DSI ititialization
   *     - LTDC ititialization
   *     - OTM8009A LCD Display IC Driver ititialization
-  * @param  None
   * @retval LCD state
   */
 uint8_t BSP_LCD_InitEx(LCD_OrientationTypeDef orientation)
 {
   DSI_PLLInitTypeDef dsiPllInit;
+  DSI_PHY_TimerTypeDef  PhyTimings;
   static RCC_PeriphCLKInitTypeDef  PeriphClkInitStruct;
   uint32_t LcdClock  = 27429; /*!< LcdClk = 27429 kHz */
-  uint32_t Clockratio  = 0;
+  
   uint32_t laneByteClk_kHz = 0;
   uint32_t                   VSA; /*!< Vertical start active time in units of lines */
   uint32_t                   VBP; /*!< Vertical Back Porch time in units of lines */
@@ -250,36 +249,32 @@ uint8_t BSP_LCD_InitEx(LCD_OrientationTypeDef orientation)
   hdsi_eval.Init.TXEscapeCkdiv = laneByteClk_kHz/15620; 
   
   HAL_DSI_Init(&(hdsi_eval), &(dsiPllInit));
-  Clockratio = laneByteClk_kHz/LcdClock;
+  
   /* Timing parameters for all Video modes
   * Set Timing parameters of LTDC depending on its chosen orientation
   */
   if(orientation == LCD_ORIENTATION_PORTRAIT)
   {
-    VSA  = OTM8009A_480X800_VSYNC;        /* 12 */
-    VBP  = OTM8009A_480X800_VBP;          /* 12 */
-    VFP  = OTM8009A_480X800_VFP;          /* 12 */
-    HSA  = OTM8009A_480X800_HSYNC;        /* 120 */
-    HBP  = OTM8009A_480X800_HBP;          /* 120 */
-    HFP  = OTM8009A_480X800_HFP;          /* 120 */
     lcd_x_size = OTM8009A_480X800_WIDTH;  /* 480 */
     lcd_y_size = OTM8009A_480X800_HEIGHT; /* 800 */                                
   }
   else
   {
     /* lcd_orientation == LCD_ORIENTATION_LANDSCAPE */
-    VSA  = OTM8009A_800X480_VSYNC;        /* 12 */
-    VBP  = OTM8009A_800X480_VBP;          /* 12 */
-    VFP  = OTM8009A_800X480_VFP;          /* 12 */
-    HSA  = OTM8009A_800X480_HSYNC;        /* 120 */
-    HBP  = OTM8009A_800X480_HBP;          /* 120 */
-    HFP  = OTM8009A_800X480_HFP;          /* 120 */
     lcd_x_size = OTM8009A_800X480_WIDTH;  /* 800 */
     lcd_y_size = OTM8009A_800X480_HEIGHT; /* 480 */                                
-  }  
+  }
   
   HACT = lcd_x_size;
   VACT = lcd_y_size;
+  
+  /* The following values are same for portrait and landscape orientations */
+  VSA  = OTM8009A_480X800_VSYNC;
+  VBP  = OTM8009A_480X800_VBP;
+  VFP  = OTM8009A_480X800_VFP;
+  HSA  = OTM8009A_480X800_HSYNC;
+  HBP  = OTM8009A_480X800_HBP;
+  HFP  = OTM8009A_480X800_HFP;
   
   
   hdsivideo_handle.VirtualChannelID = LCD_OTM8009A_ID;
@@ -291,9 +286,9 @@ uint8_t BSP_LCD_InitEx(LCD_OrientationTypeDef orientation)
   hdsivideo_handle.NullPacketSize = 0xFFF;
   hdsivideo_handle.NumberOfChunks = 0;
   hdsivideo_handle.PacketSize                = HACT; /* Value depending on display orientation choice portrait/landscape */ 
-  hdsivideo_handle.HorizontalSyncActive      = HSA*Clockratio;
-  hdsivideo_handle.HorizontalBackPorch       = HBP*Clockratio;
-  hdsivideo_handle.HorizontalLine            = (HACT + HSA + HBP + HFP)*Clockratio; /* Value depending on display orientation choice portrait/landscape */
+  hdsivideo_handle.HorizontalSyncActive      = (HSA * laneByteClk_kHz) / LcdClock;
+  hdsivideo_handle.HorizontalBackPorch       = (HBP * laneByteClk_kHz) / LcdClock;
+  hdsivideo_handle.HorizontalLine            = ((HACT + HSA + HBP + HFP) * laneByteClk_kHz) / LcdClock; /* Value depending on display orientation choice portrait/landscape */
   hdsivideo_handle.VerticalSyncActive        = VSA;
   hdsivideo_handle.VerticalBackPorch         = VBP;
   hdsivideo_handle.VerticalFrontPorch        = VFP;
@@ -304,11 +299,11 @@ uint8_t BSP_LCD_InitEx(LCD_OrientationTypeDef orientation)
   
   /* Largest packet size possible to transmit in LP mode in VSA, VBP, VFP regions */
   /* Only useful when sending LP packets is allowed while streaming is active in video mode */
-  hdsivideo_handle.LPLargestPacketSize = 64;
+  hdsivideo_handle.LPLargestPacketSize = 16;
   
   /* Largest packet size possible to transmit in LP mode in HFP region during VACT period */
   /* Only useful when sending LP packets is allowed while streaming is active in video mode */
-  hdsivideo_handle.LPVACTLargestPacketSize = 64;
+  hdsivideo_handle.LPVACTLargestPacketSize = 0;
   
   
   /* Specify for each region of the video frame, if the transmission of command in LP mode is allowed in this region */
@@ -322,9 +317,16 @@ uint8_t BSP_LCD_InitEx(LCD_OrientationTypeDef orientation)
   
   /* Configure DSI Video mode timings with settings set above */
   HAL_DSI_ConfigVideoMode(&(hdsi_eval), &(hdsivideo_handle));
-  
-  /* Enable the DSI host and wrapper : but LTDC is not started yet at this stage */
-  HAL_DSI_Start(&(hdsi_eval));
+
+  /* Configure DSI PHY HS2LP and LP2HS timings */
+  PhyTimings.ClockLaneHS2LPTime = 35;
+  PhyTimings.ClockLaneLP2HSTime = 35;
+  PhyTimings.DataLaneHS2LPTime = 35;
+  PhyTimings.DataLaneLP2HSTime = 35;
+  PhyTimings.DataLaneMaxReadTime = 0;
+  PhyTimings.StopWaitTime = 10;
+  HAL_DSI_ConfigPhyTimer(&hdsi_eval, &PhyTimings);
+
 /*************************End DSI Initialization*******************************/ 
   
   
@@ -360,10 +362,14 @@ uint8_t BSP_LCD_InitEx(LCD_OrientationTypeDef orientation)
   hltdc_eval.Instance = LTDC;
   
   /* Get LTDC Configuration from DSI Configuration */
-  HAL_LTDC_StructInitFromVideoConfig(&(hltdc_eval), &(hdsivideo_handle));
+  HAL_LTDCEx_StructInitFromVideoConfig(&(hltdc_eval), &(hdsivideo_handle));
   
   /* Initialize the LTDC */  
   HAL_LTDC_Init(&hltdc_eval);
+
+  /* Enable the DSI host and wrapper after the LTDC initialization
+     To avoid any synchronization issue, the DSI shall be started after enabling the LTDC */
+  HAL_DSI_Start(&(hdsi_eval));
   
 #if !defined(DATA_IN_ExtSDRAM)
   /* Initialize the SDRAM */
@@ -381,11 +387,11 @@ uint8_t BSP_LCD_InitEx(LCD_OrientationTypeDef orientation)
   /* Initialize the OTM8009A LCD Display IC Driver (KoD LCD IC Driver)
   *  depending on configuration set in 'hdsivideo_handle'.
   */
-  OTM8009A_Init(hdsivideo_handle.ColorCoding, orientation);
+  OTM8009A_Init(OTM8009A_FORMAT_RGB888, orientation);
   
 /***********************End OTM8009A Initialization****************************/ 
   
-  return LCD_OK; 
+  return LCD_OK;
 }
 
 /**
@@ -446,7 +452,6 @@ uint32_t BSP_LCD_GetYSize(void)
 /**
   * @brief  Set the LCD X size.
   * @param  imageWidthPixels : uint32_t image width in pixels unit
-  * @retval None
   */
 void BSP_LCD_SetXSize(uint32_t imageWidthPixels)
 {
@@ -467,7 +472,6 @@ void BSP_LCD_SetYSize(uint32_t imageHeightPixels)
   * @brief  Initializes the LCD layers.
   * @param  LayerIndex: Layer foreground or background
   * @param  FB_Address: Layer frame buffer
-  * @retval None
   */
 void BSP_LCD_LayerDefaultInit(uint16_t LayerIndex, uint32_t FB_Address)
 {
@@ -525,7 +529,7 @@ void BSP_LCD_SetLayerVisible(uint32_t LayerIndex, FunctionalState State)
   {
     __HAL_LTDC_LAYER_DISABLE(&(hltdc_eval), LayerIndex);
   }
-  __HAL_LTDC_RELOAD_CONFIG(&(hltdc_eval));
+  __HAL_LTDC_RELOAD_IMMEDIATE_CONFIG(&(hltdc_eval));
   
 }
 
@@ -661,12 +665,12 @@ uint32_t BSP_LCD_ReadPixel(uint16_t Xpos, uint16_t Ypos)
   if(hltdc_eval.LayerCfg[ActiveLayer].PixelFormat == LTDC_PIXEL_FORMAT_ARGB8888)
   {
     /* Read data value from SDRAM memory */
-    ret = *(__IO uint32_t*) (hltdc_eval.LayerCfg[ActiveLayer].FBStartAdress + (2*(Ypos*BSP_LCD_GetXSize() + Xpos)));
+    ret = *(__IO uint32_t*) (hltdc_eval.LayerCfg[ActiveLayer].FBStartAdress + (4*(Ypos*BSP_LCD_GetXSize() + Xpos)));
   }
   else if(hltdc_eval.LayerCfg[ActiveLayer].PixelFormat == LTDC_PIXEL_FORMAT_RGB888)
   {
     /* Read data value from SDRAM memory */
-    ret = (*(__IO uint32_t*) (hltdc_eval.LayerCfg[ActiveLayer].FBStartAdress + (2*(Ypos*BSP_LCD_GetXSize() + Xpos))) & 0x00FFFFFF);
+    ret = (*(__IO uint32_t*) (hltdc_eval.LayerCfg[ActiveLayer].FBStartAdress + (4*(Ypos*BSP_LCD_GetXSize() + Xpos))) & 0x00FFFFFF);
   }
   else if((hltdc_eval.LayerCfg[ActiveLayer].PixelFormat == LTDC_PIXEL_FORMAT_RGB565) || \
           (hltdc_eval.LayerCfg[ActiveLayer].PixelFormat == LTDC_PIXEL_FORMAT_ARGB4444) || \
@@ -1290,7 +1294,7 @@ void BSP_LCD_DisplayOff(void)
 
 /**
   * @brief  DCS or Generic short/long write command
-  * @param  NbParams: Number of parameters. It indicates the write command mode:
+  * @param  NbrParams: Number of parameters. It indicates the write command mode:
   *                 If inferior to 2, a long write command is performed else short.
   * @param  pParams: Pointer to parameter values table.
   * @retval HAL status

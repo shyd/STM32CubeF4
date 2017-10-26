@@ -16,11 +16,10 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
-#undef errno
-extern int errno;
+
 
 #define FreeRTOS
-#define MAX_STACK_SIZE 0x200
+#define MAX_STACK_SIZE 0x2000
 
 extern int __io_putchar(int ch) __attribute__((weak));
 extern int __io_getchar(void) __attribute__((weak));
@@ -36,10 +35,8 @@ caddr_t _sbrk(int incr)
 {
 	extern char end asm("end");
 	static char *heap_end;
-	char *prev_heap_end;
-#ifdef FreeRTOS
-	char *min_stack_ptr;
-#endif
+	char *prev_heap_end,*min_stack_ptr;
+
 	if (heap_end == 0)
 		heap_end = &end;
 

@@ -2,11 +2,11 @@
   @page ADC_TripleModeInterleaved  Use ADC1, ADC2 and ADC3 in Triple interleaved mode and DMA mode2 with 6Msps
 
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    ADC/ADC_TripleModeInterleaved/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the Triple interleaved mode and DMA mode2 Example
   ******************************************************************************
   *
@@ -108,10 +108,10 @@ User should monitor aADCTripleConvertedValue variable to get the converted value
 
   - This example runs on STM32F469xx/STM32F479xx devices.
 
-  - This example has been tested with STM32469I-EVAL revB evaluation board and can be
+  - This example has been tested with STM32469I-EVAL RevC evaluation board and can be
     easily tailored to any other supported device and development board. 
 
-  - STM32469I-EVAL revB Set-up
+  - STM32469I-EVAL RevC Set-up
     - Use the Potentiometer (RV1) of the Eval board (connected to  PC.0).
     - Make sure that JP3 is fitted in 2-3 positions to use potentiometer.
     

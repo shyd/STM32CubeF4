@@ -2,11 +2,11 @@
   @page CEC CEC_DataExchange example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    CEC/CEC_DataExchange/readme.txt 
   * @author  MCD Application Team
-  * @version V1.1.2
-  * @date    13-November-2015
+  * @version V1.2.0
+  * @date    17-February-2017
   * @brief   Description of the CEC Data Exchangeexample.
   ******************************************************************************
   *
@@ -51,7 +51,7 @@ Device_2) are loaded with the same software then connected through CEC lines
 
 @verbatim
 *------------------------------------------------------------------------------*
-|           STM32756G_EVAL                         STM32756G_EVAL              |
+|           STM32446E_EVAL                          STM32446E_EVAL             |
 |         Device Address :0x01                    Device Address :0x03         |
 |         ____________________                   ____________________          |
 |        |                    |                 |                    |         |

@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    PWR/PWR_STOP/Src/main.c 
   * @author  MCD Application Team
-  * @version V1.3.2
-  * @date    13-November-2015
+  * @version V1.4.0
+  * @date    17-February-2017
   * @brief   This sample code shows how to use STM32F4xx PWR HAL API to enter
   *          and exit the stop mode.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -135,8 +135,13 @@ int main(void)
     BSP_LED_Off(LED3);
     BSP_LED_Off(LED4);
 
+#ifdef STOP_MODE
     /* Enter Stop Mode */
     HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
+#else
+    /* Enter in Under-Drive Stop Mode */
+    HAL_PWREx_EnterUnderDriveSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);    
+#endif
 
     /* Disable Wakeup Counter */
     HAL_RTCEx_DeactivateWakeUpTimer(&RTCHandle);

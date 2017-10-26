@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32f4xx_nucleo.h
   * @author  MCD Application Team
-  * @version V1.2.3
-  * @date    13-November-2015
+  * @version V1.2.6
+  * @date    27-January-2017
   * @brief   This file contains definitions for:
   *          - LEDs and push-button available on STM32F4XX-Nucleo Kit 
   *            from STMicroelectronics
@@ -12,7 +12,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -66,7 +66,7 @@
   * @{
   */ 
 
-/** @defgroup STM32F4XX_NUCLEO_LOW_LEVEL_Exported_Types
+/** @defgroup STM32F4XX_NUCLEO_LOW_LEVEL_Exported_Types STM32F4XX NUCLEO LOW LEVEL Exported Types
   * @{
   */
 typedef enum 
@@ -101,7 +101,7 @@ typedef enum
   * @}
   */ 
 
-/** @defgroup STM32F4XX_NUCLEO_LOW_LEVEL_Exported_Constants
+/** @defgroup STM32F4XX_NUCLEO_LOW_LEVEL_Exported_Constants STM32F4XX NUCLEO LOW LEVEL Exported Constants
   * @{
   */ 
 
@@ -112,15 +112,15 @@ typedef enum
  #define USE_STM32F4XX_NUCLEO
 #endif
 
-/** @addtogroup STM32F4XX_NUCLEO_LOW_LEVEL_LED
+/** @defgroup STM32F4XX_NUCLEO_LOW_LEVEL_LED STM32F4XX NUCLEO LOW LEVEL LED
   * @{
   */
 #define LEDn                                    1
 
 #define LED2_PIN                                GPIO_PIN_5
 #define LED2_GPIO_PORT                          GPIOA
-#define LED2_GPIO_CLK_ENABLE()                  __GPIOA_CLK_ENABLE()
-#define LED2_GPIO_CLK_DISABLE()                 __GPIOA_CLK_DISABLE()  
+#define LED2_GPIO_CLK_ENABLE()                  __HAL_RCC_GPIOA_CLK_ENABLE()
+#define LED2_GPIO_CLK_DISABLE()                 __HAL_RCC_GPIOA_CLK_DISABLE()  
 
 #define LEDx_GPIO_CLK_ENABLE(__INDEX__)         LED2_GPIO_CLK_ENABLE()
 #define LEDx_GPIO_CLK_DISABLE(__INDEX__)        LED2_GPIO_CLK_DISABLE()
@@ -128,7 +128,7 @@ typedef enum
   * @}
   */ 
   
-/** @addtogroup STM32F4XX_NUCLEO_LOW_LEVEL_BUTTON
+/** @defgroup STM32F4XX_NUCLEO_LOW_LEVEL_BUTTON STM32F4XX NUCLEO LOW LEVEL BUTTON
   * @{
   */  
 #define BUTTONn                                 1  
@@ -158,7 +158,7 @@ typedef enum
   * @}
   */ 
 
-/** @addtogroup STM32F4XX_NUCLEO_LOW_LEVEL_BUS
+/** @defgroup STM32F4XX_NUCLEO_LOW_LEVEL_BUS STM32F4XX NUCLEO LOW LEVEL BUS
   * @{
   */
 /*############################### SPI1 #######################################*/
@@ -253,14 +253,14 @@ typedef enum
   * @}
   */
 
-/** @defgroup STM32F4XX_NUCLEO_LOW_LEVEL_Exported_Macros
+/** @defgroup STM32F4XX_NUCLEO_LOW_LEVEL_Exported_Macros STM32F4XX NUCLEO LOW LEVEL Exported Macros
   * @{
   */  
 /**
   * @}
   */ 
 
-/** @defgroup STM32F4XX_NUCLEO_LOW_LEVEL_Exported_Functions
+/** @defgroup STM32F4XX_NUCLEO_LOW_LEVEL_Exported_Functions STM32F4XX NUCLEO LOW LEVEL Exported Functions
   * @{
   */
 uint32_t         BSP_GetVersion(void);  

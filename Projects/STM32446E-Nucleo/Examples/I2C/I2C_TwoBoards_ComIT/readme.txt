@@ -2,11 +2,11 @@
   @page I2C_TwoBoards_ComIT I2C Two Boards Communication IT example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    I2C/I2C_TwoBoards_ComIT/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    09-October-2015
+  * @version V1.0.4
+  * @date    17-February-2017
   * @brief   Description of the I2C Two Boards IT Communication example.
   ******************************************************************************
   *
@@ -35,7 +35,10 @@
   ******************************************************************************
   @endverbatim
 
-@par Example Description 
+@par Example Description
+
+This example describes how to perform I2C data buffer transmission/reception between 
+two boards using an interrupt.  
 
    _________________________                        _________________________
   |           ______________|                      |______________           |
@@ -54,8 +57,7 @@
   |                      GND|______________________|GND                      |
   |_STM32F4 ________________|                      |_________________STM32F4_|
 
-This example guides you through the different configuration steps by mean of HAL API 
-to ensure I2C Data buffer transmission and reception using Interrupt.
+
 The communication is done with 2 Boards through I2C.
 
 At the beginning of the main program the HAL_Init() function is called to reset 

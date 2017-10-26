@@ -2,15 +2,15 @@
   ******************************************************************************
   * @file    Display/LTDC_PicturesFromSDCard/Src/stm32f4xx_it.c 
   * @author  MCD Application Team
-  * @version V1.4.2
-  * @date    13-November-2015
+  * @version V1.5.0
+  * @date    17-February-2017
   * @brief   Main Interrupt Service Routines.
   *          This file provides template for all exceptions handler and 
   *          peripherals interrupt service routine.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
   * You may not use this file except in compliance with the License.
@@ -148,26 +148,6 @@ void SysTick_Handler(void)
   HAL_IncTick();
 }
 
-/**
-  * @brief  This function handles SDIO global interrupt request.
-  * @param  None
-  * @retval None
-  */
-void SDIO_IRQHandler(void)
-{
-  /* Process All SDIO Interrupt Sources */
-  BSP_SD_IRQHandler();
-}
-
-/**
-* @brief  This function handles DMA2 Stream 3 interrupt request.
-* @param  None
-* @retval None
-*/
-void DMA2_Stream3_IRQHandler(void)
-{
-  BSP_SD_DMA_Rx_IRQHandler();
-}
 
 /******************************************************************************/
 /*                 STM32F4xx Peripherals Interrupt Handlers                   */

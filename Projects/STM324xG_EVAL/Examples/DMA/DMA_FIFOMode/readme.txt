@@ -2,11 +2,11 @@
   @page DMA_FIFOMode DMA FIFO mode example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    DMA/DMA_FIFOMode/readme.txt 
   * @author  MCD Application Team
-  * @version V1.2.4
-  * @date    13-November-2015
+  * @version V1.3.0
+  * @date    17-February-2017
   * @brief   Description of the DMA FIFO mode example.
   ******************************************************************************
   *
@@ -38,7 +38,7 @@
 @par Example Description 
 
 This example provides a description of how to use a DMA channel to transfer 
-a word data buffer from FLASH memory to embedded SRAM memory with FIFO mode
+a word data buffer from Flash memory to embedded SRAM with FIFO mode
 enabled through the STM32F4xx HAL API.
 
 At the beginning of the main program the HAL_Init() function is called to reset 

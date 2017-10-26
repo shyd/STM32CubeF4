@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    PWR/PWR_CurrentConsumption/Src/main.c 
   * @author  MCD Application Team
-  * @version V1.2.3
-  * @date    13-November-2015
+  * @version V1.2.7
+  * @date    17-February-2017
   * @brief   This sample code shows how to use STM32F4xx PWR HAL API to enter
   *          and exit the stop mode.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -89,23 +89,21 @@ int main(void)
   }
   /* Configure the User Button in EXTI Mode */
   BSP_PB_Init(BUTTON_KEY, BUTTON_MODE_GPIO);
-  /* Infinite loop */
-  while (1)
+  
+  /* Wait until User button is pressed to enter the Low Power mode */
+  while(BSP_PB_GetState(BUTTON_KEY) != RESET)
   {
-    /* Wait until User button is pressed to enter the Low Power mode */
-    while(BSP_PB_GetState(BUTTON_KEY) != RESET)
-    {
-      /* Toggle LED2 */
-      BSP_LED_Toggle(LED2);
-   
-      /* Insert 1s Delay */
-      HAL_Delay(1000);
-    }
-    /* Loop while Key button is maintained pressed */
-    while(BSP_PB_GetState(BUTTON_KEY) == RESET)
-    {
-    }
+    /* Toggle LED2 */
+    BSP_LED_Toggle(LED2);
     
+    /* Insert 1s Delay */
+    HAL_Delay(1000);
+  }
+  /* Loop while Key button is maintained pressed */
+  while(BSP_PB_GetState(BUTTON_KEY) == RESET)
+  {
+  }
+
 #if defined (SLEEP_MODE)
     /* Sleep Mode Entry 
     - System Running at PLL (168MHz)
@@ -153,6 +151,20 @@ int main(void)
     */
     StandbyRTCBKPSRAMMode_Measure();
 #endif
+  
+  if(uwCounter != 0)
+  {
+    BSP_LED_Init(LED2);
+  }
+  
+  /* Infinite loop */
+  while (1)
+  {
+    /* Toggle LED2 */
+    BSP_LED_Toggle(LED2);
+   
+    /* Inserted Delay */
+    HAL_Delay(100);
   }
 }
 

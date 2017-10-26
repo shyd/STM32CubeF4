@@ -2,11 +2,11 @@
   @page ADC_RegularConversion_DMA ADC3 conversion using DMA for Data transfer
 
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    ADC/ADC_RegularConversion_DMA/readme.txt 
   * @author  MCD Application Team
-  * @version V1.3.2
-  * @date    13-November-2015
+  * @version V1.4.0
+  * @date    17-February-2017
   * @brief   Description of the ADC RegularConversion DMA example.
   ******************************************************************************
   *
@@ -37,8 +37,9 @@
 
 @par Example Description 
 
-This example describes how to use the ADC3 and DMA to transfer continuously 
-converted data from ADC3 to memory.
+This example describes how to use the ADC and DMA to transfer continuously converted 
+data from ADC to memory.
+
 The ADC3 is configured to convert continuously channel8(for STM324x9I-EVAL RevB).
 Each time an end of conversion occurs the DMA transfers, in circular mode, the
 converted data from ADC3 DR register to the uhADCxConvertedValue variable.

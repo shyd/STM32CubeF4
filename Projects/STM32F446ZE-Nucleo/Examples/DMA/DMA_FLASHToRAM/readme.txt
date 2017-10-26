@@ -2,11 +2,11 @@
   @page DMA_FLASHToRAM DMA FLASH To RAM Example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    DMA/DMA_FLASHToRAM/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the DMA FLASH to RAM example.
   ******************************************************************************
   *
@@ -37,8 +37,8 @@
 
 @par Example Description 
 
-This example provides a description of how to use a DMA to transfer 
-a word data buffer from FLASH memory to embedded SRAM memory through 
+This example provides a description of how to use a DMA channel to transfer 
+a word data buffer from Flash memory to embedded SRAM through 
 the HAL API.
 
 At the beginning of the main program the HAL_Init() function is called to reset 

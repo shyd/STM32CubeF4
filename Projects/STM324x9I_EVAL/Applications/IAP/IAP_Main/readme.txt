@@ -1,17 +1,17 @@
 /**
   @page IAP AN3965 STM32F4xx In-Application Programming using the USART Readme file
 
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    IAP/IAP_Main/readme.txt 
   * @author  MCD Application Team
-  * @version V1.4.2
-  * @date    13-November-2015
+  * @version V1.5.0
+  * @date    17-February-2017
   * @brief   Description of implementation of the AN3965 (in-application programming
   *          using the USART (IAP)) on STM32F4xx devices.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -192,6 +192,12 @@ In order to load the IAP code, you have do the following:
       - Browse to the SW4STM32 workspace directory, select the project (.project file in \IAP_Main\SW4STM32 \STM324x9I-EVAL directory).
       - Rebuild all project files: Select the project in the "Project explorer" window then click on Project->build project menu.
       - Run program: Run->Debug
+
+   - TrueSTUDO 
+      - Open the TrueSTUDIO toolchain. 
+      - Browse to the TrueSTUDIO workspace directory, select the project (.project file in \IAP_Main\TrueSTUDIO\STM324x9I-EVAL directory). 
+      - Rebuild all project files: Select the project in the "Project explorer" window then click on Project->build project menu. 
+      - Run program: Run->Debug (F11)
 
  * <h3><center>&copy; COPYRIGHT STMicroelectronics</center></h3>
  */

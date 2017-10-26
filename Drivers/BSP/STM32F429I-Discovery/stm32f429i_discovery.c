@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32f429i_discovery.c
   * @author  MCD Application Team
-  * @version V2.1.2
-  * @date    02-March-2015
+  * @version V2.1.5
+  * @date    27-January-2017
   * @brief   This file provides set of firmware functions to manage Leds and
   *          push-button available on STM32F429I-Discovery Kit from STMicroelectronics.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -39,37 +39,37 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f429i_discovery.h"
 
-/** @addtogroup BSP
+/** @defgroup BSP BSP
   * @{
   */ 
 
-/** @addtogroup STM32F429I_DISCOVERY
+/** @defgroup STM32F429I_DISCOVERY STM32F429I DISCOVERY
   * @{
   */
       
-/** @defgroup STM32F429I_DISCOVERY_LOW_LEVEL 
+/** @defgroup STM32F429I_DISCOVERY_LOW_LEVEL STM32F429I DISCOVERY LOW LEVEL
   * @brief This file provides set of firmware functions to manage Leds and push-button
   *        available on STM32F429I-Discovery Kit from STMicroelectronics.
   * @{
   */ 
 
-/** @defgroup STM32F429I_DISCOVERY_LOW_LEVEL_Private_TypesDefinitions
+/** @defgroup STM32F429I_DISCOVERY_LOW_LEVEL_Private_TypesDefinitions STM32F429I DISCOVERY LOW LEVEL Private TypesDefinitions
   * @{
   */ 
 /**
   * @}
   */ 
 
-/** @defgroup STM32F429I_DISCOVERY_LOW_LEVEL_Private_Defines
+/** @defgroup STM32F429I_DISCOVERY_LOW_LEVEL_Private_Defines STM32F429I DISCOVERY LOW LEVEL Private Defines
   * @{
   */ 
   
   /**
-  * @brief STM32F429I DISCO BSP Driver version number V2.1.0
+  * @brief STM32F429I DISCO BSP Driver version number V2.1.5
   */
 #define __STM32F429I_DISCO_BSP_VERSION_MAIN   (0x02) /*!< [31:24] main version */
 #define __STM32F429I_DISCO_BSP_VERSION_SUB1   (0x01) /*!< [23:16] sub1 version */
-#define __STM32F429I_DISCO_BSP_VERSION_SUB2   (0x02) /*!< [15:8]  sub2 version */
+#define __STM32F429I_DISCO_BSP_VERSION_SUB2   (0x05) /*!< [15:8]  sub2 version */
 #define __STM32F429I_DISCO_BSP_VERSION_RC     (0x00) /*!< [7:0]  release candidate */ 
 #define __STM32F429I_DISCO_BSP_VERSION        ((__STM32F429I_DISCO_BSP_VERSION_MAIN << 24)\
                                              |(__STM32F429I_DISCO_BSP_VERSION_SUB1 << 16)\
@@ -79,14 +79,14 @@
   * @}
   */ 
 
-/** @defgroup STM32F429I_DISCOVERY_LOW_LEVEL_Private_Macros
+/** @defgroup STM32F429I_DISCOVERY_LOW_LEVEL_Private_Macros STM32F429I DISCOVERY LOW LEVEL Private Macros
   * @{
   */ 
 /**
   * @}
   */ 
 
-/** @defgroup STM32F429I_DISCOVERY_LOW_LEVEL_Private_Variables
+/** @defgroup STM32F429I_DISCOVERY_LOW_LEVEL_Private_Variables STM32F429I DISCOVERY LOW LEVEL Private Variables
   * @{
   */ 
 GPIO_TypeDef* GPIO_PORT[LEDn] = {LED3_GPIO_PORT, 
@@ -110,7 +110,7 @@ static uint8_t Is_LCD_IO_Initialized = 0;
   * @}
   */ 
 
-/** @defgroup STM32F429I_DISCOVERY_LOW_LEVEL_Private_FunctionPrototypes
+/** @defgroup STM32F429I_DISCOVERY_LOW_LEVEL_Private_FunctionPrototypes STM32F429I DISCOVERY LOW LEVEL Private FunctionPrototypes
   * @{
   */ 
 /* I2Cx bus function */
@@ -169,13 +169,12 @@ HAL_StatusTypeDef         EEPROM_IO_IsDeviceReady(uint16_t DevAddress, uint32_t 
   * @}
   */ 
 
-/** @defgroup STM32F429I_DISCOVERY_LOW_LEVEL_Private_Functions
+/** @defgroup STM32F429I_DISCOVERY_LOW_LEVEL_Private_Functions STM32F429I DISCOVERY LOW LEVEL Private Functions
   * @{
   */ 
 
 /**
   * @brief  This method returns the STM32F429I DISCO BSP Driver revision
-  * @param  None
   * @retval version: 0xXYZR (8bits for each decimal, R for RC)
   */
 uint32_t BSP_GetVersion(void)
@@ -189,7 +188,6 @@ uint32_t BSP_GetVersion(void)
   *   This parameter can be one of following parameters:
   *     @arg LED3
   *     @arg LED4
-  * @retval None
   */
 void BSP_LED_Init(Led_TypeDef Led)
 {
@@ -215,7 +213,6 @@ void BSP_LED_Init(Led_TypeDef Led)
   *   This parameter can be one of following parameters:
   *     @arg LED3
   *     @arg LED4 
-  * @retval None
   */
 void BSP_LED_On(Led_TypeDef Led)
 {
@@ -228,7 +225,6 @@ void BSP_LED_On(Led_TypeDef Led)
   *   This parameter can be one of following parameters:
   *     @arg LED3
   *     @arg LED4
-  * @retval None
   */
 void BSP_LED_Off(Led_TypeDef Led)
 {
@@ -241,7 +237,6 @@ void BSP_LED_Off(Led_TypeDef Led)
   *   This parameter can be one of following parameters:
   *     @arg LED3
   *     @arg LED4  
-  * @retval None
   */
 void BSP_LED_Toggle(Led_TypeDef Led)
 {
@@ -252,12 +247,11 @@ void BSP_LED_Toggle(Led_TypeDef Led)
   * @brief  Configures Button GPIO and EXTI Line.
   * @param  Button: Specifies the Button to be configured.
   *   This parameter should be: BUTTON_KEY
-  * @param  Button_Mode: Specifies Button mode.
+  * @param  ButtonMode: Specifies Button mode.
   *   This parameter can be one of following parameters:   
   *     @arg BUTTON_MODE_GPIO: Button will be used as simple IO 
   *     @arg BUTTON_MODE_EXTI: Button will be connected to EXTI line with interrupt
   *                            generation capability  
-  * @retval None
   */
 void BSP_PB_Init(Button_TypeDef Button, ButtonMode_TypeDef ButtonMode)
 {
@@ -310,7 +304,6 @@ uint32_t BSP_PB_GetState(Button_TypeDef Button)
 /**
   * @brief  I2Cx MSP Initialization
   * @param  hi2c: I2C handle
-  * @retval None
   */
 static void I2Cx_MspInit(I2C_HandleTypeDef *hi2c)
 {
@@ -353,12 +346,12 @@ static void I2Cx_MspInit(I2C_HandleTypeDef *hi2c)
     /* Release the I2C Peripheral Clock Reset */  
     DISCOVERY_I2Cx_RELEASE_RESET(); 
     
-    /* Enable and set Discovery I2Cx Interrupt to the highest priority */
-    HAL_NVIC_SetPriority(DISCOVERY_I2Cx_EV_IRQn, 0x00, 0);
+    /* Enable and set Discovery I2Cx Interrupt to the lowest priority */
+    HAL_NVIC_SetPriority(DISCOVERY_I2Cx_EV_IRQn, 0x0F, 0);
     HAL_NVIC_EnableIRQ(DISCOVERY_I2Cx_EV_IRQn);
     
-    /* Enable and set Discovery I2Cx Interrupt to the highest priority */
-    HAL_NVIC_SetPriority(DISCOVERY_I2Cx_ER_IRQn, 0x00, 0);
+    /* Enable and set Discovery I2Cx Interrupt to the lowest priority */
+    HAL_NVIC_SetPriority(DISCOVERY_I2Cx_ER_IRQn, 0x0F, 0);
     HAL_NVIC_EnableIRQ(DISCOVERY_I2Cx_ER_IRQn);  
 
 #ifdef EE_M24LR64
@@ -425,8 +418,6 @@ static void I2Cx_MspInit(I2C_HandleTypeDef *hi2c)
 
 /**
   * @brief  I2Cx Bus initialization.
-  * @param  None
-  * @retval None
   */
 static void I2Cx_Init(void)
 {
@@ -450,8 +441,6 @@ static void I2Cx_Init(void)
 
 /**
   * @brief  Configures Interruption pin for I2C communication.
-  * @param  None
-  * @retval None
   */
 static void I2Cx_ITConfig(void)
 {
@@ -467,7 +456,7 @@ static void I2Cx_ITConfig(void)
   HAL_GPIO_Init(STMPE811_INT_GPIO_PORT, &GPIO_InitStruct);
     
   /* Enable and set GPIO EXTI Interrupt to the highest priority */
-  HAL_NVIC_SetPriority((IRQn_Type)(STMPE811_INT_EXTI), 0x00, 0x00);
+  HAL_NVIC_SetPriority((IRQn_Type)(STMPE811_INT_EXTI), 0x0F, 0x00);
   HAL_NVIC_EnableIRQ((IRQn_Type)(STMPE811_INT_EXTI));
 }
 
@@ -476,7 +465,6 @@ static void I2Cx_ITConfig(void)
   * @param  Addr: Device address on BUS Bus.  
   * @param  Reg: The target register address to write
   * @param  Value: The target register value to be written 
-  * @retval None
   */
 static void I2Cx_WriteData(uint8_t Addr, uint8_t Reg, uint8_t Value)
   {
@@ -498,7 +486,6 @@ static void I2Cx_WriteData(uint8_t Addr, uint8_t Reg, uint8_t Value)
   * @param  Reg: The target register address to write
   * @param  pBuffer: The target register value to be written 
   * @param  Length: buffer size to be written
-  * @retval None
   */
 static void I2Cx_WriteBuffer(uint8_t Addr, uint8_t Reg,  uint8_t *pBuffer, uint16_t Length)
   {
@@ -629,8 +616,6 @@ static HAL_StatusTypeDef I2Cx_IsDeviceReady(uint16_t DevAddress, uint32_t Trials
 
 /**
   * @brief  I2Cx error treatment function
-  * @param  None
-  * @retval None
   */
 static void I2Cx_Error(void)
 {
@@ -645,8 +630,6 @@ static void I2Cx_Error(void)
 
 /**
   * @brief  SPIx Bus initialization
-  * @param  None
-  * @retval None
   */
 static void SPIx_Init(void)
 {
@@ -706,7 +689,6 @@ static uint32_t SPIx_Read(uint8_t ReadSize)
 /**
   * @brief  Writes a byte to device.
   * @param  Value: value to be written
-  * @retval None
   */
 static void SPIx_Write(uint16_t Value)
 {
@@ -744,8 +726,6 @@ static uint8_t SPIx_WriteRead(uint8_t Byte)
 
 /**
   * @brief  SPIx error treatment function.
-  * @param  None
-  * @retval None
   */
 static void SPIx_Error(void)
 {
@@ -759,7 +739,6 @@ static void SPIx_Error(void)
 /**
   * @brief  SPI MSP Init.
   * @param  hspi: SPI handle
-  * @retval None
   */
 static void SPIx_MspInit(SPI_HandleTypeDef *hspi)
 {
@@ -784,8 +763,6 @@ static void SPIx_MspInit(SPI_HandleTypeDef *hspi)
 
 /**
   * @brief  Configures the LCD_SPI interface.
-  * @param  None
-  * @retval None
   */
 void LCD_IO_Init(void)
 {
@@ -830,8 +807,6 @@ void LCD_IO_Init(void)
 
 /**
   * @brief  Writes register value.
-  * @param  None
-  * @retval None
   */
 void LCD_IO_WriteData(uint16_t RegValue) 
 {
@@ -848,8 +823,6 @@ void LCD_IO_WriteData(uint16_t RegValue)
 
 /**
   * @brief  Writes register address.
-  * @param  None
-  * @retval None
   */
 void LCD_IO_WriteReg(uint8_t Reg) 
 {
@@ -896,7 +869,6 @@ uint32_t LCD_IO_ReadData(uint16_t RegValue, uint8_t ReadSize)
 /**
   * @brief  Wait for loop in ms.
   * @param  Delay in ms.
-  * @retval None
   */
 void LCD_Delay(uint32_t Delay)
 {
@@ -911,8 +883,6 @@ void LCD_Delay(uint32_t Delay)
 
 /**
   * @brief  IOE Low Level Initialization.
-  * @param  None
-  * @retval None
   */
 void IOE_Init(void) 
 {
@@ -921,8 +891,6 @@ void IOE_Init(void)
 
 /**
   * @brief  IOE Low Level Interrupt configuration.
-  * @param  None
-  * @retval None
   */
 void IOE_ITConfig(void)
 {
@@ -934,7 +902,6 @@ void IOE_ITConfig(void)
   * @param  Addr: I2C Address
   * @param  Reg: Reg Address 
   * @param  Value: Data to be written
-  * @retval None
   */
 void IOE_Write(uint8_t Addr, uint8_t Reg, uint8_t Value)
 {
@@ -958,7 +925,6 @@ uint8_t IOE_Read(uint8_t Addr, uint8_t Reg)
   * @param  Reg: Reg Address 
   * @param  pBuffer: pointer to data buffer
   * @param  Length: length of the data
-  * @retval None
   */
 void IOE_WriteMultiple(uint8_t Addr, uint8_t Reg, uint8_t *pBuffer, uint16_t Length)
 {
@@ -981,7 +947,6 @@ uint16_t IOE_ReadMultiple(uint8_t Addr, uint8_t Reg, uint8_t *pBuffer, uint16_t 
 /**
   * @brief  IOE Delay.
   * @param  Delay in ms
-  * @retval None
   */
 void IOE_Delay(uint32_t Delay)
 {
@@ -992,8 +957,6 @@ void IOE_Delay(uint32_t Delay)
 
 /**
   * @brief  Configures the Gyroscope SPI interface.
-  * @param  None
-  * @retval None
   */
 void GYRO_IO_Init(void)
 {
@@ -1025,9 +988,8 @@ void GYRO_IO_Init(void)
 /**
   * @brief  Writes one byte to the Gyroscope.
   * @param  pBuffer: Pointer to the buffer containing the data to be written to the Gyroscope.
-  * @param  WriteAdd: Gyroscope's internal address to write to.
+  * @param  WriteAddr: Gyroscope's internal address to write to.
   * @param  NumByteToWrite: Number of bytes to write.
-  * @retval None
   */
 void GYRO_IO_Write(uint8_t* pBuffer, uint8_t WriteAddr, uint16_t NumByteToWrite)
 {
@@ -1062,7 +1024,6 @@ void GYRO_IO_Write(uint8_t* pBuffer, uint8_t WriteAddr, uint16_t NumByteToWrite)
   * @param  pBuffer: Pointer to the buffer that receives the data read from the Gyroscope.
   * @param  ReadAddr: Gyroscope's internal address to read from.
   * @param  NumByteToRead: Number of bytes to read from the Gyroscope.
-  * @retval None
   */
 void GYRO_IO_Read(uint8_t* pBuffer, uint8_t ReadAddr, uint16_t NumByteToRead)
 {  
@@ -1100,8 +1061,6 @@ void GYRO_IO_Read(uint8_t* pBuffer, uint8_t ReadAddr, uint16_t NumByteToRead)
 
 /**
   * @brief  Initializes peripherals used by the I2C EEPROM driver.
-  * @param  None
-  * @retval None
   */
 void EEPROM_IO_Init(void)
 {

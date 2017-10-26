@@ -2,13 +2,13 @@
   ******************************************************************************
   * @file    PWR/PWR_STOP/Inc/main.h
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date  09-October-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Header for main.c module
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -45,8 +45,11 @@
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
-/* Defines related to Clock configuration */
+/* Uncomment the corresponding line to select the STM32F4xx Low Power mode */
+#define STOP_MODE
+/* #define STOP_UNDERDRIVE_MODE */
 
+/* Defines related to Clock configuration */
 #define RTC_ASYNCH_PREDIV    0x7F
 #define RTC_SYNCH_PREDIV     0x0130
 

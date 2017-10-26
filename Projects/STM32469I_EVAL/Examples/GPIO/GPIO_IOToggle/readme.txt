@@ -2,11 +2,11 @@
   @page GPIO_IOToggle GPIO IO Toggle example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    GPIO/GPIO_IOToggle/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the GPIO IO Toggle example.
   ******************************************************************************
   *
@@ -39,8 +39,7 @@
 
 This example describes how to configure and use GPIOs through the STM32F4xx HAL API. 
   
-PK3 IO (configured in output push-pull mode) toggles in a forever loop.
-On STM32469I-EVAL RevB board these IOs is connected to LED1.
+PC10 IO (configured in output push-pull mode) toggles in a forever loop.
 
 In this example, HCLK is configured at 180 MHz.
 
@@ -70,8 +69,11 @@ In this example, HCLK is configured at 180 MHz.
 
   - This example runs on STM32F469xx/STM32F479xx devices.
 
-  - This example has been tested and validated with STMicroelectronics STM32469I-EVAL revB board and can be
+  - This example has been tested and validated with STMicroelectronics STM32469I-EVAL RevC board and can be
     easily tailored to any other supported device and development board.
+    
+  - STM32469I-EVAL RevC Set-up
+      - Connect PC10 on eval board connector (pin 55 in CN6) to an oscilloscope.
 
 
 @par How to use it ? 

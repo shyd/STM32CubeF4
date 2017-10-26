@@ -2,13 +2,13 @@
   ******************************************************************************
   * @file    DCMI/DCMI_SnapShotMode/Src/main.c 
   * @author  MCD Application Team
-  * @version V1.3.2
-  * @date    13-November-2015
+  * @version V1.4.0
+  * @date    17-February-2017
   * @brief   This example describes how to configure the camera in snapshot.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -54,7 +54,7 @@ static DMA2D_HandleTypeDef hdma2d_eval;
 /* Private function prototypes -----------------------------------------------*/
 static void SystemClock_Config(void);
 static void Error_Handler(void);
-static void LCD_LL_ConvertLineToARGB8888(void *pSrc, void *pDst);
+static void LCD_LL_ConvertFrameToARGB8888(void *pSrc, void *pDst);
 /* Private functions ---------------------------------------------------------*/
 
 /**
@@ -99,6 +99,9 @@ int main(void)
   
   /* Select the LCD Foreground layer */
   BSP_LCD_SelectLayer(1);
+  
+  /* Clear the LCD */
+  BSP_LCD_Clear(LCD_COLOR_WHITE);
 
   /*##-4- Camera Initialization and start capture ############################*/
   /* Initialize the Camera */
@@ -117,38 +120,25 @@ int main(void)
 }
 
 /**
-  * @brief  Camera line evnet callback
+  * @brief  Camera frame event callback
   * @param  None
   * @retval None
   */
-void BSP_CAMERA_LineEventCallback(void)
+void BSP_CAMERA_FrameEventCallback(void)
 {
-  static uint32_t tmp, tmp2, counter;
-  
-  if(BSP_LCD_GetYSize() > counter)
-  {
-    LCD_LL_ConvertLineToARGB8888((uint32_t *)(CAMERA_FRAME_BUFFER + tmp), (uint32_t *)(LCD_FRAME_BUFFER + tmp2));
-    tmp  = tmp + BSP_LCD_GetXSize()*sizeof(uint16_t); 
-    tmp2 = tmp2 + BSP_LCD_GetXSize()*sizeof(uint32_t);
-    counter++;
-  }
-  else
-  {
-    tmp = 0;
-    tmp2 = 0;
-    counter = 0;
-  }
+  /* Convert captured frame to LCD ARGB8888 format */
+  LCD_LL_ConvertFrameToARGB8888((uint32_t *)CAMERA_FRAME_BUFFER, (uint32_t *)LCD_FRAME_BUFFER);
 }
 
 /**
-  * @brief  Converts a line to an ARGB8888 pixel format.
+  * @brief  Converts a frame to an ARGB8888 pixel format.
   * @param  pSrc: Pointer to source buffer
   * @param  pDst: Output color
   * @param  xSize: Buffer width
   * @param  ColorMode: Input color mode   
   * @retval None
   */
-static void LCD_LL_ConvertLineToARGB8888(void *pSrc, void *pDst)
+static void LCD_LL_ConvertFrameToARGB8888(void *pSrc, void *pDst)
 { 
   /* Enable DMA2D clock */
   __HAL_RCC_DMA2D_CLK_ENABLE();
@@ -161,7 +151,7 @@ static void LCD_LL_ConvertLineToARGB8888(void *pSrc, void *pDst)
   /* Foreground Configuration */
   hdma2d_eval.LayerCfg[1].AlphaMode = DMA2D_NO_MODIF_ALPHA;
   hdma2d_eval.LayerCfg[1].InputAlpha = 0xFF;
-  hdma2d_eval.LayerCfg[1].InputColorMode = CM_RGB565;
+  hdma2d_eval.LayerCfg[1].InputColorMode = DMA2D_INPUT_RGB565;
   hdma2d_eval.LayerCfg[1].InputOffset = 0;
   
   hdma2d_eval.Instance = DMA2D; 
@@ -171,10 +161,10 @@ static void LCD_LL_ConvertLineToARGB8888(void *pSrc, void *pDst)
   {
     if(HAL_DMA2D_ConfigLayer(&hdma2d_eval, 1) == HAL_OK) 
     {
-      if (HAL_DMA2D_Start(&hdma2d_eval, (uint32_t)pSrc, (uint32_t)pDst, BSP_LCD_GetXSize(), 1) == HAL_OK)
+      if (HAL_DMA2D_Start(&hdma2d_eval, (uint32_t)pSrc, (uint32_t)pDst, BSP_LCD_GetXSize(), BSP_LCD_GetYSize()) == HAL_OK)
       {
         /* Polling For DMA transfer */  
-        HAL_DMA2D_PollForTransfer(&hdma2d_eval, 10);
+        HAL_DMA2D_PollForTransfer(&hdma2d_eval, 30);
       }
     }
   }

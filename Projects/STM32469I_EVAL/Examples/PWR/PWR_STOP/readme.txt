@@ -2,11 +2,11 @@
   @page PWR_STOP Power Stop Mode Example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    PWR/PWR_STOP/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the Power Stop Mode example.
   ******************************************************************************
   *
@@ -52,7 +52,9 @@ Current consumption could be monitored through an ampere-meter.
 After the system woken up from STOP, the clock system is reconfigured because the default clock 
 after wake up is the HSI.
 
-This behavior is repeated in an infinite loop.
+User may select either Stop mode or under drive stop mode by uncommenting the corresponding line inside the main.h file
+  /* #define STOP_MODE            */
+  /* #define STOP_UNDERDRIVE_MODE */
  
     - STOP Mode
     ============ 
@@ -61,6 +63,17 @@ This behavior is repeated in an infinite loop.
           - HSI as SysClk after Wake Up
           - No IWDG
           - Wakeup using EXTI Line (Tamper push-button PC.13)
+
+    - Under-Drive STOP Mode
+    ======================== 
+          - Regulator in LP mode
+          - Under drive feature enabled
+          - VREFINT OFF with fast wakeup enabled
+          - HSI as SysClk after Wake Up
+          - No IWDG
+          - Wakeup using EXTI Line (User push-button PC.13)
+
+This behavior is repeated in an infinite loop.
 
 @note To measure the current consumption in STOP mode, please refer to 
       @subpage PWR_CurrentConsumption example.
@@ -97,13 +110,13 @@ This behavior is repeated in an infinite loop.
 
 @par Hardware and Software environment
 
-  - STM32469I-EVAL revB Set-up :
+  - STM32469I-EVAL RevC Set-up :
     - Use the Tamper push-button connected to pin PC.13 (EXTI15_10)
     - Connect an ampere-meter to  to measure the IDD current.
    
   - This example runs on STM32F469xx/STM32F479xx devices.
 
-  - This example has been tested and validated with STMicroelectronics STM32469I-EVAL revB 
+  - This example has been tested and validated with STMicroelectronics STM32469I-EVAL RevC 
     evaluation board and can be easily tailored to any other supported device 
     and development board.
     

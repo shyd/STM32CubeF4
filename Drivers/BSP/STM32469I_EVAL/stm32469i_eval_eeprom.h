@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32469i_eval_eeprom.h
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    29-September-2015
+  * @version V2.0.0
+  * @date    27-January-2017
   * @brief   This file contains all the functions prototypes for 
   *          the stm32469i_eval_eeprom.c firmware driver.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -51,12 +51,12 @@
   * @{
   */
   
-/** @addtogroup STM32469I-EVAL
+/** @addtogroup STM32469I_EVAL
   * @{
   */ 
   
 /** @addtogroup STM32469I-EVAL_EEPROM
-  * @brief This file includes the I2C EEPROM driver of STM32469I-EVAL evaluation board.
+  * @brief This file includes the I2C EEPROM driver of STM32469I EVAL evaluation board.
   * @{
   */
 
@@ -67,7 +67,7 @@
   * @}
   */
   
-/** @defgroup STM32469I-EVAL_EEPROM_Exported_Constants STM32469I-EVAL EEPROM Exported Constants
+/** @defgroup STM32469I-EVAL_EEPROM_Exported_Constants STM32469I EVAL EEPROM Exported Constants
   * @{
   */
 /* EEPROM hardware address and page size */ 
@@ -91,14 +91,14 @@ This timeout is based on systick set to 1ms*/
   * @}
   */ 
   
-/** @defgroup STM32469I-EVAL_EEPROM_Exported_Macros STM32469I-EVAL EEPROM Exported Macros
+/** @defgroup STM32469I-EVAL_EEPROM_Exported_Macros STM32469I EVAL EEPROM Exported Macros
   * @{
   */    
 /**
   * @}
   */ 
 
-/** @defgroup STM32469I-EVAL_EEPROM_Exported_Functions STM32469I-EVAL_EEPROM Exported Functions
+/** @defgroup STM32469I-EVAL_EEPROM_Exported_Functions STM32469I EVAL EEPROM Exported Functions
   * @{
   */ 
 uint32_t BSP_EEPROM_Init(void);

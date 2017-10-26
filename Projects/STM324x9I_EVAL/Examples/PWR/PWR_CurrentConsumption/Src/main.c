@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    PWR/PWR_CurrentConsumption/Src/main.c 
   * @author  MCD Application Team
-  * @version V1.3.2
-  * @date    13-November-2015
+  * @version V1.4.0
+  * @date    17-February-2017
   * @brief   This sample code shows how to use STM32F4xx PWR HAL API to measure 
   *          different Low Power modes current consumption.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -76,28 +76,34 @@ int main(void)
   /* Configure LED3 and LED4 */
   BSP_LED_Init(LED3);
   BSP_LED_Init(LED4);
-  
+
   /* Configure the system clock to 180 MHz */
   SystemClock_Config();
-  
+
   /* Enable Power Clock */
   __HAL_RCC_PWR_CLK_ENABLE();
-  
+
   /* Check and handle if the system was resumed from StandBy mode */
   if(__HAL_PWR_GET_FLAG(PWR_FLAG_SB) != RESET)
   {
     __HAL_PWR_CLEAR_FLAG(PWR_FLAG_SB);
     
+    /* Exit Ethernet Phy from low power mode */
+    ETH_PhyExitFromPowerDownMode();
+    
+    /* Exit USB Phy from low power mode */
+    USB_PhyExitFromLowPowerMode();
+
     /* Turn LED4 On */
     BSP_LED_On(LED4);
   }
-  
+
   /* Infinite loop */
   while(1)
   {
     /* Configure Key Button */
     BSP_PB_Init(BUTTON_KEY, BUTTON_MODE_GPIO);
-    
+
     /* Wait until Key button is pressed to enter the Low Power mode */
     while(BSP_PB_GetState(BUTTON_KEY) != RESET)
     {
@@ -107,50 +113,72 @@ int main(void)
     while(BSP_PB_GetState(BUTTON_KEY) == RESET)
     {
     }
+
+    /* Ethernet PHY and USB PHY must be in low power mode in order to have the lowest current consumption */
+    /* Enter USB PHY to Lowpower Mode */
+    USB_PhyEnterLowPowerMode();
+    
+    /* Enter Ethernet PHY to Power Down Mode */
+    ETH_PhyEnterPowerDownMode();
+
 #if defined (SLEEP_MODE)
     /* Sleep Mode Entry 
-    - System Running at PLL (180MHz)
-    - Flash 5 wait state
-    - Instruction and Data caches ON
-    - Prefetch ON
-    - Code running from Internal FLASH
-    - All peripherals disabled.
-    - Wakeup using EXTI Line (Key Button PC.13)
+        - System Running at PLL (180MHz)
+        - Flash 5 wait state
+        - Instruction and Data caches ON
+        - Prefetch ON
+        - Code running from Internal FLASH
+        - All peripherals disabled.
+        - Wakeup using EXTI Line (Key Button PC.13)
     */
     SleepMode_Measure();
+
 #elif defined (STOP_MODE)
     /* STOP Mode Entry 
-    - RTC Clocked by LSE/LSI
-    - Regulator in LP mode
-    - HSI, HSE OFF and LSI OFF if not used as RTC Clock source  
-    - No IWDG
-    - FLASH in deep power down mode
-    - Automatic Wakeup using RTC clocked by LSE/LSI (after ~20s)
+        - RTC Clocked by LSE/LSI
+        - Regulator in LP mode
+        - HSI, HSE OFF and LSI OFF if not used as RTC Clock source  
+        - No IWDG
+        - FLASH in deep power down mode
+        - Automatic Wakeup using RTC clocked by LSE/LSI (after ~20s)
     */
     StopMode_Measure();
+
+#elif defined (STOP_UNDERDRIVE_MODE)
+    /* Under-Drive STOP Mode Entry 
+        - RTC Clocked by LSI
+        - Regulator in LP mode
+        - Under drive feature enabled
+        - HSI, HSE OFF and LSI OFF if not used as RTC Clock source  
+        - No IWDG
+        - FLASH in deep power down mode
+        - Automatic Wake-up using RTC clocked by LSI (after ~20s)
+    */
+    StopUnderDriveMode_Measure();
+
 #elif defined (STANDBY_MODE)
     /* STANDBY Mode Entry 
-    - Backup SRAM and RTC OFF
-    - IWDG and LSI OFF
-    - Wakeup using WakeUp Pin (PA.00)
+        - Backup SRAM and RTC OFF
+        - IWDG and LSI OFF
+        - Wakeup using WakeUp Pin (PA.00)
     */
     StandbyMode_Measure();
-    
+
 #elif defined (STANDBY_RTC_MODE)
     /* STANDBY Mode with RTC on LSE/LSI Entry 
-    - RTC Clocked by LSE or LSI
-    - IWDG OFF and LSI OFF if not used as RTC Clock source
-    - Backup SRAM OFF
-    - Automatic Wakeup using RTC clocked by LSE/LSI (after ~20s)
+        - RTC Clocked by LSE or LSI
+        - IWDG OFF and LSI OFF if not used as RTC Clock source
+        - Backup SRAM OFF
+        - Automatic Wakeup using RTC clocked by LSE/LSI (after ~20s)
     */
     StandbyRTCMode_Measure();
-    
+
 #elif defined (STANDBY_RTC_BKPSRAM_MODE)
     /* STANDBY Mode with RTC on LSE/LSI Entry 
-    - RTC Clocked by LSE/LSI
-    - Backup SRAM ON
-    - IWDG OFF
-    - Automatic Wakeup using RTC clocked by LSE/LSI (after ~20s)
+        - RTC Clocked by LSE/LSI
+        - Backup SRAM ON
+        - IWDG OFF
+        - Automatic Wakeup using RTC clocked by LSE/LSI (after ~20s)
     */
     StandbyRTCBKPSRAMMode_Measure();
 #endif 

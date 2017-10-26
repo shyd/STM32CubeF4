@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm324x9i_eval_lcd.h
   * @author  MCD Application Team
-  * @version V2.2.1
-  * @date    07-October-2015
+  * @version V3.0.0
+  * @date    27-January-2017
   * @brief   This file contains the common defines and functions prototypes for
   *          the stm324x9i_eval_lcd.c driver.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -72,7 +72,7 @@
   * @{
   */ 
 
-/** @defgroup STM324x9I_EVAL_LCD_Exported_Types
+/** @defgroup STM324x9I_EVAL_LCD_Exported_Types STM324x9I EVAL LCD Exported Types
   * @{
   */  
 typedef struct 
@@ -102,7 +102,7 @@ typedef enum
   * @}
   */ 
 
-/** @defgroup STM324x9I_EVAL_LCD_Exported_Constants
+/** @defgroup STM324x9I_EVAL_LCD_Exported_Constants STM324x9I EVAL LCD Exported Constants
   * @{
   */ 
 #define MAX_LAYER_NUMBER       2
@@ -162,11 +162,18 @@ typedef enum
   * @brief LCD default font 
   */ 
 #define LCD_DEFAULT_FONT        Font24     
+
+/** 
+  * @brief  LCD Reload Types  
+  */
+#define LCD_RELOAD_IMMEDIATE               ((uint32_t)LTDC_SRCR_IMR)
+#define LCD_RELOAD_VERTICAL_BLANKING       ((uint32_t)LTDC_SRCR_VBR) 
+
 /**
   * @}
   */ 
 
-/** @defgroup STM324x9I_EVAL_LCD_Exported_Functions
+/** @defgroup STM324x9I_EVAL_LCD_Exported_Functions STM324x9I EVAL LCD Exported Functions
   * @{
   */
 uint8_t  BSP_LCD_Init(void);
@@ -178,13 +185,19 @@ uint32_t BSP_LCD_GetYSize(void);
 /* Functions using the LTDC controller */
 void     BSP_LCD_LayerDefaultInit(uint16_t LayerIndex, uint32_t FrameBuffer);
 void     BSP_LCD_SetTransparency(uint32_t LayerIndex, uint8_t Transparency);
+void     BSP_LCD_SetTransparency_NoReload(uint32_t LayerIndex, uint8_t Transparency);
 void     BSP_LCD_SetLayerAddress(uint32_t LayerIndex, uint32_t Address);
+void     BSP_LCD_SetLayerAddress_NoReload(uint32_t LayerIndex, uint32_t Address);
 void     BSP_LCD_SetColorKeying(uint32_t LayerIndex, uint32_t RGBValue);
+void     BSP_LCD_SetColorKeying_NoReload(uint32_t LayerIndex, uint32_t RGBValue);
 void     BSP_LCD_ResetColorKeying(uint32_t LayerIndex);
+void     BSP_LCD_ResetColorKeying_NoReload(uint32_t LayerIndex);
 void     BSP_LCD_SetLayerWindow(uint16_t LayerIndex, uint16_t Xpos, uint16_t Ypos, uint16_t Width, uint16_t Height);
-
+void     BSP_LCD_SetLayerWindow_NoReload(uint16_t LayerIndex, uint16_t Xpos, uint16_t Ypos, uint16_t Width, uint16_t Height);
 void     BSP_LCD_SelectLayer(uint32_t LayerIndex);
 void     BSP_LCD_SetLayerVisible(uint32_t LayerIndex, FunctionalState State);
+void     BSP_LCD_SetLayerVisible_NoReload(uint32_t LayerIndex, FunctionalState State);
+void     BSP_LCD_Relaod(uint32_t ReloadType);
 
 void     BSP_LCD_SetTextColor(uint32_t Color);
 uint32_t BSP_LCD_GetTextColor(void);

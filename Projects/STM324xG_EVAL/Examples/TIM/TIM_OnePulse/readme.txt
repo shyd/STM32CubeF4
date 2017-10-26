@@ -2,11 +2,11 @@
   @page TIM_OnePulse TIM One Pulse example
 
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    TIM/TIM_OnePulse/readme.txt 
   * @author  MCD Application Team
-  * @version V1.2.4
-  * @date    13-November-2015
+  * @version V1.3.0
+  * @date    17-February-2017
   * @brief   Description of the TIM One Pulse example.      
   ******************************************************************************
   *
@@ -37,7 +37,7 @@
 
 @par Example Description 
 
-This example shows how to use the TIM peripheral to generate a One pulse Mode 
+  This example shows how to use the TIM peripheral to generate a One pulse Mode 
   after a Rising edge of an external signal is received in Timer Input pin.
 
   TIM2CLK = SystemCoreClock/2, we want to get TIM2 counter clock at 42 MHz:

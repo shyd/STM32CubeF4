@@ -2,11 +2,11 @@
   @page RTC_Tamper RTC Tamper Example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    RTC/RTC_Tamper/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the RTC Tamper example.
   ******************************************************************************
   *
@@ -37,9 +37,9 @@
 
 @par Example Description 
 
-This example guides you through the different configuration steps by means of the RTC 
-HAL API to write/read data to/from RTC Backup registers and demonstrate the tamper 
-detection feature.
+This example guides you through the different configuration steps by mean of HAL API 
+to write/read data to/from RTC Backup data registers and demonstrate the Tamper 
+detection feature using RTC peripheral.
 
 At the beginning of the main program the HAL_Init() function is called to reset 
 all the peripherals, initialize the Flash interface and the systick.
@@ -98,7 +98,7 @@ The associated firmware performs the following:
 @par Hardware and Software environment
 
   - This example runs on STM32F429ZI devices.
-  - This example has been tested with STMicroelectronics NUCLEO-429ZI  Rev.B 
+  - This example has been tested with STMicroelectronics NUCLEO-F429ZI  Rev.B 
     evaluation board and can be easily tailored to any other supported device 
     and development board.
 

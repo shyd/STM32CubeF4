@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32f411e_discovery_gyroscope.c
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    12-November-2015
+  * @version V1.0.2
+  * @date    27-January-2017
   * @brief   This file provides a set of functions needed to manage the
   *          MEMS gyroscope available on STM32F411E-Discovery Kit.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -46,33 +46,33 @@
   * @{
   */  
   
-/** @addtogroup STM32F411E_DISCOVERY_GYROSCOPE
+/** @defgroup STM32F411E_DISCOVERY_GYROSCOPE STM32F411E DISCOVERY GYROSCOPE
   * @{
   */
 
 
-/** @defgroup STM32F411E_DISCOVERY_GYROSCOPE_Private_TypesDefinitions
+/** @defgroup STM32F411E_DISCOVERY_GYROSCOPE_Private_TypesDefinitions STM32F411E DISCOVERY GYROSCOPE Private TypesDefinitions
   * @{
   */ 
 /**
   * @}
   */
 
-/** @defgroup STM32F411E_DISCOVERY_GYROSCOPE_Private_Defines
+/** @defgroup STM32F411E_DISCOVERY_GYROSCOPE_Private_Defines STM32F411E DISCOVERY GYROSCOPE Private Defines
   * @{
   */
 /**
   * @}
   */
 
-/** @defgroup STM32F411E_DISCOVERY_GYROSCOPE_Private_Macros
+/** @defgroup STM32F411E_DISCOVERY_GYROSCOPE_Private_Macros STM32F411E DISCOVERY GYROSCOPE Private Macros
   * @{
   */
 /**
   * @}
   */ 
   
-/** @defgroup STM32F411E_DISCOVERY_GYROSCOPE_Private_Variables
+/** @defgroup STM32F411E_DISCOVERY_GYROSCOPE_Private_Variables STM32F411E DISCOVERY GYROSCOPE Private Variables
   * @{
   */ 
 static GYRO_DrvTypeDef *GyroscopeDrv;
@@ -80,20 +80,19 @@ static GYRO_DrvTypeDef *GyroscopeDrv;
   * @}
   */
 
-/** @defgroup STM32F411E_DISCOVERY_GYROSCOPE_Private_FunctionPrototypes
+/** @defgroup STM32F411E_DISCOVERY_GYROSCOPE_Private_FunctionPrototypes STM32F411E DISCOVERY GYROSCOPE Private FunctionPrototypes
   * @{
   */
 /**
   * @}
   */
 
-/** @defgroup STM32F411E_DISCOVERY_GYROSCOPE_Private_Functions
+/** @defgroup STM32F411E_DISCOVERY_GYROSCOPE_Private_Functions STM32F411E DISCOVERY GYROSCOPE Private Functions
   * @{
   */
 
 /**
   * @brief  Set Gyroscope Initialization.
-  * @param  None
   * @retval GYRO_OK if no problem during initialization
   */
 uint8_t BSP_GYRO_Init(void)
@@ -146,7 +145,6 @@ uint8_t BSP_GYRO_Init(void)
 
 /**
   * @brief  Read ID of Gyroscope component.
-  * @param  None
   * @retval ID
   */
 uint8_t BSP_GYRO_ReadID(void)
@@ -162,8 +160,6 @@ uint8_t BSP_GYRO_ReadID(void)
 
 /**
   * @brief  Reboot memory content of Gyroscope.
-  * @param  None
-  * @retval None
   */
 void BSP_GYRO_Reset(void)
 {  
@@ -177,7 +173,6 @@ void BSP_GYRO_Reset(void)
   * @brief  Configures INT1 interrupt.
   * @param  pIntConfig: pointer to a L3GD20_InterruptConfig_TypeDef 
   *         structure that contains the configuration setting for the L3GD20 Interrupt.
-  * @retval None
   */
 void BSP_GYRO_ITConfig(GYRO_InterruptConfigTypeDef *pIntConfig)
 {
@@ -201,7 +196,6 @@ void BSP_GYRO_ITConfig(GYRO_InterruptConfigTypeDef *pIntConfig)
   *      This parameter can be: 
   *        @arg L3GD20_INT1
   *        @arg L3GD20_INT2
-  * @retval None
   */
 void BSP_GYRO_EnableIT(uint8_t IntPin)
 {
@@ -217,7 +211,6 @@ void BSP_GYRO_EnableIT(uint8_t IntPin)
   *      This parameter can be: 
   *        @arg L3GD20_INT1
   *        @arg L3GD20_INT2
-  * @retval None
   */
 void BSP_GYRO_DisableIT(uint8_t IntPin)
 {
@@ -229,8 +222,7 @@ void BSP_GYRO_DisableIT(uint8_t IntPin)
   
 /**
   * @brief  Get XYZ angular acceleration.
-  * @param  pfData: pointer on floating array         
-  * @retval None
+  * @param  pfData: pointer on floating array
   */
 void BSP_GYRO_GetXYZ(float *pfData)
 {

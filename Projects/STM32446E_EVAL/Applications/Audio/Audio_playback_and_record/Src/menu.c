@@ -2,29 +2,48 @@
   ******************************************************************************
   * @file    Audio/Audio_playback_and_record/Src/menu.c 
   * @author  MCD Application Team
-  * @version V1.2.2
-  * @date    13-November-2015
+  * @version V1.3.0
+  * @date    17-February-2017
   * @brief   This file implements Menu Functions
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics International N.V. 
+  * All rights reserved.</center></h2>
   *
-  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-  * You may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at:
+  * Redistribution and use in source and binary forms, with or without 
+  * modification, are permitted, provided that the following conditions are met:
   *
-  *        http://www.st.com/software_license_agreement_liberty_v2
+  * 1. Redistribution of source code must retain the above copyright notice, 
+  *    this list of conditions and the following disclaimer.
+  * 2. Redistributions in binary form must reproduce the above copyright notice,
+  *    this list of conditions and the following disclaimer in the documentation
+  *    and/or other materials provided with the distribution.
+  * 3. Neither the name of STMicroelectronics nor the names of other 
+  *    contributors to this software may be used to endorse or promote products 
+  *    derived from this software without specific written permission.
+  * 4. This software, including modifications and/or derivative works of this 
+  *    software, must execute solely and exclusively on microcontroller or
+  *    microprocessor devices manufactured by or for STMicroelectronics.
+  * 5. Redistribution and use of this software other than as permitted under 
+  *    this license is void and will automatically terminate your rights under 
+  *    this license. 
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
+  * THIS SOFTWARE IS PROVIDED BY STMICROELECTRONICS AND CONTRIBUTORS "AS IS" 
+  * AND ANY EXPRESS, IMPLIED OR STATUTORY WARRANTIES, INCLUDING, BUT NOT 
+  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+  * PARTICULAR PURPOSE AND NON-INFRINGEMENT OF THIRD PARTY INTELLECTUAL PROPERTY
+  * RIGHTS ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED BY LAW. IN NO EVENT 
+  * SHALL STMICROELECTRONICS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, 
+  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
+  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
   */
-
 /* Includes ------------------------------------------------------------------*/
 #include "waveplayer.h"
 #include "waverecorder.h" 
@@ -85,18 +104,8 @@ void AUDIO_MenuProcess(void)
     switch(AudioDemo.state)
     {
     case AUDIO_DEMO_IDLE:
-      AUDIO_SelectItem(AUDIO_main_menu, 0); 
-      if((AUDIO_ShowWavFiles() > 0) && (state == 0))
-      {
-        LCD_ErrLog("There is no WAV file on the USB Key.\n");         
-        AUDIO_ChangeSelectMode(AUDIO_SELECT_MENU); 
-        AudioDemo.state = AUDIO_DEMO_IDLE;
-        state = 1;
-      }
-      else
-      {
-        AudioDemo.state = AUDIO_DEMO_WAIT;
-      }
+    
+      AudioDemo.state = AUDIO_DEMO_WAIT;
       
       AudioDemo.select = 0;
       BSP_LCD_SetTextColor(LCD_COLOR_GREEN);
@@ -180,8 +189,19 @@ void AUDIO_MenuProcess(void)
       {
         if(AudioState == AUDIO_STATE_IDLE)
         {
-          /* Start Playing */
-          AudioState = AUDIO_STATE_INIT;
+          if(AUDIO_ShowWavFiles() > 0)
+          {
+            LCD_ErrLog("There is no WAV file on the USB Key.\n");         
+            AUDIO_ChangeSelectMode(AUDIO_SELECT_MENU); 
+            AudioDemo.state = AUDIO_DEMO_IDLE;
+          }
+          else
+          {
+            /* Start Playing */
+            AudioState = AUDIO_STATE_INIT;
+          }
+          
+          
           if(AUDIO_PLAYER_Start(0) == AUDIO_ERROR_IO)
           {
             AUDIO_ChangeSelectMode(AUDIO_SELECT_MENU); 
@@ -193,7 +213,7 @@ void AUDIO_MenuProcess(void)
             BSP_LCD_DisplayStringAtLine(10, (uint8_t *)"[  UP   ] : Volume +");
             BSP_LCD_DisplayStringAtLine(11, (uint8_t *)"[ DOWN  ] : Volume -");
             BSP_LCD_DisplayStringAtLine(12, (uint8_t *)"[ LEFT  ] : Previous");
-            BSP_LCD_DisplayStringAtLine(13, (uint8_t *)"[ RIGHT ] : Next");
+            BSP_LCD_DisplayStringAtLine(13, (uint8_t *)"[ RIGHT ] : Next   ");
             BSP_LCD_DisplayStringAtLine(14, (uint8_t *)"[  SEL  ] : Pause/Resume");
             BSP_LCD_SetTextColor(LCD_COLOR_WHITE);           
           }
@@ -220,6 +240,13 @@ void AUDIO_MenuProcess(void)
         {
           /* Start Playing */
           AudioState = AUDIO_STATE_INIT;
+          
+          /* Clear the LCD */
+          LCD_ClearTextZone();
+          
+          /* Init storage */
+          AUDIO_StorageInit();
+          
           /* Configure the audio recorder: sampling frequency, bits-depth, number of channels */
           if(AUDIO_REC_Start() == AUDIO_ERROR_IO)
           {

@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32f411e_discovery_gyroscope.h
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    12-November-2015
+  * @version V1.0.2
+  * @date    27-January-2017
   * @brief   This file contains definitions for stm32f411e_discovery_gyroscope.c 
   *          firmware driver.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -59,11 +59,11 @@
   * @{
   */ 
 
-/** @addtogroup STM32F411E_DISCOVERY_GYROSCOPE
+/** @defgroup STM32F411E_DISCOVERY_GYROSCOPE STM32F411E DISCOVERY GYROSCOPE
   * @{
   */
   
-/** @defgroup STM32F411E_DISCOVERY_GYROSCOPE_Exported_Types
+/** @defgroup STM32F411E_DISCOVERY_GYROSCOPE_Exported_Types STM32F411E DISCOVERY GYROSCOPE Exported Types
   * @{
   */
 typedef enum 
@@ -76,21 +76,21 @@ typedef enum
   * @}
   */
   
-/** @defgroup STM32F411E_DISCOVERY_GYROSCOPE_Exported_Constants
+/** @defgroup STM32F411E_DISCOVERY_GYROSCOPE_Exported_Constants STM32F411E DISCOVERY GYROSCOPE Exported Constants
   * @{
   */
 /**
   * @}
   */
   
-/** @defgroup STM32F411E_DISCOVERY_GYROSCOPE_Exported_Macros
+/** @defgroup STM32F411E_DISCOVERY_GYROSCOPE_Exported_Macros STM32F411E DISCOVERY GYROSCOPE Exported Macros
   * @{
   */
 /**
   * @}
   */
  
-/** @defgroup STM32F411E_DISCOVERY_GYROSCOPE_Exported_Functions
+/** @defgroup STM32F411E_DISCOVERY_GYROSCOPE_Exported_Functions STM32F411E DISCOVERY GYROSCOPE Exported Functions
   * @{
   */
 /* Gyroscope Functions */ 

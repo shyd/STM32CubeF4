@@ -2,11 +2,11 @@
   @page RNG_MultiRNG Multiple Random Numbers Generator example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    RNG/RNG_MultiRNG/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of multiple random numbers generation example.
   ******************************************************************************
   *
@@ -37,8 +37,8 @@
 
 @par Example Description 
 
-This example guides you through the HAL API different configuration steps 
-to ensure 32-bit long random numbers generation by RNG peripheral.
+This example guides you through the different configuration steps by mean of 
+HAL API to ensure RNG random 32bit numbers generation.
 
 At the beginning of the main program the HAL_Init() function is called to reset 
 all the peripherals, initialize the Flash interface and the systick.
@@ -76,7 +76,7 @@ In case of error, LED3 is toggling at a frequency of 1Hz.
 
   - This example runs on STM32F469xx/STM32F479xx devices.
 
-  - This example has been tested and validated with STMicroelectronics STM32469I-EVAL revB board and can be
+  - This example has been tested and validated with STMicroelectronics STM32469I-EVAL RevC board and can be
     easily tailored to any other supported device and development board.
 
 @par How to use it ? 

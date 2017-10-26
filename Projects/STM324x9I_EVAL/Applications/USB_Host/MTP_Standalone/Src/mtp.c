@@ -2,43 +2,62 @@
   ******************************************************************************
   * @file    USB_Host/MTP_Standalone/Src/mtp.c 
   * @author  MCD Application Team
-  * @version V1.4.2
-  * @date    13-November-2015
+  * @version V1.5.0
+  * @date    17-February-2017
   * @brief   This file provides APIs to explore MTP Storage Objects
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics International N.V. 
+  * All rights reserved.</center></h2>
   *
-  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-  * You may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at:
+  * Redistribution and use in source and binary forms, with or without 
+  * modification, are permitted, provided that the following conditions are met:
   *
-  *        http://www.st.com/software_license_agreement_liberty_v2
+  * 1. Redistribution of source code must retain the above copyright notice, 
+  *    this list of conditions and the following disclaimer.
+  * 2. Redistributions in binary form must reproduce the above copyright notice,
+  *    this list of conditions and the following disclaimer in the documentation
+  *    and/or other materials provided with the distribution.
+  * 3. Neither the name of STMicroelectronics nor the names of other 
+  *    contributors to this software may be used to endorse or promote products 
+  *    derived from this software without specific written permission.
+  * 4. This software, including modifications and/or derivative works of this 
+  *    software, must execute solely and exclusively on microcontroller or
+  *    microprocessor devices manufactured by or for STMicroelectronics.
+  * 5. Redistribution and use of this software other than as permitted under 
+  *    this license is void and will automatically terminate your rights under 
+  *    this license. 
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
+  * THIS SOFTWARE IS PROVIDED BY STMICROELECTRONICS AND CONTRIBUTORS "AS IS" 
+  * AND ANY EXPRESS, IMPLIED OR STATUTORY WARRANTIES, INCLUDING, BUT NOT 
+  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+  * PARTICULAR PURPOSE AND NON-INFRINGEMENT OF THIRD PARTY INTELLECTUAL PROPERTY
+  * RIGHTS ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED BY LAW. IN NO EVENT 
+  * SHALL STMICROELECTRONICS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, 
+  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
+  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
   */
-
-/* Includes ------------------------------------------------------------------*/
+/* Includes ------------------------------------------------------------------ */
 #include "main.h"
 
-/* Private define ------------------------------------------------------------*/
-/* Private macro -------------------------------------------------------------*/
-/* Private typedef -----------------------------------------------------------*/
-/* Private variables ---------------------------------------------------------*/
+/* Private define ------------------------------------------------------------ */
+/* Private macro ------------------------------------------------------------- */
+/* Private typedef ----------------------------------------------------------- */
+/* Private variables --------------------------------------------------------- */
 MTP_ObjectHandlesTypedef WavHandles;
 uint32_t NumObs = 0;
 
-/* Private function prototypes -----------------------------------------------*/
+/* Private function prototypes ----------------------------------------------- */
 static uint8_t MTP_GetWavObjectHandles(void);
 
-/* Private functions ---------------------------------------------------------*/
+/* Private functions --------------------------------------------------------- */
 
 /**
   * @brief  AUDIO_Start 
@@ -50,25 +69,26 @@ uint8_t MTP_Init(void)
 {
   static uint8_t is_initialized = 0;
   uint8_t ret = 1;
-  
-  if(is_initialized == 0)
+
+  if (is_initialized == 0)
   {
-    if(USBH_MTP_IsReady(&hUSBHost) > 0)
-    { 
-      if(USBH_MTP_GetNumObjects(&hUSBHost, 0, PTP_OFC_WAV, PTP_AT_Undefined, &NumObs) == USBH_OK)
+    if (USBH_MTP_IsReady(&hUSBHost) > 0)
+    {
+      if (USBH_MTP_GetNumObjects
+          (&hUSBHost, 0, PTP_OFC_WAV, PTP_AT_Undefined, &NumObs) == USBH_OK)
       {
         /* Get objects handlers */
-        if(MTP_GetWavObjectHandles() == 0)
+        if (MTP_GetWavObjectHandles() == 0)
         {
           is_initialized = 1;
-          ret = 0;   
+          ret = 0;
         }
       }
     }
   }
   else
   {
-   ret = 0;  
+    ret = 0;
   }
   return ret;
 }
@@ -83,33 +103,33 @@ uint8_t MTP_ExploreWavFile(void)
   uint8_t ret = 1;
   uint32_t index;
   MTP_ObjectInfoTypedef objectinfo;
-  
+
   MTP_Init();
-  
-  if(USBH_MTP_IsReady(&hUSBHost) > 0)
+
+  if (USBH_MTP_IsReady(&hUSBHost) > 0)
   {
     LCD_UsrLog("\nAvailable wav files:\n");
- 
+
     /* Get Available WAV files number */
-    if((NumObs = MTP_GetWavObjectNumber()) > 0)
+    if ((NumObs = MTP_GetWavObjectNumber()) > 0)
     {
       /* Get objects handlers */
-      if(MTP_GetWavObjectHandles() == 0)
+      if (MTP_GetWavObjectHandles() == 0)
       {
-        ret = 0; 
-        
-        for (index = 0; index < NumObs; index ++)
+        ret = 0;
+
+        for (index = 0; index < NumObs; index++)
         {
-          if( USBH_MTP_GetObjectInfo (&hUSBHost, 
-                                      WavHandles.Handler[index], 
-                                      &objectinfo) == USBH_OK)
-            
+          if (USBH_MTP_GetObjectInfo(&hUSBHost,
+                                     WavHandles.Handler[index],
+                                     &objectinfo) == USBH_OK)
+
           {
             LCD_DbgLog(" %lu- %s\n", index, objectinfo.Filename);
           }
           else
           {
-            ret = 1; 
+            ret = 1;
           }
         }
       }
@@ -119,7 +139,7 @@ uint8_t MTP_ExploreWavFile(void)
   {
     LCD_ErrLog("MTP Device Not yet ready...\n");
   }
-  
+
   return ret;
 }
 
@@ -132,14 +152,12 @@ uint8_t MTP_ExploreWavFile(void)
   * @param  len: Pointer to the file length        
   * @retval Returns Status 0 if OK, otherwise 1.
   */
-uint8_t MTP_GetData(uint32_t file_idx, uint32_t offset, uint32_t maxbytes, uint8_t *object, uint32_t *len)
-{ 
-  USBH_MTP_GetPartialObject(&hUSBHost, 
-                            WavHandles.Handler[file_idx], 
-                            offset,
-                            maxbytes, 
-                            object,
-                            len);    
+uint8_t MTP_GetData(uint32_t file_idx, uint32_t offset, uint32_t maxbytes,
+                    uint8_t * object, uint32_t * len)
+{
+  USBH_MTP_GetPartialObject(&hUSBHost,
+                            WavHandles.Handler[file_idx],
+                            offset, maxbytes, object, len);
   return 0;
 }
 
@@ -159,17 +177,18 @@ uint16_t MTP_GetWavObjectNumber(void)
   * @param  filename: Pointer to the file name  
   * @retval Returns Status 0 if OK, otherwise 1.
   */
-uint8_t MTP_GetWavObjectName(uint16_t object_index, uint8_t *filename)
+uint8_t MTP_GetWavObjectName(uint16_t object_index, uint8_t * filename)
 {
   uint8_t ret = 1;
   MTP_ObjectInfoTypedef objectinfo;
-  
-  if(USBH_MTP_GetObjectInfo(&hUSBHost, WavHandles.Handler[object_index], &objectinfo) == USBH_OK)
+
+  if (USBH_MTP_GetObjectInfo
+      (&hUSBHost, WavHandles.Handler[object_index], &objectinfo) == USBH_OK)
   {
     strcpy((char *)filename, (char *)objectinfo.Filename);
     ret = 0;
   }
-  
+
   return ret;
 }
 
@@ -179,9 +198,10 @@ uint8_t MTP_GetWavObjectName(uint16_t object_index, uint8_t *filename)
   * @retval Returns Status 0 if OK, otherwise 1.
   */
 static uint8_t MTP_GetWavObjectHandles(void)
-{ 
+{
   /* Get objects handlers */
-  if(USBH_MTP_GetObjectHandles(&hUSBHost, 0, PTP_OFC_WAV, PTP_AT_Undefined, &WavHandles) == USBH_OK)
+  if (USBH_MTP_GetObjectHandles
+      (&hUSBHost, 0, PTP_OFC_WAV, PTP_AT_Undefined, &WavHandles) == USBH_OK)
   {
     return 0;
   }

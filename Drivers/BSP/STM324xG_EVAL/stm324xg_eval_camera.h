@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm324xg_eval_camera.h
   * @author  MCD Application Team
-  * @version V2.1.0
-  * @date    14-August-2015
+  * @version V3.0.0
+  * @date    27-January-2017
   * @brief   This file contains all the functions prototypes for the 
   *          stm324xg_eval_camera.c driver.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -63,7 +63,7 @@
   * @{
   */ 
 
-/** @defgroup STM324xG_EVAL_CAMERA_Exported_Types
+/** @defgroup STM324xG_EVAL_CAMERA_Exported_Types STM324xG EVAL CAMERA Exported Types
   * @{
   */
    
@@ -84,7 +84,7 @@ typedef enum
   * @}
   */ 
 
-/** @defgroup STM324xG_EVAL_CAMERA_Exported_Constants
+/** @defgroup STM324xG_EVAL_CAMERA_Exported_Constants STM324xG EVAL CAMERA Exported Constants
   * @{
   */
 #define CAMERA_I2C_ADDRESS 0x60  
@@ -92,7 +92,7 @@ typedef enum
   * @}
   */  
        
-/** @defgroup STM324xG_EVAL_CAMERA_Exported_Functions
+/** @defgroup STM324xG_EVAL_CAMERA_Exported_Functions STM324xG EVAL CAMERA Exported Functions
   * @{
   */        
 uint8_t BSP_CAMERA_Init(uint32_t Resolution);
@@ -105,6 +105,7 @@ void    BSP_CAMERA_LineEventCallback(void);
 void    BSP_CAMERA_VsyncEventCallback(void);
 void    BSP_CAMERA_FrameEventCallback(void);
 void    BSP_CAMERA_ErrorCallback(void);
+void    BSP_CAMERA_MspInit(void);
 
 /* Camera features functions prototype */
 void    BSP_CAMERA_ContrastBrightnessConfig(uint32_t contrast_level, uint32_t brightness_level);

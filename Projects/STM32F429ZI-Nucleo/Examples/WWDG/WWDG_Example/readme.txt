@@ -2,11 +2,11 @@
   @page WWDG_Example Window Watchdog example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    WWDG/WWDG_Example/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the Window Watchdog example.
   ******************************************************************************
   *
@@ -37,9 +37,9 @@
 
 @par Example Description
 
-This example guides you through the different configuration steps by means of the 
-HAL API to perform periodic WWDG counter update and simulate a software fault that 
-generates an MCU WWDG reset when a predefined time period has elapsed.
+This example guides you through the different configuration steps by mean of HAL API 
+to ensure WWDG counter update at regular period and simulate a software fault generating 
+an MCU WWDG reset on expiry of a programmed time period.
 
 At the beginning of the main program the HAL_Init() function is called to reset 
 all the peripherals, initialize the Flash interface and the systick.
@@ -51,9 +51,10 @@ This later is calling the HAL_WWDG_MspInit()function which core is implementing
 the configuration of the needed WWDG resources according to the used hardware (CLOCK, 
 GPIO, DMA and NVIC). You may update this function to change WWDG configuration.
 
-The WWDG timeout is set to 46 ms and the refresh window is set to 80. 
-The WWDG counter is refreshed each 39ms in the main program infinite loop to 
-prevent a WWDG reset.
+The WWDG timeout is set, through counter value, to 46 ms. 
+The refresh window is set in order to make user wait 35 ms after a wadchdog refresh, 
+before writing again counter. Hence the WWDG counter is refreshed each (35 + 1) ms in the 
+main program infinite loop to prevent a WWDG reset. 
 LED2 is also toggled each 39ms indicating that the program is running.
 
 An EXTI Line is connected to a GPIO pin, and configured to generate an interrupt
@@ -101,7 +102,7 @@ LED3 is turned ON and remains ON if any error occurs.
 
   - This example runs on STM32F429xx devices.
     
-  - This example has been tested with NUCLEO-429ZI  Rev.B board and can be
+  - This example has been tested with NUCLEO-F429ZI  Rev.B board and can be
     easily tailored to any other supported device and development board.
 
 @par How to use it ? 

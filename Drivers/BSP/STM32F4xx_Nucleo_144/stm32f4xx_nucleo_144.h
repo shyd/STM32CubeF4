@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32f4xx_nucleo_144.h
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    13-November-2015
+  * @version V1.0.2
+  * @date    22-April-2016
   * @brief   This file contains definitions for:
   *          - LEDs and push-button available on STM32F4XX-Nucleo-144 Kit 
   *            from STMicroelectronics
@@ -12,7 +12,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -68,7 +68,7 @@
   * @{
   */ 
 
-/** @defgroup STM32F4XX_NUCLEO_144_LOW_LEVEL_Exported_Types
+/** @defgroup STM32F4XX_NUCLEO_144_LOW_LEVEL_Exported_Types STM32F4XX NUCLEO 144 LOW LEVEL Exported Types
   * @{
   */
 typedef enum 
@@ -108,7 +108,7 @@ typedef enum
   * @}
   */ 
 
-/** @defgroup STM32F4XX_NUCLEO_144_LOW_LEVEL_Exported_Constants
+/** @defgroup STM32F4XX_NUCLEO_144_LOW_LEVEL_Exported_Constants STM32F4XX NUCLEO 144 LOW LEVEL Exported Constants
   * @{
   */ 
 
@@ -119,7 +119,7 @@ typedef enum
  #define USE_STM32F4XX_NUCLEO_144
 #endif
 
-/** @addtogroup STM32F4XX_NUCLEO_144_LOW_LEVEL_LED
+/** @defgroup STM32F4XX_NUCLEO_144_LOW_LEVEL_LED STM32F4XX NUCLEO 144 LOW LEVEL LED
   * @{
   */
 #define LEDn                                    3
@@ -147,7 +147,7 @@ typedef enum
   * @}
   */ 
   
-/** @addtogroup STM32F4XX_NUCLEO_144_LOW_LEVEL_BUTTON
+/** @defgroup STM32F4XX_NUCLEO_144_LOW_LEVEL_BUTTON STM32F4XX NUCLEO 144 LOW LEVEL BUTTON
   * @{
   */  
 #define BUTTONn                                 1  
@@ -175,8 +175,7 @@ typedef enum
 
 
 /**
-  * @brief Discovery Pins definition
-  * TODO : to be modified/reviewed
+  * @brief OTG_FS1 OVER_CURRENT and POWER_SWITCH Pins definition
   */
 
 
@@ -192,7 +191,7 @@ typedef enum
   * @}
   */ 
 
-/** @addtogroup STM32F4XX_NUCLEO_144_LOW_LEVEL_BUS
+/** @defgroup STM32F4XX_NUCLEO_144_LOW_LEVEL_BUS STM32F4XX NUCLEO 144 LOW LEVEL BUS
   * @{
   */
 /*############################### SPI_A #######################################*/
@@ -306,14 +305,14 @@ typedef enum
   * @}
   */
 
-/** @defgroup STM32F4XX_NUCLEO_144_LOW_LEVEL_Exported_Macros
+/** @defgroup STM32F4XX_NUCLEO_144_LOW_LEVEL_Exported_Macros STM32F4XX NUCLEO 144 LOW LEVEL Exported Macros
   * @{
   */  
 /**
   * @}
   */ 
 
-/** @defgroup STM32F4XX_NUCLEO_144_LOW_LEVEL_Exported_Functions
+/** @defgroup STM32F4XX_NUCLEO_144_LOW_LEVEL_Exported_Functions STM32F4XX NUCLEO 144 LOW LEVEL Exported Functions
   * @{
   */
 uint32_t         BSP_GetVersion(void);  

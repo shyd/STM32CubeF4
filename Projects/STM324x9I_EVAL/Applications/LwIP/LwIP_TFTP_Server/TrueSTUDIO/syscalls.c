@@ -16,11 +16,10 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
-#undef errno
-extern int errno;
+
 
 #define FreeRTOS
-#define MAX_STACK_SIZE 0x200
+#define MAX_STACK_SIZE 0x2000
 
 extern int __io_putchar(int ch) __attribute__((weak));
 extern int __io_getchar(void) __attribute__((weak));

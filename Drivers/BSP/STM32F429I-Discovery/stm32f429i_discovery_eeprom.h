@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32f429i_discovery_eeprom.h
   * @author  MCD Application Team
-  * @version V2.1.2
-  * @date    02-March-2015
+  * @version V2.1.5
+  * @date    27-January-2017
   * @brief   This file contains all the functions prototypes for 
   *          the stm32f429i_discovery_eeprom.c firmware driver.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -55,18 +55,18 @@
   * @{
   */
   
-/** @addtogroup STM32F429I_DISCOVERY_EEPROM
+/** @addtogroup STM32F429I_DISCOVERY_EEPROM STM32F429I DISCOVERY EEPROM
   * @{
   */  
 
-/** @defgroup STM32F429I_DISCOVERY_EEPROM_Exported_Types
+/** @defgroup STM32F429I_DISCOVERY_EEPROM_Exported_Types STM32F429I DISCOVERY EEPROM Exported Types
   * @{
   */ 
 /**
   * @}
   */
   
-/** @defgroup STM32F429I_DISCOVERY_EEPROM_Exported_Constants
+/** @defgroup STM32F429I_DISCOVERY_EEPROM_Exported_Constants STM32F429I DISCOVERY EEPROM Exported Constants
   * @{
   */
 /* EEPROM hardware address and page size */ 
@@ -90,14 +90,14 @@ This timeout is based on systick set to 1ms*/
   * @}
   */ 
   
-/** @defgroup STM32F429I_DISCOVERY_EEPROM_Exported_Macros
+/** @defgroup STM32F429I_DISCOVERY_EEPROM_Exported_Macros STM32F429I DISCOVERY EEPROM Exported Macros
   * @{
   */    
 /**
   * @}
   */ 
 
-/** @defgroup STM32F429I_DISCOVERY_EEPROM_Exported_Functions
+/** @defgroup STM32F429I_DISCOVERY_EEPROM_Exported_Functions STM32F429I DISCOVERY EEPROM Exported Functions
   * @{
   */ 
 uint32_t BSP_EEPROM_Init(void);

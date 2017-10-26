@@ -2,29 +2,48 @@
   ******************************************************************************
   * @file    usbd_storage.c
   * @author  MCD Application Team
-  * @version V1.4.2
-  * @date    13-November-2015   
+  * @version V1.4.7
+  * @date    17-February-2017
   * @brief   Memory management layer
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics International N.V. 
+  * All rights reserved.</center></h2>
   *
-  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-  * You may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at:
+  * Redistribution and use in source and binary forms, with or without 
+  * modification, are permitted, provided that the following conditions are met:
   *
-  *        http://www.st.com/software_license_agreement_liberty_v2
+  * 1. Redistribution of source code must retain the above copyright notice, 
+  *    this list of conditions and the following disclaimer.
+  * 2. Redistributions in binary form must reproduce the above copyright notice,
+  *    this list of conditions and the following disclaimer in the documentation
+  *    and/or other materials provided with the distribution.
+  * 3. Neither the name of STMicroelectronics nor the names of other 
+  *    contributors to this software may be used to endorse or promote products 
+  *    derived from this software without specific written permission.
+  * 4. This software, including modifications and/or derivative works of this 
+  *    software, must execute solely and exclusively on microcontroller or
+  *    microprocessor devices manufactured by or for STMicroelectronics.
+  * 5. Redistribution and use of this software other than as permitted under 
+  *    this license is void and will automatically terminate your rights under 
+  *    this license. 
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
+  * THIS SOFTWARE IS PROVIDED BY STMICROELECTRONICS AND CONTRIBUTORS "AS IS" 
+  * AND ANY EXPRESS, IMPLIED OR STATUTORY WARRANTIES, INCLUDING, BUT NOT 
+  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+  * PARTICULAR PURPOSE AND NON-INFRINGEMENT OF THIRD PARTY INTELLECTUAL PROPERTY
+  * RIGHTS ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED BY LAW. IN NO EVENT 
+  * SHALL STMICROELECTRONICS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, 
+  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
+  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
   */
-
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_storage.h"
 #include "k_storage.h"
@@ -48,6 +67,7 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
+  __IO uint32_t writestatus, readstatus = 0;
 /* USB Mass storage Standard Inquiry Data */
 const int8_t STORAGE_Inquirydata[] = { /* 36 */
   /* LUN 0 */
@@ -116,7 +136,7 @@ int8_t STORAGE_Init(uint8_t lun)
   */
 int8_t STORAGE_GetCapacity(uint8_t lun, uint32_t *block_num, uint16_t *block_size)
 {
-  HAL_SD_CardInfoTypedef info;
+  HAL_SD_CardInfoTypeDef info;
   int8_t ret = -1;  
   
   if(k_StorageGetStatus (MSD_DISK_UNIT) == 1)
@@ -124,8 +144,8 @@ int8_t STORAGE_GetCapacity(uint8_t lun, uint32_t *block_num, uint16_t *block_siz
 
     BSP_SD_GetCardInfo(&info);
    
-    *block_num = (info.CardCapacity)/STORAGE_BLK_SIZ  - 1;
-    *block_size = STORAGE_BLK_SIZ;
+    *block_num =  info.LogBlockNbr  - 1;
+    *block_size = info.LogBlockSize;
     ret = 0;
   }
   return ret;
@@ -169,7 +189,7 @@ int8_t STORAGE_IsWriteProtected(uint8_t lun)
 /**
   * @brief  Reads data from the medium.
   * @param  lun: Logical unit number
-  * @param  buf: pointer to data buffer  
+  * @param  buf: pointer to data buffer
   * @param  blk_addr: Logical block address
   * @param  blk_len: Blocks number
   * @retval Status (0: Ok / -1: Error)
@@ -181,8 +201,8 @@ int8_t STORAGE_Read(uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t blk_l
    
     if(k_StorageGetStatus (MSD_DISK_UNIT) == 1)
     {  
-      BSP_SD_ReadBlocks((uint32_t *)buf, blk_addr * STORAGE_BLK_SIZ, STORAGE_BLK_SIZ, blk_len);
-      while(BSP_SD_GetStatus() != SD_TRANSFER_OK)
+      BSP_SD_ReadBlocks((uint32_t *)buf, blk_addr, blk_len, timeout);
+      while(BSP_SD_GetCardState() != SD_TRANSFER_OK)
       {  
         if (timeout-- == 0)
         {
@@ -197,7 +217,7 @@ int8_t STORAGE_Read(uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t blk_l
 /**
   * @brief  Writes data into the medium.
   * @param  lun: Logical unit number
-  * @param  buf: pointer to data buffer    
+  * @param  buf: pointer to data buffer
   * @param  blk_addr: Logical block address
   * @param  blk_len: Blocks number
   * @retval Status (0 : Ok / -1 : Error)
@@ -209,9 +229,9 @@ int8_t STORAGE_Write(uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t blk_
   
     if(k_StorageGetStatus (MSD_DISK_UNIT) == 1)
     { 
-      BSP_SD_WriteBlocks((uint32_t *)buf, blk_addr * STORAGE_BLK_SIZ, STORAGE_BLK_SIZ, blk_len);
-      while(BSP_SD_GetStatus() != SD_TRANSFER_OK)
-      {  
+      BSP_SD_WriteBlocks((uint32_t *)buf, blk_addr, blk_len, timeout);
+      while(BSP_SD_GetCardState() != SD_TRANSFER_OK)
+      {
         if (timeout-- == 0)
         {       
           return (-1);

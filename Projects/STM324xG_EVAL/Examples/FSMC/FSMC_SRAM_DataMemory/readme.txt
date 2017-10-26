@@ -2,11 +2,11 @@
   @page FSMC_SRAM_DataMemory FSMC SRAM data memory example
   
   @verbatim
-  ******************* (C) COPYRIGHT 2015 STMicroelectronics ********************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    FSMC/FSMC_SRAM_DataMemory/readme.txt 
   * @author  MCD Application Team
-  * @version V1.2.4
-  * @date    13-November-2015
+  * @version V1.3.0
+  * @date    17-February-2017
   * @brief   Description of the FSMC SRAM data memory example.
   ******************************************************************************
   *
@@ -53,13 +53,13 @@ provide only the procedure to follow to use the external SRAM as data memory.
 
 This example does not use the default library startup file. It uses a modified 
 startup file provided with the example. The user has to add the new startup 
-file in the project source list. While startup, the SRAM memory is configured 
+file in the project source list. While startup, the SRAM is configured 
 and initialized to be ready to contain data.
   
 The user has to configure his preferred toolchain using the provided linker file.
-The RAM zone is modified in order to use the external SRAM memory as a RAM.
+The RAM zone is modified in order to use the external SRAM as a RAM.
 
-At this stage, all the used data can be located in the external SRAM memory.
+At this stage, all the used data can be located in the external SRAM.
 
 The user can use the debugger's watch to evaluate "uwTabAddr" and "MSPValue" variables
 values which should be equal to "0x640xxxxx". 

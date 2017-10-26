@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32446e_eval_sdram.h
   * @author  MCD Application Team
-  * @version V1.1.0
-  * @date    14-August-2015
+  * @version V2.0.0
+  * @date    27-January-2017
   * @brief   This file contains the common defines and functions prototypes for
   *          the stm32446e_eval_sdram.c driver.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -55,7 +55,7 @@
   * @{
   */
     
-/** @defgroup STM32446E_EVAL_SDRAM STM32446E-EVAL SDRAM
+/** @defgroup STM32446E_EVAL_SDRAM STM32446E EVAL SDRAM
   * @{
   */    
 
@@ -69,11 +69,15 @@
 #define   SDRAM_OK         ((uint8_t)0x00)
 #define   SDRAM_ERROR      ((uint8_t)0x01)
 
+/**
+  * @}
+  */
+  
 /** @defgroup STM32446E_EVAL_SDRAM_Exported_Constants STM32446E EVAL SDRAM Exported Constants
   * @{
   */ 
 #define SDRAM_DEVICE_ADDR  ((uint32_t)0xC0000000)
-#define SDRAM_DEVICE_SIZE  ((uint32_t)0x800000)  /* SDRAM device size in MBytes */
+#define SDRAM_DEVICE_SIZE  ((uint32_t)0x800000)  /* SDRAM device size in Bytes */
 
 /* #define SDRAM_MEMORY_WIDTH            FMC_SDRAM_MEM_BUS_WIDTH_8  */
 #define SDRAM_MEMORY_WIDTH            FMC_SDRAM_MEM_BUS_WIDTH_16 
@@ -92,9 +96,7 @@
 #define SDRAM_DMAx_STREAM                 DMA2_Stream0  
 #define SDRAM_DMAx_IRQn                   DMA2_Stream0_IRQn
 #define SDRAM_DMAx_IRQHandler             DMA2_Stream0_IRQHandler  
-/**
-  * @}
-  */ 
+ 
   
 /**
   * @brief  FMC SDRAM Mode definition register defines

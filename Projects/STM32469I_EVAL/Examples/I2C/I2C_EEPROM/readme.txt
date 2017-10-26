@@ -2,11 +2,11 @@
   @page I2C_EEPROM I2C EEPROM DMA example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    I2C/I2C_EEPROM/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the I2C EEPROM DMA example.
   ******************************************************************************
   *
@@ -113,11 +113,11 @@ STM32 Eval board's LEDs can be used to monitor the transfer status:
 
   - This example runs on STM32F469xx/STM32F479xx devices.
 
-  - This example has been tested and validated with STMicroelectronics STM32469I-EVAL revB board and can be
+  - This example has been tested and validated with STMicroelectronics STM32469I-EVAL RevC board and can be
     easily tailored to any other supported device and development board.      
 
   - STM32469I-EVAL Set-up
-    Make sure the ANT7-M24LR-A eeprom is connected to CN2 of the STM32469I-EVAL revB board
+    Make sure the ANT7-M24LR-A eeprom is connected to CN2 of the STM32469I-EVAL RevC board
   
 
 @par How to use it ? 

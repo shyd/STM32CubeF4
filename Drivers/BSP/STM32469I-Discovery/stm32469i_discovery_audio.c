@@ -2,13 +2,13 @@
   ******************************************************************************
   * @file    stm32469i_discovery_audio.c
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    29-September-2015
+  * @version V2.0.0
+  * @date    27-January-2017
   * @brief   This file provides the Audio driver for the STM32469I-Discovery board.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -103,24 +103,24 @@ Known Limitations:
   * @{
   */
 
-/** @addtogroup STM32469I-Discovery
+/** @addtogroup STM32469I_Discovery
   * @{
   */
 
-/** @defgroup STM32469I-Discovery_AUDIO STM32469I-Discovery AUDIO
+/** @defgroup STM32469I-Discovery_AUDIO STM32469I Discovery AUDIO
   * @brief This file includes the low layer driver for CS43L22 Audio Codec
   *        available on STM32469I-Discovery board(MB1189).
   * @{
   */
 
-/** @defgroup STM32469I-Discovery_AUDIO_Private_Types STM32469I Discovery Audio Private Types
+/** @defgroup STM32469I-Discovery_AUDIO_Private_Types STM32469I Discovery AUDIO Private Types
   * @{
   */
 /**
   * @}
   */
 
-/** @defgroup STM32469I-Discovery_AUDIO_Private_Defines STM32469I Discovery Audio Private Defines
+/** @defgroup STM32469I-Discovery_AUDIO_Private_Defines STM32469I Discovery AUDIO Private Defines
  *  @brief Headphone1 (CN27 of STM32469I-Discovery board) is connected to the
  *         HEADPHONE output of CS43L22 Audio Codec.
  *         Headphone2 (CN26 of STM32469I-Discovery board) is connected to the
@@ -135,7 +135,7 @@ Known Limitations:
   * @}
   */
 
-/** @defgroup STM32469I-Discovery_AUDIO_Private_Macros STM32469I Discovery Audio Private macros
+/** @defgroup STM32469I-Discovery_AUDIO_Private_Macros STM32469I Discovery AUDIO Private macros
   * @{
   */
 
@@ -154,7 +154,7 @@ Known Limitations:
   * @}
   */
 
-/** @defgroup STM32469I-Discovery_AUDIO_Private_Variables STM32469I Discovery Audio Private Variables
+/** @defgroup STM32469I-Discovery_AUDIO_Private_Variables STM32469I Discovery AUDIO Private Variables
   * @{
   */
   
@@ -197,10 +197,9 @@ uint16_t __IO AudioInVolume = DEFAULT_AUDIO_IN_VOLUME;
   * @}
   */
 
-/** @defgroup STM32469I-Discovery_AUDIO_Private_Function_Prototypes STM32469I Discovery Audio Private Prototypes
+/** @defgroup STM32469I-Discovery_AUDIO_Private_Function_Prototypes STM32469I Discovery AUDIO Private Prototypes
   * @{
   */
-static void AUDIO_CODEC_Reset(void);
 static uint8_t SAIx_Init(uint32_t AudioFreq);
 static void SAIx_DeInit(void);
 static void I2Sx_Init(uint32_t AudioFreq);
@@ -217,7 +216,7 @@ void BSP_AUDIO_OUT_ChangeAudioConfig(uint32_t AudioOutOption);
   * @}
   */
 
-/** @defgroup STM32469I-Discovery_AUDIO_out_Private_Functions STM32469I Discovery AudioOut Private Functions
+/** @defgroup STM32469I-Discovery_AUDIO_out_Private_Functions STM32469I Discovery AUDIO OUT Private Functions
   * @{
   */
 
@@ -259,10 +258,7 @@ uint8_t BSP_AUDIO_OUT_Init(uint16_t OutputDevice,
   {
     /* Retieve audio codec identifier */
     if (cs43l22_drv.ReadID(AUDIO_I2C_ADDRESS) == CS43L22_ID)
-    {    
-      /* Reset the audio codec Registers */
-      AUDIO_CODEC_Reset();
-  
+    {  
       /* Initialize the audio driver structure */
       audio_drv = &cs43l22_drv;
     }
@@ -358,7 +354,7 @@ uint8_t BSP_AUDIO_OUT_Pause(void)
 
 /**
   * @brief  This function  Resumes the audio file stream.
-  * @WARNING When calling BSP_AUDIO_OUT_Pause() function for pause, only
+  * WARNING: When calling BSP_AUDIO_OUT_Pause() function for pause, only
   *          BSP_AUDIO_OUT_Resume() function should be called for resume
   *          (use of BSP_AUDIO_OUT_Play() function for resume could lead to 
   *           unexpected behavior).
@@ -513,7 +509,6 @@ void BSP_AUDIO_OUT_SetFrequency(uint32_t AudioFreq)
   *         This parameter can be any value of @ref BSP_Audio_Out_Option
   * @note   This API should be called after the BSP_AUDIO_OUT_Init() to adjust the
   *         audio out configuration.
-  * @retval None
   */
 void BSP_AUDIO_OUT_ChangeAudioConfig(uint32_t AudioOutOption)
 { 
@@ -847,7 +842,7 @@ static uint8_t SAIx_Init(uint32_t AudioFreq)
   haudio_out_sai.Init.Protocol = SAI_FREE_PROTOCOL;
   haudio_out_sai.Init.DataSize = SAI_DATASIZE_16;
   haudio_out_sai.Init.FirstBit = SAI_FIRSTBIT_MSB;
-  haudio_out_sai.Init.ClockStrobing = SAI_CLOCKSTROBING_RISINGEDGE;
+  haudio_out_sai.Init.ClockStrobing = SAI_CLOCKSTROBING_FALLINGEDGE;
   haudio_out_sai.Init.Synchro = SAI_ASYNCHRONOUS;
   haudio_out_sai.Init.OutputDrive = SAI_OUTPUTDRIVE_ENABLE;
   haudio_out_sai.Init.FIFOThreshold = SAI_FIFOTHRESHOLD_1QF;
@@ -910,27 +905,10 @@ static void SAIx_DeInit(void)
 }
 
 /**
-  * @brief  Resets the audio codec. It restores the default configuration of the
-  *         codec (this function shall be called before initializing the codec).
-  */
-static void AUDIO_CODEC_Reset(void)
-{
-  HAL_GPIO_WritePin(AUDIO_RESET_GPIO_PORT, AUDIO_RESET_PIN, GPIO_PIN_RESET);
-
-  /* Wait for a delay to insure registers erasing */
-  HAL_Delay(CODEC_RESET_DELAY); 
-
-  HAL_GPIO_WritePin(AUDIO_RESET_GPIO_PORT, AUDIO_RESET_PIN, GPIO_PIN_SET);
-
-  /* Wait for a delay to insure registers erasing */
-  HAL_Delay(CODEC_RESET_DELAY); 
-}
-
-/**
   * @}
   */
 
-/** @defgroup STM32469I-Discovery_AUDIO_in_Private_Functions STM32469I Discovery AudioIn Private functions
+/** @defgroup STM32469I-Discovery_AUDIO_in_Private_Functions STM32469I Discovery AUDIO IN Private functions
   * @{
   */
 
@@ -946,15 +924,11 @@ static void AUDIO_CODEC_Reset(void)
   */
 uint8_t BSP_AUDIO_IN_Init(uint32_t AudioFreq, uint32_t BitRes, uint32_t ChnlNbr)
 {
-  RCC_PeriphCLKInitTypeDef rcc_ex_clk_init_struct;
-
+  /* DeInit the I2S */
   I2Sx_DeInit();
-  
-  HAL_RCCEx_GetPeriphCLKConfig(&rcc_ex_clk_init_struct);
-  rcc_ex_clk_init_struct.PeriphClockSelection = RCC_PERIPHCLK_I2S;
-  rcc_ex_clk_init_struct.PLLI2S.PLLI2SN = 384;
-  rcc_ex_clk_init_struct.PLLI2S.PLLI2SR = 2;
-  HAL_RCCEx_PeriphCLKConfig(&rcc_ex_clk_init_struct);
+
+  /* Configure PLL clock */ 
+  BSP_AUDIO_IN_ClockConfig(&haudio_in_i2s, NULL);
 
   /* Configure the PDM library */
   PDMDecoder_Init(AudioFreq, ChnlNbr);
@@ -1125,6 +1099,24 @@ void HAL_I2S_ErrorCallback(I2S_HandleTypeDef *hi2s)
   /* Manage the error generated on DMA FIFO: This function
      should be coded by user (its prototype is already declared in stm32469i_discovery_audio.h) */
   BSP_AUDIO_IN_Error_Callback();
+}
+
+/**
+  * @brief  Clock Config.
+  * @param  hi2s: I2S handle
+  * @param  Params : pointer on additional configuration parameters, can be NULL.   
+  * @note   This API is called by BSP_AUDIO_IN_Init()
+  *         Being __weak it can be overwritten by the application
+  */
+__weak void BSP_AUDIO_IN_ClockConfig(I2S_HandleTypeDef *hi2s, void *Params)
+{
+  RCC_PeriphCLKInitTypeDef RCC_ExCLKInitStruct;
+  
+  HAL_RCCEx_GetPeriphCLKConfig(&RCC_ExCLKInitStruct);
+  RCC_ExCLKInitStruct.PeriphClockSelection = RCC_PERIPHCLK_I2S;
+  RCC_ExCLKInitStruct.PLLI2S.PLLI2SN = 384;
+  RCC_ExCLKInitStruct.PLLI2S.PLLI2SR = 2;
+  HAL_RCCEx_PeriphCLKConfig(&RCC_ExCLKInitStruct); 
 }
 
 /**

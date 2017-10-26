@@ -2,11 +2,11 @@
   @page UART_TwoBoards_ComIT UART Two Boards Communication IT example
 
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    UART/UART_TwoBoards_ComIT/readme.txt 
   * @author  MCD Application Team
-  * @version V1.2.4
-  * @date    13-November-2015
+  * @version V1.2.8
+  * @date    17-February-2017
   * @brief   Description of the UART Two Boards Communication IT example.
   ******************************************************************************
   *
@@ -37,7 +37,7 @@
 
 @par Example Description 
 
-This example describes a UART transmission (transmit/receive) in interrupt mode
+This example describes an UART transmission (transmit/receive) in interrupt mode
 between two boards.
 
 At the beginning of the main program the HAL_Init() function is called to reset 

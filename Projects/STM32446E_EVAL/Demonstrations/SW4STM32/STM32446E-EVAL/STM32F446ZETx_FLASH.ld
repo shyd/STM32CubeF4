@@ -33,19 +33,19 @@
 ENTRY(Reset_Handler)
 
 /* Highest address of the user mode stack */
-_estack = 0x2001FFFF;    /* end of RAM */
+_estack = 0x20020000;    /* end of RAM */
 /* Generate a link error if heap and stack don't fit into RAM */
-_Min_Heap_Size = 0x4800;;      /* required amount of heap  */
-_Min_Stack_Size = 0x1800;; /* required amount of stack */
+_Min_Heap_Size = 0x4800;      /* required amount of heap  */
+_Min_Stack_Size = 0x1800; /* required amount of stack */
 
 /* Specify the memory areas */
 MEMORY
 {
 FLASH (rx)      : ORIGIN = 0x8000000, LENGTH = 512K
 RAM (xrw)      : ORIGIN = 0x20000000, LENGTH = 128K
-QSPI (xrw)  : ORIGIN = 0x90000000, LENGTH = 32M
-PSRAM (xrw)      : ORIGIN = 0xC0000000, LENGTH = 2M
-PSRAM1 (xrw)      : ORIGIN = 0xC0100000, LENGTH = 2M
+MEMORY_ARRAY (rw)  : ORIGIN = 0xC0000000, LENGTH = 2M
+MEMORY_ARRAY1 (xrw): ORIGIN = 0xC0100000, LENGTH = 2M
+QSPI (xrw)  : ORIGIN = 0x90000000, LENGTH = 32768K
 }
 
 /* Define output sections */
@@ -148,15 +148,13 @@ SECTIONS
   /* User_heap_stack section, used to check that there is enough RAM left */
   ._user_heap_stack :
   {
-    . = ALIGN(4);
+    . = ALIGN(8);
     PROVIDE ( end = . );
     PROVIDE ( _end = . );
     . = . + _Min_Heap_Size;
     . = . + _Min_Stack_Size;
-    . = ALIGN(4);
-  } >RAM
-
-  
+    . = ALIGN(8);
+  } >RAM 
 
   /* Remove information from the standard libraries */
   /DISCARD/ :
@@ -167,9 +165,9 @@ SECTIONS
   }
 
   .ARM.attributes 0 : { *(.ARM.attributes) }
-  .ExtFlashSection : {*(.ExtFlashSection)} > QSPI
-  .ExtRAMData(NOLOAD)  : {*(.ExtRAMData)} > PSRAM 
-  .ExtRAMData1(NOLOAD)  : {*(.ExtRAMData1)} > PSRAM1 
+  .ExtRAMData(NOLOAD) : {*(.ExtRAMData)} >MEMORY_ARRAY
+  .ExtRAMData1(NOLOAD)  : {*(.ExtRAMData1)} > MEMORY_ARRAY1 
+  .ExtFlashSection : {*(.ExtFlashSection)} >QSPI 
 }
 
 

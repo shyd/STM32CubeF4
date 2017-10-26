@@ -2,13 +2,13 @@
   ******************************************************************************
   * @file    LTDC/LTDC_ColorKeying/Src/stm32f4xx_hal_msp.c
   * @author  MCD Application Team
-  * @version V1.3.2
-  * @date    13-November-2015
+  * @version V1.4.0
+  * @date    17-February-2017
   * @brief   HAL MSP module.       
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -107,6 +107,12 @@ void HAL_LTDC_MspInit(LTDC_HandleTypeDef *hltdc)
   GPIO_Init_Structure.Speed     = GPIO_SPEED_FAST;
   GPIO_Init_Structure.Alternate = GPIO_AF14_LTDC;  
   HAL_GPIO_Init(GPIOK, &GPIO_Init_Structure);  
+  
+  /* Set LTDC Interrupt to the lowest priority */
+  HAL_NVIC_SetPriority(LTDC_IRQn, 0xE, 0);   
+
+  /* Enable LTDC Interrupt */
+  HAL_NVIC_EnableIRQ(LTDC_IRQn);    
 }
 
 /**
@@ -117,8 +123,7 @@ void HAL_LTDC_MspInit(LTDC_HandleTypeDef *hltdc)
   * @retval None
   */
 void HAL_LTDC_MspDeInit(LTDC_HandleTypeDef *hltdc)
-{
-  
+{  
   /*##-1- Reset peripherals ##################################################*/
   /* Enable LTDC reset state */
   __HAL_RCC_LTDC_FORCE_RESET();

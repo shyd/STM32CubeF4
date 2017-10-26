@@ -1,41 +1,41 @@
 /**
- ******************************************************************************
- * @file    LCD_DSI/LCD_DSI_ULPM_Data/Src/main.c
- * @author  MCD Application Team
- * @version $VERSION$
- * @date    $DATE$
- * @brief   This example describes how to operate the DSI ULPM (Ultra Low Power Mode)
- *          on data lane only in a use case with display in WVGA Landscape
- *          of size (800x480) using the STM32F4xx HAL API and BSP.
- ******************************************************************************
- * @attention
- *
- * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
- *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
- *   1. Redistributions of source code must retain the above copyright notice,
- *      this list of conditions and the following disclaimer.
- *   2. Redistributions in binary form must reproduce the above copyright notice,
- *      this list of conditions and the following disclaimer in the documentation
- *      and/or other materials provided with the distribution.
- *   3. Neither the name of STMicroelectronics nor the names of its contributors
- *      may be used to endorse or promote products derived from this software
- *      without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- ******************************************************************************
- */
+  ******************************************************************************
+  * @file    LCD_DSI/LCD_DSI_ULPM_Data/Src/main.c
+  * @author  MCD Application Team
+  * @version V1.1.0
+  * @date    17-February-2017
+  * @brief   This example describes how to operate the DSI ULPM (Ultra Low Power Mode)
+  *          on data lane only in a use case with display in WVGA Landscape
+  *          of size (800x480) using the STM32F4xx HAL API and BSP.
+  ******************************************************************************
+  * @attention
+  *
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
+  *
+  * Redistribution and use in source and binary forms, with or without modification,
+  * are permitted provided that the following conditions are met:
+  *   1. Redistributions of source code must retain the above copyright notice,
+  *      this list of conditions and the following disclaimer.
+  *   2. Redistributions in binary form must reproduce the above copyright notice,
+  *      this list of conditions and the following disclaimer in the documentation
+  *      and/or other materials provided with the distribution.
+  *   3. Neither the name of STMicroelectronics nor the names of its contributors
+  *      may be used to endorse or promote products derived from this software
+  *      without specific prior written permission.
+  *
+  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  *
+  ******************************************************************************
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
@@ -166,34 +166,32 @@ int main(void)
 
     if (CheckForUserInput() > 0)
     {
-      /* Clear previous line */
-      BSP_LCD_SetTextColor(LCD_COLOR_GREEN);
-      BSP_LCD_ClearStringLine(440);
-      BSP_LCD_DisplayStringAt(0, 440, (uint8_t *) "Enter ULPM - switch Off LCD 6 seconds", CENTER_MODE);
-      BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
-
       /* Display Off with ULPM management Data lane only integrated */
       BSP_LCD_DisplayOff();    
-      HAL_Delay(1000); 
-      
-      /* Switch Off bit LTDCEN */
+      HAL_Delay(100); 
+
+      /* Switch Off DSI_CR_EN bit */
+      __HAL_DSI_DISABLE(&hdsi_eval);
+      /* Switch Off LTDCEN bit  */
       __HAL_LTDC_DISABLE(&hltdc_eval); 
 
       /* Enter ultra low power mode (data lane only integrated) */
       HAL_DSI_EnterULPMData(&hdsi_eval);
       BSP_LED_On(LED1);
-      
-      HAL_Delay(6000);
+
+      HAL_Delay(2000);
 
       BSP_LCD_ClearStringLine(440);
       BSP_LCD_DisplayStringAt(0, 440, (uint8_t *) " Exited ULPM with success - Press To enter Again ULPM. ", CENTER_MODE);
-      
+
       /* Exit ultra low power mode (data lane only integrated) */
       HAL_DSI_ExitULPMData(&hdsi_eval);
       BSP_LED_Off(LED1);
-      
-      /* Switch On bit LTDCEN */
-      __HAL_LTDC_ENABLE(&hltdc_eval); 
+
+      /* Switch On LTDCEN bit */
+      __HAL_LTDC_ENABLE(&hltdc_eval);
+      /* Switch On DSI_CR_EN bit */ 
+      __HAL_DSI_ENABLE(&hdsi_eval); 
 
       /* Display On with ULPM exit Data lane only integrated */
       BSP_LCD_DisplayOn();      
@@ -340,17 +338,17 @@ static void CopyPicture(uint32_t *pSrc, uint32_t *pDst, uint16_t x, uint16_t y, 
   hdma2d.XferCpltCallback  = NULL;
   
   /*##-3- Foreground Configuration ###########################################*/
-  hdma2d.LayerCfg[0].AlphaMode = DMA2D_NO_MODIF_ALPHA;
-  hdma2d.LayerCfg[0].InputAlpha = 0xFF;
-  hdma2d.LayerCfg[0].InputColorMode = CM_ARGB8888;
-  hdma2d.LayerCfg[0].InputOffset = 0;
+  hdma2d.LayerCfg[1].AlphaMode = DMA2D_NO_MODIF_ALPHA;
+  hdma2d.LayerCfg[1].InputAlpha = 0xFF;
+  hdma2d.LayerCfg[1].InputColorMode = DMA2D_INPUT_ARGB8888;
+  hdma2d.LayerCfg[1].InputOffset = 0;
 
   hdma2d.Instance          = DMA2D; 
    
   /* DMA2D Initialization */
   if(HAL_DMA2D_Init(&hdma2d) == HAL_OK) 
   {
-    if(HAL_DMA2D_ConfigLayer(&hdma2d, 0) == HAL_OK) 
+    if(HAL_DMA2D_ConfigLayer(&hdma2d, 1) == HAL_OK) 
     {
       if (HAL_DMA2D_Start(&hdma2d, source, destination, xsize, ysize) == HAL_OK)
       {

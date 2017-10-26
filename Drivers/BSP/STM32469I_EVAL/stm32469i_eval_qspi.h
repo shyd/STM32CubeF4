@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32469i_eval_qspi.h
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    29-September-2015
+  * @version V2.0.0
+  * @date    27-January-2017
   * @brief   This file contains the common defines and functions prototypes for
   *          the stm32469i_eval_qspi.c driver.
   ******************************************************************************
@@ -64,7 +64,7 @@
 
   
 /* Exported constants --------------------------------------------------------*/ 
-/** @defgroup STM32446E_EVAL_QSPI_Exported_Constants Exported Constants
+/** @defgroup STM32446E_EVAL_QSPI_Exported_Constants STM32469I EVAL QSPI Exported Constants
   * @{
   */
 /* QSPI Error codes */
@@ -106,7 +106,7 @@
   */
 
 /* Exported types ------------------------------------------------------------*/
-/** @defgroup STM32446E_EVAL_QSPI_Exported_Types Exported Types
+/** @defgroup STM32446E_EVAL_QSPI_Exported_Types STM32469I EVAL QSPI Exported Types
   * @{
   */
 /**
@@ -130,7 +130,7 @@ typedef struct {
 
   
 /* Exported functions --------------------------------------------------------*/
-/** @addtogroup STM32446E_EVAL_QSPI_Exported_Functions
+/** @defgroup STM32469I_EVAL_QSPI_Exported_Functions STM32469I EVAL QSPI Exported Functions
   * @{
   */  
 uint8_t BSP_QSPI_Init       (void);
@@ -141,7 +141,9 @@ uint8_t BSP_QSPI_Erase_Block(uint32_t BlockAddress);
 uint8_t BSP_QSPI_Erase_Chip (void);
 uint8_t BSP_QSPI_GetStatus  (void);
 uint8_t BSP_QSPI_GetInfo    (QSPI_InfoTypeDef* pInfo);
-uint8_t BSP_QSPI_MemoryMappedMode(void);
+uint8_t BSP_QSPI_EnableMemoryMappedMode(void);
+/* BSP Aliased function maintained for legacy purpose */
+#define BSP_QSPI_MemoryMappedMode      BSP_QSPI_EnableMemoryMappedMode
 
 /* These function can be modified in case the current settings (e.g. DMA stream)
    need to be changed for specific application needs */

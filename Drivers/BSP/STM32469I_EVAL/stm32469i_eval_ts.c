@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32469i_eval_ts.c
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    29-September-2015
+  * @version V2.0.0
+  * @date    27-January-2017
   * @brief   This file provides a set of functions needed to manage the Touch
   *          Screen on STM32469I-EVAL evaluation board.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -79,48 +79,48 @@
   * @{
   */
 
-/** @addtogroup STM32469I-EVAL
+/** @addtogroup STM32469I_EVAL
   * @{
   */
 
-/** @defgroup STM32469I-EVAL_TS STM32469I-EVAL TS
+/** @defgroup STM32469I-EVAL_TS STM32469I EVAL TS
   * @{
   */
 
-/** @defgroup STM32469I-EVAL_TS_Private_Types_Definitions TS Private Types Definitions
-  * @{
-  */
-/**
-  * @}
-  */
-
-/** @defgroup STM32469I-EVAL_TS_Private_Defines TS Private Types Defines
+/** @defgroup STM32469I-EVAL_TS_Private_Types_Definitions STM32469I EVAL TS Private Types Definitions
   * @{
   */
 /**
   * @}
   */
 
-/** @defgroup STM32469I-EVAL_TS_Private_Macros TS Private Macros
+/** @defgroup STM32469I-EVAL_TS_Private_Defines STM32469I EVAL TS Private Types Defines
   * @{
   */
 /**
   * @}
   */
 
-/** @defgroup STM32469I-EVAL_TS_Imported_Variables TS Imported Variables
+/** @defgroup STM32469I-EVAL_TS_Private_Macros STM32469I EVAL TS Private Macros
+  * @{
+  */
+/**
+  * @}
+  */
+
+/** @defgroup STM32469I-EVAL_TS_Imported_Variables STM32469I EVAL TS Imported Variables
   * @{
   */
   /**
     * @}
     */
 
-/** @defgroup STM32469I-EVAL_TS_Private_Variables TS Private Variables
+/** @defgroup STM32469I-EVAL_TS_Private_Variables STM32469I EVAL TS Private Variables
   * @{
   */
 static TS_DrvTypeDef *ts_driver;
 static uint8_t  ts_orientation;
-static uint8_t  I2C_Address = 0;
+uint8_t  I2C_Address = 0;
 
 /* Table for touchscreen event information display on LCD : table indexed on enum @ref TS_TouchEventTypeDef information */
 char * ts_event_string_tab[TOUCH_EVENT_NB_MAX] = { "None",
@@ -143,7 +143,7 @@ char * ts_gesture_id_string_tab[GEST_ID_NB_MAX] = { "None",
   * @}
   */
 
-/** @defgroup STM32469I-EVAL_TS_Private_Function_Prototypes TS Private Function Prototypes
+/** @defgroup STM32469I-EVAL_TS_Private_Function_Prototypes STM32469I EVAL TS Private Function Prototypes
   * @{
   */
 
@@ -151,7 +151,7 @@ char * ts_gesture_id_string_tab[GEST_ID_NB_MAX] = { "None",
   * @}
   */
 
-/** @defgroup STM32469I-EVAL_TS_Public_Functions TS Public Functions
+/** @defgroup STM32469I-EVAL_TS_Public_Functions STM32469I EVAL TS Public Functions
   * @{
   */
 
@@ -165,7 +165,7 @@ char * ts_gesture_id_string_tab[GEST_ID_NB_MAX] = { "None",
 uint8_t BSP_TS_Init(uint16_t ts_SizeX, uint16_t ts_SizeY)
 {
   uint8_t ts_status = TS_OK;
-
+  uint8_t ts_id1, ts_id2 = 0;
   /* Note : I2C_Address is un-initialized here, but is not used at all in init function */
   /* but the prototype of Init() is like that in template and should be respected       */
 
@@ -173,14 +173,23 @@ uint8_t BSP_TS_Init(uint16_t ts_SizeX, uint16_t ts_SizeY)
   /* that is initialization is done only once after a power up         */
   ft6x06_ts_drv.Init(I2C_Address);
 
-  /* Scan FT6x06 TouchScreen IC controller ID register by I2C Read */
-  /* Verify this is a FT6x06, otherwise this is an error case      */
-  if(ft6x06_ts_drv.ReadID(TS_I2C_ADDRESS) == FT6206_ID_VALUE)
+  ts_id1 = ft6x06_ts_drv.ReadID(TS_I2C_ADDRESS);
+  if(ts_id1 != FT6206_ID_VALUE)
+  {
+    ts_id2 = ft6x06_ts_drv.ReadID(TS_I2C_ADDRESS_A02);
+    I2C_Address    = TS_I2C_ADDRESS_A02;    
+  }
+  else
+  {
+    I2C_Address    = TS_I2C_ADDRESS;    
+  }
+  
+  /* Scan FT6xx6 TouchScreen IC controller ID register by I2C Read       */
+  /* Verify this is a FT6206 or FT6336G, otherwise this is an error case */
+  if((ts_id1 == FT6206_ID_VALUE) || (ts_id2 == FT6206_ID_VALUE))
   {
     /* Found FT6206 : Initialize the TS driver structure */
     ts_driver = &ft6x06_ts_drv;
-
-    I2C_Address    = TS_I2C_ADDRESS;
 
     /* Get LCD chosen orientation */
     if(ts_SizeX < ts_SizeY)
@@ -428,8 +437,11 @@ void BSP_TS_ITClear(void)
   BSP_IO_ITClearPin(TS_INT_PIN);
 }
 
+/**
+  * @}
+  */
 
-/** @defgroup STM32469I-EVAL_TS_Private_Functions TS Private Functions
+/** @defgroup STM32469I-EVAL_TS_Private_Functions STM32469I EVAL TS Private Functions
   * @{
   */
 
@@ -466,10 +478,6 @@ uint8_t BSP_TS_ResetTouchData(TS_StateTypeDef *TS_State)
   return (ts_status);
 }
 #endif /* TS_MULTI_TOUCH_SUPPORTED == 1 */
-/**
-  * @}
-  */
-
 /**
   * @}
   */

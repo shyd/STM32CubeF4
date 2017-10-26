@@ -252,7 +252,7 @@
     <ClInclude Include="Config\LCDConf.h" />
   </ItemGroup>
   <ItemGroup>
-    <Library Include="..\..\..\Middlewares\ST\STemWin\Lib\STemWin528_WIN32.lib" />
+    <Library Include="..\..\..\Middlewares\ST\STemWin\Lib\STemWin532_WIN32.lib" />
     <Library Include="..\..\..\Middlewares\ST\STemWin\Simulation\GUISim.lib" />
   </ItemGroup>
   <ItemGroup>

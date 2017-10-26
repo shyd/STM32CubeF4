@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    LCD_DSI/LCD_DSI_CmdMode_TearingEffect_ExtPin/Src/main.c
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   This example describes how to configure and use LCD DSI to display an image
   *          of size WVGA in mode landscape (800x480) using the STM32F4xx HAL API and BSP.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -54,13 +54,7 @@
 /* Private typedef -----------------------------------------------------------*/
 extern LTDC_HandleTypeDef hltdc_eval;
 static DMA2D_HandleTypeDef   hdma2d;
-extern QSPI_HandleTypeDef QSPIHandle;
 extern DSI_HandleTypeDef hdsi_eval;
-DSI_VidCfgTypeDef hdsivideo_handle;
-DSI_CmdCfgTypeDef CmdCfg;
-DSI_LPCmdTypeDef LPCmd;
-DSI_PLLInitTypeDef dsiPllInit;
-static RCC_PeriphCLKInitTypeDef  PeriphClkInitStruct;
 
 /* Private define ------------------------------------------------------------*/
 #define VSYNC           1  
@@ -76,6 +70,9 @@ static RCC_PeriphCLKInitTypeDef  PeriphClkInitStruct;
 
 #define LEFT_AREA         1
 #define RIGHT_AREA        2
+
+#define __DSI_MASK_TE()   (GPIOJ->AFR[0] &= (0xFFFFF0FFU))   /* Mask DSI TearingEffect Pin*/
+#define __DSI_UNMASK_TE() (GPIOJ->AFR[0] |= ((uint32_t)(GPIO_AF13_DSI) << 8)) /* UnMask DSI TearingEffect Pin*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 
@@ -187,7 +184,8 @@ int main(void)
       }
       pending_buffer = 1;
       
-      HAL_DSI_LongWrite(&hdsi_eval, 0, DSI_DCS_LONG_PKT_WRITE, 2, OTM8009A_CMD_WRTESCN, pScanCol);
+      /* UnMask the TE */
+      __DSI_UNMASK_TE(); 
     }
     /* Wait some time before switching to next image */
     HAL_Delay(2000);
@@ -203,7 +201,7 @@ int main(void)
 void HAL_DSI_TearingEffectCallback(DSI_HandleTypeDef *hdsi)
 {
   /* Mask the TE */
-  HAL_DSI_ShortWrite(hdsi, 0, DSI_DCS_SHORT_PKT_WRITE_P1, OTM8009A_CMD_TEOFF, 0x00);
+  __DSI_MASK_TE();
   
   /* Refresh the right part of the display */
   HAL_DSI_Refresh(hdsi);   
@@ -225,7 +223,7 @@ void HAL_DSI_EndOfRefreshCallback(DSI_HandleTypeDef *hdsi)
       __HAL_DSI_WRAPPER_DISABLE(hdsi);
       /* Update LTDC configuaration */
       LTDC_LAYER(&hltdc_eval, 0)->CFBAR = LAYER0_ADDRESS + 400 * 4;
-      __HAL_LTDC_RELOAD_CONFIG(&hltdc_eval);
+      __HAL_LTDC_RELOAD_IMMEDIATE_CONFIG(&hltdc_eval);
       /* Enable DSI Wrapper */
       __HAL_DSI_WRAPPER_ENABLE(hdsi);
       
@@ -241,7 +239,7 @@ void HAL_DSI_EndOfRefreshCallback(DSI_HandleTypeDef *hdsi)
       __HAL_DSI_WRAPPER_DISABLE(&hdsi_eval);
       /* Update LTDC configuaration */
       LTDC_LAYER(&hltdc_eval, 0)->CFBAR = LAYER0_ADDRESS;
-      __HAL_LTDC_RELOAD_CONFIG(&hltdc_eval);
+      __HAL_LTDC_RELOAD_IMMEDIATE_CONFIG(&hltdc_eval);
       /* Enable DSI Wrapper */
       __HAL_DSI_WRAPPER_ENABLE(&hdsi_eval);
       
@@ -335,8 +333,13 @@ static void SystemClock_Config(void)
   * @param  None
   * @retval LCD state
   */
-static uint8_t LCD_Init(void){
-  
+static uint8_t LCD_Init(void)
+{
+  DSI_PHY_TimerTypeDef PhyTimings; 
+  DSI_CmdCfgTypeDef CmdCfg;
+  DSI_LPCmdTypeDef LPCmd;
+  DSI_PLLInitTypeDef dsiPllInit;
+  RCC_PeriphCLKInitTypeDef  PeriphClkInitStruct;  
   GPIO_InitTypeDef GPIO_Init_Structure;
   
   /* Toggle Hardware Reset of the DSI LCD using
@@ -401,6 +404,15 @@ static uint8_t LCD_Init(void){
   LPCmd.LPDcsLongWrite        = DSI_LP_DLW_ENABLE;
   HAL_DSI_ConfigCommand(&hdsi_eval, &LPCmd);
 
+  /* Configure DSI PHY HS2LP and LP2HS timings */
+  PhyTimings.ClockLaneHS2LPTime = 35;
+  PhyTimings.ClockLaneLP2HSTime = 35;
+  PhyTimings.DataLaneHS2LPTime = 35;
+  PhyTimings.DataLaneLP2HSTime = 35;
+  PhyTimings.DataLaneMaxReadTime = 0;
+  PhyTimings.StopWaitTime = 10;
+  HAL_DSI_ConfigPhyTimer(&hdsi_eval, &PhyTimings);
+  
   /* Initialize LTDC */
   LTDC_Init();
   
@@ -559,17 +571,17 @@ static void CopyPicture(uint32_t *pSrc, uint32_t *pDst, uint16_t x, uint16_t y, 
   hdma2d.XferCpltCallback  = NULL;
   
   /*##-3- Foreground Configuration ###########################################*/
-  hdma2d.LayerCfg[0].AlphaMode = DMA2D_NO_MODIF_ALPHA;
-  hdma2d.LayerCfg[0].InputAlpha = 0xFF;
-  hdma2d.LayerCfg[0].InputColorMode = CM_ARGB8888;
-  hdma2d.LayerCfg[0].InputOffset = 0;
+  hdma2d.LayerCfg[1].AlphaMode = DMA2D_NO_MODIF_ALPHA;
+  hdma2d.LayerCfg[1].InputAlpha = 0xFF;
+  hdma2d.LayerCfg[1].InputColorMode = DMA2D_INPUT_ARGB8888;
+  hdma2d.LayerCfg[1].InputOffset = 0;
 
   hdma2d.Instance          = DMA2D; 
    
   /* DMA2D Initialization */
   if(HAL_DMA2D_Init(&hdma2d) == HAL_OK) 
   {
-    if(HAL_DMA2D_ConfigLayer(&hdma2d, 0) == HAL_OK) 
+    if(HAL_DMA2D_ConfigLayer(&hdma2d, 1) == HAL_OK) 
     {
       if (HAL_DMA2D_Start(&hdma2d, source, destination, xsize, ysize) == HAL_OK)
       {

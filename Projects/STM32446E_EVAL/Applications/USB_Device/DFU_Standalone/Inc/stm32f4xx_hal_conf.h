@@ -2,13 +2,13 @@
   ******************************************************************************
   * @file    USB_Device/DFU_Standalone/Inc/stm32f4xx_hal_conf.h
   * @author  MCD Application Team
-  * @version V1.2.2
-  * @date    13-November-2015
+  * @version V1.3.0
+  * @date    17-February-2017
   * @brief   HAL configuration file.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics </center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -51,48 +51,47 @@
   * @brief This is the list of modules to be used in the HAL driver 
   */
 #define HAL_MODULE_ENABLED
-/* #define HAL_ADC_MODULE_ENABLED */
-/* #define HAL_CAN_MODULE_ENABLED */
-/* #define HAL_CRC_MODULE_ENABLED */
-/* #define HAL_CEC_MODULE_ENABLED */
+#define HAL_ADC_MODULE_ENABLED
+#define HAL_CAN_MODULE_ENABLED
+#define HAL_CRC_MODULE_ENABLED
 /* #define HAL_CRYP_MODULE_ENABLED */
-/* #define HAL_DAC_MODULE_ENABLED */
-/* #define HAL_DCMI_MODULE_ENABLED */
+#define HAL_DAC_MODULE_ENABLED
+#define HAL_DCMI_MODULE_ENABLED
 #define HAL_DMA_MODULE_ENABLED
 /* #define HAL_DMA2D_MODULE_ENABLED */
-/* #define HAL_ETH_MODULE_ENABLED */
-#define HAL_FLASH_MODULE_ENABLED 
-/* #define HAL_NAND_MODULE_ENABLED */
-/* #define HAL_NOR_MODULE_ENABLED */
-/* #define HAL_PCCARD_MODULE_ENABLED */
+/* #define HAL_ETH_MODULE_ENABLED   */
+#define HAL_FLASH_MODULE_ENABLED
+#define HAL_NAND_MODULE_ENABLED
+#define HAL_NOR_MODULE_ENABLED
+#define HAL_PCCARD_MODULE_ENABLED
 #define HAL_SRAM_MODULE_ENABLED
-/* #define HAL_SDRAM_MODULE_ENABLED */
-/* #define HAL_HASH_MODULE_ENABLED */
+#define HAL_SDRAM_MODULE_ENABLED
+/* #define HAL_HASH_MODULE_ENABLED  */
 #define HAL_GPIO_MODULE_ENABLED
 #define HAL_I2C_MODULE_ENABLED
-/* #define HAL_I2S_MODULE_ENABLED */
-/* #define HAL_IWDG_MODULE_ENABLED */
-/* #define HAL_LTDC_MODULE_ENABLED */
+#define HAL_I2S_MODULE_ENABLED
+#define HAL_IWDG_MODULE_ENABLED
+/* #define HAL_LTDC_MODULE_ENABLED  */
 #define HAL_PWR_MODULE_ENABLED
-/* #define HAL_QSPI_MODULE_ENABLED */
 #define HAL_RCC_MODULE_ENABLED
-/* #define HAL_RNG_MODULE_ENABLED */
-/* #define HAL_RTC_MODULE_ENABLED */
-/* #define HAL_SAI_MODULE_ENABLED */
-/* #define HAL_SD_MODULE_ENABLED */
-/* #define HAL_SPI_MODULE_ENABLED */
-/* #define HAL_TIM_MODULE_ENABLED */
+/* #define HAL_RNG_MODULE_ENABLED   */
+#define HAL_RTC_MODULE_ENABLED
+#define HAL_SAI_MODULE_ENABLED
+#define HAL_SD_MODULE_ENABLED
+#define HAL_SPI_MODULE_ENABLED
+#define HAL_TIM_MODULE_ENABLED
 #define HAL_UART_MODULE_ENABLED
-/* #define HAL_USART_MODULE_ENABLED */
-/* #define HAL_IRDA_MODULE_ENABLED */
-/* #define HAL_SMARTCARD_MODULE_ENABLED */
-/* #define HAL_WWDG_MODULE_ENABLED */
+#define HAL_USART_MODULE_ENABLED
+#define HAL_IRDA_MODULE_ENABLED
+#define HAL_SMARTCARD_MODULE_ENABLED
+#define HAL_WWDG_MODULE_ENABLED
 #define HAL_CORTEX_MODULE_ENABLED
 #define HAL_PCD_MODULE_ENABLED
-#define HAL_HCD_MODULE_ENABLED */
-#define HAL_FMPI2C_MODULE_ENABLED
-/* #define HAL_SPDIFRX_MODULE_ENABLED */
-
+#define HAL_HCD_MODULE_ENABLED
+#define HAL_QSPI_MODULE_ENABLED
+#define HAL_CEC_MODULE_ENABLED
+#define HAL_FMPI2C_MODULE_ENABLED 
+#define HAL_SPDIFRX_MODULE_ENABLED 
 
 /* ########################## HSE/HSI Values adaptation ##################### */
 /**
@@ -101,11 +100,11 @@
   *        (when HSE is used as system clock source, directly or through the PLL).  
   */
 #if !defined  (HSE_VALUE) 
-  #define HSE_VALUE    ((uint32_t)8000000) /*!< Value of the External oscillator in Hz */
+  #define HSE_VALUE    (8000000U) /*!< Value of the External oscillator in Hz */
 #endif /* HSE_VALUE */
 
 #if !defined  (HSE_STARTUP_TIMEOUT)
-  #define HSE_STARTUP_TIMEOUT    ((uint32_t)5000)   /*!< Time out for HSE start up, in ms */
+  #define HSE_STARTUP_TIMEOUT    (100U)   /*!< Time out for HSE start up, in ms */
 #endif /* HSE_STARTUP_TIMEOUT */
 
 /**
@@ -114,14 +113,14 @@
   *        (when HSI is used as system clock source, directly or through the PLL). 
   */
 #if !defined  (HSI_VALUE)
-  #define HSI_VALUE    ((uint32_t)16000000) /*!< Value of the Internal oscillator in Hz*/
+  #define HSI_VALUE    (16000000U) /*!< Value of the Internal oscillator in Hz*/
 #endif /* HSI_VALUE */
 
 /**
   * @brief Internal Low Speed oscillator (LSI) value.
   */
 #if !defined  (LSI_VALUE) 
- #define LSI_VALUE  ((uint32_t)32000)       /*!< LSI Typical Value in Hz*/
+ #define LSI_VALUE  (32000U)       /*!< LSI Typical Value in Hz*/
 #endif /* LSI_VALUE */                      /*!< Value of the Internal Low Speed oscillator in Hz
                                              The real value may vary depending on the variations
                                              in voltage and temperature.*/
@@ -129,8 +128,12 @@
   * @brief External Low Speed oscillator (LSE) value.
   */
 #if !defined  (LSE_VALUE)
- #define LSE_VALUE  ((uint32_t)32768)    /*!< Value of the External Low Speed oscillator in Hz */
+ #define LSE_VALUE  (32768U)    /*!< Value of the External Low Speed oscillator in Hz */
 #endif /* LSE_VALUE */
+
+#if !defined  (LSE_STARTUP_TIMEOUT)
+  #define LSE_STARTUP_TIMEOUT    (5000U)   /*!< Time out for LSE start up, in ms */
+#endif /* LSE_STARTUP_TIMEOUT */
 
 /**
   * @brief External clock source for I2S peripheral
@@ -138,7 +141,7 @@
   *        frequency, this source is inserted directly through I2S_CKIN pad. 
   */
 #if !defined  (EXTERNAL_CLOCK_VALUE)
-  #define EXTERNAL_CLOCK_VALUE    ((uint32_t)12288000) /*!< Value of the Internal oscillator in Hz*/
+  #define EXTERNAL_CLOCK_VALUE    (12288000U) /*!< Value of the external oscillator in Hz*/
 #endif /* EXTERNAL_CLOCK_VALUE */
 
 /* Tip: To avoid modifying this file each time you need to use different HSE,
@@ -148,8 +151,8 @@
 /**
   * @brief This is the HAL system configuration section
   */     
-#define  VDD_VALUE                    ((uint32_t)3300) /*!< Value of VDD in mv */
-#define  TICK_INT_PRIORITY            ((uint32_t)0x00) /*!< tick interrupt priority */
+#define  VDD_VALUE                    (3300U) /*!< Value of VDD in mv */
+#define  TICK_INT_PRIORITY            (0x0FU) /*!< tick interrupt priority */
 #define  USE_RTOS                     0
 #define  PREFETCH_ENABLE              1
 #define  INSTRUCTION_CACHE_ENABLE     1
@@ -345,7 +348,7 @@
 /* Exported functions ------------------------------------------------------- */
   void assert_failed(uint8_t* file, uint32_t line);
 #else
-  #define assert_param(expr) ((void)0)
+  #define assert_param(expr) ((void)0U)
 #endif /* USE_FULL_ASSERT */
 
 

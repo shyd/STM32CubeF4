@@ -2,15 +2,15 @@
   ******************************************************************************
   * @file    LCD_DSI/LCD_DSI_ULPM_DataClock/Src/main.c
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date  09-October-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   This example describes how to operate the DSI ULPM (Ultra Low Power Mode)
   *          on data lanes and clock lane in a use case with display in WVGA Landscape
   *          of size (800x480) using the STM32F4xx HAL API and BSP.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -162,23 +162,16 @@ int main(void)
     BSP_LCD_DisplayStringAt(0, 460, (uint8_t *)str_display, CENTER_MODE);
     
     if (CheckForUserInput() > 0)
-    {
-      /* Clear previous line */
-      BSP_LCD_SetTextColor(LCD_COLOR_GREEN);
-      BSP_LCD_ClearStringLine(440);
-      BSP_LCD_DisplayStringAt(0, 440, (uint8_t *) "Enter ULPM - switch Off LCD 6 seconds", CENTER_MODE);
-      BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
-      
+    {      
       /* Display Off with ULPM management Data and clock lane integrated */
       BSP_LCD_DisplayOff();
       
-      HAL_Delay(1000); 
+      HAL_Delay(100); 
       
-      /* Switch Off bit LTDCEN */
-      __HAL_LTDC_DISABLE(&hltdc_eval); 
-      /* Switch Off LTDC clock */
-      __HAL_RCC_LTDC_CLK_DISABLE();  
-      
+      /* Switch Off DSI_CR_EN bit */
+      __HAL_DSI_DISABLE(&hdsi_eval);
+      /* Switch Off LTDCEN bit  */
+      __HAL_LTDC_DISABLE(&hltdc_eval);      
       
       /* Enter ultra low power mode (data and clock lanes) */
       /* This means : laneByteClock is derived from PLL.PLLR : ie ck_plldsi @ 60 MHz = 360 MHz / PLLR=6 */
@@ -186,15 +179,10 @@ int main(void)
       HAL_DSI_EnterULPM(&hdsi_eval);
       BSP_LED_On(LED1);
       
-      HAL_Delay(6000);
+      HAL_Delay(2000);
       
       BSP_LCD_ClearStringLine(440);
       BSP_LCD_DisplayStringAt(0, 440, (uint8_t *) " Exited ULPM with success - Press To enter Again ULPM. ", CENTER_MODE);
-      
-      /* Switch back On LTDC clock  */
-      __HAL_RCC_LTDC_CLK_ENABLE(); 
-      /* Switch On bit LTDCEN */
-      __HAL_LTDC_ENABLE(&hltdc_eval);
       
       /* Exit ultra low power mode (data and clock lanes)
       * This means : PLL DPHY is first restarted and wait until locked with its initial settings
@@ -203,7 +191,12 @@ int main(void)
       */
       HAL_DSI_ExitULPM(&hdsi_eval);
       BSP_LED_Off(LED1);
-       
+
+      /* Switch On LTDCEN bit */
+      __HAL_LTDC_ENABLE(&hltdc_eval);
+      /* Switch On DSI_CR_EN bit */ 
+      __HAL_DSI_ENABLE(&hdsi_eval);
+      
       /* Display On with ULPM exit Data and clock lane integrated */
       BSP_LCD_DisplayOn();
     }
@@ -354,17 +347,17 @@ static void CopyPicture(uint32_t *pSrc, uint32_t *pDst, uint16_t x, uint16_t y, 
   hdma2d.XferCpltCallback  = NULL;
   
   /*##-3- Foreground Configuration ###########################################*/
-  hdma2d.LayerCfg[0].AlphaMode = DMA2D_NO_MODIF_ALPHA;
-  hdma2d.LayerCfg[0].InputAlpha = 0xFF;
-  hdma2d.LayerCfg[0].InputColorMode = CM_ARGB8888;
-  hdma2d.LayerCfg[0].InputOffset = 0;
+  hdma2d.LayerCfg[1].AlphaMode = DMA2D_NO_MODIF_ALPHA;
+  hdma2d.LayerCfg[1].InputAlpha = 0xFF;
+  hdma2d.LayerCfg[1].InputColorMode = DMA2D_INPUT_ARGB8888;
+  hdma2d.LayerCfg[1].InputOffset = 0;
 
   hdma2d.Instance          = DMA2D; 
    
   /* DMA2D Initialization */
   if(HAL_DMA2D_Init(&hdma2d) == HAL_OK) 
   {
-    if(HAL_DMA2D_ConfigLayer(&hdma2d, 0) == HAL_OK) 
+    if(HAL_DMA2D_ConfigLayer(&hdma2d, 1) == HAL_OK) 
     {
       if (HAL_DMA2D_Start(&hdma2d, source, destination, xsize, ysize) == HAL_OK)
       {

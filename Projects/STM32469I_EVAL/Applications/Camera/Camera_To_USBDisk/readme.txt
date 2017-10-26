@@ -5,13 +5,13 @@
   ******************************************************************************
   * @file    Camera/Camera_To_USBDisk/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the Camera to USB Disk application.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -93,7 +93,7 @@ When the tamper button is pressed an image is saved under USBdisk.
   
   - This application runs on STM32F469xx and STM32F479xx devices.
   
-  - This application has been tested with STM32469I-EVAL revB board which includes
+  - This application has been tested with STM32469I-EVAL RevC board which includes
     the KoD DSI LCD and S5K5CAG camera module.
 
   - STM32469I-EVAL Set-up

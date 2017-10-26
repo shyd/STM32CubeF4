@@ -2,11 +2,11 @@
   @page UART_TwoBoards_ComDMA UART Two Boards Communication DMA example
 
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    UART/UART_TwoBoards_ComDMA/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date  09-October-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the UART Two Boards Communication DMA example.
   ******************************************************************************
   *
@@ -37,7 +37,7 @@
 
 @par Example Description 
 
-This example describes a UART transmission (transmit/receive) in DMA mode
+This example describes an UART transmission (transmit/receive) in DMA mode
 between two boards.
 
 Board: STM32469I-DISCOVERY (embeds a STM32469I device)

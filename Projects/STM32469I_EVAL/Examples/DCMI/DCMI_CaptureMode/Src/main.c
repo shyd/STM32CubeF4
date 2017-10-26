@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    DCMI/DCMI_CaptureMode/Src/main.c
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   This example discribe how to configure the camera in continuous mode
   *          and QVGA resolution.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -260,7 +260,7 @@ static uint8_t CopyCamFrameBufferToLcdFrameBuffer(void *pSrc, void *pDst, uint32
   /* Foreground Configuration */
   hdma2d_eval.LayerCfg[1].AlphaMode = DMA2D_NO_MODIF_ALPHA;
   hdma2d_eval.LayerCfg[1].InputAlpha = 0xFF; /* fully opaque */
-  hdma2d_eval.LayerCfg[1].InputColorMode = CM_RGB565;
+  hdma2d_eval.LayerCfg[1].InputColorMode = DMA2D_INPUT_RGB565;
   hdma2d_eval.LayerCfg[1].InputOffset = 0;
 
   hdma2d_eval.Instance = DMA2D;

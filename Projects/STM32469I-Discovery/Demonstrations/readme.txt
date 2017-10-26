@@ -2,25 +2,48 @@
   @page Demo   STM32469I-DISCO Demonstration Firmware
  
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    Demonstrations/readme.txt 
   * @author  MCD Application Team
-  * @version V1.1.1
-  * @date    13-November-2015
+  * @version V1.2.0
+  * @date    17-February-2017
   * @brief   Description of STM32469I-DISCO Demonstration
   ******************************************************************************
+  * @attention
   *
-  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-  * You may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at:
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics International N.V. 
+  * All rights reserved.</center></h2>
   *
-  *        http://www.st.com/software_license_agreement_liberty_v2
+  * Redistribution and use in source and binary forms, with or without 
+  * modification, are permitted, provided that the following conditions are met:
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
+  * 1. Redistribution of source code must retain the above copyright notice, 
+  *    this list of conditions and the following disclaimer.
+  * 2. Redistributions in binary form must reproduce the above copyright notice,
+  *    this list of conditions and the following disclaimer in the documentation
+  *    and/or other materials provided with the distribution.
+  * 3. Neither the name of STMicroelectronics nor the names of other 
+  *    contributors to this software may be used to endorse or promote products 
+  *    derived from this software without specific written permission.
+  * 4. This software, including modifications and/or derivative works of this 
+  *    software, must execute solely and exclusively on microcontroller or
+  *    microprocessor devices manufactured by or for STMicroelectronics.
+  * 5. Redistribution and use of this software other than as permitted under 
+  *    this license is void and will automatically terminate your rights under 
+  *    this license. 
+  *
+  * THIS SOFTWARE IS PROVIDED BY STMICROELECTRONICS AND CONTRIBUTORS "AS IS" 
+  * AND ANY EXPRESS, IMPLIED OR STATUTORY WARRANTIES, INCLUDING, BUT NOT 
+  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+  * PARTICULAR PURPOSE AND NON-INFRINGEMENT OF THIRD PARTY INTELLECTUAL PROPERTY
+  * RIGHTS ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED BY LAW. IN NO EVENT 
+  * SHALL STMICROELECTRONICS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, 
+  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
+  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
   @endverbatim
@@ -34,16 +57,22 @@ managed by the STM32Cube Demonstration kernel allowing to dynamically adding new
 modules and access to common resources (storage, graphical components and widgets,
 memory management, Real-Time operating system)
 
-The STM32Cube Demonstration platform is built around the powerful graphical library
-STemWin and the FreeRTOS real time operating system and uses almost the whole STM32
-capability to offer a large scope of usage based on the STM32Cube HAL BSP and several
-middleware components.
+The demonstration firmware is built around the graphical library STemWin and the FreeRTOS 
+real time operating system and uses almost the whole STM32 capability to offer a large scope
+of usage based on the STM3Cube HAL, BSP and several Middleware components.
 
 @par Demo Description
 
 The STM32 F4 demonstration is running on STM32469I-DISCOVERY boards RevB. 
-
+Tow flavours of the Demonstration binaries are available: 
+  - 'STM32469I-Disco_VX.Y.Z.hex': based on StemWin and which source code 
+     is provided within the STM32Cube_FW_F4 package. Its modules are listed below.
+  - 'STM32469I-Disco_Demo_VX.Y.Z_FULL.hex' : an out of the box Demo integrating the StemWin
+    demo in addition to third parties graphical Demo modules: 
+	   - TouchGFX demonstration module based on Draupner Graphics’ commercial graphic library.
+	     Free evaluation version is available at www.touchgfx.com/stmicroelectronics.
   
+
 Below you find an overview of the different offered module in the demonstration:
 
  + Video player
@@ -109,7 +138,7 @@ Below you find an overview of the different offered module in the demonstration:
 @par How to use it ? 
 
 The QSPI external flash loader is not integrated with supported toolchains, it’s only supported with
-STM32 ST-Link Utility V3.7.
+STM32 ST-Link Utility V3.7 or later.
 To load the demonstration, use STM32 ST-Link Utility to program both internal Flash and external QSPI memory.
 To edit and debug the demonstration you need first to program the external QSPI memory using STLink utility
 and then use your preferred toolchain to update and debug the internal flash content.
@@ -117,11 +146,14 @@ and then use your preferred toolchain to update and debug the internal flash con
 Below the detailed steps:
 
 In order to program the demonstration you must do the following
-1- Open STM32 ST-Link Utility V3.7, click on "External Loader" from the bar menu then check 
+1- Open STM32 ST-Link Utility , click on "External Loader" from the bar menu then check 
    "N25Q128A_STM32469I-DISCO" box 
 2- Connect the STM32F469I-DISCO board to PC with USB cable through CN1
-3- Use "STM32CubeDemo_STM32F469I-Disco_1.1.0.hex" file provided under “Binary” with STM32 ST-Link Utility 
-   to program both internal Flash and external QSPI memory
+3- Use "STM32469I-Disco_Demo_V1.2.0.hex" file provided under “Binary” with STM32 ST-Link Utility
+   to program both internal Flash and external NOR memory
+   The "STM32469I-Disco_Demo_V1.2.0_FULL.hex" file provided under 'Binary', can also be used to take benefit
+   from Touch-GFX third party demonstrations modules replacing Gardening control module.
+
 4- copy the audio and video files provided under "Utilities/Media/" in the USB key
 5- Plug a USB micro A-Male to A-Female cable on CN13 connector
 -> The internal Flash and the external QSPI are now programmed and the demonstration is shown on the board.

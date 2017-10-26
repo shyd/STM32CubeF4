@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32469i_eval_audio.h
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    29-September-2015
+  * @version V2.0.0
+  * @date    27-January-2017
   * @brief   This file contains the common defines and functions prototypes for
   *          the stm32469i_eval_audio.c driver.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -54,7 +54,7 @@
   * @{
   */
 
-/** @addtogroup STM32469I-EVAL
+/** @addtogroup STM32469I_EVAL
   * @{
   */
 
@@ -62,14 +62,14 @@
   * @{
   */
 
-/** @defgroup STM32469I-EVAL_AUDIO_Exported_Types STM32469I EVAL Audio Exported Types
+/** @defgroup STM32469I-EVAL_AUDIO_Exported_Types STM32469I EVAL AUDIO Exported Types
   * @{
   */
 /**
   * @}
   */
 
-/** @defgroup STM32469I-EVAL_AUDIO_Exported_Constants  STM32469I EVAL Audio Exported Constants
+/** @defgroup STM32469I-EVAL_AUDIO_Exported_Constants  STM32469I EVAL AUDIO Exported Constants
   * @{
   */
 
@@ -218,7 +218,7 @@
   * @}
   */
 
-/** @defgroup STM32469I-EVAL_AUDIO_Exported_Variables  STM32469I-EVAL AUDIO Exported Variables
+/** @defgroup STM32469I-EVAL_AUDIO_Exported_Variables  STM32469I EVAL AUDIO Exported Variables
   * @{
   */
 extern __IO uint16_t AudioInVolume;
@@ -226,7 +226,7 @@ extern __IO uint16_t AudioInVolume;
   * @}
   */
 
-/** @defgroup STM32469I-EVAL_AUDIO_Exported_Macros STM32469I-EVAL AUDIO Exported Macros
+/** @defgroup STM32469I-EVAL_AUDIO_Exported_Macros STM32469I EVAL AUDIO Exported Macros
   * @{
   */
 #define DMA_MAX(x)           (((x) <= DMA_MAX_SZE)? (x):DMA_MAX_SZE)
@@ -234,7 +234,7 @@ extern __IO uint16_t AudioInVolume;
   * @}
   */
 
-/** @defgroup STM32469I-EVAL_AUDIO_OUT_Exported_Functions  STM32469I EVAL AudioOUT Exported Functions
+/** @defgroup STM32469I-EVAL_AUDIO_OUT_Exported_Functions  STM32469I EVAL AUDIO OUT Exported Functions
   * @{
   */
 uint8_t BSP_AUDIO_OUT_Init(uint16_t OutputDevice, uint8_t Volume, uint32_t AudioFreq);
@@ -271,7 +271,7 @@ void  BSP_AUDIO_OUT_MspDeInit(SAI_HandleTypeDef *hsai, void *Params);
   * @}
   */
 
-/** @defgroup STM32469I-EVAL_AUDIO_IN_Exported_Functions  STM32469I EVAL AudioIN Exported Functions
+/** @defgroup STM32469I-EVAL_AUDIO_IN_Exported_Functions  STM32469I EVAL AUDIO IN Exported Functions
   * @{
   */
 uint8_t BSP_AUDIO_IN_Init(uint32_t AudioFreq, uint32_t BitRes, uint32_t ChnlNbr);

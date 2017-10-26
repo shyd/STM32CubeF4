@@ -2,11 +2,11 @@
   @page TIM_CascadeSynchro Timers Synchronization example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    TIM/TIM_CascadeSynchro/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   How to command 2 Timers as slaves (TIM3 & TIM4) using a Timer
   *          as master (TIM2)
 
@@ -39,7 +39,7 @@
 
 @par Example Description 
 
-This example shows how to synchronize TIM3 and Timers (TIM2 and TIM4) in cascade mode.
+This example shows how to synchronize TIM peripherals in cascade mode.
 
 Timers synchronisation in cascade mode:
    ___________                     ___________              ___________                 
@@ -101,7 +101,7 @@ The PWM waveform can be displayed using an oscilloscope.
 
   - This example runs on STM32F469xx/STM32F479xx devices.
 
-  - This example has been tested and validated with STMicroelectronics STM32469I-EVAL revB board and can be
+  - This example has been tested and validated with STMicroelectronics STM32469I-EVAL RevC board and can be
     easily tailored to any other supported device and development board.      
 
   - STM32469I-EVAL Set-up

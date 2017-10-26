@@ -2,15 +2,15 @@
   ******************************************************************************
   * @file    USB_Host/FWupgrade_Standalone/Src/stm32f4xx_it.c
   * @author  MCD Application Team
-  * @version V1.3.2
-  * @date    13-November-2015
+  * @version V1.4.0
+  * @date    17-February-2017
   * @brief   Main Interrupt Service Routines.
   *          This file provides template for all exceptions handler and 
   *          peripherals interrupt service routine.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
   * You may not use this file except in compliance with the License.
@@ -27,21 +27,21 @@
   ******************************************************************************
   */
 
-/* Includes ------------------------------------------------------------------*/
+/* Includes ------------------------------------------------------------------ */
 #include "main.h"
 #include "stm32f4xx_it.h"
 
-/* Private typedef -----------------------------------------------------------*/
-/* Private define ------------------------------------------------------------*/
-/* Private macro -------------------------------------------------------------*/
-/* Private variables ---------------------------------------------------------*/
+/* Private typedef ----------------------------------------------------------- */
+/* Private define ------------------------------------------------------------ */
+/* Private macro ------------------------------------------------------------- */
+/* Private variables --------------------------------------------------------- */
 extern HCD_HandleTypeDef hhcd;
 
-/* Private function prototypes -----------------------------------------------*/
-/* Private functions ---------------------------------------------------------*/
+/* Private function prototypes ----------------------------------------------- */
+/* Private functions --------------------------------------------------------- */
 
 /******************************************************************************/
-/*             Cortex-M4 Processor Exceptions Handlers                        */
+/* Cortex-M4 Processor Exceptions Handlers */
 /******************************************************************************/
 
 /**
@@ -143,10 +143,10 @@ void SysTick_Handler(void)
 }
 
 /******************************************************************************/
-/*                 STM32F4xx Peripherals Interrupt Handlers                   */
-/*  Add here the Interrupt Handler for the used peripheral(s) (PPP), for the  */
-/*  available peripheral interrupt handler's name please refer to the startup */
-/*  file (startup_stm32f4xx.s).                                               */
+/* STM32F4xx Peripherals Interrupt Handlers */
+/* Add here the Interrupt Handler for the used peripheral(s) (PPP), for the */
+/* available peripheral interrupt handler's name please refer to the startup */
+/* file (startup_stm32f4xx.s).  */
 /******************************************************************************/
 
 /**
@@ -164,8 +164,6 @@ void OTG_HS_IRQHandler(void)
   * @param  None
   * @retval None
   */
-/*void PPP_IRQHandler(void)
-{
-}*/
+/* void PPP_IRQHandler(void) { } */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

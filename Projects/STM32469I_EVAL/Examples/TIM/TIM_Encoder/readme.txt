@@ -2,11 +2,11 @@
   @page TIM_Encoder TIM Encoder example
 
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    TIM/TIM_Encoder/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   This example shows how to configure the Timer in Encoder interface 
   *          to determinate the rotation direction. 
   ******************************************************************************
@@ -37,6 +37,9 @@
   @endverbatim
 
 @par Example Description 
+
+This example shows how to configure the TIM1 peripheral in encoder mode to
+determinate the rotation direction.
                                      
      -------------                               -------------
     |             |CH1:PC6              CH1:PA8 |             |
@@ -52,10 +55,6 @@
     |             |                             |  Direction  |--> |uwDirection|     
      -------------                               -------------      -----------
                Encoder interface example description
-               
-
-  This example shows how to configure the TIM1 peripheral in encoder mode to
-determinate the rotation direction.
 
   To emulate a quadrature encoder, TIM3 is configured in toggle mode to generate
 2 quadrature signals on (PC6 and PC7) at 10KHz. Each 1s, signals change phase
@@ -102,7 +101,7 @@ signals" table, rotation direction is Backward.
 
   - This example runs on STM32F469xx/STM32F479xx devices.
   - In this example, the clock is set to 180 MHz.
-  - This example has been tested and validated with STMicroelectronics STM32469I-EVAL revB 
+  - This example has been tested and validated with STMicroelectronics STM32469I-EVAL RevC 
     evaluation board and can be easily tailored to any other supported device and development board
 
   - STM32469I-EVAL Set-up 

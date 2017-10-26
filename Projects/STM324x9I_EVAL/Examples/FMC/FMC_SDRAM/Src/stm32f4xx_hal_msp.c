@@ -2,13 +2,13 @@
   ******************************************************************************
   * @file    FMC/FMC_SDRAM/Src/stm32f4xx_hal_msp.c
   * @author  MCD Application Team
-  * @version V1.3.2
-  * @date    13-November-2015
+  * @version V1.4.0
+  * @date    17-February-2017
   * @brief   HAL MSP module.    
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -83,8 +83,8 @@ void HAL_SDRAM_MspInit(SDRAM_HandleTypeDef *hsdram)
   
   /*##-2- Configure peripheral GPIO ##########################################*/  
   GPIO_Init_Structure.Mode      = GPIO_MODE_AF_PP;
-  GPIO_Init_Structure.Pull      = GPIO_PULLUP;
-  GPIO_Init_Structure.Speed     = GPIO_SPEED_FAST;
+  GPIO_Init_Structure.Pull      = GPIO_NOPULL;
+  GPIO_Init_Structure.Speed     = GPIO_SPEED_HIGH;
   GPIO_Init_Structure.Alternate = GPIO_AF12_FMC;
   
 /* GPIOD configuration */

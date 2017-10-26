@@ -1,12 +1,12 @@
 /**
-  @page FMC_SRAM_DataMemory SRAM memory functionnalities example
+  @page FMC_SRAM_DataMemory SRAM functionnalities example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    FMC/FMC_SRAM_DataMemory/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the FMC SRAM example.
   ******************************************************************************
   *
@@ -37,9 +37,9 @@
 
 @par Example Description
 
-This example guides you through the different configuration steps by mean of HAL API
-to configure the FMC controller to access the IS61WV102416BLL-10MLI SRAM memory mounted 
-on STM32469I-EVAL evaluation board (including heap and stack).
+This example guides you through the differentconfiguration steps by mean of HAL API
+to configure the FMC controller to access the SRAM mountedon evaluation
+board (including heap and stack).
  
 At the beginning of the main program the HAL_Init() function is called to reset 
 all the peripherals, initialize the Flash interface and the systick.
@@ -51,18 +51,18 @@ provide only the procedure to follow to use the external SRAM as data memory.
 
 This example does not use the default library startup file. It uses a modified 
 startup file provided with the example. The user has to add the new startup 
-file in the project source list. While startup, the SRAM memory is configured 
+file in the project source list. While startup, the SRAM is configured 
 and initialized to be ready to contain data.
 
 The user has to configure his preferred toolchain using the provided linker file.
-The RAM zone is modified in order to use the external SRAM memory as a RAM.
+The RAM zone is modified in order to use the external SRAM as a RAM.
 
-At this stage, all the used data can be located in the external SRAM memory.
+At this stage, all the used data can be located in the external SRAM.
 
 The user can use the debugger's watch to evaluate "uwTabAddr" and "MSPValue" variables
 values which should be above 0x64000000.
 
-If uwTabAddr and MSPValue values are in the external SRAM memory, LED1 is ON, otherwise the LED3 is ON.
+If uwTabAddr and MSPValue values are in the external SRAM, LED1 is ON, otherwise the LED3 is ON.
 
 
 @note Care must be taken when using HAL_Delay(), this function provides accurate delay (in milliseconds)
@@ -91,7 +91,7 @@ If uwTabAddr and MSPValue values are in the external SRAM memory, LED1 is ON, ot
 
   - This example runs on STM32F469xx/STM32F479xx devices.
 
-  - This example has been tested and validated with STMicroelectronics STM32469I-EVAL revB board and can be
+  - This example has been tested and validated with STMicroelectronics STM32469I-EVAL RevC board and can be
     easily tailored to any other supported device and development board.
 
 

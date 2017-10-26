@@ -3,11 +3,11 @@
   chaining modes with all possible key sizes.
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    CRYP/CRYP_AESModes/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the CRYP AES Algorithm in all modes and all key sizes
              Example
   ******************************************************************************
@@ -104,7 +104,7 @@ debugger terminal IO by uncomment following line in main file:
 
   - This example runs on STM32F479xx devices.
 
-  - This example has been tested and validated with STM32479I-EVAL revB board and can be
+  - This example has been tested and validated with STM32479I-EVAL RevC board and can be
     easily tailored to any other supported device and development board.
   
   - Hyperterminal configuration:

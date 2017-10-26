@@ -2,11 +2,11 @@
   @page BSP Example on how to use the BSP drivers
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    Demonstration/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description STM32F4xx_Nucleo_144 Demo description.
   ******************************************************************************
   *
@@ -37,11 +37,12 @@
 
 @par Example Description 
 
-The BSP examples detects the presence of Adafruit 1.8" TFT shield with joystick and uSD.
+This example provides a description of how to use the different BSP drivers.
 
+The BSP example detects the presence of Adafruit 1.8" TFT shield with joystick and uSD.
 If the Adafruit shield is NOT connected, then:
  - Blue LED (LED2) blinks waiting the user button is pushed.
- - Then blue led swithces off and green & red leds start blinking at high frequency.
+ - Then blue led swithces off and green & red LEDs start blinking at high frequency.
  - Pushing user button again and again blinking frequency decreases until looping 
    to high frequency.
 

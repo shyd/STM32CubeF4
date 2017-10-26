@@ -2,15 +2,15 @@
   ******************************************************************************
   * @file    BSP/Src/stm32f4xx_it.c 
   * @author  MCD Application Team
-  * @version V1.2.4
-  * @date    13-November-2015 
+  * @version V1.2.8
+  * @date    17-February-2017 
   * @brief   Main Interrupt Service Routines.
   *          This file provides template for all exceptions handler and 
   *          peripherals interrupt service routine.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -182,6 +182,26 @@ void EXTI0_IRQHandler(void)
 }
 
 #ifdef EE_M24LR64
+/**
+  * @brief  This function handles I2C_EV interrupt request.
+  * @param  None
+  * @retval None
+  */
+void I2C3_EV_IRQHandler(void)
+{
+  HAL_I2C_EV_IRQHandler(&I2cHandle);
+}
+
+/**
+  * @brief  This function handles I2C_ER interrupt request.
+  * @param  None
+  * @retval None
+  */
+void I2C3_ER_IRQHandler(void)
+{
+  HAL_I2C_ER_IRQHandler(&I2cHandle);
+}
+
 /**
   * @brief  This function handles sEE DMA TX interrupt request.
   * @param  None

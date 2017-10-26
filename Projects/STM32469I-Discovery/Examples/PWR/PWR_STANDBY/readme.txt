@@ -2,11 +2,11 @@
   @page PWR_Standby PWR_STANDBY example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    PWR/PWR_STANDBY/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date  09-October-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the PWR STANDBY example.
   ******************************************************************************
   *
@@ -36,8 +36,8 @@
   @endverbatim
 
 @par Example Description 
- 
-This example shows how to enter the system in STANDBY mode and wake-up from this
+
+This example shows how to enter the system to STANDBY mode and wake-up from this
 mode using external RESET or WKUP pin.
 
 In the associated software, the system clock is set to 180 MHz, an EXTI line

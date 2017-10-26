@@ -2,15 +2,15 @@
   ******************************************************************************
   * @file    DCMI/DCMI_SnapshotMode/Src/main.c
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   This example describe how to configure the camera interface (DCMI) in snapshot
   *          mode to handle a single image capture in QVGA (320x240) resolution and RGB565
   *          format and display the obtained image on LCD screen.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -52,30 +52,14 @@
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-
-/* Camera resolution is QVGA (320x240) */
-static uint8_t    mfx_toggle_led = 0;
-static uint32_t   CameraResX = 320;
-static uint32_t   CameraResY = 240;
-static uint32_t   LcdResX    = 800; /* WVGA landscape */
-static uint32_t   LcdResY    = 480;
-
-static uint32_t          offset_cam = 0;
-static uint32_t          offset_lcd = 0;
-static uint32_t          display_line_counter = 0;
-static volatile uint32_t lcd_frame_buffer_ready = 0;
-static volatile uint32_t start_the_camera_capture = 0;
-static volatile uint32_t end_the_camera_capture = 0;
+__IO uint32_t frame_buffer_ready = 0;
 
 /* Private function prototypes -----------------------------------------------*/
 static void SystemClock_Config(void);
-
-static void LCD_LL_ConvertLineToARGB8888(void *pSrc, void *pDst, uint32_t xSize);
-static uint8_t CameraFrameBufferRgb565_Init(uint32_t sizeX, uint32_t sizeY, uint32_t argb8888_Value);
-static void CopyCameraFrameBufferLineToLcdFrameBufferLine(void);
+static void LCD_LL_ConvertFrameToARGB8888(uint32_t pSrc, uint32_t pDst);
 static void OnError_Handler(uint32_t condition);
 
-/* Exported functions ---------------------------------------------------------*/
+/* Private functions ---------------------------------------------------------*/
 
 /**
   * @brief  Main program
@@ -85,17 +69,6 @@ static void OnError_Handler(uint32_t condition);
 int main(void)
 {
   uint8_t  lcd_status = LCD_OK;
-  mfx_toggle_led = 0;
-  CameraResX = 320;
-  CameraResY = 240;
-  LcdResX    = 800; /* WVGA landscape */
-  LcdResY    = 480;
-  offset_cam = 0;
-  offset_lcd = 0;
-  display_line_counter = 0;
-  lcd_frame_buffer_ready = 0;
-  start_the_camera_capture = 0;
-  end_the_camera_capture = 0;
 
   /* STM32F4xx HAL library initialization:
        - Configure the Flash prefetch, instruction and Data caches
@@ -111,9 +84,6 @@ int main(void)
 
   /* Configure the system clock to 180 MHz */
   SystemClock_Config();
-
-  /* Initialize MFX */
-  BSP_IO_Init();
   
   /* Initialize used Leds */
   BSP_LED_Init(LED1);
@@ -126,7 +96,7 @@ int main(void)
    * as LCD frame buffer address.
    */
   BSP_LCD_Init();
-  BSP_LCD_LayerDefaultInit(0, LCD_FB_START_ADDRESS);   
+  BSP_LCD_LayerDefaultInit(0, LCD_FRAME_BUFFER);   
   OnError_Handler(lcd_status != LCD_OK);
 
   /* Prepare using DMA2D the 800x480 LCD frame buffer to display background color black */
@@ -140,10 +110,6 @@ int main(void)
   BSP_LCD_DisplayStringAt(0, 440, (uint8_t *)"DCMI Snapshot example", CENTER_MODE);
   BSP_LCD_DisplayStringAt(0, 460, (uint8_t *)"Initialize Camera", CENTER_MODE);
 
-  /* Initialize the camera frame buffer 320x240 in RGB565 to a fixed grey pattern */
-  lcd_status = CameraFrameBufferRgb565_Init(CameraResX, CameraResY, 0x55555555);
-  OnError_Handler(lcd_status != LCD_OK);
-
   /*##-2- Camera Initialization and start capture ############################*/
   /* Initialize the Camera in QVGA mode */
   BSP_CAMERA_Init(CAMERA_R320x240);
@@ -154,12 +120,11 @@ int main(void)
   /* Start the Camera Snapshot Capture */
   BSP_CAMERA_SnapshotStart((uint8_t *)CAMERA_FRAME_BUFFER);
 
-  /* Wait until LCD frame buffer is ready */
-  while(lcd_frame_buffer_ready == 0) {;}
-
-  /* Stop the camera to avoid having the DMA2D work in parallel of Display */
-  /* which cause perturbation of LTDC                                      */
-  BSP_CAMERA_Stop();
+  /* Wait until frame buffer is ready */
+  while(frame_buffer_ready == 0) {;}
+  
+  /* Convert captured frame to ARGB8888 */
+  LCD_LL_ConvertFrameToARGB8888((uint32_t)CAMERA_FRAME_BUFFER, (uint32_t)LCD_FRAME_BUFFER);
 
   BSP_LCD_ClearStringLine(460);
   BSP_LCD_DisplayStringAt(0, 460, (uint8_t *)"Capture OK - Test End", CENTER_MODE);
@@ -169,43 +134,7 @@ int main(void)
 
   while (1)
   {
-    if ( mfx_toggle_led == 1)
-    {
-      BSP_LED_Toggle(LED3);
-      mfx_toggle_led = 0;
-    }
   }
-}
-
-/**
-  * @brief  Camera line event callback
-  */
-void BSP_CAMERA_LineEventCallback(void)
-{
-  if(start_the_camera_capture == 1)
-  {
-    if(display_line_counter < CameraResY)
-    {
-      /* Start DMA2D copy of current line                                         */
-      /* Note for the last line BSP_CAMERA_FrameEventCallback() is called instead */
-      CopyCameraFrameBufferLineToLcdFrameBufferLine();
-    }
-
-    /* If we have copied the last line of Camera Frame buffer to LCD frame buffer */
-    /* then the LCD frame buffer is ready for display                             */
-    if((display_line_counter == CameraResY) &&
-        (end_the_camera_capture == 0))
-    {
-      end_the_camera_capture = 1;
-      start_the_camera_capture = 0;
-
-      /* Suspend Camera DMA */
-      BSP_CAMERA_Suspend();
-
-      /* LCD frame buffer is now ready */
-      lcd_frame_buffer_ready = 1;
-    }
-  } /* of if(start_the_camera_capture == 1) */
 }
 
 /**
@@ -213,155 +142,52 @@ void BSP_CAMERA_LineEventCallback(void)
   */
 void BSP_CAMERA_FrameEventCallback(void)
 {
-  start_the_camera_capture = 1;
+  frame_buffer_ready = 1;
 }
 
 /**
-  * @brief  Toggle Leds.
-  * @param  None
+  * @brief  Converts an RGB565 camera frame buffer into a ARGB8888 LCD Frame buffer.
+  * @param  pSrc: Pointer to source buffer in Camera frame buffer 
+  * @param  pDst: Pointer to destination buffer in LCD frame buffer 
   * @retval None
   */
-void Toggle_Leds(void)
-{
-  static uint32_t ticks = 0;
-
-  if (ticks++ > 1000)
-  {
-    mfx_toggle_led = 1;
-    ticks = 0;
-  }
-}
-
-
-
-/* Private functions ---------------------------------------------------------*/
-
-/**
-  * @brief  Converts a RGB565 camera frame buffer line (width = 320 pixels)
-  * into a ARGB8888 LCD Frame buffer line (of same width 320 pixels).
-  * @param  pSrc: Pointer to source buffer in Camera frame buffer (camera frame buffer line)
-  * @param  pDst: Pointer to destination buffer in LCD frame buffer (LCD frame buffer line)
-  * @param  xSize: Buffer width
-  * @retval None
-  */
-static void LCD_LL_ConvertLineToARGB8888(void *pSrc, void *pDst, uint32_t xSize)
+static void LCD_LL_ConvertFrameToARGB8888(uint32_t pSrc, uint32_t pDst)
 {
   DMA2D_HandleTypeDef hdma2d_eval;
-
+  uint32_t offset_lcd = 0;
+  HAL_StatusTypeDef status; 
+  
+  /* Set display in the middle of the screen */
+  offset_lcd =   ((((LcdResY - CameraResY) / 2) * LcdResX)    /* Middle of the screen on Y axis */
+                 + ((LcdResX - CameraResX) / 2))              /* Middle of the screen on X axis */
+                 * ARGB8888_BYTE_PER_PIXEL;
+  
   /* Configure the DMA2D Mode, Color Mode and output offset */
   hdma2d_eval.Init.Mode         = DMA2D_M2M_PFC;
-  hdma2d_eval.Init.ColorMode    = DMA2D_ARGB8888; /* Output color out of PFC */
-  hdma2d_eval.Init.OutputOffset = 0;
-
+  hdma2d_eval.Init.ColorMode    = DMA2D_ARGB8888;             /* Output color out of PFC */
+  hdma2d_eval.Init.OutputOffset = (LcdResX - CameraResX);
+  
   /* Foreground Configuration */
   hdma2d_eval.LayerCfg[1].AlphaMode = DMA2D_NO_MODIF_ALPHA;
-  hdma2d_eval.LayerCfg[1].InputAlpha = 0xFF; /* fully opaque */
-  hdma2d_eval.LayerCfg[1].InputColorMode = CM_RGB565;
+  hdma2d_eval.LayerCfg[1].InputAlpha = 0xFF;                  /* fully opaque */
+  hdma2d_eval.LayerCfg[1].InputColorMode = DMA2D_INPUT_RGB565;
   hdma2d_eval.LayerCfg[1].InputOffset = 0;
-
+  
   hdma2d_eval.Instance = DMA2D;
-
+  
   /* DMA2D Initialization */
-  if(HAL_DMA2D_Init(&hdma2d_eval) == HAL_OK)
+  status = HAL_DMA2D_Init(&hdma2d_eval);
+  OnError_Handler(status != HAL_OK);
+  
+  status = HAL_DMA2D_ConfigLayer(&hdma2d_eval, 1);
+  OnError_Handler(status != HAL_OK);
+  
+  /* Convert frame to ARGB8888 pixels */
+  if (HAL_DMA2D_Start(&hdma2d_eval, (uint32_t)pSrc, (uint32_t)(pDst + offset_lcd), CameraResX, CameraResY) == HAL_OK)
   {
-    if(HAL_DMA2D_ConfigLayer(&hdma2d_eval, 1) == HAL_OK)
-    {
-      if (HAL_DMA2D_Start(&hdma2d_eval, (uint32_t)pSrc, (uint32_t)pDst, xSize, 1) == HAL_OK)
-      {
-        /* Polling For DMA transfer */
-        HAL_DMA2D_PollForTransfer(&hdma2d_eval, 10);
-      }
-    }
+    /* Polling For DMA transfer */
+    HAL_DMA2D_PollForTransfer(&hdma2d_eval, 10);
   }
-  else
-  {
-    while(1);
-  }
-}
-
-/**
-  * @brief  Init camera frame buffer with fixed color in format RGB565
-  *         to a LCD display frame buffer line in format ARGB8888 using DMA2D service.
-  * @param  sizeX: Size in X of rectangular region of the Camera frame buffer to initialize (in pixels unit)
-  * @param  sizeX: Size in X of rectangular region of the Camera frame buffer to initialize (in pixels unit)
-  * @param  argb_Value : Initialization value (pattern ARGB8888) to be applied to all rectangular region selected.
-  * @retval Status LCD_OK or LCD_ERROR
-  */
-static uint8_t CameraFrameBufferRgb565_Init(uint32_t sizeX, uint32_t sizeY, uint32_t argb8888_Value)
-{
-  HAL_StatusTypeDef hal_status = HAL_OK;
-  uint8_t lcd_status = LCD_ERROR;
-  DMA2D_HandleTypeDef hdma2d_eval;
-
-  if((sizeX <= CAMERA_VGA_RES_X) && (sizeY <= CAMERA_VGA_RES_Y))
-  {
-    /* Register to memory mode with RGB565 as colorMode */
-    hdma2d_eval.Init.Mode         = DMA2D_R2M; /* Mode Register to Memory */
-    hdma2d_eval.Init.ColorMode    = DMA2D_RGB565; /* Output color mode */
-    hdma2d_eval.Init.OutputOffset = 0x0; /* No offset in output */
-
-    hdma2d_eval.Instance = DMA2D;
-
-    hal_status = HAL_DMA2D_Init(&hdma2d_eval);
-    if(hal_status == HAL_OK)
-    {
-        if (HAL_DMA2D_Start(&hdma2d_eval, argb8888_Value, (uint32_t)CAMERA_FRAME_BUFFER, sizeX, sizeY) == HAL_OK)
-        {
-          /* Polling For DMA transfer */
-          HAL_DMA2D_PollForTransfer(&hdma2d_eval, 10);
-
-          /* Return good status on exit */
-          lcd_status = LCD_OK;
-        }
-    }
-  }
-
-  return (lcd_status);
-}
-
-/**
-  * @brief  Copy a Camera frame buffer line in RGB565 and convert it to LCD Frame buffer line in ARGB8888 format.
-  *         This process uses the DMA2D and its integrated Pixel Format Converter (PFC).
-  */
-static void CopyCameraFrameBufferLineToLcdFrameBufferLine(void)
-{
-    if ((offset_lcd == 0) && (CameraResX <= LcdResX) && (CameraResY <= LcdResY))
-    {
-      /* If Camera resolution is lower than LCD resolution, set display in the middle of the screen */
-      offset_lcd =   ((((LcdResY - CameraResY) / 2) * LcdResX)   /* Middle of the screen on Y axis */
-                      +   ((LcdResX - CameraResX) / 2))             /* Middle of the screen on X axis */
-                     * sizeof(uint32_t);
-    }
-
-    if (display_line_counter < CameraResY)
-    {
-      if (display_line_counter < LcdResY)
-      {
-        if (CameraResX < LcdResX)
-        {
-          LCD_LL_ConvertLineToARGB8888((uint32_t *)(CAMERA_FRAME_BUFFER + offset_cam),
-                                         (uint32_t *)(LCD_FRAME_BUFFER + offset_lcd),
-                                         CameraResX);
-        }
-        else
-        {
-          LCD_LL_ConvertLineToARGB8888((uint32_t *)(CAMERA_FRAME_BUFFER + offset_cam),
-                                         (uint32_t *)(LCD_FRAME_BUFFER + offset_lcd),
-                                         LcdResX);
-        }
-
-        offset_cam  = offset_cam + (CameraResX * sizeof(uint16_t)); /* RGB565 2 bytes per pixel   */
-        offset_lcd  = offset_lcd + (LcdResX * sizeof(uint32_t));    /* ARGB8888 4 bytes per pixel */
-      }
-
-      display_line_counter++;
-    }
-    else
-    {
-      offset_cam = 0;
-      offset_lcd = 0;
-      display_line_counter = 0;
-    }
 }
 
 /**

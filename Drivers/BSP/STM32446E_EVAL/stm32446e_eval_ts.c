@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32446e_eval_ts.c
   * @author  MCD Application Team
-  * @version V1.1.0
-  * @date    14-August-2015
+  * @version V2.0.0
+  * @date    27-January-2017
   * @brief   This file provides a set of functions needed to manage the Touch 
   *          Screen on STM32446E-EVAL evaluation board.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -85,32 +85,32 @@
   * @{
   */ 
   
-/** @defgroup STM32446E_EVAL_TS STM32446E-EVAL TS 
+/** @defgroup STM32446E_EVAL_TS STM32446E EVAL TS 
   * @{
   */   
 
-/** @defgroup STM32446E_EVAL_TS_Private_Types_Definitions STM32446E Eval TS Private TypesDef
+/** @defgroup STM32446E_EVAL_TS_Private_Types_Definitions STM32446E EVAL TS Private Types Definitions
   * @{
   */ 
 /**
   * @}
   */ 
 
-/** @defgroup STM32446E_EVAL_TS_Private_Defines STM32446E Eval TS Private Defines
+/** @defgroup STM32446E_EVAL_TS_Private_Defines STM32446E EVAL TS Private Defines
   * @{
   */ 
 /**
   * @}
   */ 
 
-/** @defgroup STM32446E_EVAL_TS_Private_Macros STM32446E Eval TS Private Macros
+/** @defgroup STM32446E_EVAL_TS_Private_Macros STM32446E EVAL TS Private Macros
   * @{
   */ 
 /**
   * @}
   */  
 
-/** @defgroup STM32446E_EVAL_TS_Private_Variables STM32446E Eval TS Private Variables
+/** @defgroup STM32446E_EVAL_TS_Private_Variables STM32446E EVAL TS Private Variables
   * @{
   */ 
 static TS_DrvTypeDef *ts_driver;
@@ -121,14 +121,14 @@ static uint8_t  AddressI2C;
   * @}
   */ 
 
-/** @defgroup STM32446E_EVAL_TS_Private_Function_Prototypes STM32446E Eval TS Private prototypes
+/** @defgroup STM32446E_EVAL_TS_Private_Function_Prototypes STM32446E EVAL TS Private Function Prototypes
   * @{
   */ 
 /**
   * @}
   */ 
 
-/** @defgroup STM32446E_EVAL_TS_Private_Functions STM32446E Eval TS Private Functions
+/** @defgroup STM32446E_EVAL_TS_Private_Functions STM32446E EVAL TS Private Functions
   * @{
   */ 
 
@@ -136,7 +136,7 @@ static uint8_t  AddressI2C;
   * @brief  Initializes and configures the touch screen functionalities and 
   *         configures all necessary hardware resources (GPIOs, clocks..).
   * @param  xSize: Maximum X size of the TS area on LCD
-  *         ySize: Maximum Y size of the TS area on LCD  
+  * @param  ySize: Maximum Y size of the TS area on LCD  
   * @retval TS_OK if all initializations are OK. Other value if error.
   */
 uint8_t BSP_TS_Init(uint16_t xSize, uint16_t ySize)
@@ -169,7 +169,6 @@ uint8_t BSP_TS_Init(uint16_t xSize, uint16_t ySize)
 
 /**
   * @brief  DeInitializes the TouchScreen.
-  * @param  None
   * @retval TS state
   */
 uint8_t BSP_TS_DeInit(void)
@@ -180,7 +179,6 @@ uint8_t BSP_TS_DeInit(void)
 
 /**
   * @brief  Enables the touch screen interrupts.
-  * @param  None
   * @retval TS_OK if all initializations are OK. Other value if error.
   */
 uint8_t BSP_TS_ITEnable(void)
@@ -192,7 +190,6 @@ uint8_t BSP_TS_ITEnable(void)
 
 /**
   * @brief  Disables the touch screen interrupts.
-  * @param  None
   * @retval TS_OK if all initializations are OK. Other value if error.
   */
 uint8_t BSP_TS_ITDisable(void)
@@ -204,7 +201,6 @@ uint8_t BSP_TS_ITDisable(void)
 
 /**
   * @brief  Configures and enables the touch screen interrupts.
-  * @param  None
   * @retval TS_OK if all initializations are OK. Other value if error.
   */
 uint8_t BSP_TS_ITConfig(void)
@@ -220,8 +216,6 @@ uint8_t BSP_TS_ITConfig(void)
 
 /**
   * @brief  Clears all touch screen interrupts.
-  * @param  None
-  * @retval None
   */
 void BSP_TS_ITClear(void)
 {
@@ -231,7 +225,6 @@ void BSP_TS_ITClear(void)
 
 /**
   * @brief  Gets the touch screen interrupt status.
-  * @param  None
   * @retval TS_OK if all initializations are OK. Other value if error.
   */
 uint8_t BSP_TS_ITGetStatus(void)
@@ -242,8 +235,6 @@ uint8_t BSP_TS_ITGetStatus(void)
 
 /**
   * @brief  Clears touch screen FIFO containing 128 x,y values.
-  * @param  None
-  * @retval None
   */
 void BSP_TS_FIFOClear(void)
 {

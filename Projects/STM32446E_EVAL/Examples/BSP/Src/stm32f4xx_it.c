@@ -2,15 +2,15 @@
   ******************************************************************************
   * @file    BSP/Src/stm32f4xx_it.c 
   * @author  MCD Application Team
-  * @version V1.1.2
-  * @date    13-November-2015
+  * @version V1.2.0
+  * @date    17-February-2017
   * @brief   Main Interrupt Service Routines.
   *          This file provides template for all exceptions handler and 
   *          peripherals interrupt service routine.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -56,6 +56,7 @@
 /* Private variables ---------------------------------------------------------*/
 extern DMA_HandleTypeDef   hdma;
 extern QSPI_HandleTypeDef QSPIHandle;
+extern SD_HandleTypeDef uSdHandle;
 /*DMA status declared in "sdram_dma.c" file */
 extern uint32_t uwDMA_Transfer_Complete;
 /* SAI handler declared in "stm32446e_eval_audio.c" file */
@@ -224,10 +225,11 @@ void EXTI15_10_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void DMA2_Stream6_IRQHandler(void)
+void BSP_SD_DMA_Tx_IRQHandler(void)
 {
-  HAL_DMA_IRQHandler(haudio_out_sai.hdmatx);
+  HAL_DMA_IRQHandler(uSdHandle.hdmatx);
 }
+
 
 /**
   * @brief  DMA interrupt handler.

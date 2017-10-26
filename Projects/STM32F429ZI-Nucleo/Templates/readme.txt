@@ -2,11 +2,11 @@
   @page Templates  Description of the Templates example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    Templates/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    13-November-2015
+  * @version V1.0.3
+  * @date    17-February-2017
   * @brief   Description of the Templates example.
   ******************************************************************************
   *
@@ -69,7 +69,7 @@ It includes the right set of peripherals, linker and startup files.
 
   - This example runs on STM32F429ZI devices.
     
-  - This example has been tested with STMicroelectronics $BOARDNAME 
+  - This example has been tested with STMicroelectronics NUCLEO-F429ZI Rev.B 
     boards and can be easily tailored to any other supported device 
     and development board.
 

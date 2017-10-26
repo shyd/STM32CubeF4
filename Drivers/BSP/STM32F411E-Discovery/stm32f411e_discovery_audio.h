@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32f411e_discovery_audio.h
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    12-November-2015
+  * @version V1.0.2
+  * @date    27-January-2017
   * @brief   This file contains the common defines and functions prototypes for
   *          stm32f411e_discovery_audio.c driver.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -58,82 +58,86 @@
   * @{
   */
     
-/** @defgroup STM32F411E_DISCOVERY_AUDIO
+/** @addtogroup STM32F411E_DISCOVERY_AUDIO
   * @{
   */    
 
-/** @defgroup STM32F411E_DISCOVERY_AUDIO_Exported_Types
+/** @defgroup STM32F411E_DISCOVERY_AUDIO_Exported_Types STM32F411E DISCOVERY AUDIO Exported Types
   * @{
   */
 /**
   * @}
   */ 
 
-/** @defgroup STM32F411E_DISCOVERY_AUDIO_OUT_Exported_Constants 
+/** @defgroup STM32F411E_DISCOVERY_AUDIO_OUT_Exported_Constants STM32F411E DISCOVERY AUDIO OUT Exported Constants
   * @{
   */ 
 
 /*------------------------------------------------------------------------------
-                        AUDIO OUT CONFIGURATION
+                          AUDIO OUT CONFIGURATION
 ------------------------------------------------------------------------------*/
 
 /* I2S peripheral configuration defines */
-#define I2S3                          SPI3
-#define I2S3_CLK_ENABLE()             __SPI3_CLK_ENABLE()
-#define I2S3_SCK_SD_WS_AF             GPIO_AF6_SPI3
-#define I2S3_SCK_SD_CLK_ENABLE()      __GPIOC_CLK_ENABLE()
-#define I2S3_MCK_CLK_ENABLE()         __GPIOC_CLK_ENABLE()
-#define I2S3_WS_CLK_ENABLE()          __GPIOA_CLK_ENABLE()
-#define I2S3_WS_PIN                   GPIO_PIN_4
-#define I2S3_SCK_PIN                  GPIO_PIN_10
-#define I2S3_SD_PIN                   GPIO_PIN_12
-#define I2S3_MCK_PIN                  GPIO_PIN_7
-#define I2S3_SCK_SD_GPIO_PORT         GPIOC
-#define I2S3_WS_GPIO_PORT             GPIOA
-#define I2S3_MCK_GPIO_PORT            GPIOC
+#define I2S3                            SPI3
+#define I2S3_CLK_ENABLE()               __HAL_RCC_SPI3_CLK_ENABLE()
+#define I2S3_CLK_DISABLE()              __HAL_RCC_SPI3_CLK_DISABLE()
+#define I2S3_SCK_SD_WS_AF               GPIO_AF6_SPI3
+#define I2S3_SCK_SD_CLK_ENABLE()        __HAL_RCC_GPIOC_CLK_ENABLE()
+#define I2S3_MCK_CLK_ENABLE()           __HAL_RCC_GPIOC_CLK_ENABLE()
+#define I2S3_WS_CLK_ENABLE()            __HAL_RCC_GPIOA_CLK_ENABLE()
+#define I2S3_WS_PIN                     GPIO_PIN_4
+#define I2S3_SCK_PIN                    GPIO_PIN_10
+#define I2S3_SD_PIN                     GPIO_PIN_12
+#define I2S3_MCK_PIN                    GPIO_PIN_7
+#define I2S3_SCK_SD_GPIO_PORT           GPIOC
+#define I2S3_WS_GPIO_PORT               GPIOA
+#define I2S3_MCK_GPIO_PORT              GPIOC
 
 /* I2S DMA Stream definitions */
-#define I2S3_DMAx_CLK_ENABLE()        __DMA1_CLK_ENABLE()
-#define I2S3_DMAx_STREAM              DMA1_Stream7
-#define I2S3_DMAx_CHANNEL             DMA_CHANNEL_0
-#define I2S3_DMAx_IRQ                 DMA1_Stream7_IRQn
-#define I2S3_DMAx_PERIPH_DATA_SIZE    DMA_PDATAALIGN_HALFWORD
-#define I2S3_DMAx_MEM_DATA_SIZE       DMA_MDATAALIGN_HALFWORD
-#define DMA_MAX_SZE                   0xFFFF
+#define I2S3_DMAx_CLK_ENABLE()          __HAL_RCC_DMA1_CLK_ENABLE()
+#define I2S3_DMAx_CLK_DISABLE()         __HAL_RCC_DMA1_CLK_DISABLE()
+#define I2S3_DMAx_STREAM                DMA1_Stream7
+#define I2S3_DMAx_CHANNEL               DMA_CHANNEL_0
+#define I2S3_DMAx_IRQ                   DMA1_Stream7_IRQn
+#define I2S3_DMAx_PERIPH_DATA_SIZE      DMA_PDATAALIGN_HALFWORD
+#define I2S3_DMAx_MEM_DATA_SIZE         DMA_MDATAALIGN_HALFWORD
+#define DMA_MAX_SZE                     0xFFFF
 
-#define I2S3_IRQHandler               DMA1_Stream7_IRQHandler
+#define I2S3_IRQHandler                 DMA1_Stream7_IRQHandler
 
 /* Select the interrupt preemption priority and subpriority for the DMA interrupt */
-#define AUDIO_OUT_IRQ_PREPRIO         5   /* Select the preemption priority level(0 is the highest) */
+#define AUDIO_OUT_IRQ_PREPRIO           0x0E   /* Select the preemption priority level(0 is the highest) */
 
 /*------------------------------------------------------------------------------
-                       AUDIO IN CONFIGURATION
+                          AUDIO IN CONFIGURATION
 ------------------------------------------------------------------------------*/
 /* SPI Configuration defines */
-#define I2S2                           SPI2
-#define I2S2_CLK_ENABLE()              __SPI2_CLK_ENABLE()
-#define I2S2_SCK_PIN                   GPIO_PIN_10
-#define I2S2_SCK_GPIO_PORT             GPIOB
-#define I2S2_SCK_GPIO_CLK_ENABLE()     __GPIOB_CLK_ENABLE()
-#define I2S2_SCK_AF                    GPIO_AF5_SPI2
+#define I2S2                            SPI2
+#define I2S2_CLK_ENABLE()               __HAL_RCC_SPI2_CLK_ENABLE()
+#define I2S2_CLK_DISABLE()              __HAL_RCC_SPI2_CLK_DISABLE()
+#define I2S2_SCK_PIN                    GPIO_PIN_10
+#define I2S2_SCK_GPIO_PORT              GPIOB
+#define I2S2_SCK_GPIO_CLK_ENABLE()      __HAL_RCC_GPIOB_CLK_ENABLE()
+#define I2S2_SCK_AF                     GPIO_AF5_SPI2
 
-#define I2S2_MOSI_PIN                  GPIO_PIN_3
-#define I2S2_MOSI_GPIO_PORT            GPIOC
-#define I2S2_MOSI_GPIO_CLK_ENABLE()    __GPIOC_CLK_ENABLE()
-#define I2S2_MOSI_AF                   GPIO_AF5_SPI2
+#define I2S2_MOSI_PIN                   GPIO_PIN_3
+#define I2S2_MOSI_GPIO_PORT             GPIOC
+#define I2S2_MOSI_GPIO_CLK_ENABLE()     __HAL_RCC_GPIOC_CLK_ENABLE()
+#define I2S2_MOSI_AF                    GPIO_AF5_SPI2
 
 /* I2S DMA Stream Rx definitions */
-#define I2S2_DMAx_CLK_ENABLE()        __DMA1_CLK_ENABLE()
-#define I2S2_DMAx_STREAM              DMA1_Stream3
-#define I2S2_DMAx_CHANNEL             DMA_CHANNEL_0
-#define I2S2_DMAx_IRQ                 DMA1_Stream3_IRQn
-#define I2S2_DMAx_PERIPH_DATA_SIZE    DMA_PDATAALIGN_HALFWORD
-#define I2S2_DMAx_MEM_DATA_SIZE       DMA_MDATAALIGN_HALFWORD
+#define I2S2_DMAx_CLK_ENABLE()          __HAL_RCC_DMA1_CLK_ENABLE()
+#define I2S2_DMAx_CLK_DISABLE()         __HAL_RCC_DMA1_CLK_DISABLE()
+#define I2S2_DMAx_STREAM                DMA1_Stream3
+#define I2S2_DMAx_CHANNEL               DMA_CHANNEL_0
+#define I2S2_DMAx_IRQ                   DMA1_Stream3_IRQn
+#define I2S2_DMAx_PERIPH_DATA_SIZE      DMA_PDATAALIGN_HALFWORD
+#define I2S2_DMAx_MEM_DATA_SIZE         DMA_MDATAALIGN_HALFWORD
    
-#define I2S2_IRQHandler               DMA1_Stream3_IRQHandler
-  
+#define I2S2_IRQHandler                 DMA1_Stream3_IRQHandler
+
 /* Select the interrupt preemption priority and subpriority for the IT/DMA interrupt */
-#define AUDIO_IN_IRQ_PREPRIO                    6   /* Select the preemption priority level(0 is the highest) */
+#define AUDIO_IN_IRQ_PREPRIO            0x0F   /* Select the preemption priority level(0 is the highest) */
 
 /*------------------------------------------------------------------------------
              CONFIGURATION: Audio Driver Configuration parameters
@@ -166,7 +170,7 @@
   * @}
   */ 
 
-/** @defgroup STM32F411E_DISCOVERY_AUDIO_Exported_Variables
+/** @defgroup STM32F411E_DISCOVERY_AUDIO_Exported_Variables STM32F411E DISCOVERY AUDIO Exported Variables
   * @{
   */ 
 extern __IO uint16_t AudioInVolume;
@@ -174,7 +178,7 @@ extern __IO uint16_t AudioInVolume;
   * @}
   */ 
 
-/** @defgroup STM32F411E_DISCOVERY_AUDIO_Exported_Macros
+/** @defgroup STM32F411E_DISCOVERY_AUDIO_Exported_Macros STM32F411E DISCOVERY AUDIO Exported Macros
   * @{
   */
 #define DMA_MAX(_X_)                (((_X_) <= DMA_MAX_SZE)? (_X_):DMA_MAX_SZE)
@@ -182,7 +186,7 @@ extern __IO uint16_t AudioInVolume;
   * @}
   */
 
-/** @defgroup STM32F411E_DISCOVERY_AUDIO_OUT_Exported_Functions
+/** @defgroup STM32F411E_DISCOVERY_AUDIO_OUT_Exported_Functions STM32F411E DISCOVERY AUDIO OUT Exported Functions
   * @{
   */ 
 uint8_t BSP_AUDIO_OUT_Init(uint16_t OutputDevice, uint8_t Volume, uint32_t AudioFreq);
@@ -207,11 +211,17 @@ void    BSP_AUDIO_OUT_HalfTransfer_CallBack(void);
    error occurs. */
 void    BSP_AUDIO_OUT_Error_CallBack(void);
 
+/* These function can be modified in case the current settings (e.g. DMA stream)
+   need to be changed for specific application needs */
+void  BSP_AUDIO_OUT_ClockConfig(I2S_HandleTypeDef *hi2s, uint32_t AudioFreq, void *Params);
+void  BSP_AUDIO_OUT_MspInit(I2S_HandleTypeDef *hi2s, void *Params);
+void  BSP_AUDIO_OUT_MspDeInit(I2S_HandleTypeDef *hi2s, void *Params);
+
 /**
   * @}
   */
 
-/** @defgroup STM32F411E_DISCOVERY_AUDIO_IN_Exported_Functions
+/** @defgroup STM32F411E_DISCOVERY_AUDIO_IN_Exported_Functions STM32F411E DISCOVERY AUDIO IN Exported Functions
   * @{
   */ 
 uint8_t BSP_AUDIO_IN_Init(uint32_t AudioFreq, uint32_t BitRes, uint32_t ChnlNbr);
@@ -231,6 +241,12 @@ void    BSP_AUDIO_IN_HalfTransfer_CallBack(void);
 /* This function is called when an Interrupt due to transfer error on or peripheral
    error occurs. */
 void    BSP_AUDIO_IN_Error_Callback(void);
+
+/* These function can be modified in case the current settings (e.g. DMA stream)
+   need to be changed for specific application needs */
+void  BSP_AUDIO_IN_ClockConfig(I2S_HandleTypeDef *hi2s, uint32_t AudioFreq, void *Params);   
+void  BSP_AUDIO_IN_MspInit(I2S_HandleTypeDef *hi2s, void *Params);
+void  BSP_AUDIO_IN_MspDeInit(I2S_HandleTypeDef *hi2s, void *Params);
 
 /**
   * @}

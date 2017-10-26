@@ -2,30 +2,49 @@
   ******************************************************************************
   * @file    LibJPEG/LibJPEG_Decoding/Src/main.c 
   * @author  MCD Application Team
-  * @version V1.3.2
-  * @date    13-November-2015 
+  * @version V1.4.0
+  * @date    17-February-2017 
   * @brief   Main program body
   *          This sample code shows how to decompress JPEG file.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright © 2017 STMicroelectronics International N.V. 
+  * All rights reserved.</center></h2>
   *
-  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-  * You may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at:
+  * Redistribution and use in source and binary forms, with or without 
+  * modification, are permitted, provided that the following conditions are met:
   *
-  *        http://www.st.com/software_license_agreement_liberty_v2
+  * 1. Redistribution of source code must retain the above copyright notice, 
+  *    this list of conditions and the following disclaimer.
+  * 2. Redistributions in binary form must reproduce the above copyright notice,
+  *    this list of conditions and the following disclaimer in the documentation
+  *    and/or other materials provided with the distribution.
+  * 3. Neither the name of STMicroelectronics nor the names of other 
+  *    contributors to this software may be used to endorse or promote products 
+  *    derived from this software without specific written permission.
+  * 4. This software, including modifications and/or derivative works of this 
+  *    software, must execute solely and exclusively on microcontroller or
+  *    microprocessor devices manufactured by or for STMicroelectronics.
+  * 5. Redistribution and use of this software other than as permitted under 
+  *    this license is void and will automatically terminate your rights under 
+  *    this license. 
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
+  * THIS SOFTWARE IS PROVIDED BY STMICROELECTRONICS AND CONTRIBUTORS "AS IS" 
+  * AND ANY EXPRESS, IMPLIED OR STATUTORY WARRANTIES, INCLUDING, BUT NOT 
+  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+  * PARTICULAR PURPOSE AND NON-INFRINGEMENT OF THIRD PARTY INTELLECTUAL PROPERTY
+  * RIGHTS ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED BY LAW. IN NO EVENT 
+  * SHALL STMICROELECTRONICS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, 
+  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
+  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
   */
-
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
@@ -103,12 +122,15 @@ int main(void)
       switch(Appli_state)
       {
       case APPLICATION_START:
-        
+          
         /* Open the JPG image with read access */
         if(f_open(&MyFile, "image.jpg", FA_READ) == FR_OK)
         {
           /* Decode the jpg image file */
           jpeg_decode(&MyFile, IMAGE_WIDTH, _aucLine, Jpeg_CallbackFunction);
+            
+          /* Close the JPG image */
+          f_close(&MyFile);
         }
         
         Appli_state = APPLICATION_IDLE;
@@ -192,7 +214,7 @@ static uint8_t Jpeg_CallbackFunction(uint8_t* Row, uint32_t DataLength)
   /* Foreground Configuration */
   DMA2DHandle.LayerCfg[1].AlphaMode = DMA2D_NO_MODIF_ALPHA;
   DMA2DHandle.LayerCfg[1].InputAlpha = 0xFF;
-  DMA2DHandle.LayerCfg[1].InputColorMode = CM_RGB888;
+  DMA2DHandle.LayerCfg[1].InputColorMode = DMA2D_INPUT_RGB888;
   DMA2DHandle.LayerCfg[1].InputOffset = 0;
   
   DMA2DHandle.Instance = DMA2D; 
@@ -240,11 +262,19 @@ static void USBH_UserProcess  (USBH_HandleTypeDef *phost, uint8_t id)
   { 
   case HOST_USER_DISCONNECTION:
     Appli_state = APPLICATION_IDLE;
-    if (f_mount(&USBDISK_FatFs, "", 0) != FR_OK)
+    if (f_mount(0, "", 0) != FR_OK)
     {
       /* FatFs Initialization Error */
     }
     break;
+  
+  case HOST_USER_CONNECTION:
+    Appli_state = APPLICATION_IDLE;
+    if (f_mount(&USBDISK_FatFs, "", 0) != FR_OK)
+    {
+      /* FatFs Initialization Error */
+    }
+    break;    
     
   case HOST_USER_CLASS_ACTIVE:
     Appli_state = APPLICATION_START;

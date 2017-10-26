@@ -2,11 +2,11 @@
   @page TIM_OnePulse TIM One Pulse example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    TIM/TIM_OnePulse/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the TIM One Pulse example.      
   ******************************************************************************
   *
@@ -100,10 +100,10 @@ Configuration of TIM5 in One Pulse Mode
   - This example runs on STM32F429xx devices.
   - In this example, the clock is set to 180 MHz.
     
-  - This example has been tested with NUCLEO-429ZI  Rev.B board and can be
+  - This example has been tested with NUCLEO-F429ZI  Rev.B board and can be
     easily tailored to any other supported device and development board.
 
-  - NUCLEO-429ZI  Rev.B Set-up
+  - NUCLEO-F429ZI  Rev.B Set-up
   - Connect the external signal to the TIM3_CH2 pin (PB.05) (CN7, pin 13)
   - Connect the TIM3_CH1 pin(PB.04) (CN7, pin 19) to an oscilloscope to monitor the waveform.  
 

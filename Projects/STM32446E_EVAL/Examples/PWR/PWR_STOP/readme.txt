@@ -2,11 +2,11 @@
   @page PWR_STOP Power Stop Mode Example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    PWR/PWR_STOP/readme.txt 
   * @author  MCD Application Team
-  * @version V1.1.2
-  * @date    13-November-2015
+  * @version V1.2.0
+  * @date    17-February-2017
   * @brief   Description of the Power Stop Mode example.
   ******************************************************************************
   *
@@ -37,12 +37,8 @@
 
 @par Example Description 
 
-
-This example shows how to enter Stop mode and wake up from this mode by using the 
-RTC Wakeup timer event or an interrupt.
- 
-This example shows how to enter the system to STOP mode and wake-up from this
-mode using Key push button EXTI15_10.
+This example shows how to enter Stop mode and wake up from this mode 
+by using Key push button EXTI15_10.
 
 In the associated software
   - the system clock is set to 180 MHz.
@@ -58,7 +54,9 @@ LED1 is used to monitor the system state as following:
 - LED1 is OFF: System is in STOP mode.
 - LED1 is ON: System is in RUN mode.
 
-This behavior is repeated in an infinite loop.
+User may select either Stop mode or under drive stop mode by uncommenting the corresponding line inside the main.h file
+  /* #define STOP_MODE            */
+  /* #define STOP_UNDERDRIVE_MODE */
  
     - STOP Mode
     ============ 
@@ -67,6 +65,17 @@ This behavior is repeated in an infinite loop.
           - HSI as SysClk after Wake Up
           - No IWDG
           - Wakeup using EXTI Line (User push-button PC.13)
+          
+    - Under-Drive STOP Mode
+    ======================== 
+          - Regulator in LP mode
+          - Under drive feature enabled
+          - VREFINT OFF with fast wakeup enabled
+          - HSI as SysClk after Wake Up
+          - No IWDG
+          - Wakeup using EXTI Line (User push-button PC.13)
+
+This behavior is repeated in an infinite loop.
 
 @note This example can not be used in DEBUG mode, this is due to the fact 
       that the Cortex-M4 core is no longer clocked during low power mode 

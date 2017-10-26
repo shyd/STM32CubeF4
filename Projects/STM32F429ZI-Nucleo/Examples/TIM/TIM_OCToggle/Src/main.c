@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    TIM/TIM_OCToggle/Src/main.c
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   This example shows how to configure the Timer to generate four different 
   *          signals with four different frequencies.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -105,7 +105,7 @@ int main(void)
 
   To get TIM3 counter clock at 9 MHz, the prescaler is computed as follows:
   Prescaler = (TIM3CLK / TIM3 counter clock) - 1
-  Prescaler = (SystemCoreClock/4 /9000000) - 1
+  Prescaler = (SystemCoreClock/2 /9000000) - 1
 
   CC1 update rate = TIM3 counter clock / uhCCR1_Val
                   = 9 MHz/23076 = 390 Hz

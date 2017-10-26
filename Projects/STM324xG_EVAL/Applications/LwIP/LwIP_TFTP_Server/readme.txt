@@ -2,16 +2,16 @@
   @page LwIP_TFTP_Server LwIP TFTP Server application
  
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    LwIP/LwIP_TFTP_Server/readme.txt
   * @author  MCD Application Team
-  * @version V1.3.2
-  * @date    13-November-2015
+  * @version V1.4.0
+  * @date    04-November-2016
   * @brief   Description of the LwIP TFTP Server application.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
   * You may not use this file except in compliance with the License.
@@ -28,14 +28,14 @@
   ******************************************************************************
    @endverbatim
 
-@par Description
+@par Application Description
 
 This application guides STM32Cube HAL API users to run a tftp server demonstration
 for STM32F4xx devices.
 
 User has to use a PC SW tool (ex. TFTPD32) to send/receive data to/from micro SD 
 card installed in STM324xG-EVAL board 
-
+                                                                                        
 If the LCD is used (#define USE_LCD in main.h), log messages will be displayed 
 to inform user about ethernet cable status and the IP address value, else this 
 will be ensured by LEDs:
@@ -45,10 +45,16 @@ will be ensured by LEDs:
 If a DHCP server is available, a dynamic IP address can be allocated by enabling 
 the DHCP process (#define USE_DHCP in main.h) 
 
-Note: In this application the Ethernet Link ISR need the System tick interrupt 
-to configure the Ethernet MAC, so the Ethernet Link interrupt priority must be 
-set lower (numerically greater) than the Systick interrupt priority to ensure 
-that the System tick increments while executing the Ethernet Link ISR.
+Note: Files to be transferred must have a short file name format (8.3), 
+      maximum 8 characters for name and 3 characters for type, example:
+       image.jpg => valid name
+       image.jpeg => invalid name 
+       image1234.jpg => invalid name      
+
+Note: In this application the Ethernet Link ISR need the HAL time base to configure 
+the Ethernet MAC, so the Ethernet Link interrupt priority must be set lower (numerically greater) 
+than the HAL tick interrupt priority to ensure that the System tick increments while executing 
+the Ethernet Link ISR.
 
 @note Care must be taken when using HAL_Delay(), this function provides accurate delay (in milliseconds)
       based on variable incremented in SysTick ISR. This implies that if HAL_Delay() is called from

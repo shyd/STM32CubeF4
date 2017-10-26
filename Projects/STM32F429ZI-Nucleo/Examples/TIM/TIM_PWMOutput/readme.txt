@@ -2,11 +2,11 @@
   @page TIM_PWMOutput TIM PWM Output example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    TIM/TIM_PWMOutput/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the PWM signals generation using TIM3
   ******************************************************************************
   *
@@ -93,7 +93,7 @@ The PWM waveforms can be displayed using an oscilloscope.
     board and can be easily tailored to any other supported device 
     and development board.      
 
-  - NUCLEO-429ZI  Rev.B Set-up
+  - NUCLEO-F429ZI  Rev.B Set-up
    Connect the following pins to an oscilloscope to monitor the different waveforms:
         - TIM3_CH1 : PB.04 (pin 19 in CN7 connector)
         - TIM3_CH2 : PB.05 (pin 13 in CN7 connector)

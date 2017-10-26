@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32f429i_discovery_sdram.h
   * @author  MCD Application Team
-  * @version V2.1.2
-  * @date    02-March-2015
+  * @version V2.1.5
+  * @date    27-January-2017
   * @brief   This file contains all the functions prototypes for the 
   *          stm32f429i_discovery_sdram.c driver.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -55,25 +55,32 @@
   * @{
   */
  
-/** @defgroup STM32F429I_DISCOVERY_SDRAM
+/** @addtogroup STM32F429I_DISCOVERY_SDRAM
   * @{
   */
   
-/** @defgroup STM32F429I_DISCOVERY_SDRAM_Exported_Types
+/** @defgroup STM32F429I_DISCOVERY_SDRAM_Exported_Types STM32F429I DISCOVERY SDRAM Exported Types
   * @{
   */
 /**
   * @}
   */
 
-/** @defgroup STM32F429I_DISCOVERY_SDRAM_Exported_Constants
+/** @defgroup STM32F429I_DISCOVERY_SDRAM_Exported_Constants STM32F429I DISCOVERY SDRAM Exported Constants
   * @{
   */ 
+
+/**
+  * @brief  SDRAM status structure definition
+  */
+#define   SDRAM_OK         ((uint8_t)0x00)
+#define   SDRAM_ERROR      ((uint8_t)0x01)
+  
 /**
   * @brief  FMC SDRAM Bank address
   */   
 #define SDRAM_DEVICE_ADDR         ((uint32_t)0xD0000000)
-#define SDRAM_DEVICE_SIZE         ((uint32_t)0x800000)  /* SDRAM device size in MBytes */
+#define SDRAM_DEVICE_SIZE         ((uint32_t)0x800000)  /* SDRAM device size in Bytes */
   
 /**
   * @brief  FMC SDRAM Memory Width
@@ -110,7 +117,7 @@
 #define SDRAM_TIMEOUT           ((uint32_t)0xFFFF)
 
 /* DMA definitions for SDRAM DMA transfer */
-#define __DMAx_CLK_ENABLE       __DMA2_CLK_ENABLE
+#define __DMAx_CLK_ENABLE       __HAL_RCC_DMA2_CLK_ENABLE
 #define SDRAM_DMAx_CHANNEL      DMA_CHANNEL_0
 #define SDRAM_DMAx_STREAM       DMA2_Stream0
 #define SDRAM_DMAx_IRQn         DMA2_Stream0_IRQn
@@ -134,24 +141,29 @@
   * @}
   */
   
-/** @defgroup STM32F429I_DISCOVERY_SDRAM_Exported_Macro
+/** @defgroup STM32F429I_DISCOVERY_SDRAM_Exported_Macro STM32F429I DISCOVERY SDRAM Exported Macro
   * @{
   */
 /**
   * @}
   */ 
 
-/** @defgroup STM32F429I_DISCOVERY_SDRAM_Exported_Functions
+/** @defgroup STM32F429I_DISCOVERY_SDRAM_Exported_Functions STM32F429I DISCOVERY SDRAM Exported Functions
   * @{
   */
-void              BSP_SDRAM_Init(void);
+uint8_t           BSP_SDRAM_Init(void);
 void              BSP_SDRAM_Initialization_sequence(uint32_t RefreshCount);
-void              BSP_SDRAM_ReadData(uint32_t uwStartAddress, uint32_t* pData, uint32_t uwDataSize);
-void              BSP_SDRAM_ReadData_DMA(uint32_t uwStartAddress, uint32_t* pData, uint32_t uwDataSize);
-void              BSP_SDRAM_WriteData(uint32_t uwStartAddress, uint32_t* pData, uint32_t uwDataSize);
-void              BSP_SDRAM_WriteData_DMA(uint32_t uwStartAddress, uint32_t* pData, uint32_t uwDataSize);
-HAL_StatusTypeDef BSP_SDRAM_Sendcmd(FMC_SDRAM_CommandTypeDef *SdramCmd);
+uint8_t           BSP_SDRAM_ReadData(uint32_t uwStartAddress, uint32_t* pData, uint32_t uwDataSize);
+uint8_t           BSP_SDRAM_ReadData_DMA(uint32_t uwStartAddress, uint32_t* pData, uint32_t uwDataSize);
+uint8_t           BSP_SDRAM_WriteData(uint32_t uwStartAddress, uint32_t* pData, uint32_t uwDataSize);
+uint8_t           BSP_SDRAM_WriteData_DMA(uint32_t uwStartAddress, uint32_t* pData, uint32_t uwDataSize);
+uint8_t           BSP_SDRAM_Sendcmd(FMC_SDRAM_CommandTypeDef *SdramCmd);
 void              BSP_SDRAM_DMA_IRQHandler(void);
+
+/* These function can be modified in case the current settings (e.g. DMA stream)
+   need to be changed for specific application needs */
+void    BSP_SDRAM_MspInit(SDRAM_HandleTypeDef  *hsdram, void *Params);
+void    BSP_SDRAM_MspDeInit(SDRAM_HandleTypeDef  *hsdram, void *Params);
 
 /**
   * @}

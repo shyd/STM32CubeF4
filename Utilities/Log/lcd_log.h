@@ -2,13 +2,13 @@
   ******************************************************************************
   * @file    lcd_log.h
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    18-February-2014
+  * @version V1.0.1
+  * @date    18-November-2016
   * @brief   header for the lcd_log.c file
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2014 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -95,18 +95,24 @@ typedef struct _LCD_LOG_line
 /** @defgroup LCD_LOG_Exported_Macros
   * @{
   */ 
-#define  LCD_ErrLog(...)    LCD_LineColor = LCD_COLOR_RED;\
-                            printf("ERROR: ") ;\
-                            printf(__VA_ARGS__);\
-                            LCD_LineColor = LCD_LOG_DEFAULT_COLOR
+#define  LCD_ErrLog(...)    do { \
+                                 LCD_LineColor = LCD_COLOR_RED;\
+                                 printf("ERROR: ") ;\
+                                 printf(__VA_ARGS__);\
+                                 LCD_LineColor = LCD_LOG_DEFAULT_COLOR;\
+                               }while (0)
 
-#define  LCD_UsrLog(...)    LCD_LineColor = LCD_LOG_TEXT_COLOR;\
-                            printf(__VA_ARGS__);\
+#define  LCD_UsrLog(...)    do { \
+	                             LCD_LineColor = LCD_LOG_TEXT_COLOR;\
+                                 printf(__VA_ARGS__);\
+                               } while (0)
 
 
-#define  LCD_DbgLog(...)    LCD_LineColor = LCD_COLOR_CYAN;\
-                            printf(__VA_ARGS__);\
-                            LCD_LineColor = LCD_LOG_DEFAULT_COLOR
+#define  LCD_DbgLog(...)    do { \
+                                 LCD_LineColor = LCD_COLOR_CYAN;\
+                                 printf(__VA_ARGS__);\
+                                 LCD_LineColor = LCD_LOG_DEFAULT_COLOR;\
+                               }while (0)
 /**
   * @}
   */ 

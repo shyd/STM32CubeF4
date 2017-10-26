@@ -2,13 +2,13 @@
   ******************************************************************************
   * @file    DCMI/DCMI_SnapshotMode/Inc/stm32f4xx_it.h
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   This file contains the headers of the interrupt handlers.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -60,7 +60,6 @@ void PendSV_Handler(void);
 void SysTick_Handler(void);
 void DMA2_Stream1_IRQHandler(void);
 void DCMI_IRQHandler(void);
-
 void LTDC_IRQHandler(void);
 void LTDC_ER_IRQHandler(void);
 void DSI_IRQHandler(void);

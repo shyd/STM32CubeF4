@@ -2,11 +2,11 @@
   @page CORTEXM_SysTick CORTEXM SysTick example
 
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    CORTEXM/CORTEXM_SysTick/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the CortexM SysTick example.
   ******************************************************************************
   *
@@ -37,8 +37,8 @@
 
 @par Example Description 
   
-This example shows how to use the default SysTick configuration with a 1 ms timebase 
-to toggle LEDs.
+This example shows how to use the default configuration of SysTick with a time base 
+equal to 1 ms in order to insert a delay between LEDs toggling.
 
   A "HAL_Delay" function is implemented based on the SysTick end-of-count event.
 
@@ -65,7 +65,7 @@ to toggle LEDs.
 
   - This example runs on STM32F429xx devices.
     
-  - This example has been tested with NUCLEO-429ZI  Rev.B board and can be
+  - This example has been tested with NUCLEO-F429ZI  Rev.B board and can be
     easily tailored to any other supported device and development board.
 
 @par How to use it ? 

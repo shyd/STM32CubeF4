@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file      startup_stm32f469xx.s
   * @author    MCD Application Team
-  * @version   V1.0.2
-  * @date      13-November-2015
+  * @version   V1.1.0
+  * @date      17-February-2017
   * @brief     STM32F469xx Devices vector table for Atollic TrueSTUDIO toolchain. 
   *            This module performs:
   *                - Set the initial SP
@@ -16,7 +16,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -63,8 +63,7 @@ defined in linker script */
 /* end address for the .bss section. defined in linker script */
 .word  _ebss
 /* stack used for SystemInit_ExtMemCtl; always internal RAM used */
-/* stack used for SystemInit & SystemInit_ExtMemCtl*/
-.equ __initial_spTop, 0x20000400
+
 /**
  * @brief  This is the code that gets called when the processor first
  *          starts execution following a reset event. Only the absolutely
@@ -78,7 +77,7 @@ defined in linker script */
   .weak  Reset_Handler
   .type  Reset_Handler, %function
 Reset_Handler:  
- ldr   sp, =__initial_spTop     /* set stack pointer */
+  ldr   sp, =_estack     /* set stack pointer */
 
 /* Copy the data segment initializers from flash to SRAM */  
   movs  r1, #0
@@ -112,11 +111,6 @@ LoopFillZerobss:
   bl  SystemInit   
 /* Call static constructors */
     bl __libc_init_array
-
-   /* Restore original stack pointer. */
-  ldr     r0, =_estack
-  msr     MSP, r0
-
 /* Call the application's entry point.*/
   bl  main
   bx  lr    
@@ -146,7 +140,7 @@ Infinite_Loop:
   .size  g_pfnVectors, .-g_pfnVectors 
   
   g_pfnVectors:
-  .word  __initial_spTop /* Use internal RAM for stack for calling SystemInit. */
+  .word  _estack
   .word  Reset_Handler
 
   .word  NMI_Handler

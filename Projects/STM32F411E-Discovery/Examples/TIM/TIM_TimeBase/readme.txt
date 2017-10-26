@@ -2,11 +2,11 @@
   @page TIM_TimeBase TIM_TimeBase example
 
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    TIM/TIM_TimeBase/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    13-November-2015
+  * @version V1.0.4
+  * @date    17-February-2017
   * @brief   Description of the TIM Time Base example
   ******************************************************************************
   *
@@ -48,7 +48,7 @@ since APB1 prescaler is different from 1.
 To get TIM3 counter clock at 10 KHz, the Prescaler is computed as following:
    - Prescaler = (TIM3CLK / TIM3 counter clock) - 1
 
-SystemCoreClock is set to 168MHz for STM32F4xx Devices.
+SystemCoreClock is set to 100MHz for STM32F4xx Devices.
 
 The TIM3 ARR register value is equal to 10000 - 1, 
 Update rate = TIM3 counter clock / (Period + 1) = 1 Hz,

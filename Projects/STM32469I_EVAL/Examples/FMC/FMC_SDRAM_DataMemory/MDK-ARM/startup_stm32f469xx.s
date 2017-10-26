@@ -1,8 +1,8 @@
-;******************** (C) COPYRIGHT 2015 STMicroelectronics ********************
+;******************** (C) COPYRIGHT 2017 STMicroelectronics ********************
 ;* File Name          : startup_stm32f469xx.s
 ;* Author             : MCD Application Team
-;* Version            : V1.0.2
-;* Date               : 13-November-2015
+;* Version            : V1.1.0
+;* Date               : 17-February-2017
 ;* Description        : STM32F469x devices vector table for MDK-ARM toolchain. 
 ;*                      This module performs:
 ;*                      - Set the initial SP
@@ -74,7 +74,7 @@ __heap_limit
                 EXPORT  __Vectors_End
                 EXPORT  __Vectors_Size
 
-__Vectors       DCD     __initial_spTop              ; Top of Stack
+__Vectors       DCD     __initial_spTop            ; Top of Stack
                 DCD     Reset_Handler              ; Reset Handler
                 DCD     NMI_Handler                ; NMI Handler
                 DCD     HardFault_Handler          ; Hard Fault Handler

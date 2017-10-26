@@ -2,15 +2,15 @@
   ******************************************************************************
   * @file    USB_Device/DualCore_Standalone/Src/stm32f4xx_it.c
   * @author  MCD Application Team
-  * @version V1.3.2
-  * @date    13-November-2015
+  * @version V1.4.0
+  * @date    17-February-2017
   * @brief   Main Interrupt Service Routines.
   *          This file provides template for all exceptions handler and 
   *          peripherals interrupt service routine.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>>
   *
   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
   * You may not use this file except in compliance with the License.
@@ -39,6 +39,7 @@ extern PCD_HandleTypeDef hpcd_FS;
 extern PCD_HandleTypeDef hpcd_HS;
 extern PCD_HandleTypeDef hpcd;
 extern USBD_HandleTypeDef USBD_Device_FS;
+extern SD_HandleTypeDef uSdHandle;
 uint8_t HID_Buffer[4];
 #define CURSOR_STEP     5
 /* Private function prototypes -----------------------------------------------*/
@@ -156,7 +157,6 @@ void SysTick_Handler(void)
     }
     counter =0;
   }
-  Toggle_Leds();
 }
 
 /******************************************************************************/
@@ -230,7 +230,7 @@ void OTG_FS_IRQHandler(void)
   */
 void SDIO_IRQHandler(void)
 {
-  BSP_SD_IRQHandler();
+  HAL_SD_IRQHandler(&uSdHandle);
 }
 
 /**
@@ -238,9 +238,9 @@ void SDIO_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void DMA2_Stream3_IRQHandler(void)
+void BSP_SD_DMA_Rx_IRQHandler(void)
 {
-  BSP_SD_DMA_Rx_IRQHandler();
+  HAL_DMA_IRQHandler(uSdHandle.hdmarx);
 }
 
 /**
@@ -248,11 +248,10 @@ void DMA2_Stream3_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void DMA2_Stream6_IRQHandler(void)
+void BSP_SD_DMA_Tx_IRQHandler(void)
 {
-  BSP_SD_DMA_Tx_IRQHandler(); 
+  HAL_DMA_IRQHandler(uSdHandle.hdmatx);
 }
-
 
 /**
   * @brief  This function handles PPP interrupt request.

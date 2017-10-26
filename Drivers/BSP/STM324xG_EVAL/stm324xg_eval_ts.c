@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm324xg_eval_ts.c
   * @author  MCD Application Team
-  * @version V2.1.0
-  * @date    14-August-2015
+  * @version V3.0.0
+  * @date    27-January-2017
   * @brief   This file provides a set of functions needed to manage the touch 
   *          screen on STM324xG-EVAL evaluation board.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -81,32 +81,11 @@
   * @{
   */ 
   
-/** @defgroup STM324xG_EVAL_TS
+/** @defgroup STM324xG_EVAL_TS STM324xG EVAL TS
   * @{
   */   
 
-/** @defgroup STM324xG_EVAL_TS_Private_Types_Definitions
-  * @{
-  */ 
-/**
-  * @}
-  */ 
-
-/** @defgroup STM324xG_EVAL_TS_Private_Defines
-  * @{
-  */ 
-/**
-  * @}
-  */ 
-
-/** @defgroup STM324xG_EVAL_TS_Private_Macros
-  * @{
-  */ 
-/**
-  * @}
-  */ 
-
-/** @defgroup STM324xG_EVAL_TS_Private_Variables
+/** @defgroup STM324xG_EVAL_TS_Private_Variables STM324xG EVAL TS Private Variables
   * @{
   */ 
 static TS_DrvTypeDef *ts_driver;
@@ -116,14 +95,14 @@ static uint8_t  ts_orientation;
   * @}
   */
 
-/** @defgroup STM324xG_EVAL_TS_Private_Function_Prototypes
+/** @defgroup STM324xG_EVAL_TS_Private_Function_Prototypes STM324xG EVAL TS Private Function Prototypes
   * @{
   */ 
 /**
   * @}
   */ 
 
-/** @defgroup STM324xG_EVAL_TS_Private_Functions
+/** @defgroup STM324xG_EVAL_TS_Private_Functions STM324xG EVAL TS Private Functions
   * @{
   */ 
 
@@ -131,7 +110,7 @@ static uint8_t  ts_orientation;
   * @brief  Initializes and configures the touch screen functionalities and 
   *         configures all necessary hardware resources (GPIOs, clocks..).
   * @param  xSize: Maximum X size of the TS area on LCD
-  *         ySize: Maximum Y size of the TS area on LCD  
+  * @param  ySize: Maximum Y size of the TS area on LCD  
   * @retval TS_OK if all initializations are OK. Other value if error.
   */
 uint8_t BSP_TS_Init(uint16_t xSize, uint16_t ySize)
@@ -162,7 +141,6 @@ uint8_t BSP_TS_Init(uint16_t xSize, uint16_t ySize)
 
 /**
   * @brief  Configures and enables the touch screen interrupts.
-  * @param  None
   * @retval TS_OK if all initializations are OK. Other value if error.
   */
 uint8_t BSP_TS_ITConfig(void)
@@ -175,7 +153,6 @@ uint8_t BSP_TS_ITConfig(void)
 
 /**
   * @brief  Gets the touch screen interrupt status.
-  * @param  None
   * @retval TS_OK if all initializations are OK. Other value if error.
   */
 uint8_t BSP_TS_ITGetStatus(void)
@@ -236,8 +213,6 @@ uint8_t BSP_TS_GetState(TS_StateTypeDef *TS_State)
 
 /**
   * @brief  Clears all touch screen interrupts.
-  * @param  None
-  * @retval None
   */
 void BSP_TS_ITClear(void)
 {

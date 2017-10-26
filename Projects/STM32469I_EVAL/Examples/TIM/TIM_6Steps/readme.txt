@@ -2,11 +2,11 @@
   @page TIM_6steps Timers Synchronization example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    TIM/TIM_6steps/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the TIM 6 Steps example.
 
   ******************************************************************************
@@ -80,7 +80,7 @@ The following Table describes the TIM1 Channels states:
  Channel2  (PA.09)   _______________________||||||||||||||||_______________________________||||||||||||||||________
  Channel2N (PB.00)   |||||||||||||||________________________________|||||||||||||||________________________________
                                                     
- Channel3  (PA.10)   _______||||||||||||||||_______________________________||||||||||||||||________________________
+ Channel3  (PE.13)   _______||||||||||||||||_______________________________||||||||||||||||________________________
  Channel3N (PB.01)   ________________________________|||||||||||||||________________________________|||||||||||||||
    
 @endverbatim
@@ -102,7 +102,7 @@ The following Table describes the TIM1 Channels states:
 
   - This example runs on STM32F469xx/STM32F479xx devices.
 
-  - This example has been tested and validated with STMicroelectronics STM32469I-EVAL revB board and can be
+  - This example has been tested and validated with STMicroelectronics STM32469I-EVAL RevC board and can be
     easily tailored to any other supported device and development board.      
 
   - STM32469I-EVAL Set-up

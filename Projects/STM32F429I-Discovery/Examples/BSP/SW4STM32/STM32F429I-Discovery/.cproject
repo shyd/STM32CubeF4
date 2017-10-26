@@ -31,7 +31,7 @@
 								<option id="gnu.c.compiler.option.include.paths.1810793171" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="../../../Inc"/>
 									<listOptionValue builtIn="false" value="../../../../../../../Drivers/CMSIS/Device/ST/STM32F4xx/Include"/>
-									<listOptionValue builtIn="false" value="../../../../../../../Drivers/STM32F4xx_HAL_Driver/inc"/>
+									<listOptionValue builtIn="false" value="../../../../../../../Drivers/STM32F4xx_HAL_Driver/Inc"/>
 									<listOptionValue builtIn="false" value="../../../../../../../Drivers/BSP/STM32F429I-Discovery"/>
 									<listOptionValue builtIn="false" value="../../../../../../../Utilities/Log"/>
 									<listOptionValue builtIn="false" value=""/>

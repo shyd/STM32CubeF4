@@ -2,15 +2,15 @@
   ******************************************************************************
   * @file    DMA2D/DMA2D_MemToMemWithLCD/Src/main.c
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   This example provides a description of how to configure
   *          DMA2D peripheral in Memory to Memory transfer mode
   *          and display the result on LCD.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -191,7 +191,7 @@ static uint8_t CopyBlendedBufferToLcdFrameBuffer(void *pSrc, void *pDst, uint32_
   /* Foreground Configuration */
   hdma2d_eval.LayerCfg[1].AlphaMode = DMA2D_NO_MODIF_ALPHA;
   hdma2d_eval.LayerCfg[1].InputAlpha = 0xFF; /* fully opaque */
-  hdma2d_eval.LayerCfg[1].InputColorMode = CM_ARGB4444;
+  hdma2d_eval.LayerCfg[1].InputColorMode = DMA2D_INPUT_ARGB4444;
   hdma2d_eval.LayerCfg[1].InputOffset = 0;
 
   hdma2d_eval.Instance = DMA2D;
@@ -243,7 +243,7 @@ static void DMA2D_Config(void)
   /* Foreground Configuration : Layer 1 */
   Dma2dHandle.LayerCfg[1].AlphaMode = DMA2D_NO_MODIF_ALPHA;
   Dma2dHandle.LayerCfg[1].InputAlpha = 0xFF; /* Fully opaque */
-  Dma2dHandle.LayerCfg[1].InputColorMode = CM_ARGB4444; /* Background layer format is ARGB4444 : 16 bpp */
+  Dma2dHandle.LayerCfg[1].InputColorMode = DMA2D_INPUT_ARGB4444; /* Background layer format is ARGB4444 : 16 bpp */
   Dma2dHandle.LayerCfg[1].InputOffset = 0x0; /* No offset in input */
 
   Dma2dHandle.Instance = DMA2D;

@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32446e_eval_io.c
   * @author  MCD Application Team
-  * @version V1.1.0
-  * @date    14-August-2015
+  * @version V2.0.0
+  * @date    27-January-2017
   * @brief   This file provides a set of functions needed to manage the IO pins
   *          on STM32446E-EVAL evaluation board.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -82,32 +82,32 @@
   * @{
   */ 
   
-/** @defgroup STM32446E_EVAL_IO STM32446E-EVAL IO 
+/** @defgroup STM32446E_EVAL_IO STM32446E EVAL IO 
   * @{
   */   
 
-/** @defgroup STM32446E_EVAL_IO_Private_Types_Definitions STM32446E Eval Io Private TypesDef
+/** @defgroup STM32446E_EVAL_IO_Private_Types_Definitions STM32446E EVAL IO Private Types Definitions
   * @{
   */ 
 /**
   * @}
   */ 
 
-/** @defgroup STM32446E_EVAL_IO_Private_Defines STM32446E Eval Io Private Defines
+/** @defgroup STM32446E_EVAL_IO_Private_Defines STM32446E EVAL IO Private Defines
   * @{
   */ 
 /**
   * @}
   */ 
 
-/** @defgroup STM32446E_EVAL_IO_Private_Macros STM32446E Eval Io Private Macros
+/** @defgroup STM32446E_EVAL_IO_Private_Macros STM32446E EVAL IO Private Macros
   * @{
   */ 
 /**
   * @}
   */ 
 
-/** @defgroup STM32446E_EVAL_IO_Private_Variables STM32446E Eval Io Private Variables
+/** @defgroup STM32446E_EVAL_IO_Private_Variables STM32446E EVAL IO Private Variables
   * @{
   */ 
 static IO_DrvTypeDef *IoDrv = NULL;
@@ -117,14 +117,14 @@ static  uint8_t mfxstm32l152Identifier;
   * @}
   */
 
-/** @defgroup STM32446E_EVAL_IO_Private_Function_Prototypes STM32446E Eval Io Private Prototypes
+/** @defgroup STM32446E_EVAL_IO_Private_Function_Prototypes STM32446E EVAL IO Private Function Prototypes
   * @{
   */ 
 /**
   * @}
   */
 
-/** @defgroup STM32446E_EVAL_IO_Private_Functions STM32446E Eval Io Private Functions
+/** @defgroup STM32446E_EVAL_IO_Private_Functions STM32446E EVAL IO Private Functions
   * @{
   */ 
 
@@ -137,7 +137,6 @@ static  uint8_t mfxstm32l152Identifier;
   *         This implies that if BSP_IO_Init() is called from a peripheral ISR process,
   *         then the SysTick interrupt must have higher priority (numerically lower)
   *         than the peripheral interrupt. Otherwise the caller ISR process will be blocked.
-  * @param  None
   * @retval IO_OK if all initializations are OK. Other value if error.
   */
 uint8_t BSP_IO_Init(void)
@@ -173,7 +172,6 @@ uint8_t BSP_IO_Init(void)
   * @brief  DeInit allows Mfx Initialization to be executed again
   * @note   BSP_IO_Init() has no effect if the IoDrv is already initialized
   *         BSP_IO_DeInit() allows to erase the pointer such to allow init to be effective 
-  * @param  None
   * @retval IO_OK 
   */
 uint8_t BSP_IO_DeInit(void)
@@ -196,8 +194,6 @@ uint32_t BSP_IO_ITGetStatus(uint32_t IoPin)
 
 /**
   * @brief  Clears all the IO IT pending bits.
-  * @param  None
-  * @retval None
   */
 void BSP_IO_ITClear(void)
 {
@@ -269,7 +265,6 @@ uint8_t BSP_IO_ConfigIrqOutPin(uint8_t IoIrqOutPinPolarity, uint8_t IoIrqOutPinT
   * @param  IoPin: Selected pins to write. 
   *          This parameter can be any combination of the IO pins. 
   * @param  PinState: New pins state to write  
-  * @retval None
   */
 void BSP_IO_WritePin(uint32_t IoPin, BSP_IO_PinStateTypeDef PinState)
 {
@@ -293,7 +288,6 @@ uint32_t BSP_IO_ReadPin(uint32_t IoPin)
   * @param  IoPin: Selected pins to toggle. 
   *          This parameter can be any combination of the IO pins.  
   * @note   This function is only used to toggle one pin in the same time  
-  * @retval None
   */
 void BSP_IO_TogglePin(uint32_t IoPin)
 {

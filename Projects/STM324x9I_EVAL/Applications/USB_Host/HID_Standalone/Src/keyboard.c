@@ -2,42 +2,61 @@
   ******************************************************************************
   * @file    USB_Host/HID_Standalone/Src/keyboard.c 
   * @author  MCD Application Team
-  * @version V1.4.2
-  * @date    13-November-2015 
+  * @version V1.5.0
+  * @date    17-February-2017 
   * @brief   This file implements the HID keyboard functions
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics International N.V. 
+  * All rights reserved.</center></h2>
   *
-  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-  * You may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at:
+  * Redistribution and use in source and binary forms, with or without 
+  * modification, are permitted, provided that the following conditions are met:
   *
-  *        http://www.st.com/software_license_agreement_liberty_v2
+  * 1. Redistribution of source code must retain the above copyright notice, 
+  *    this list of conditions and the following disclaimer.
+  * 2. Redistributions in binary form must reproduce the above copyright notice,
+  *    this list of conditions and the following disclaimer in the documentation
+  *    and/or other materials provided with the distribution.
+  * 3. Neither the name of STMicroelectronics nor the names of other 
+  *    contributors to this software may be used to endorse or promote products 
+  *    derived from this software without specific written permission.
+  * 4. This software, including modifications and/or derivative works of this 
+  *    software, must execute solely and exclusively on microcontroller or
+  *    microprocessor devices manufactured by or for STMicroelectronics.
+  * 5. Redistribution and use of this software other than as permitted under 
+  *    this license is void and will automatically terminate your rights under 
+  *    this license. 
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
+  * THIS SOFTWARE IS PROVIDED BY STMICROELECTRONICS AND CONTRIBUTORS "AS IS" 
+  * AND ANY EXPRESS, IMPLIED OR STATUTORY WARRANTIES, INCLUDING, BUT NOT 
+  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+  * PARTICULAR PURPOSE AND NON-INFRINGEMENT OF THIRD PARTY INTELLECTUAL PROPERTY
+  * RIGHTS ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED BY LAW. IN NO EVENT 
+  * SHALL STMICROELECTRONICS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, 
+  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
+  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
   */
-
-/* Includes ------------------------------------------------------------------*/
+/* Includes ------------------------------------------------------------------ */
 #include "main.h"
 
-/* Private typedef -----------------------------------------------------------*/
-/* Private define ------------------------------------------------------------*/
+/* Private typedef ----------------------------------------------------------- */
+/* Private define ------------------------------------------------------------ */
 #define KYBRD_FIRST_COLUMN               (uint16_t)7
 #define KYBRD_LAST_COLUMN                (uint16_t)479
 #define KYBRD_FIRST_LINE                 (uint8_t) 70
 #define SMALL_FONT_COLUMN_WIDTH                    8
 #define SMALL_FONT_LINE_WIDTH                      15
 #define KYBRD_LAST_LINE                  (uint16_t)200
-/* Private macro -------------------------------------------------------------*/
-/* Private variables ---------------------------------------------------------*/
+/* Private macro ------------------------------------------------------------- */
+/* Private variables --------------------------------------------------------- */
 extern HID_DEMO_StateMachine hid_demo;
 extern uint8_t *DEMO_KEYBOARD_menu[];
 extern uint8_t prev_select;
@@ -45,10 +64,10 @@ extern uint32_t hid_demo_ready;
 uint8_t KeybrdCharXpos = 0;
 uint16_t KeybrdCharYpos = 0;
 
-/* Private function prototypes -----------------------------------------------*/
+/* Private function prototypes ----------------------------------------------- */
 static void USR_KEYBRD_Init(void);
 
-/* Private functions ---------------------------------------------------------*/
+/* Private functions --------------------------------------------------------- */
 
 /**
   * @brief  Manages Keyboard Menu Process.  
@@ -57,48 +76,48 @@ static void USR_KEYBRD_Init(void);
   */
 void HID_KeyboardMenuProcess(void)
 {
-  switch(hid_demo.keyboard_state)
+  switch (hid_demo.keyboard_state)
   {
   case HID_KEYBOARD_IDLE:
     hid_demo.keyboard_state = HID_KEYBOARD_START;
-    HID_SelectItem(DEMO_KEYBOARD_menu, 0);   
+    HID_SelectItem(DEMO_KEYBOARD_menu, 0);
     hid_demo.select = 0;
-    prev_select = 0;       
+    prev_select = 0;
     break;
-    
+
   case HID_KEYBOARD_WAIT:
-    if(hid_demo.select != prev_select)
+    if (hid_demo.select != prev_select)
     {
       prev_select = hid_demo.select;
       HID_SelectItem(DEMO_KEYBOARD_menu, hid_demo.select & 0x7F);
       /* Handle select item */
-      if(hid_demo.select & 0x80)
+      if (hid_demo.select & 0x80)
       {
         hid_demo.select &= 0x7F;
-        switch(hid_demo.select)
+        switch (hid_demo.select)
         {
-        case 0: 
+        case 0:
           hid_demo.keyboard_state = HID_KEYBOARD_START;
           break;
-          
-        case 1: /* Return */
+
+        case 1:                /* Return */
           LCD_LOG_ClearTextZone();
           hid_demo.state = HID_DEMO_REENUMERATE;
           hid_demo.select = 0;
           break;
-          
+
         default:
           break;
         }
       }
     }
-    break; 
-    
+    break;
+
   case HID_KEYBOARD_START:
-    USR_KEYBRD_Init();   
+    USR_KEYBRD_Init();
     hid_demo.keyboard_state = HID_KEYBOARD_WAIT;
-    break;  
-    
+    break;
+
   default:
     break;
   }
@@ -113,10 +132,10 @@ static void USR_KEYBRD_Init(void)
 {
   LCD_LOG_ClearTextZone();
   BSP_LCD_SetTextColor(LCD_COLOR_YELLOW);
-  
-  BSP_LCD_DisplayStringAtLine(4, (uint8_t *)"Use Keyboard to tape characters:                                                            ");
+
+  BSP_LCD_DisplayStringAtLine(4, (uint8_t *)"Use Keyboard to tape characters:");
   BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
-  
+
   KeybrdCharXpos = KYBRD_FIRST_LINE;
   KeybrdCharYpos = KYBRD_FIRST_COLUMN;
 }
@@ -128,67 +147,67 @@ static void USR_KEYBRD_Init(void)
   */
 void USR_KEYBRD_ProcessData(uint8_t data)
 {
-  if(data == '\n')
+  if (data == '\n')
   {
     KeybrdCharYpos = KYBRD_FIRST_COLUMN;
-    
+
     /* Increment char X position */
     KeybrdCharXpos += SMALL_FONT_LINE_WIDTH;
-    
-    if(KeybrdCharXpos > KYBRD_LAST_LINE)
+
+    if (KeybrdCharXpos > KYBRD_LAST_LINE)
     {
       LCD_LOG_ClearTextZone();
       KeybrdCharXpos = KYBRD_FIRST_LINE;
       KeybrdCharYpos = KYBRD_FIRST_COLUMN;
     }
   }
-  else if(data == '\r')
+  else if (data == '\r')
   {
-    /* Manage deletion of character and upadte cursor location */
-    if( KeybrdCharYpos == KYBRD_FIRST_COLUMN) 
+    /* Manage deletion of character and update cursor location */
+    if (KeybrdCharYpos == KYBRD_FIRST_COLUMN)
     {
       /* First character of first line to be deleted */
-      if(KeybrdCharXpos == KYBRD_FIRST_LINE)
-      {  
-        KeybrdCharYpos = KYBRD_FIRST_COLUMN; 
+      if (KeybrdCharXpos == KYBRD_FIRST_LINE)
+      {
+        KeybrdCharYpos = KYBRD_FIRST_COLUMN;
       }
       else
       {
-        KeybrdCharXpos += SMALL_FONT_LINE_WIDTH;
-        KeybrdCharYpos = (KYBRD_LAST_COLUMN + SMALL_FONT_COLUMN_WIDTH); 
+        KeybrdCharXpos -= SMALL_FONT_LINE_WIDTH;
+        KeybrdCharYpos = (KYBRD_LAST_COLUMN - SMALL_FONT_COLUMN_WIDTH);
       }
     }
     else
     {
-      KeybrdCharYpos += SMALL_FONT_COLUMN_WIDTH;      
-    } 
-    BSP_LCD_DisplayChar(KeybrdCharYpos, KeybrdCharXpos, ' '); 
+      KeybrdCharYpos -= SMALL_FONT_COLUMN_WIDTH;
+    }
+    BSP_LCD_DisplayChar(KeybrdCharYpos, KeybrdCharXpos, ' ');
   }
   else
   {
     /* Update the cursor position on LCD */
-    BSP_LCD_DisplayChar(KeybrdCharYpos, KeybrdCharXpos, data);  
-    
+    BSP_LCD_DisplayChar(KeybrdCharYpos, KeybrdCharXpos, data);
+
     /* Increment char Y position */
     KeybrdCharYpos += SMALL_FONT_COLUMN_WIDTH;
-    
+
     /* Check if the Y position has reached the last column */
-    if(KeybrdCharYpos == KYBRD_LAST_COLUMN)
+    if (KeybrdCharYpos == KYBRD_LAST_COLUMN)
     {
       KeybrdCharYpos = KYBRD_FIRST_COLUMN;
-      
+
       /* Increment char X position */
       KeybrdCharXpos += SMALL_FONT_LINE_WIDTH;
     }
-    
-    if(KeybrdCharXpos > KYBRD_LAST_LINE)
+
+    if (KeybrdCharXpos > KYBRD_LAST_LINE)
     {
       LCD_LOG_ClearTextZone();
       KeybrdCharXpos = KYBRD_FIRST_LINE;
       /* Start New Display of the cursor position on LCD */
-      BSP_LCD_DisplayChar(KeybrdCharYpos,KeybrdCharXpos, data);  
+      BSP_LCD_DisplayChar(KeybrdCharYpos, KeybrdCharXpos, data);
     }
   }
-}               
+}
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

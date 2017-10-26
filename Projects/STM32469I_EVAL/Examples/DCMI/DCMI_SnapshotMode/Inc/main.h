@@ -2,13 +2,13 @@
   ******************************************************************************
   * @file    DCMI/DCMI_SnapshotMode/Inc/main.h
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Header for main.c module
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -47,15 +47,21 @@
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
-/* LCD Frame Buffer address */
 
 #define LCD_FRAME_BUFFER                  0xC0000000 /* LCD Frame buffer of size 800x480 in ARGB8888 */
-
 #define CAMERA_FRAME_BUFFER               0xC0177000
+#define ARGB8888_BYTE_PER_PIXEL           4
+
+/* Camera resolution is QVGA (320x240) */
+#define CameraResX  320
+#define CameraResY  240
+
+/* LCD resolution is WVGA landscape */
+#define LcdResX     800
+#define LcdResY     480
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-void Toggle_Leds(void);
 
 #endif /* __MAIN_H */
 

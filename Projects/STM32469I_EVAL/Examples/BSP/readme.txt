@@ -2,11 +2,11 @@
   @page BSP  Example on how to use the BSP drivers
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    BSP/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the BSP example.
   ******************************************************************************
   *
@@ -45,7 +45,7 @@ Then the SystemClock_Config() function is used to configure the system clock
 (SYSCLK) to run at 180 MHz. 
 
 This example shows how to use the different functionalities of LCD, SD card, 
-touchscreen, audio playback and record, joystick and external memories (SDRAM, SRAM, NOR flash Micron, 
+touchscreen, audio playback, joystick and external memories (SDRAM, SRAM, NOR flash Micron, 
 Quad SPI flash Micron) as well as external RF EEPROM by switching between all tests using TAMPER button. 
 
 - Joystick related tests : use the joystick button to move a pointer inside a rectangle 
@@ -72,14 +72,14 @@ The I2C EEPROM memory (M24LR64) is available on separate daughter board ANT7-M24
 provided with the STM32469I-EVAL board. To use this driver you have to connect the 
 ANT7-M24LR-A to CN3 connector of STM32469I-EVAL board.
 
-- Audio playback/record related : 
+- Audio playback related : 
 this example shows how to play an audio file through the SAI peripheral
 using the external codec WM8994 implemented on the STM324x9I_EVAL board. The SAI input 
 clock, provided by a dedicated PLL (PLLI2S), is configured to have an audio sampling 
 frequency at 48 KHz. The audio data is stored in the internal flash memory (Stereo, 
 16-bit, 48 KHz) and require the use of ST Link utility to load at address 0x80800000 in Flash
 the sample file that is located in /Binary folder.
-Audio record test allows to record a short audio file in SRAM.
+
 
 - Camera related : those examples shows a camera sensor stream on screen (preview).
 It is compatible with only Samsung S5K5CAG camera sensor. It displays streams for several 
@@ -148,11 +148,11 @@ icons.
 
   - This example runs on STM32F469xx/STM32F479xx devices.
   
-  - This example has been tested with STMicroelectronics STM32469I-EVAL RevB 
+  - This example has been tested with STMicroelectronics STM32469I-EVAL RevC 
     evaluation boards and can be easily tailored to any other supported device 
     and development board.
     
-  - STM32469I-EVAL RevB Setup: For NOR memory use, make sure that the Jumper JP9
+  - STM32469I-EVAL RevC Setup: For NOR memory use, make sure that the Jumper JP9
     is open and JP5 is put in position 1-2 (NWAIT signal connected to PD6).  
 
   

@@ -2,11 +2,11 @@
   @page DAC_SignalsGeneration DAC Signals generation example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    DAC/DAC_SignalsGeneration/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the DAC Signals generation example.
   ******************************************************************************
   *
@@ -37,8 +37,8 @@
 
 @par Example Description 
 
-This example provides a description of how to use the DAC peripheral to 
-generate several signals using DMA controller.
+This example provides a short description of how to use the DAC peripheral to generate 
+several signals using DMA controller.
 For each press on Tamper push-button, a signal has been selected and can be monitored on  
 the DAC channel one:
     - Triangle waveform (Channel 1), amplitude: ~1V, frequency: order of tens Hz.
@@ -76,10 +76,10 @@ STM32469I-EVAL board's LEDs can be used to monitor the process status:
 @par Hardware and Software environment  
   - This example runs on STM32F469xx/STM32F479xx devices.
     
-  - This example has been tested and validated with STM32469I-EVAL revB board and can be
+  - This example has been tested and validated with STM32469I-EVAL RevC board and can be
     easily tailored to any other supported device and development board.
 
-  - STM32469I-EVAL revB Set-up :
+  - STM32469I-EVAL RevC Set-up :
       - Connect PA4 (DAC Channel1) (pin 21 in CN5) to an oscilloscope.
       - Use Tamper push-button connected to PC.13.
   

@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32469i_discovery_eeprom.h
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    29-September-2015
+  * @version V2.0.0
+  * @date    27-January-2017
   * @brief   This file contains all the functions prototypes for
   *          the stm32469i_discovery_eeprom.c firmware driver.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -51,7 +51,7 @@
   * @{
   */
 
-/** @addtogroup STM32469I-Discovery
+/** @addtogroup STM32469I_Discovery
   * @{
   */
 
@@ -67,7 +67,7 @@
   * @}
   */
 
-/** @defgroup STM32469I-Discovery_EEPROM_Exported_Constants STM32469I-Discovery EEPROM Exported Constants
+/** @defgroup STM32469I-Discovery_EEPROM_Exported_Constants STM32469I Discovery EEPROM Exported Constants
   * @{
   */
 /* EEPROM hardware address and page size */
@@ -91,14 +91,14 @@ This timeout is based on systick set to 1ms*/
   * @}
   */
 
-/** @defgroup STM32469I-Discovery_EEPROM_Exported_Macros STM32469I-Discovery EEPROM Exported Macros
+/** @defgroup STM32469I-Discovery_EEPROM_Exported_Macros STM32469I Discovery EEPROM Exported Macros
   * @{
   */
 /**
   * @}
   */
 
-/** @defgroup STM32469I-Discovery_EEPROM_Exported_Functions STM32469I-Discovery_EEPROM Exported Functions
+/** @defgroup STM32469I-Discovery_EEPROM_Exported_Functions STM32469I Discovery EEPROM Exported Functions
   * @{
   */
 uint32_t BSP_EEPROM_Init(void);

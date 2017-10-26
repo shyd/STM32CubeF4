@@ -2,13 +2,13 @@
   ******************************************************************************
   * @file    DMA2D/DMA2D_MemToMemWithBlending/Inc/RGB565_240x130_1.h 
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date  09-October-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   This file contains the DMA2D scenario foreground layer texture in RGB565 and size 240x130.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:

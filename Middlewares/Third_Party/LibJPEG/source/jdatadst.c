@@ -30,8 +30,9 @@ extern void free JPP((void *ptr));
 
 typedef struct {
   struct jpeg_destination_mgr pub; /* public fields */
-
-  FILE * outfile;		/* target stream */
+#ifdef JFILE  
+  JFILE * outfile;		/* target stream */
+#endif /* JFILE */
   JOCTET * buffer;		/* start of buffer */
 } my_destination_mgr;
 
@@ -60,7 +61,7 @@ typedef my_mem_destination_mgr * my_mem_dest_ptr;
  * Initialize destination --- called by jpeg_start_compress
  * before any data is actually written.
  */
-
+#ifdef JFILE
 METHODDEF(void)
 init_destination (j_compress_ptr cinfo)
 {
@@ -74,7 +75,7 @@ init_destination (j_compress_ptr cinfo)
   dest->pub.next_output_byte = dest->buffer;
   dest->pub.free_in_buffer = OUTPUT_BUF_SIZE;
 }
-
+#endif /* JFILE */
 
 METHODDEF(void)
 init_mem_destination (j_compress_ptr cinfo)
@@ -105,7 +106,7 @@ init_mem_destination (j_compress_ptr cinfo)
  * Data beyond this point will be regenerated after resumption, so do not
  * write it out when emptying the buffer externally.
  */
-
+#ifdef JFILE
 METHODDEF(boolean)
 empty_output_buffer (j_compress_ptr cinfo)
 {
@@ -120,7 +121,7 @@ empty_output_buffer (j_compress_ptr cinfo)
 
   return TRUE;
 }
-
+#endif /* JFILE */
 
 METHODDEF(boolean)
 empty_mem_output_buffer (j_compress_ptr cinfo)
@@ -161,7 +162,7 @@ empty_mem_output_buffer (j_compress_ptr cinfo)
  * application must deal with any cleanup that should happen even
  * for error exit.
  */
-
+#ifdef JFILE
 METHODDEF(void)
 term_destination (j_compress_ptr cinfo)
 {
@@ -173,9 +174,8 @@ term_destination (j_compress_ptr cinfo)
     if (JFWRITE(dest->outfile, dest->buffer, datacount) != datacount)
       ERREXIT(cinfo, JERR_FILE_WRITE);
   }
-  f_close(dest->outfile);
 }
-
+#endif /* JFILE */
 
 METHODDEF(void)
 term_mem_destination (j_compress_ptr cinfo)
@@ -192,9 +192,9 @@ term_mem_destination (j_compress_ptr cinfo)
  * The caller must have already opened the stream, and is responsible
  * for closing it after finishing compression.
  */
-
+#ifdef JFILE
 GLOBAL(void)
-jpeg_stdio_dest (j_compress_ptr cinfo, FILE * outfile)
+jpeg_stdio_dest (j_compress_ptr cinfo, JFILE * outfile)
 {
   my_dest_ptr dest;
 
@@ -216,7 +216,7 @@ jpeg_stdio_dest (j_compress_ptr cinfo, FILE * outfile)
   dest->pub.term_destination = term_destination;
   dest->outfile = outfile;
 }
-
+#endif /* JFILE */
 
 /*
  * Prepare for output to a memory buffer.

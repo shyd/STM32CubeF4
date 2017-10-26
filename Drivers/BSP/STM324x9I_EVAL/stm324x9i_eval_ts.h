@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm324x9i_eval_ts.h
   * @author  MCD Application Team
-  * @version V2.2.1
-  * @date    07-October-2015
+  * @version V3.0.0
+  * @date    27-January-2017
   * @brief   This file contains the common defines and functions prototypes for
   *          the stm324x9i_eval_ts.c driver.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -59,11 +59,11 @@
   * @{
   */
     
-/** @defgroup STM324x9I_EVAL_TS
+/** @addtogroup STM324x9I_EVAL_TS
   * @{
   */    
 
-/** @defgroup STM324x9I_EVAL_TS_Exported_Types
+/** @defgroup STM324x9I_EVAL_TS_Exported_Types STM324x9I EVAL TS Exported Types
   * @{
   */
 typedef struct
@@ -73,17 +73,6 @@ typedef struct
   uint16_t y;
   uint16_t z;
 }TS_StateTypeDef;
-/**
-  * @}
-  */ 
-
-/** @defgroup STM324x9I_EVAL_TS_Exported_Constants
-  * @{
-  */
-#define TS_SWAP_NONE                    0x00
-#define TS_SWAP_X                       0x01
-#define TS_SWAP_Y                       0x02
-#define TS_SWAP_XY                      0x04
 
 typedef enum 
 {
@@ -92,20 +81,25 @@ typedef enum
   TS_TIMEOUT  = 0x02
 }TS_StatusTypeDef;
 
+/**
+  * @}
+  */ 
+
+/** @defgroup STM324x9I_EVAL_TS_Exported_Constants STM324x9I EVAL TS Exported Constants
+  * @{
+  */
+#define TS_SWAP_NONE                    0x00
+#define TS_SWAP_X                       0x01
+#define TS_SWAP_Y                       0x02
+#define TS_SWAP_XY                      0x04
+
 /* Interrupt sources pins definition */
 #define TS_INT_PIN                      0x0010
 /**
   * @}
   */ 
 
-/** @defgroup STM324x9I_EVAL_TS_Exported_Macros
-  * @{
-  */ 
-/**
-  * @}
-  */ 
-
-/** @defgroup STM324x9I_EVAL_TS_Exported_Functions
+/** @defgroup STM324x9I_EVAL_TS_Exported_Functions STM324x9I EVAL TS Exported Functions
   * @{
   */
 uint8_t BSP_TS_Init(uint16_t xSize, uint16_t ySize);

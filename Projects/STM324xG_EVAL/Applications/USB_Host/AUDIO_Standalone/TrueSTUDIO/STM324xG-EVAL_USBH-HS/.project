@@ -172,6 +172,11 @@
 			<locationURI>PARENT-2-PROJECT_LOC/Src/menu.c</locationURI>
 		</link>
 		<link>
+			<name>Application/User/sd_diskio.c</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Src/sd_diskio.c</locationURI>
+		</link>
+		<link>
 			<name>Application/User/stm32f4xx_it.c</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/Src/stm32f4xx_it.c</locationURI>
@@ -282,11 +287,6 @@
 			<locationURI>virtual:/virtual</locationURI>
 		</link>
 		<link>
-			<name>Middlewares/FatFs/Drivers</name>
-			<type>2</type>
-			<locationURI>virtual:/virtual</locationURI>
-		</link>
-		<link>
 			<name>Middlewares/STM32_USBH_Library/Class</name>
 			<type>2</type>
 			<locationURI>virtual:/virtual</locationURI>
@@ -340,11 +340,6 @@
 			<name>Middlewares/FatFs/Core/ff_gen_drv.c</name>
 			<type>1</type>
 			<locationURI>PARENT-7-PROJECT_LOC/Middlewares/Third_Party/FatFs/src/ff_gen_drv.c</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/FatFs/Drivers/sd_diskio.c</name>
-			<type>1</type>
-			<locationURI>PARENT-7-PROJECT_LOC/Middlewares/Third_Party/FatFs/src/drivers/sd_diskio.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/STM32_USBH_Library/Class/Audio</name>

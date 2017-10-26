@@ -2,15 +2,15 @@
   ******************************************************************************
   * @file    USB_Device/HID_Standalone/Src/stm32f4xx_it.c
   * @author  MCD Application Team
-  * @version V1.4.2
-  * @date    13-November-2015
+  * @version V1.5.0
+  * @date    17-February-2017
   * @brief   Main Interrupt Service Routines.
   *          This file provides template for all exceptions handler and 
   *          peripherals interrupt service routine.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
   * You may not use this file except in compliance with the License.
@@ -27,23 +27,23 @@
   ******************************************************************************
   */
 
-/* Includes ------------------------------------------------------------------*/
+/* Includes ------------------------------------------------------------------ */
 #include "main.h"
 #include "stm32f4xx_it.h"
 
-/* Private typedef -----------------------------------------------------------*/
-/* Private define ------------------------------------------------------------*/
+/* Private typedef ----------------------------------------------------------- */
+/* Private define ------------------------------------------------------------ */
 #define CURSOR_STEP     5
-/* Private macro -------------------------------------------------------------*/
-/* Private variables ---------------------------------------------------------*/
+/* Private macro ------------------------------------------------------------- */
+/* Private variables --------------------------------------------------------- */
 extern PCD_HandleTypeDef hpcd;
 uint8_t HID_Buffer[4];
 extern USBD_HandleTypeDef USBD_Device;
-/* Private function prototypes -----------------------------------------------*/
-/* Private functions ---------------------------------------------------------*/
-static void GetPointerData(uint8_t *pbuf);
+/* Private function prototypes ----------------------------------------------- */
+/* Private functions --------------------------------------------------------- */
+static void GetPointerData(uint8_t * pbuf);
 /******************************************************************************/
-/*             Cortex-M4 Processor Exceptions Handlers                        */
+/* Cortex-M4 Processor Exceptions Handlers */
 /******************************************************************************/
 
 /**
@@ -141,29 +141,28 @@ void PendSV_Handler(void)
   */
 void SysTick_Handler(void)
 {
-  static __IO uint32_t counter=0;
+  static __IO uint32_t counter = 0;
   HAL_IncTick();
-  
+
   /* check Joystick state every polling interval (10ms) */
   if (counter++ == USBD_HID_GetPollingInterval(&USBD_Device))
-  {  
+  {
     GetPointerData(HID_Buffer);
-    
-    /* send data though IN endpoint*/
-    if((HID_Buffer[1] != 0) || (HID_Buffer[2] != 0))
+
+    /* send data though IN endpoint */
+    if ((HID_Buffer[1] != 0) || (HID_Buffer[2] != 0))
     {
       USBD_HID_SendReport(&USBD_Device, HID_Buffer, 4);
     }
-    counter =0;
+    counter = 0;
   }
-  Toggle_Leds();
 }
 
 /******************************************************************************/
-/*                 STM32F4xx Peripherals Interrupt Handlers                   */
-/*  Add here the Interrupt Handler for the used peripheral(s) (PPP), for the  */
-/*  available peripheral interrupt handler's name please refer to the startup */
-/*  file (startup_stm32f4xx.s).                                               */
+/* STM32F4xx Peripherals Interrupt Handlers */
+/* Add here the Interrupt Handler for the used peripheral(s) (PPP), for the */
+/* available peripheral interrupt handler's name please refer to the startup */
+/* file (startup_stm32f4xx.s).  */
 /******************************************************************************/
 
 /**
@@ -185,50 +184,56 @@ void OTG_HS_IRQHandler(void)
   * @param  None
   * @retval None
   */
-#ifdef USE_USB_FS  
+#ifdef USE_USB_FS
 void OTG_FS_WKUP_IRQHandler(void)
-#else  
+#else
 void OTG_HS_WKUP_IRQHandler(void)
 #endif
 {
-  if((&hpcd)->Init.low_power_enable)
+  if ((&hpcd)->Init.low_power_enable)
   {
     /* Reset SLEEPDEEP bit of Cortex System Control Register */
-    SCB->SCR &= (uint32_t)~((uint32_t)(SCB_SCR_SLEEPDEEP_Msk | SCB_SCR_SLEEPONEXIT_Msk));  
-    
-    /* Configures system clock after wake-up from STOP: enable HSE, PLL and select 
-    PLL as system clock source (HSE and PLL are disabled in STOP mode) */
-    
+    SCB->SCR &=
+      (uint32_t) ~
+      ((uint32_t) (SCB_SCR_SLEEPDEEP_Msk | SCB_SCR_SLEEPONEXIT_Msk));
+
+    /* Configures system clock after wake-up from STOP: enable HSE, PLL and
+     * select PLL as system clock source (HSE and PLL are disabled in STOP
+     * mode) */
+
     __HAL_RCC_HSE_CONFIG(RCC_HSE_ON);
-    
-    /* Wait till HSE is ready */  
-    while(__HAL_RCC_GET_FLAG(RCC_FLAG_HSERDY) == RESET)
-    {}
-    
+
+    /* Wait till HSE is ready */
+    while (__HAL_RCC_GET_FLAG(RCC_FLAG_HSERDY) == RESET)
+    {
+    }
+
     /* Enable the main PLL. */
     __HAL_RCC_PLL_ENABLE();
-    
-    /* Wait till PLL is ready */  
-    while(__HAL_RCC_GET_FLAG(RCC_FLAG_PLLRDY) == RESET)
-    {}
-    
+
+    /* Wait till PLL is ready */
+    while (__HAL_RCC_GET_FLAG(RCC_FLAG_PLLRDY) == RESET)
+    {
+    }
+
     /* Select PLL as SYSCLK */
     MODIFY_REG(RCC->CFGR, RCC_CFGR_SW, RCC_SYSCLKSOURCE_PLLCLK);
-    
+
     while (__HAL_RCC_GET_SYSCLK_SOURCE() != RCC_CFGR_SWS_PLL)
-    {}
-    
+    {
+    }
+
     /* ungate PHY clock */
-     __HAL_PCD_UNGATE_PHYCLOCK((&hpcd)); 
+    __HAL_PCD_UNGATE_PHYCLOCK((&hpcd));
   }
 #ifdef USE_USB_FS
-  /* Clear EXTI pending Bit*/
+  /* Clear EXTI pending Bit */
   __HAL_USB_OTG_FS_WAKEUP_EXTI_CLEAR_FLAG();
 #else
-    /* Clear EXTI pending Bit*/
+  /* Clear EXTI pending Bit */
   __HAL_USB_OTG_HS_WAKEUP_EXTI_CLEAR_FLAG();
 #endif
-  
+
 }
 
 
@@ -248,30 +253,30 @@ void EXTI15_10_IRQHandler(void)
   * @param  pbuf: Pointer to report
   * @retval None
   */
-static void GetPointerData(uint8_t *pbuf)
+static void GetPointerData(uint8_t * pbuf)
 {
-  int8_t  x = 0, y = 0;
-  
-  switch(BSP_JOY_GetState())
+  int8_t x = 0, y = 0;
+
+  switch (BSP_JOY_GetState())
   {
   case JOY_LEFT:
     x -= CURSOR_STEP;
-    break;  
-    
+    break;
+
   case JOY_RIGHT:
     x += CURSOR_STEP;
     break;
-    
+
   case JOY_UP:
     y -= CURSOR_STEP;
     break;
-    
+
   case JOY_DOWN:
     y += CURSOR_STEP;
     break;
 
   default:
-	break;
+    break;
   }
 
   pbuf[0] = 0;
@@ -286,7 +291,5 @@ static void GetPointerData(uint8_t *pbuf)
   * @param  None
   * @retval None
   */
-/*void PPP_IRQHandler(void)
-{
-}*/
+/* void PPP_IRQHandler(void) { } */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

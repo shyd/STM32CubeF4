@@ -2,11 +2,11 @@
   @page CortexM_Mode_Privilege Cortex-M4 Mode Privilege example
 
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    CORTEXM/CORTEXM_ModePrivilege/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the Cortex-M4 Mode Privilege example.
   ******************************************************************************
   *
@@ -35,10 +35,10 @@
   ******************************************************************************
   @endverbatim
 
-@par Example Description 
-
-This example shows how to modify Thread mode privilege access and stack. Thread 
-mode is entered on Reset, and can be entered as a result of an exception return.  
+@par Example Description
+ 
+This example shows how to modify Cortex-M4 Thread mode privilege access and stack.
+Thread mode is entered on Reset, and can be entered as a result of an exception return.  
 
 The associated program is used to:
 
@@ -79,7 +79,7 @@ LED1 is ON once the test is finished.
 
   - This example runs on STM32F469xx/STM32F479xx devices.
     
-  - This example has been tested and validated with STM32469I-EVAL revB board and can be
+  - This example has been tested and validated with STM32469I-EVAL RevC board and can be
     easily tailored to any other supported device and development board.      
 
 @par How to use it ? 

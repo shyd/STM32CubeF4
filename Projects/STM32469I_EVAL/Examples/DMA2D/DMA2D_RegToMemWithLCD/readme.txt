@@ -2,16 +2,16 @@
   @page DMA2D_RegToMemWithLCD DMA2D Register to Memory with LCD example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    DMA2D/DMA2D_RegToMemWithLCD/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the DMA2D Register to Memory with LCD example.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -90,7 +90,7 @@ STM32 Eval board's LEDs can be used to monitor the transfer status:
 
   - This example runs on STM32F469xx/STM32F479xx devices.
   
-  - This example has been tested with STMicroelectronics STM32469I-EVAL revB 
+  - This example has been tested with STMicroelectronics STM32469I-EVAL RevC 
     evaluation board and can be easily tailored to any other supported device 
     and development board.
                 

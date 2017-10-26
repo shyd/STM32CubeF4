@@ -3,11 +3,11 @@
    modes using DMA
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    CRYP/CRYP_AES_DMA/readme.txt 
   * @author  MCD Application Team
-  * @version V1.3.2
-  * @date    13-November-2015
+  * @version V1.4.0
+  * @date    17-February-2017
   * @brief   Description of the CRYP AES-128 Algo in ECB mode with DMA Example
   ******************************************************************************
   *

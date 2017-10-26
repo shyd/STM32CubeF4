@@ -2,11 +2,11 @@
   @page FLASH_EraseProgram FLASH Erase and Program application
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    FLASH/FLASH_EraseProgram/readme.txt
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the FLASH Erase and Program example.
   ******************************************************************************
   *
@@ -38,7 +38,7 @@
 @par Application Description 
 
 This application describes how to configure and use the FLASH HAL API to erase and program 
-the internal FLASH memory.
+the internal Flash memory.
   
 At the beginning of the main program the HAL_Init() function is called to reset 
 all the peripherals, initialize the Flash interface and the systick.
@@ -56,9 +56,9 @@ At this stage, all these sectors will be erased one by one separately.
 be returned to user (through variable 'sectorError').
 
 Once this operation is finished, sector word programming operation will be performed 
-in the FLASH memory. The written data is then read back and checked.
+in the Flash memory. The written data is then read back and checked.
 
-The NUCLEO-429ZI  Rev.B board LEDs can be used to monitor the transfer status:
+The NUCLEO-F429ZI  Rev.B board LEDs can be used to monitor the transfer status:
  - LED1 is ON when there are no errors detected after data programming 
  - LED2 is ON when there are errors detected after data programming 
  - LED3 is ON when there is an issue during erase or program procedure
@@ -85,7 +85,7 @@ The NUCLEO-429ZI  Rev.B board LEDs can be used to monitor the transfer status:
 
   - This application runs on STM32F429xx devices.
     
-  - This application has been tested with NUCLEO-429ZI  Rev.B board and can be
+  - This application has been tested with NUCLEO-F429ZI  Rev.B board and can be
     easily tailored to any other supported device and development board.
       
 @par How to use it ? 

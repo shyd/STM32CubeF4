@@ -36,6 +36,16 @@
 			<locationURI>PARENT-7-PROJECT_LOC/Utilities/Log/lcd_log.c</locationURI>
 		</link>
 		<link>
+			<name>Application/SW4STM32/startup_stm32f469xx.s</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/startup_stm32f469xx.s</locationURI>
+		</link>
+		<link>
+			<name>Application/SW4STM32/syscalls.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/syscalls.c</locationURI>
+		</link>
+		<link>
 			<name>Application/User/explorer.c</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/Src/explorer.c</locationURI>
@@ -219,16 +229,6 @@
 			<name>Drivers/STM32F4xx_HAL_Driver/stm32f4xx_ll_usb.c</name>
 			<type>1</type>
 			<locationURI>PARENT-7-PROJECT_LOC/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c</locationURI>
-		</link>
-		<link>
-			<name>Example/SW4STM32/startup_stm32f469xx.s</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/startup_stm32f469xx.s</locationURI>
-		</link>
-		<link>
-			<name>Example/SW4STM32/syscalls.c</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/syscalls.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/FatFs/ff.c</name>

@@ -2,13 +2,13 @@
   ******************************************************************************
   * @file    BSP/Src/sd.c 
   * @author  MCD Application Team
-  * @version V1.3.2
-  * @date    13-November-2015
+  * @version V1.4.0
+  * @date    17-February-2017
   * @brief   This example code shows how to use the SD Driver
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -49,7 +49,6 @@
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 #define BLOCK_START_ADDR         0     /* Block start address      */
-#define BLOCKSIZE                512   /* Block Size in Bytes      */
 #define NUM_OF_BLOCKS            5     /* Total number of blocks   */
 #define BUFFER_WORDS_SIZE        ((BLOCKSIZE * NUM_OF_BLOCKS) >> 2) /* Total data size in bytes */
     
@@ -72,13 +71,13 @@ static uint8_t Buffercmp(uint32_t* pBuffer1, uint32_t* pBuffer2, uint16_t Buffer
   */
 void SD_demo(void)
 { 
-  uint8_t SD_state = SD_OK;
+  uint8_t SD_state = MSD_OK;
   static uint8_t prev_status = 0; 
   
   SD_SetHint();
   SD_state = BSP_SD_Init();
   
-  if(SD_state != SD_OK)
+  if(SD_state != MSD_OK)
   {
     BSP_LCD_DisplayStringAt(20, 100, (uint8_t *)"SD Initialization : FAIL.", LEFT_MODE);
     BSP_LCD_DisplayStringAt(20, 115, (uint8_t *)"SD Test Aborted.", LEFT_MODE);
@@ -87,9 +86,12 @@ void SD_demo(void)
   {
     BSP_LCD_DisplayStringAt(20, 100, (uint8_t *)"SD Initialization : OK.", LEFT_MODE);
     
-    SD_state = BSP_SD_Erase(BLOCK_START_ADDR, (BLOCKSIZE * NUM_OF_BLOCKS));
-    
-    if(SD_state != SD_OK)
+    SD_state = BSP_SD_Erase(BLOCK_START_ADDR, NUM_OF_BLOCKS);
+    /* Wait until SD cards are ready to use for new operation */
+    while((BSP_SD_GetCardState() != SD_TRANSFER_OK))
+    {
+    }
+    if(SD_state != MSD_OK)
     {
       BSP_LCD_DisplayStringAt(20, 115, (uint8_t *)"SD ERASE : FAILED.", LEFT_MODE);
       BSP_LCD_DisplayStringAt(20, 130, (uint8_t *)"SD Test Aborted.", LEFT_MODE);
@@ -100,9 +102,13 @@ void SD_demo(void)
       
       /* Fill the buffer to write */
       Fill_Buffer(aTxBuffer, BUFFER_WORDS_SIZE, 0x22FF);
-      SD_state = BSP_SD_WriteBlocks(aTxBuffer, BLOCK_START_ADDR, BLOCKSIZE, NUM_OF_BLOCKS);
+      SD_state = BSP_SD_WriteBlocks(aTxBuffer, BLOCK_START_ADDR, NUM_OF_BLOCKS, SD_DATATIMEOUT);
+      /* Wait until SD cards are ready to use for new operation */
+      while((BSP_SD_GetCardState() != SD_TRANSFER_OK))
+      {
+      }                             
       
-      if(SD_state != SD_OK)
+      if(SD_state != MSD_OK)
       {
         BSP_LCD_DisplayStringAt(20, 130, (uint8_t *)"SD WRITE : FAILED.", LEFT_MODE);
         BSP_LCD_DisplayStringAt(20, 145, (uint8_t *)"SD Test Aborted.", LEFT_MODE);
@@ -110,8 +116,12 @@ void SD_demo(void)
       else
       {
         BSP_LCD_DisplayStringAt(20, 130, (uint8_t *)"SD WRITE : OK.", LEFT_MODE);
-        SD_state = BSP_SD_ReadBlocks(aRxBuffer, BLOCK_START_ADDR, BLOCKSIZE, NUM_OF_BLOCKS);
-        if(SD_state != SD_OK)
+        SD_state = BSP_SD_ReadBlocks(aRxBuffer, BLOCK_START_ADDR, NUM_OF_BLOCKS, SD_DATATIMEOUT);
+        /* Wait until SD cards are ready to use for new operation */
+        while((BSP_SD_GetCardState() != SD_TRANSFER_OK))
+        {
+        }
+        if(SD_state != MSD_OK)
         {
           BSP_LCD_DisplayStringAt(20, 145, (uint8_t *)"SD READ : FAILED.", LEFT_MODE);
           BSP_LCD_DisplayStringAt(20, 160, (uint8_t *)"SD Test Aborted.", LEFT_MODE);

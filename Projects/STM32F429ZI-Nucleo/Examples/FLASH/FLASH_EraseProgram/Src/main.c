@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    FLASH/FLASH_EraseProgram/Src/main.c
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   This example provides a description of how to erase and program the
   *          STM32F4xx FLASH.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -50,7 +50,7 @@
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 #define FLASH_USER_START_ADDR   ADDR_FLASH_SECTOR_2   /* Start @ of user Flash area */
-#define FLASH_USER_END_ADDR     ADDR_FLASH_SECTOR_5   /* End @ of user Flash area */
+#define FLASH_USER_END_ADDR     ADDR_FLASH_SECTOR_23  +  GetSectorSize(ADDR_FLASH_SECTOR_23) -1 /* End @ of user Flash area : sector start address + sector size -1 */
 
 #define DATA_32                 ((uint32_t)0x12345678)
 
@@ -66,6 +66,7 @@ static FLASH_EraseInitTypeDef EraseInitStruct;
 /* Private function prototypes -----------------------------------------------*/
 static void SystemClock_Config(void);
 static uint32_t GetSector(uint32_t Address);
+static uint32_t GetSectorSize(uint32_t Sector);
 static void Error_Handler(void);
 
 /* Private functions ---------------------------------------------------------*/
@@ -76,8 +77,7 @@ static void Error_Handler(void);
   * @retval None
   */
 int main(void)
-{
-  
+{  
   /* STM32F4xx HAL library initialization:
        - Configure the Flash prefetch
        - Systick timer is configured by default as source of time base, but user 
@@ -118,7 +118,7 @@ int main(void)
      you have to make sure that these data are rewritten before they are accessed during code
      execution. If this cannot be done safely, it is recommended to flush the caches by setting the
      DCRST and ICRST bits in the FLASH_CR register. */
-  if (HAL_FLASHEx_Erase(&EraseInitStruct, &SECTORError) != HAL_OK)
+  if(HAL_FLASHEx_Erase(&EraseInitStruct, &SECTORError) != HAL_OK)
   {
     /*
       Error occurred while sector erase.
@@ -138,9 +138,9 @@ int main(void)
 
   Address = FLASH_USER_START_ADDR;
 
-  while (Address < FLASH_USER_END_ADDR)
+  while(Address < FLASH_USER_END_ADDR)
   {
-    if (HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, Address, DATA_32) == HAL_OK)
+    if(HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, Address, DATA_32) == HAL_OK)
     {
       Address = Address + 4;
     }
@@ -165,7 +165,7 @@ int main(void)
   Address = FLASH_USER_START_ADDR;
   MemoryProgramStatus = 0x0;
 
-  while (Address < FLASH_USER_END_ADDR)
+  while(Address < FLASH_USER_END_ADDR)
   {
     data32 = *(__IO uint32_t *)Address;
 
@@ -177,7 +177,7 @@ int main(void)
   }
 
   /*Check if there is an issue to program data*/
-  if (MemoryProgramStatus == 0)
+  if(MemoryProgramStatus == 0)
   {
     /* No error detected. Switch on LED1*/
     BSP_LED_On(LED1);
@@ -193,7 +193,6 @@ int main(void)
   {
   }
 }
-
 /**
   * @brief  Gets the sector of a given address
   * @param  None
@@ -231,11 +230,100 @@ static uint32_t GetSector(uint32_t Address)
   {
     sector = FLASH_SECTOR_6;
   }
-  else /* (Address < FLASH_END_ADDR) && (Address >= ADDR_FLASH_SECTOR_7) */
+  else if((Address < ADDR_FLASH_SECTOR_8) && (Address >= ADDR_FLASH_SECTOR_7))
   {
     sector = FLASH_SECTOR_7;
   }
+  else if((Address < ADDR_FLASH_SECTOR_9) && (Address >= ADDR_FLASH_SECTOR_8))
+  {
+    sector = FLASH_SECTOR_8;
+  }
+  else if((Address < ADDR_FLASH_SECTOR_10) && (Address >= ADDR_FLASH_SECTOR_9))
+  {
+    sector = FLASH_SECTOR_9;
+  }
+  else if((Address < ADDR_FLASH_SECTOR_11) && (Address >= ADDR_FLASH_SECTOR_10))
+  {
+    sector = FLASH_SECTOR_10;
+  }
+  else if((Address < ADDR_FLASH_SECTOR_12) && (Address >= ADDR_FLASH_SECTOR_11))
+  {
+    sector = FLASH_SECTOR_11;
+  }
+  else if((Address < ADDR_FLASH_SECTOR_13) && (Address >= ADDR_FLASH_SECTOR_12))
+  {
+    sector = FLASH_SECTOR_12;
+  }
+  else if((Address < ADDR_FLASH_SECTOR_14) && (Address >= ADDR_FLASH_SECTOR_13))
+  {
+    sector = FLASH_SECTOR_13;
+  }
+  else if((Address < ADDR_FLASH_SECTOR_15) && (Address >= ADDR_FLASH_SECTOR_14))
+  {
+    sector = FLASH_SECTOR_14;
+  }
+  else if((Address < ADDR_FLASH_SECTOR_16) && (Address >= ADDR_FLASH_SECTOR_15))
+  {
+    sector = FLASH_SECTOR_15;
+  }
+  else if((Address < ADDR_FLASH_SECTOR_17) && (Address >= ADDR_FLASH_SECTOR_16))
+  {
+    sector = FLASH_SECTOR_16;
+  }
+  else if((Address < ADDR_FLASH_SECTOR_18) && (Address >= ADDR_FLASH_SECTOR_17))
+  {
+    sector = FLASH_SECTOR_17;
+  }
+  else if((Address < ADDR_FLASH_SECTOR_19) && (Address >= ADDR_FLASH_SECTOR_18))
+  {
+    sector = FLASH_SECTOR_18;
+  }
+  else if((Address < ADDR_FLASH_SECTOR_20) && (Address >= ADDR_FLASH_SECTOR_19))
+  {
+    sector = FLASH_SECTOR_19;
+  }
+  else if((Address < ADDR_FLASH_SECTOR_21) && (Address >= ADDR_FLASH_SECTOR_20))
+  {
+    sector = FLASH_SECTOR_20;
+  }
+  else if((Address < ADDR_FLASH_SECTOR_22) && (Address >= ADDR_FLASH_SECTOR_21))
+  {
+    sector = FLASH_SECTOR_21;
+  }
+  else if((Address < ADDR_FLASH_SECTOR_23) && (Address >= ADDR_FLASH_SECTOR_22))
+  {
+    sector = FLASH_SECTOR_22;
+  }
+  else /* (Address < FLASH_END_ADDR) && (Address >= ADDR_FLASH_SECTOR_23) */
+  {
+    sector = FLASH_SECTOR_23;
+  }  
   return sector;
+}
+
+/**
+  * @brief  Gets sector Size
+  * @param  None
+  * @retval The size of a given sector
+  */
+static uint32_t GetSectorSize(uint32_t Sector)
+{
+  uint32_t sectorsize = 0x00;
+  if((Sector == FLASH_SECTOR_0) || (Sector == FLASH_SECTOR_1) || (Sector == FLASH_SECTOR_2) ||\
+     (Sector == FLASH_SECTOR_3) || (Sector == FLASH_SECTOR_12) || (Sector == FLASH_SECTOR_13) ||\
+     (Sector == FLASH_SECTOR_14) || (Sector == FLASH_SECTOR_15))
+  {
+    sectorsize = 16 * 1024;
+  }
+  else if((Sector == FLASH_SECTOR_4) || (Sector == FLASH_SECTOR_16))
+  {
+    sectorsize = 64 * 1024;
+  }
+  else
+  {
+    sectorsize = 128 * 1024;
+  }  
+  return sectorsize;
 }
 
 /**
@@ -305,6 +393,7 @@ static void SystemClock_Config(void)
     Error_Handler();
   }
 }
+
 /**
   * @brief  This function is executed in case of error occurrence.
   * @param  None

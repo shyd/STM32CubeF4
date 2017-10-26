@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32469i_eval_io.h
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    29-September-2015
+  * @version V2.0.0
+  * @date    27-January-2017
   * @brief   This file contains the common defines and functions prototypes for
   *          the stm32469i_eval_io.c driver.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -53,15 +53,15 @@
   * @{
   */
 
-/** @addtogroup STM32469I-EVAL
+/** @addtogroup STM32469I_EVAL
   * @{
   */
 
-/** @defgroup STM32469I-EVAL_IO STM32469I-EVAL IO
+/** @defgroup STM32469I-EVAL_IO STM32469I EVAL IO
   * @{
   */
 
-/** @defgroup STM32469I-EVAL_IO_Exported_Types STM32469I-EVAL IO Exported Types
+/** @defgroup STM32469I-EVAL_IO_Exported_Types STM32469I EVAL IO Exported Types
   * @{
   */
 
@@ -82,7 +82,7 @@ typedef enum
   * @}
   */
 
-/** @defgroup STM32469I-EVAL_IO_Exported_Constants STM32469I-EVAL IO Exported Constants
+/** @defgroup STM32469I-EVAL_IO_Exported_Constants STM32469I EVAL IO Exported Constants
   * @{
   */
 #define IO_PIN_0                  ((uint32_t)0x0001)
@@ -114,14 +114,14 @@ typedef enum
   * @}
   */
 
-/** @defgroup STM32469I-EVAL_IO_Exported_Macro STM32469I-EVAL IO Exported Macro
+/** @defgroup STM32469I-EVAL_IO_Exported_Macro STM32469I EVAL IO Exported Macro
   * @{
   */
 /**
   * @}
   */
 
-/** @defgroup STM32469I-EVAL_IO_Exported_Functions STM32469I-EVAL IO Exported Functions
+/** @defgroup STM32469I-EVAL_IO_Exported_Functions STM32469I EVAL IO Exported Functions
   * @{
   */
 uint8_t  BSP_IO_Init(void);

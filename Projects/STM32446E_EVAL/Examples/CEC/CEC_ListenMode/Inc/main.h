@@ -2,13 +2,13 @@
   ******************************************************************************
   * @file    CEC/CEC_ListenMode/Inc/main.h 
   * @author  MCD Application Team
-  * @version V1.1.2
-  * @date    13-November-2015
+  * @version V1.2.0
+  * @date    17-February-2017
   * @brief   Header for main.c module
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -55,9 +55,6 @@
 /* Uncomment the line below if you use the CEC peripheral as Spy Device    */ 
 #define DEVICE_3  
 
-#define DEVICE_ADDRESS_1               0x01  /* CEC device 1 address   */
-#define DEVICE_ADDRESS_2               0x03  /* CEC device 2 address   */
-#define DEVICE_ADDRESS_3               0x04  /* CEC spy device address   */
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 

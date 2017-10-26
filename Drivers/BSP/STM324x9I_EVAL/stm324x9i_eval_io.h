@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm324x9i_eval_io.h
   * @author  MCD Application Team
-  * @version V2.2.1
-  * @date    07-October-2015
+  * @version V3.0.0
+  * @date    27-January-2017
   * @brief   This file contains the common defines and functions prototypes for
   *          the stm324x9i_eval_io.c driver.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -57,11 +57,11 @@
   * @{
   */
     
-/** @defgroup STM324x9I_EVAL_IO
+/** @addtogroup STM324x9I_EVAL_IO
   * @{
   */    
 
-/** @defgroup STM324x9I_EVAL_IO_Exported_Types
+/** @defgroup STM324x9I_EVAL_IO_Exported_Types STM324x9I EVAL IO Exported Types
   * @{
   */
 typedef struct
@@ -82,7 +82,7 @@ typedef enum
   * @}
   */
 
-/** @defgroup STM324x9I_EVAL_IO_Exported_Constants
+/** @defgroup STM324x9I_EVAL_IO_Exported_Constants IO Exported Constants
   * @{
   */    
 #define IO_PIN_0                  0x0001
@@ -106,14 +106,7 @@ typedef enum
   * @}
   */
 
-/** @defgroup STM324x9I_EVAL_IO_Exported_Macro
-  * @{
-  */ 
-/**
-  * @}
-  */
-
-/** @defgroup STM324x9I_EVAL_IO_Exported_Functions
+/** @defgroup STM324x9I_EVAL_IO_Exported_Functions STM324x9I EVAL IO Exported Functions
   * @{
   */
 uint8_t  BSP_IO_Init(void);

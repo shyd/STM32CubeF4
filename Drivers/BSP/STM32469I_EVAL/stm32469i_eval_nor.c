@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32469i_eval_nor.c
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    29-September-2015
+  * @version V2.0.0
+  * @date    27-January-2017
   * @brief   This file includes a standard driver for the M29W256GL70ZA6E NOR flash memory
   *          device mounted on STM32469I-EVAL evaluation board.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -76,29 +76,36 @@
   * @{
   */
 
-/** @addtogroup STM32469I-EVAL
+/** @addtogroup STM32469I_EVAL
   * @{
   */
 
-/** @defgroup STM32469I-EVAL_NOR STM32469I-EVAL NOR
+/** @defgroup STM32469I-EVAL_NOR STM32469I EVAL NOR
   * @{
   */
 
 /* Private typedef -----------------------------------------------------------*/
 
-/** @defgroup STM32469I-EVAL_NOR_Private_Types_Definitions STM32469I-EVAL NOR Private Types Definitions
+/** @defgroup STM32469I-EVAL_NOR_Private_Types_Definitions STM32469I EVAL NOR Private Types Definitions
   * @{
+  */
+
+/**
+  * @}
   */
 
 /* Private define ------------------------------------------------------------*/
 
-/** @defgroup STM32469I-EVAL_NOR_Private_Defines STM32469I-EVAL NOR Private Defines
+/** @defgroup STM32469I-EVAL_NOR_Private_Defines STM32469I EVAL NOR Private Defines
   * @{
   */
-
+  
+/**
+  * @}
+  */
 /* Private macro -------------------------------------------------------------*/
 
-/** @defgroup STM32469I-EVAL_NOR_Private_Macros STM32469I-EVAL NOR Private Macros
+/** @defgroup STM32469I-EVAL_NOR_Private_Macros STM32469I EVAL NOR Private Macros
   * @{
   */
 /**
@@ -107,7 +114,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 
-/** @defgroup STM32469I-EVAL_NOR_Private_Variables STM32469I-EVAL NOR Private Variables
+/** @defgroup STM32469I-EVAL_NOR_Private_Variables STM32469I EVAL NOR Private Variables
   * @{
   */
 NOR_HandleTypeDef NorHandle;
@@ -119,7 +126,7 @@ static FMC_NORSRAM_TimingTypeDef Timing;
 
 /* Private function prototypes -----------------------------------------------*/
 
-/** @defgroup STM32469I-EVAL_NOR_Private_Function_Prototypes STM32469I-EVAL NOR Private Function Prototypes
+/** @defgroup STM32469I-EVAL_NOR_Private_Function_Prototypes STM32469I EVAL NOR Private Function Prototypes
   * @{
   */
 
@@ -420,14 +427,6 @@ void HAL_NOR_MspWait(NOR_HandleTypeDef *hnor, uint32_t Timeout)
     timeout--;
   }
 }
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
 
 /**
   * @}

@@ -2,11 +2,11 @@
   @page TIM_OCActive TIM_OCActive example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    TIM/TIM_OCActive/readme.txt 
   * @author  MCD Application Team
-  * @version V1.1.2
-  * @date    13-November-2015
+  * @version V1.2.0
+  * @date    17-February-2017
   * @brief   This example shows how to configure the Timer to generate four 
   *          delayed signals.
   ******************************************************************************
@@ -38,9 +38,9 @@
 
 @par Example Description 
 
-  This example shows how to configure the TIM peripheral in Output Compare Active 
-  mode (when the counter matches the capture/compare register, the concerned output
-  pin is set to its active state).
+  This example shows how to configure the TIM peripheral to generate four different signals with four
+  different delays.
+
 
   The TIM1 frequency is set to SystemCoreClock, and the objective is
   to get TIM1 counter clock at 10 kHz so the Prescaler is computed as following:

@@ -2,11 +2,11 @@
   @page ADC_DualModeInterleaved  Use ADC1 and ADC2 in Dual interleaved mode and DMA mode3
 
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    ADC/ADC_DualModeInterleaved/readme.txt 
   * @author  MCD Application Team
-  * @version V1.1.2
-  * @date    13-November-2015
+  * @version V1.2.0
+  * @date    17-February-2017
   * @brief   Description of the Dual interleaved mode and DMA mode3 example
   ******************************************************************************
   *
@@ -37,8 +37,8 @@
 
 @par Example Description 
 
-This example provides a short description of how to use the ADC peripheral to
-convert a regular channel in Dual interleaved mode using DMA in mode 3.
+This example provides a short description of how to use two ADC peripherals to perform 
+conversions in interleaved dual-mode.
 
 DMA mode 3 is used in interleaved mode in 6-bit and 8-bit resolutions.
 

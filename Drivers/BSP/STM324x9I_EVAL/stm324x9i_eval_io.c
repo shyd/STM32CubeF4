@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm324x9i_eval_io.c
   * @author  MCD Application Team
-  * @version V2.2.1
-  * @date    07-October-2015
+  * @version V3.0.0
+  * @date    27-January-2017
   * @brief   This file provides a set of functions needed to manage the IO pins
   *          on STM324x9I-EVAL evaluation board.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -80,32 +80,11 @@
   * @{
   */ 
   
-/** @defgroup STM324x9I_EVAL_IO
+/** @defgroup STM324x9I_EVAL_IO STM324x9I EVAL IO
   * @{
   */   
 
-/** @defgroup STM324x9I_EVAL_IO_Private_Types_Definitions
-  * @{
-  */ 
-/**
-  * @}
-  */ 
-
-/** @defgroup STM324x9I_EVAL_IO_Private_Defines
-  * @{
-  */ 
-/**
-  * @}
-  */ 
-
-/** @defgroup STM324x9I_EVAL_IO_Private_Macros
-  * @{
-  */ 
-/**
-  * @}
-  */ 
-
-/** @defgroup STM324x9I_EVAL_IO_Private_Variables
+/** @defgroup STM324x9I_EVAL_IO_Private_Variables STM324x9I EVAL IO Private Variables
   * @{
   */ 
 static IO_DrvTypeDef *io_driver;
@@ -113,14 +92,7 @@ static IO_DrvTypeDef *io_driver;
   * @}
   */
 
-/** @defgroup STM324x9I_EVAL_IO_Private_Function_Prototypes
-  * @{
-  */ 
-/**
-  * @}
-  */
-
-/** @defgroup STM324x9I_EVAL_IO_Private_Functions
+/** @defgroup STM324x9I_EVAL_IO_Private_Functions STM324x9I EVAL IO Private Functions
   * @{
   */ 
 
@@ -133,7 +105,6 @@ static IO_DrvTypeDef *io_driver;
   *         This implies that if BSP_IO_Init() is called from a peripheral ISR process,
   *         then the SysTick interrupt must have higher priority (numerically lower)
   *         than the peripheral interrupt. Otherwise the caller ISR process will be blocked.
-  * @param  None
   * @retval IO_OK if all initializations are OK. Other value if error.
   */
 uint8_t BSP_IO_Init(void)
@@ -170,8 +141,6 @@ uint8_t BSP_IO_ITGetStatus(uint16_t IO_Pin)
 
 /**
   * @brief  Clears all the IO IT pending bits.
-  * @param  None
-  * @retval None
   */
 void BSP_IO_ITClear(void)
 {
@@ -205,7 +174,6 @@ uint8_t BSP_IO_ConfigPin(uint16_t IO_Pin, IO_ModeTypedef IO_Mode)
   * @param  IO_Pin: Selected pins to write. 
   *          This parameter can be any combination of the IO pins. 
   * @param  PinState: New pins state to write  
-  * @retval None
   */
 void BSP_IO_WritePin(uint16_t IO_Pin, uint8_t PinState)
 {
@@ -228,7 +196,6 @@ uint16_t BSP_IO_ReadPin(uint16_t IO_Pin)
   * @brief  Toggles the selected pins state.
   * @param  IO_Pin: Selected pins to toggle. 
   *          This parameter can be any combination of the IO pins.  
-  * @retval None
   */
 void BSP_IO_TogglePin(uint16_t IO_Pin)
 {

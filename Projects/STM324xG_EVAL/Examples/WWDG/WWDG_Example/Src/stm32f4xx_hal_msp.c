@@ -2,13 +2,13 @@
   ******************************************************************************
   * @file    WWDG/WWDG_Example/Src/stm32f4xx_hal_msp.c
   * @author  MCD Application Team
-  * @version V1.2.4
-  * @date    13-November-2015
+  * @version V1.3.0
+  * @date    17-February-2017
   * @brief   HAL MSP module.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -69,22 +69,6 @@ void HAL_WWDG_MspInit(WWDG_HandleTypeDef *hwwdg)
 {
   /* WWDG Peripheral clock enable */
   __HAL_RCC_WWDG_CLK_ENABLE();
-}
-
-/**
-  * @brief WWDG MSP De-Initialization 
-  *        This function freeze the hardware resources used in this example:
-  *          - Disable the Peripheral's clock
-  * @param hwwdg: WWDG handle pointer
-  * @retval None
-  */
-void HAL_WWDG_MspDeInit(WWDG_HandleTypeDef *hwwdg)
-{
-  /* Enable WWDG reset state */
-  __HAL_RCC_WWDG_FORCE_RESET();
-  
-  /* Release WWDG from reset state */
-  __HAL_RCC_WWDG_RELEASE_RESET();
 }
 
 /**

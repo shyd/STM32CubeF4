@@ -2,11 +2,11 @@
   @page FLASH_EraseProgram FLASH Erase and Program example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    FLASH/FLASH_EraseProgram/readme.txt
   * @author  MCD Application Team
-  * @version V1.2.4
-  * @date    13-November-2015
+  * @version V1.3.0
+  * @date    17-February-2017
   * @brief   Description of the FLASH Erase and Program example.
   ******************************************************************************
   *
@@ -38,10 +38,10 @@
 @par Example Description 
 
 This example describes how to configure and use the FLASH HAL API to erase and program 
-the internal FLASH memory.
+the internal Flash memory.
 
 This example guides you through the different configuration steps by mean of HAL API
-how to erase and program the STM32F4xx internal FLASH memory mounted on STM324xG-EVAL 
+how to erase and program the STM32F4xx internal Flash memory mounted on STM324xG-EVAL 
 evaluation board.
   
 At the beginning of the main program the HAL_Init() function is called to reset 
@@ -60,7 +60,7 @@ At this stage, all these sectors will be erased one by one separately.
 be returned to user (through variable 'SectorError').
 
 Once this operation is finished, sector word programming operation will be performed 
-in the FLASH memory. The written data is then read back and checked.
+in the Flash memory. The written data is then read back and checked.
 
 STM324xG-EVAL evaluation board LEDs can be used to monitor the transfer status:
  - LED1 is ON when there are no errors detected after data programing 

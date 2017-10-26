@@ -2,11 +2,11 @@
   @page UART_Printf UART Printf example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    UART/UART_Printf/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the UART Printf example.
   ******************************************************************************
   *
@@ -41,12 +41,12 @@ This example shows how to reroute the C library printf function to the UART. It
 outputs a message sent by the UART on the HyperTerminal.
 
 - configuration 1: 
-  connect the NUCLEO-429ZI Rev.B board to the Hyperterminal through RS232 cable. Connect the 
-  RX pin of the Hyperterminal to the Tx pin of the NUCLEO-429ZI board (pin PD.08)( pin 10 in 
+  connect the NUCLEO-F429ZI Rev.B board to the Hyperterminal through RS232 cable. Connect the 
+  RX pin of the Hyperterminal to the Tx pin of the NUCLEO-F429ZI board (pin PD.08)( pin 10 in 
   the morpho connector CN12) and connect the Tx pin of the Hyperterminal to the Rx pin of the 
-  NUCLEO-429ZI Rev.B board (pin PD.09)( pin 69 in the morpho connector CN11).
+  NUCLEO-F429ZI Rev.B board (pin PD.09)( pin 69 in the morpho connector CN11).
   
-Board: NUCLEO-429ZI  Rev B   
+Board: NUCLEO-F429ZI  Rev B   
 Tx Pin: PD.08
 Rx Pin: PD.09
    _________________________ 
@@ -68,7 +68,7 @@ Rx Pin: PD.09
   
 - Configuration 2: 
 
-  Connect USB cable to Host and connect UART TX pin to UART RX pin on the NUCLEO-429ZI Rev.B board
+  Connect USB cable to Host and connect UART TX pin to UART RX pin on the NUCLEO-F429ZI Rev.B board
   (Loopback mode). In this case, you can open one terminal (relative to USB com port or UART com port)
   and all data sent from this terminal will be received by the same terminal in loopback mode.
   This mode is useful for test and performance measurements.       
@@ -113,10 +113,10 @@ position of the transmitted data.
 
   - This example runs on STM32F429ZI devices.
     
-  - This example has been tested with NUCLEO-429ZI  Rev B board and can be
+  - This example has been tested with NUCLEO-F429ZI  Rev B board and can be
     easily tailored to any other supported device and development board.    
 
-  - NUCLEO-429ZI  Rev B Set-up
+  - NUCLEO-F429ZI  Rev B Set-up
     - Connect ST-Link cable to the PC USB port to display data on the HyperTerminal. 
       A virtual COM port will then appear in the HyperTerminal. 
 

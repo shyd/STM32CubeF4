@@ -16,8 +16,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
-#undef errno
-extern int errno;
+
 
 #define FreeRTOS
 #define MAX_STACK_SIZE 0x2000

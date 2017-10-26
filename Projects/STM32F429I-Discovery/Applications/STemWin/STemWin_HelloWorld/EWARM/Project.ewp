@@ -304,7 +304,7 @@
           <name>CCIncludePath2</name>
           <state>$PROJ_DIR$\..\Inc</state>
           <state>$PROJ_DIR$\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Include</state>
-          <state>$PROJ_DIR$\..\..\..\..\..\..\Drivers\CMSIS\Include</state>
+          
           <state>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F4xx_HAL_Driver\Inc</state>
           <state>$PROJ_DIR$\..\..\..\..\..\..\Drivers\BSP\STM32F429I-Discovery</state>
           <state>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\inc</state>
@@ -1107,7 +1107,7 @@
       <group>
         <name>Lib</name>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\Lib\STemWin528_CM4_IAR.a</name>
+          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STemWin\Lib\STemWin532_CM4_IAR.a</name>
         </file>
       </group>
     </group>

@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32469i_discovery.h
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    29-September-2015
+  * @version V2.0.0
+  * @date    27-January-2017
   * @brief   This file contains definitions for STM32469I-Discovery LEDs,
   *          push-buttons hardware resources.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -56,11 +56,11 @@
   * @{
   */
 
-/** @defgroup STM32469I_Discovery_LOW_LEVEL STM32469I-Discovery LOW LEVEL
+/** @addtogroup STM32469I_Discovery_LOW_LEVEL 
   * @{
   */
 
-/** @defgroup STM32469I_Discovery_LOW_LEVEL_Exported_Types STM32469I Discovery Low Level Exported Types
+/** @defgroup STM32469I_Discovery_LOW_LEVEL_Exported_Types STM32469I Discovery LOW LEVEL Exported Types
  * @{
  */
 
@@ -123,13 +123,17 @@ typedef enum
 /**
   * @}
   */
+  
+/**
+  * @}
+  */
 
-/** @defgroup STM32469I_Discovery_LOW_LEVEL_Exported_Constants STM32469I Discovery Low Level Exported Constants
+/** @defgroup STM32469I_Discovery_LOW_LEVEL_Exported_Constants STM32469I Discovery LOW LEVEL Exported Constants
   * @{
   */
 
 
-/** @addtogroup STM32469I_Discovery_LOW_LEVEL_LED STM32469I Discovery Low Level Led
+/** @defgroup STM32469I_Discovery_LOW_LEVEL_LED STM32469I Discovery LOW LEVEL LED
   * @{
   */
 /* Always four leds for all revisions of Discovery boards */
@@ -159,7 +163,7 @@ typedef enum
   * @}
   */
 
-/** @addtogroup STM32469I_Discovery_LOW_LEVEL_BUTTON STM32469I Discovery Low Level Button
+/** @addtogroup STM32469I_Discovery_LOW_LEVEL_BUTTON STM32469I Discovery LOW LEVEL BUTTON
   * @{
   */
 /* Only one User/Wakeup button */
@@ -188,8 +192,7 @@ typedef enum
   */
 
 /**
-  * @brief Discovery Pins definition
-  * TODO : to be modified/reviewed
+  * @brief OTG_FS1 OVER_CURRENT and POWER_SWITCH Pins definition
   */
 #define AUDIO_INT_PIN                  GPIO_PIN_7
 #define AUDIO_INT_PORT                 GPIOB
@@ -214,7 +217,6 @@ typedef enum
 
 /**
   * @brief TS_INT signal from TouchScreen when it is configured in interrupt mode
-  * GPIOJ5 is used for that purpose on Manta Dragon Discovery board
   */
 #define TS_INT_PIN                        ((uint32_t)GPIO_PIN_5)
 #define TS_INT_GPIO_PORT                  ((GPIO_TypeDef*)GPIOJ)
@@ -223,9 +225,14 @@ typedef enum
 #define TS_INT_EXTI_IRQn                  EXTI9_5_IRQn
 
 /**
-  * @brief TouchScreen FT6206 Slave I2C address
+  * @brief TouchScreen FT6206 Slave I2C address 1
   */
 #define TS_I2C_ADDRESS                   ((uint16_t)0x54)
+
+/**
+  * @brief TouchScreen FT6336G Slave I2C address 2
+  */
+#define TS_I2C_ADDRESS_A02               ((uint16_t)0x70)
 
 
 /**
@@ -319,14 +326,14 @@ typedef enum
   * @}
   */
 
-/** @defgroup STM32469I_Discovery_LOW_LEVEL_Exported_Macros STM32469I Discovery Low Level Exported Macros
+/** @defgroup STM32469I_Discovery_LOW_LEVEL_Exported_Macros STM32469I Discovery LOW LEVEL Exported Macros
   * @{
   */
 /**
   * @}
   */
 
-/** @defgroup STM32469I_Discovery_LOW_LEVEL_Exported_Functions STM32469I Discovery Low Level Exported Functions
+/** @defgroup STM32469I_Discovery_LOW_LEVEL_Exported_Functions STM32469I Discovery LOW LEVEL Exported Functions
   * @{
   */
 uint32_t         BSP_GetVersion(void);
@@ -338,10 +345,6 @@ void             BSP_LED_Toggle(Led_TypeDef Led);
 void             BSP_PB_Init(Button_TypeDef Button, ButtonMode_TypeDef Button_Mode);
 void             BSP_PB_DeInit(Button_TypeDef Button);
 uint32_t         BSP_PB_GetState(Button_TypeDef Button);
-
-/**
-  * @}
-  */
 
 /**
   * @}

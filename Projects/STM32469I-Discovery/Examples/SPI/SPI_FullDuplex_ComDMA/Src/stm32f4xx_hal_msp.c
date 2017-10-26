@@ -2,13 +2,13 @@
   ******************************************************************************
   * @file    SPI/SPI_FullDuplex_ComDMA/Src/stm32f4xx_msp.c
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date  09-October-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   HAL MSP module.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -67,6 +67,7 @@ static DMA_HandleTypeDef hdma_rx;
   *           - Peripheral's GPIO Configuration  
   *           - DMA configuration for transmission request by peripheral 
   *           - NVIC configuration for DMA interrupt request enable
+  *           - NVIC configuration for SPI interrupt request enable
   * @param hspi: SPI handle pointer
   * @retval None
   */
@@ -76,7 +77,7 @@ GPIO_InitTypeDef  GPIO_InitStruct;
 
   if (hspi->Instance == SPIx)
   {
-    /*##-1- Enable peripherals and GPIO Clocks #################################*/
+    /*##-1- Enable peripherals and GPIO Clocks ###############################*/
     /* Enable GPIO TX/RX clock */
     SPIx_SCK_GPIO_CLK_ENABLE();
     SPIx_MISO_GPIO_CLK_ENABLE();
@@ -86,7 +87,7 @@ GPIO_InitTypeDef  GPIO_InitStruct;
     /* Enable DMA clock */
     DMAx_CLK_ENABLE();
 
-    /*##-2- Configure peripheral GPIO ##########################################*/  
+    /*##-2- Configure peripheral GPIO ########################################*/  
     /* SPI SCK GPIO pin configuration  */
     GPIO_InitStruct.Pin       = SPIx_SCK_PIN;
     GPIO_InitStruct.Mode      = GPIO_MODE_AF_PP;
@@ -105,7 +106,7 @@ GPIO_InitTypeDef  GPIO_InitStruct;
     GPIO_InitStruct.Alternate = SPIx_MOSI_AF;
     HAL_GPIO_Init(SPIx_MOSI_GPIO_PORT, &GPIO_InitStruct);
 
-    /*##-3- Configure the DMA ##################################################*/
+    /*##-3- Configure the DMA ################################################*/
     /* Configure the DMA handler for Transmission process */
     hdma_tx.Instance                 = SPIx_TX_DMA_STREAM;
     hdma_tx.Init.Channel             = SPIx_TX_DMA_CHANNEL;
@@ -147,7 +148,7 @@ GPIO_InitTypeDef  GPIO_InitStruct;
     /* Associate the initialized DMA handle to the the SPI handle */
     __HAL_LINKDMA(hspi, hdmarx, hdma_rx);
     
-    /*##-4- Configure the NVIC for DMA #########################################*/ 
+    /*##-4- Configure the NVIC for DMA #######################################*/ 
     /* NVIC configuration for DMA transfer complete interrupt (SPI2_TX) */
     HAL_NVIC_SetPriority(SPIx_DMA_TX_IRQn, 1, 1);
     HAL_NVIC_EnableIRQ(SPIx_DMA_TX_IRQn);
@@ -155,6 +156,10 @@ GPIO_InitTypeDef  GPIO_InitStruct;
     /* NVIC configuration for DMA transfer complete interrupt (SPI2_RX) */
     HAL_NVIC_SetPriority(SPIx_DMA_RX_IRQn, 1, 0);
     HAL_NVIC_EnableIRQ(SPIx_DMA_RX_IRQn);
+    
+    /*##-5- Configure the NVIC for SPI #######################################*/
+    HAL_NVIC_SetPriority(SPIx_IRQn, 1, 2);
+    HAL_NVIC_EnableIRQ(SPIx_IRQn);    
   }
 }
 
@@ -191,6 +196,9 @@ void HAL_SPI_MspDeInit(SPI_HandleTypeDef *hspi)
     /*##-4- Disable the NVIC for DMA ###########################################*/
     HAL_NVIC_DisableIRQ(SPIx_DMA_TX_IRQn);
     HAL_NVIC_DisableIRQ(SPIx_DMA_RX_IRQn);
+    
+    /*##-5- Disable the NVIC for SPI ###########################################*/
+    HAL_NVIC_DisableIRQ(SPIx_IRQn);
   }
 }
 

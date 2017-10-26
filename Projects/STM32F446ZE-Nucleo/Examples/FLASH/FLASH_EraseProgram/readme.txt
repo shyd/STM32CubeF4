@@ -2,11 +2,11 @@
   @page FLASH_EraseProgram FLASH Erase and Program application
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    FLASH/FLASH_EraseProgram/readme.txt
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the FLASH Erase and Program example.
   ******************************************************************************
   *
@@ -38,7 +38,7 @@
 @par Application Description 
 
 This application describes how to configure and use the FLASH HAL API to erase and program 
-the internal FLASH memory.
+the internal Flash memory.
   
 At the beginning of the main program the HAL_Init() function is called to reset 
 all the peripherals, initialize the Flash interface and the systick.
@@ -56,7 +56,7 @@ At this stage, all these sectors will be erased one by one separately.
 be returned to user (through variable 'sectorError').
 
 Once this operation is finished, sector word programming operation will be performed 
-in the FLASH memory. The written data is then read back and checked.
+in the Flash memory. The written data is then read back and checked.
 
 The NUCLEO-446ZE Rev.B board LEDs can be used to monitor the transfer status:
  - LED1 is ON when there are no errors detected after data programming 

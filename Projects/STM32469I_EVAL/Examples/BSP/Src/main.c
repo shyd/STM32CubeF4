@@ -2,13 +2,13 @@
   ******************************************************************************
   * @file    BSP/Src/main.c
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   This example code shows how to use the STM32469I BSP Drivers
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -322,7 +322,7 @@ static void Display_DemoDescription(void)
   BSP_LCD_DrawBitmap((BSP_LCD_GetXSize() - 80)/2, 125, (uint8_t *)stlogo);
 
   BSP_LCD_SetFont(&Font16);
-  BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize()- 40, (uint8_t *)"Copyright (c) STMicroelectronics 2015", CENTER_MODE);
+  BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize()- 40, (uint8_t *)"Copyright (c) STMicroelectronics 2016", CENTER_MODE);
 
   BSP_LCD_SetFont(&Font16);
   BSP_LCD_SetTextColor(LCD_COLOR_BLUE);

@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    ADC/ADC_DualModeInterleaved/Src/main.c 
   * @author  MCD Application Team
-  * @version V1.2.3
-  * @date    09-October-2015
+  * @version V1.4.0
+  * @date    17-February-2017
   * @brief   This example provides a short description of how to use the ADC 
   *          peripheral to convert a regular channel in Dual interleaved mode.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:

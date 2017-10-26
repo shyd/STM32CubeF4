@@ -2,11 +2,11 @@
   @page TIM_OnePulse TIM One Pulse example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    TIM/TIM_OnePulse/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the TIM One Pulse example.      
   ******************************************************************************
   *
@@ -102,7 +102,7 @@ Configuration of TIM5 in One Pulse Mode
   - This example runs on STM32F469xx/STM32F479xx devices.
 
   - In this example, the clock is set to 180 MHz.
-  - This example has been tested and validated with STMicroelectronics STM32469I-EVAL revB board and can be
+  - This example has been tested and validated with STMicroelectronics STM32469I-EVAL RevC board and can be
     easily tailored to any other supported device and development board.
 
   - STM32469I-EVAL Set-up

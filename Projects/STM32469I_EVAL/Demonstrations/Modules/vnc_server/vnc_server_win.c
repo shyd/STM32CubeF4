@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    vnc_server_win.c
   * @author  MCD Application Team
-  * @version V1.1.1
-  * @date    13-November-2015   
+  * @version V1.2.0
+  * @date    17-February-2017 
   * @brief   vnc server functions
   ******************************************************************************
   * @attention

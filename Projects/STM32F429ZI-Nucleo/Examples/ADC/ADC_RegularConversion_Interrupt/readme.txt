@@ -2,11 +2,11 @@
   @page ADC_RegularConversion_Interrupt conversion using interrupt
 
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    ADC/ADC_RegularConversion_Interrupt/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the ADC RegularConversion interrupt example.
   ******************************************************************************
   *
@@ -71,7 +71,7 @@ STM32 Nucleo board's LEDs can be used to monitor the transfer status:
 
   - This example runs on STM32F429xx devices.
   
-  - This example has been tested with NUCLEO-429ZI  Rev B board and can be
+  - This example has been tested with NUCLEO-F429ZI  Rev B board and can be
     easily tailored to any other supported device and development board.
 
 @par How to use it ? 

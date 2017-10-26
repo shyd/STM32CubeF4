@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    PWR/PWR_STOP/Src/main.c
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date  09-October-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   This sample code shows how to use STM32F4xx PWR HAL API to enter
   *          and exit the stop mode with an EXTI.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -63,7 +63,6 @@ static void SystemClock_Config(void);
   */
 int main(void)
 {
-
   /* STM32F4xx HAL library initialization:
        - Configure the Flash prefetch, instruction and Data caches
        - Systick timer is configured by default as source of time base, but user 
@@ -96,12 +95,17 @@ int main(void)
     /* Turn LED1 OFF  */
     BSP_LED_Off(LED1);
 
-
     /* User push-button (line 0) will be used to wakeup the system from STOP mode */
     BSP_PB_Init(BUTTON_USER, BUTTON_MODE_EXTI);
+
+#ifdef STOP_MODE
     /* Enter Stop Mode */
     HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
-    
+#else
+    /* Enter in Under-Drive Stop Mode */
+    HAL_PWREx_EnterUnderDriveSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);    
+#endif
+
     /* Configures system clock after wake-up from STOP */
     SystemClock_Config();
   }

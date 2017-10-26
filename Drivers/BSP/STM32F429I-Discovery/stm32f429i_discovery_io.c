@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32f429i_discovery_io.c
   * @author  MCD Application Team
-  * @version V2.1.2
-  * @date    02-March-2015
+  * @version V2.1.5
+  * @date    27-January-2017
   * @brief   This file provides a set of functions needed to manage the STMPE811
   *          IO Expander device mounted on STM32F429I-Discovery Kit.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -47,25 +47,25 @@
   * @{
   */ 
   
-/** @defgroup STM32F429I_DISCOVERY_IO
+/** @defgroup STM32F429I_DISCOVERY_IO STM32F429I DISCOVERY IO
   * @{
   */ 
 
-/** @defgroup STM32F429I_DISCOVERY_IO_Private_Types_Definitions
-  * @{
-  */ 
-/**
-  * @}
-  */ 
-
-/** @defgroup STM32F429I_DISCOVERY_IO_Private_Defines
+/** @defgroup STM32F429I_DISCOVERY_IO_Private_Types_Definitions STM32F429I DISCOVERY IO Private Types Definitions
   * @{
   */ 
 /**
   * @}
   */ 
 
-/** @defgroup STM32F429I_DISCOVERY_IO_Private_Macros
+/** @defgroup STM32F429I_DISCOVERY_IO_Private_Defines STM32F429I DISCOVERY IO Private Defines
+  * @{
+  */ 
+/**
+  * @}
+  */ 
+
+/** @defgroup STM32F429I_DISCOVERY_IO_Private_Macros STM32F429I DISCOVERY IO Private Macros
   * @{
   */ 
 /**
@@ -73,7 +73,7 @@
   */
 
 
-/** @defgroup STM32F429I_DISCOVERY_IO_Private_Variables
+/** @defgroup STM32F429I_DISCOVERY_IO_Private_Variables STM32F429I DISCOVERY IO Private Variables
   * @{
   */
 static IO_DrvTypeDef *IoDrv;
@@ -83,14 +83,14 @@ static IO_DrvTypeDef *IoDrv;
   */
 
 
-/** @defgroup STM32F429I_DISCOVERY_IO_Private_Function_Prototypes
+/** @defgroup STM32F429I_DISCOVERY_IO_Private_Function_Prototypes STM32F429I DISCOVERY IO Private Function Prototypes
   * @{
   */
 /**
   * @}
   */
 
-/** @defgroup STM32F429I_DISCOVERY_IO_Private_Functions
+/** @defgroup STM32F429I_DISCOVERY_IO_Private_Functions STM32F429I DISCOVERY IO Private Functions
   * @{
   */
 
@@ -103,7 +103,6 @@ static IO_DrvTypeDef *IoDrv;
   *         This implies that if BSP_IO_Init() is called from a peripheral ISR process,
   *         then the SysTick interrupt must have higher priority (numerically lower)
   *         than the peripheral interrupt. Otherwise the caller ISR process will be blocked.
-  * @param  None
   * @retval IO_OK if all initializations done correctly. Other value if error.
   */
 uint8_t BSP_IO_Init(void)
@@ -140,8 +139,6 @@ uint8_t BSP_IO_ITGetStatus(uint16_t IoPin)
 
 /**
   * @brief  Clears all the IO IT pending bits
-  * @param  None
-  * @retval None
   */  
 void BSP_IO_ITClear(void)
 {
@@ -160,8 +157,7 @@ void BSP_IO_ITClear(void)
   *   @arg  IO_MODE_IT_RISING_EDGE
   *   @arg  IO_MODE_IT_FALLING_EDGE
   *   @arg  IO_MODE_IT_LOW_LEVEL
-  *   @arg  IO_MODE_IT_HIGH_LEVEL 
-  * @retval None  
+  *   @arg  IO_MODE_IT_HIGH_LEVEL   
   */ 
 void BSP_IO_ConfigPin(uint16_t IoPin, IO_ModeTypedef IoMode)
 {
@@ -174,7 +170,6 @@ void BSP_IO_ConfigPin(uint16_t IoPin, IO_ModeTypedef IoMode)
   * @param  IoPin: The selected pins to write. 
   *         This parameter could be any combination of the IO pins. 
   * @param  PinState: the new pins state to write  
-  * @retval None
   */
 void BSP_IO_WritePin(uint16_t IoPin, uint8_t PinState)
 {
@@ -197,7 +192,6 @@ uint16_t BSP_IO_ReadPin(uint16_t IoPin)
   * @brief  Toggles the selected pins state.
   * @param  IoPin: The selected pins to toggle. 
   *         This parameter could be any combination of the IO pins.   
-  * @retval None
   */
 void BSP_IO_TogglePin(uint16_t IoPin)
 {

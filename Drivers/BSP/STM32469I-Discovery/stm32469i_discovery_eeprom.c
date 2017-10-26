@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32469i_discovery_eeprom.c
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    29-September-2015
+  * @version V2.0.0
+  * @date    27-January-2017
   * @brief   This file provides a set of functions needed to manage an I2C M24LR64 
   *          EEPROM memory.
   *          To be able to use this driver, the switch EE_M24LR64 must be defined
@@ -59,7 +59,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -92,37 +92,37 @@
   * @{
   */
   
-/** @addtogroup STM32469I-Discovery
+/** @addtogroup STM32469I_Discovery
   * @{
   */ 
   
-/** @addtogroup STM32469I-Discovery_EEPROM
+/** @defgroup STM32469I-Discovery_EEPROM STM32469I Discovery EEPROM
   * @brief This file includes the I2C EEPROM driver of STM32469I-Discovery board.
   * @{
   */ 
 
-/** @defgroup STM32469I-Discovery_EEPROM_Private_Types STM32469I Discovery Eeprom Private Types
+/** @defgroup STM32469I-Discovery_EEPROM_Private_Types STM32469I Discovery EEPROM Private Types
   * @{
   */ 
 /**
   * @}
   */ 
 
-/** @defgroup STM32469I-Discovery_EEPROM_Private_Defines STM32469I Discovery Eeprom Private Defines
+/** @defgroup STM32469I-Discovery_EEPROM_Private_Defines STM32469I Discovery EEPROM Private Defines
   * @{
   */  
 /**
   * @}
   */ 
 
-/** @defgroup STM32469I-Discovery_EEPROM_Private_Macros STM32469I Discovery Eeprom Private Macros
+/** @defgroup STM32469I-Discovery_EEPROM_Private_Macros STM32469I Discovery EEPROM Private Macros
   * @{
   */
 /**
   * @}
   */ 
   
-/** @defgroup STM32469I-Discovery_EEPROM_Private_Variables STM32469I Discovery Eeprom Private Variables
+/** @defgroup STM32469I-Discovery_EEPROM_Private_Variables STM32469I Discovery EEPROM Private Variables
   * @{
   */
 __IO uint16_t EEPROMAddress = 0;
@@ -133,14 +133,14 @@ __IO uint8_t  EEPROMDataWrite;
   * @}
   */ 
 
-/** @defgroup STM32469I-Discovery_EEPROM_Private_Function_Prototypes STM32469I Discovery Eeprom Private Prototypes
+/** @defgroup STM32469I-Discovery_EEPROM_Private_Function_Prototypes STM32469I Discovery EEPROM Private Prototypes
   * @{
   */ 
 /**
   * @}
   */ 
 
-/** @defgroup STM32469I-Discovery_EEPROM_Private_Functions STM32469I Discovery Eeprom Private Functions
+/** @defgroup STM32469I-Discovery_EEPROM_Private_Functions STM32469I Discovery EEPROM Private Functions
   * @{
   */ 
 

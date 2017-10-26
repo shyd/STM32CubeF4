@@ -1,8 +1,8 @@
-;******************** (C) COPYRIGHT 2015 STMicroelectronics ********************
+;/******************** (C) COPYRIGHT 2017 STMicroelectronics ********************
 ;* File Name          : startup_stm32f401xc.s
 ;* Author             : MCD Application Team
-;* Version            : V1.4.0
-;* Date               : 14-August-2015
+;* Version            : V1.4.5
+;* Date               : 17-February-2017
 ;* Description        : STM32F401xc devices vector table for MDK-ARM toolchain. 
 ;*                      This module performs:
 ;*                      - Set the initial SP

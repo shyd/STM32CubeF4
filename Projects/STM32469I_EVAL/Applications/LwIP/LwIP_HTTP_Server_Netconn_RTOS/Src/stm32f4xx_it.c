@@ -2,15 +2,15 @@
   ******************************************************************************
   * @file    LwIP/LwIP_HTTP_Server_Netconn_RTOS/Src/stm32f4xx_it.c 
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Main Interrupt Service Routines.
   *          This file provides template for all exceptions handler and 
   *          peripherals interrupt service routine.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
   * You may not use this file except in compliance with the License.
@@ -28,16 +28,14 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32f4xx_hal.h"
-#include "stm32469i_eval.h"
 #include "main.h"
 #include "stm32f4xx_it.h"
-#include "ethernetif.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
+extern ETH_HandleTypeDef EthHandle;
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
 
@@ -122,7 +120,6 @@ void DebugMon_Handler(void)
   */
 void SysTick_Handler(void)
 {
-  HAL_IncTick();
   osSystickHandler();
 }
 
@@ -134,7 +131,7 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /**
-  * @brief  This function handles External line 8 interrupt request.
+  * @brief  This function handles External lines 9_5 interrupt request.
   * @param  None
   * @retval None
   */
@@ -150,7 +147,7 @@ void EXTI9_5_IRQHandler(void)
   */
 void ETH_IRQHandler(void)
 {
-  ETHERNET_IRQHandler();
+  HAL_ETH_IRQHandler(&EthHandle);
 }
 
 /**

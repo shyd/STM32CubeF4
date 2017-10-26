@@ -2,11 +2,11 @@
   @page TIM_OCToggle TIM_OCToggle example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    TIM/TIM_OCToggle/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   This example shows how to configure the Timer to generate four different 
   *          signals with four different frequencies.
   ******************************************************************************
@@ -47,19 +47,19 @@
    
   SystemCoreClock is set to 180 MHz for STM32F4xx Devices.
 
-  The TIM3 CCR1 register value is equal to 46153:
+  The TIM3 CCR1 register value is equal to 23076:
   CC1 update rate = TIM3 counter clock / CCR1_Val = 390 Hz,
   so the TIM3 Channel 1 generates a periodic signal with a frequency equal to 195 Hz.
 
-  The TIM3 CCR2 register value is equal to 23076:
+  The TIM3 CCR2 register value is equal to 11538:
   CC2 update rate = TIM3 counter clock / CCR2_Val = 780 Hz,
   so the TIM3 channel 2 generates a periodic signal with a frequency equal to 390 Hz.
 
-  The TIM3 CCR3 register value is equal to 11538:
+  The TIM3 CCR3 register value is equal to 5769:
   CC3 update rate = TIM3 counter clock / CCR3_Val = 1560 Hz,
   so the TIM3 channel 3 generates a periodic signal with a frequency equal to 780 Hz.
 
-  The TIM3 CCR4 register value is equal to 5769:
+  The TIM3 CCR4 register value is equal to 2884:
   CC4 update rate = TIM3 counter clock / CCR4_Val = 3120 Hz,
   so the TIM3 channel 4 generates a periodic signal with a frequency equal to 1560 Hz.
 

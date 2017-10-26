@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    GPIO/GPIO_IOToggle/Src/main.c
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   This example describes how to configure and use GPIOs through
   *          the STM32F4xx HAL API.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -87,22 +87,22 @@ int main(void)
   SystemClock_Config();
   
   /* -1- Enable GPIO Clock (to be able to program the configuration registers) */
-  __HAL_RCC_GPIOK_CLK_ENABLE();
+  __HAL_RCC_GPIOC_CLK_ENABLE();
 
   /* -2- Configure IO in output push-pull mode to drive external LEDs */
   GPIO_InitStruct.Mode  = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull  = GPIO_PULLUP;
   GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
 
-  GPIO_InitStruct.Pin = GPIO_PIN_3;
-  HAL_GPIO_Init(GPIOK, &GPIO_InitStruct);
+  GPIO_InitStruct.Pin = GPIO_PIN_10;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /* -3- Toggle IO in an infinite loop */
   while (1)
   {
-    HAL_GPIO_TogglePin(GPIOK, GPIO_PIN_3);
+    HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_10);
     /* Insert delay 100 ms */
-    HAL_Delay(100);
+    HAL_Delay(15);
   }
 }
 

@@ -2,11 +2,11 @@
   @page ADC_RegularConversion_DMA ADC3 conversion using DMA for Data transfer
 
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics  *******************
   * @file    ADC/ADC_RegularConversion_DMA/readme.txt 
   * @author  MCD Application Team
-  * @version V1.2.4
-  * @date    13-November-2015 
+  * @version V1.2.8
+  * @date    17-February-2017 
   * @brief   Description of the ADC RegularConversion DMA example.
   ******************************************************************************
   *

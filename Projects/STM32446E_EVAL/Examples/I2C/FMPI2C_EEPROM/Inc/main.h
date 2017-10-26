@@ -2,13 +2,13 @@
   ******************************************************************************
   * @file    I2C/I2C_EEPROM/Inc/main.h
   * @author  MCD Application Team
-  * @version V1.1.2
-  * @date    13-November-2015
+  * @version V1.2.0
+  * @date    17-February-2017
   * @brief   Header for main.c module
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -72,11 +72,17 @@
 #define I2Cx_DMA_INSTANCE_TX            DMA1_Stream5
 #define I2Cx_DMA_INSTANCE_RX            DMA1_Stream2
 
-/* Definition for I2Cx's NVIC */
+/* Definition for I2Cx's DMA NVIC */
 #define I2Cx_DMA_TX_IRQn                DMA1_Stream5_IRQn
 #define I2Cx_DMA_RX_IRQn                DMA1_Stream2_IRQn
 #define I2Cx_DMA_TX_IRQHandler          DMA1_Stream5_IRQHandler
 #define I2Cx_DMA_RX_IRQHandler          DMA1_Stream2_IRQHandler
+
+/* Definition for I2Cx's NVIC */
+#define I2Cx_EV_IRQn                    FMPI2C1_EV_IRQn
+#define I2Cx_EV_IRQHandler              FMPI2C1_Event_IRQHandler
+#define I2Cx_ER_IRQn                    FMPI2C1_ER_IRQn
+#define I2Cx_ER_IRQHandler              FMPI2C1_Error_IRQHandler
 
 /* Size of Transmission buffer */
 #define TXBUFFERSIZE                      (COUNTOF(aTxBuffer) - 1)

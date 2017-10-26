@@ -2,11 +2,11 @@
   @page ADC_InjectedConversion_Interrupt conversion using interrupt
 
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    ADC/ADC_InjectedConversion_Interrupt/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the ADC RegularConversion interrupt example.
   ******************************************************************************
   *
@@ -37,8 +37,8 @@
 
 @par Example Description 
 
-This example describes how to interrupt continuous ADC regular channel conversion 
-using ADC injected channels and how to get the converted value of this conversion.
+This example describes how to use the ADC in interrupt mode to convert data through 
+the HAL API.
 
 The ADC3 is configured to convert continuously regular ADC_CHANNEL_10
 and convert injected ADC_CHANNEL_12 (connected to PC.02) when injected conversion starts
@@ -91,10 +91,10 @@ STM32 Eval board's LEDs can be used to monitor the transfer status:
 
   - This example runs on STM32F469xx/STM32F479xx devices.
   
-  - This example has been tested and validated with STM32469I-EVAL revB board and can be
+  - This example has been tested and validated with STM32469I-EVAL RevC board and can be
     easily tailored to any other supported device and development board.
 
-  - STM32469I-EVAL revB Set-up
+  - STM32469I-EVAL RevC Set-up
     - Use the Potentiometer (RV1) of the Eval board (connected to  PC.0).
     - Connect PC.02 to a power supply (do not forget to connect the power supply 
       GND to the EVAL board GND)

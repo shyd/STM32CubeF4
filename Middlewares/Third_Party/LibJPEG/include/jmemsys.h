@@ -164,7 +164,7 @@ typedef struct backing_store_struct {
 #ifdef USE_HEAP_MEM
 #else
   /* For a typical implementation with temp files, we need: */
-  FILE * temp_file;		/* stdio reference to temp file */
+  JFILE * temp_file;		/* stdio reference to temp file */
   char temp_name[TEMP_NAME_LENGTH]; /* name of temp file */
 #endif
 #endif

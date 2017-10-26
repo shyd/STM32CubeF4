@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm324xg_eval_sram.c
   * @author  MCD Application Team
-  * @version V2.1.0
-  * @date    14-August-2015
+  * @version V3.0.0
+  * @date    27-January-2017
   * @brief   This file includes the SRAM driver for the IS61WV102416BLL-10MLI memory 
   *          device mounted on STM324xG-EVAL evaluation board.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -80,32 +80,11 @@
   * @{
   */ 
   
-/** @defgroup STM324xG_EVAL_SRAM
+/** @defgroup STM324xG_EVAL_SRAM STM324xG EVAL SRAM
   * @{
   */ 
 
-/** @defgroup STM324xG_EVAL_SRAM_Private_Types_Definitions
-  * @{
-  */ 
-/**
-  * @}
-  */
-         
-/** @defgroup STM324xG_EVAL_SRAM_Private_Defines
-  * @{
-  */
-/**
-  * @}
-  */
-
-/** @defgroup STM324xG_EVAL_SRAM_Private_Macros
-  * @{
-  */  
-/**
-  * @}
-  */
-
-/** @defgroup stm324xg_eval_sram_Private_Variables
+/** @defgroup STM324xG_EVAL_SRAM_Private_Variables STM324xG EVAL SRAM Private Variables
   * @{
   */       
 static SRAM_HandleTypeDef sramHandle;
@@ -113,22 +92,13 @@ static FMC_NORSRAM_TimingTypeDef Timing;
 /**
   * @}
   */ 
-
-/** @defgroup STM324xG_EVAL_SRAM_Private_Function_Prototypes
-  * @{
-  */ 
-static void SRAM_MspInit(void); 
-/**
-  * @}
-  */
     
-/** @defgroup STM324xG_EVAL_SRAM_Private_Functions
+/** @defgroup STM324xG_EVAL_SRAM_Private_Functions STM324xG EVAL SRAM Private Functions
   * @{
   */
   
 /**
   * @brief  Initializes the SRAM device.
-  * @param  None
   * @retval SRAM status
   */
 uint8_t BSP_SRAM_Init(void)
@@ -160,7 +130,7 @@ uint8_t BSP_SRAM_Init(void)
   sramHandle.Init.WriteBurst         = SRAM_WRITEBURST;
     
   /* SRAM controller initialization */
-  SRAM_MspInit();
+  BSP_SRAM_MspInit();
   if(HAL_SRAM_Init(&sramHandle, &Timing, &Timing) != HAL_OK)
   {
     return SRAM_ERROR;
@@ -249,8 +219,6 @@ uint8_t BSP_SRAM_WriteData_DMA(uint32_t uwStartAddress, uint16_t *pData, uint32_
 
 /**
   * @brief  Handles SRAM DMA transfer interrupt request.
-  * @param  None
-  * @retval None
   */
 void BSP_SRAM_DMA_IRQHandler(void)
 {
@@ -259,26 +227,24 @@ void BSP_SRAM_DMA_IRQHandler(void)
 
 /**
   * @brief  Initializes SRAM MSP.
-  * @param  hsram: SRAM handle
-  * @retval None
   */
-static void SRAM_MspInit(void)
+__weak void BSP_SRAM_MspInit(void)
 {
   static DMA_HandleTypeDef dmaHandle;
   GPIO_InitTypeDef GPIO_Init_Structure;
   SRAM_HandleTypeDef *hsram = &sramHandle;
     
   /* Enable FMC clock */
-  __FSMC_CLK_ENABLE();
+  __HAL_RCC_FSMC_CLK_ENABLE();
   
   /* Enable chosen DMAx clock */
   __SRAM_DMAx_CLK_ENABLE();
 
   /* Enable GPIOs clock */
-  __GPIOD_CLK_ENABLE();
-  __GPIOE_CLK_ENABLE();
-  __GPIOF_CLK_ENABLE();
-  __GPIOG_CLK_ENABLE();
+  __HAL_RCC_GPIOD_CLK_ENABLE();
+  __HAL_RCC_GPIOE_CLK_ENABLE();
+  __HAL_RCC_GPIOF_CLK_ENABLE();
+  __HAL_RCC_GPIOG_CLK_ENABLE();
   
   /* Common GPIO configuration */
   GPIO_Init_Structure.Mode      = GPIO_MODE_AF_PP;
@@ -337,7 +303,7 @@ static void SRAM_MspInit(void)
   HAL_DMA_Init(&dmaHandle);
     
   /* NVIC configuration for DMA transfer complete interrupt */
-  HAL_NVIC_SetPriority(SRAM_DMAx_IRQn, 5, 0);
+  HAL_NVIC_SetPriority(SRAM_DMAx_IRQn, 0x0F, 0);
   HAL_NVIC_EnableIRQ(SRAM_DMAx_IRQn);   
 }
 

@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
 <meta http-equiv="refresh" content="1">
 <meta content="MSHTML 6.00.2900.3698" name="GENERATOR">
-<style></style><!-- saved from url=(0038)http://192.168.0.10/STM32F107ADC.shtml -->
+<style></style><!-- saved from url=(0038)http://192.168.0.10/STM32F4xxADC.shtml -->
 </head>
 <body>
 <h4><small style="font-family: Verdana;"><small><big><big><big style="font-weight: bold;"><big><strong><em><span style="font-style: italic;">STM32F4xx ADC Conversion </span></em></strong></big></big></big></big></small></small></h4>
@@ -56,7 +56,7 @@ Converted Value</span> </small></td>
 <h3 style="font-weight: normal;"><br>
 </h3>
 <font size="-1"><span style="color: black;"></span></font><br>
-<font size="-1"><span style="color: black;"></span></font><span style="font-family: Verdana;"></span><a style="font-family: Verdana;" href="/STM32F107.html"><big><span style="font-weight: bold;"></span></big></a><font size="-1"><span style="color: black;">_______________________________________________________________________________________________________________<br>
+<font size="-1"><span style="color: black;"></span></font><span style="font-family: Verdana;"></span><a style="font-family: Verdana;" href="/STM32F4x7.html"><big><span style="font-weight: bold;"></span></big></a><font size="-1"><span style="color: black;">_______________________________________________________________________________________________________________<br>
 </span></font><font class="footmsg">&nbsp;
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
@@ -64,5 +64,5 @@ Converted Value</span> </small></td>
 &nbsp; &nbsp; &nbsp; &nbsp;<comment title="#config timefmt=&quot;%Y&quot; " xmlns="http://disruptive-innovations.com/zoo/nvu"><!--#config timefmt="%Y" --></comment><comment title="#echo var=&quot;DATE_GMT&quot; " xmlns="http://disruptive-innovations.com/zoo/nvu"><!--#echo var="DATE_GMT" --></comment>
 <span style="color: silver;">&nbsp; &nbsp;
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;All rights
-reserved © 2013 STMicroelectronics</span>&nbsp;</font>
+reserved © 2016 STMicroelectronics</span>&nbsp;</font>
 </body></html>

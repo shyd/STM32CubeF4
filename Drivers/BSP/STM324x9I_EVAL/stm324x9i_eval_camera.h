@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm324x9i_eval_camera.h
   * @author  MCD Application Team
-  * @version V2.2.1
-  * @date    07-October-2015
+  * @version V3.0.0
+  * @date    27-January-2017
   * @brief   This file contains the common defines and functions prototypes for
   *          the stm324x9i_eval_camera.c driver.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -63,7 +63,7 @@
   * @{
   */ 
    
-/** @defgroup STM324x9I_EVAL_CAMERA_Exported_Types
+/** @defgroup STM324x9I_EVAL_CAMERA_Exported_Types STM324x9I EVAL CAMERA Exported Types
   * @{
   */
   
@@ -76,23 +76,23 @@ typedef enum
   CAMERA_ERROR    = 0x01,
   CAMERA_TIMEOUT  = 0x02 
 }Camera_StatusTypeDef;
-
-#define RESOLUTION_R160x120      CAMERA_R160x120      /* QQVGA Resolution     */
-#define RESOLUTION_R320x240      CAMERA_R320x240      /* QVGA Resolution      */
-#define RESOLUTION_R480x272      CAMERA_R480x272      /* 480x272 Resolution   */
-#define RESOLUTION_R640x480      CAMERA_R640x480      /* VGA Resolution       */  
+  
 /**
   * @}
   */ 
  
-/** @defgroup STM324x9I_EVAL_CAMERA_Exported_Constants
+/** @defgroup STM324x9I_EVAL_CAMERA_Exported_Constants STM324x9I EVAL CAMERA Exported Constants
   * @{
   */
+#define RESOLUTION_R160x120      CAMERA_R160x120      /* QQVGA Resolution     */
+#define RESOLUTION_R320x240      CAMERA_R320x240      /* QVGA Resolution      */
+#define RESOLUTION_R480x272      CAMERA_R480x272      /* 480x272 Resolution   */
+#define RESOLUTION_R640x480      CAMERA_R640x480      /* VGA Resolution       */
 /**
   * @}
   */
 
-/** @defgroup STM324x9I_EVAL_CAMERA_Exported_Functions
+/** @defgroup STM324x9I_EVAL_CAMERA_Exported_Functions STM324x9I EVAL CAMERA Exported Functions
   * @{
   */    
 uint8_t BSP_CAMERA_Init(uint32_t Resolution);  
@@ -105,7 +105,7 @@ void    BSP_CAMERA_LineEventCallback(void);
 void    BSP_CAMERA_VsyncEventCallback(void);
 void    BSP_CAMERA_FrameEventCallback(void);
 void    BSP_CAMERA_ErrorCallback(void);
-
+void    BSP_CAMERA_MspInit(void);
 /* Camera features functions prototype */
 void    BSP_CAMERA_ContrastBrightnessConfig(uint32_t contrast_level, uint32_t brightness_level);
 void    BSP_CAMERA_BlackWhiteConfig(uint32_t Mode);

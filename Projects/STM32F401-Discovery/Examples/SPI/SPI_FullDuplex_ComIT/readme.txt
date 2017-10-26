@@ -2,11 +2,11 @@
   @page SPI_FullDuplex_ComIT SPI Full Duplex IT example
 
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    SPI/SPI_FullDuplex_ComIT/readme.txt 
   * @author  MCD Application Team
-  * @version V1.2.4
-  * @date    13-November-2015
+  * @version V1.2.8
+  * @date    17-February-2017
   * @brief   Description of the SPI Full Duplex IT example.
   ******************************************************************************
   *

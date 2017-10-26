@@ -2,11 +2,11 @@
   @page FLASH_EraseProgram FLASH Erase and Program example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    FLASH/FLASH_EraseProgram/readme.txt
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the FLASH Erase and Program example.
   ******************************************************************************
   *
@@ -35,10 +35,10 @@
   ******************************************************************************
   @endverbatim
 
-@par Example Description 
-
-This example guides you through the different configuration steps by mean of HAL API
-how to erase and program the STM32F4xx internal FLASH memory mounted on STM32469I-EVAL.
+@par Example Description
+ 
+This example describes how to configure and use the FLASH HAL API to erase and program 
+the internal Flash memory.
   
 At the beginning of the main program the HAL_Init() function is called to reset 
 all the peripherals, initialize the Flash interface and the systick.
@@ -56,7 +56,7 @@ At this stage, all these sectors will be erased one by one separately.
 be returned to user (through variable 'sectorError').
 
 Once this operation is finished, sector word programming operation will be performed 
-in the FLASH memory. The written data is then read back and checked.
+in the Flash memory. The written data is then read back and checked.
 
 The STM32469I-EVAL board LEDs can be used to monitor the transfer status:
  - LED1 is ON when there are no errors detected after data programming 
@@ -88,7 +88,7 @@ The STM32469I-EVAL board LEDs can be used to monitor the transfer status:
 
   - This example runs on STM32F469xx/STM32F479xx devices.
 
-  - This example has been tested and validated with STMicroelectronics STM32469I-EVAL revB board and can be
+  - This example has been tested and validated with STMicroelectronics STM32469I-EVAL RevC board and can be
     easily tailored to any other supported device and development board.
       
 @par How to use it ? 

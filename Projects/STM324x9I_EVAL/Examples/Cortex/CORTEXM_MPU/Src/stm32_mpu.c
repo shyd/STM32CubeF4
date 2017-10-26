@@ -2,13 +2,13 @@
   ******************************************************************************
   * @file    Cortex/CORTEXM_MPU/Src/stm32_mpu.c 
   * @author  MCD Application Team
-  * @version V1.3.2
-  * @date    13-November-2015
+  * @version V1.4.0
+  * @date    17-February-2017
   * @brief   Access rights configuration using Cortex-M4 MPU regions.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -155,7 +155,7 @@ void MPU_AccessPermConfig(void)
   
   /* Uncomment the following line to write to PrivilegedReadOnlyArray. This will
      generate error */
-  /* PrivilegedReadOnlyArray[0] = 'e'; */ 
+  PrivilegedReadOnlyArray[0] = 'e';
 }
 
 /**

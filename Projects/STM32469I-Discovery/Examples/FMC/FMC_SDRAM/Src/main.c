@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    FMC/FMC_SDRAM/Src/main.c
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date  09-October-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   This example describes how to configure and use GPIOs through
   *          the STM32F4xx HAL API.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -331,8 +331,7 @@ static void BSP_SDRAM_Initialization_Sequence(SDRAM_HandleTypeDef *hsdram, FMC_S
   /* Step 8: Set the refresh rate counter */
   /* (15.62 us x Freq) - 20 */
   /* Set the device refresh counter */
-  hsdram->Instance->SDRTR |= ((uint32_t)((1292)<< 1));
-
+  hsdram->Instance->SDRTR |= ((uint32_t)((1386)<< 1));
 }
 
 /**

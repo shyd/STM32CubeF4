@@ -2,11 +2,11 @@
   @page PWR_STOP Power Stop Mode Example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    PWR/PWR_STOP/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date  09-October-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the Power Stop Mode example.
   ******************************************************************************
   *
@@ -52,7 +52,9 @@ Current consumption could be monitored through an ampere-meter.
 After the system woke up from STOP, the clock system is reconfigured because the default clock 
 after wake up is the HSI.
 
-This behavior is repeated in an infinite loop.
+User may select either Stop mode or under drive stop mode by uncommenting the corresponding line inside the main.h file
+  /* #define STOP_MODE            */
+  /* #define STOP_UNDERDRIVE_MODE */
  
     - STOP Mode
     ============ 
@@ -61,6 +63,17 @@ This behavior is repeated in an infinite loop.
           - HSI as SysClk after Wake Up
           - No IWDG
           - Wakeup using EXTI Line (User push-button connected to PA.00)
+
+    - Under-Drive STOP Mode
+    ======================= 
+          - Regulator in LP mode
+          - Under drive feature enabled 
+          - VREFINT OFF with fast wakeup enabled
+          - HSI as SysClk after Wake Up
+          - No IWDG
+          - Wakeup using EXTI Line (User push-button connected to PA.00)
+
+This behavior is repeated in an infinite loop.
 
 @note To measure the current consumption in STOP mode, please refer to 
       @subpage PWR_CurrentConsumption example.

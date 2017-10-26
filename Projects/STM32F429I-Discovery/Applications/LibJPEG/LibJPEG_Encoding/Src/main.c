@@ -2,49 +2,67 @@
   ******************************************************************************
   * @file    LibJPEG/LibJPEG_Encoding/Src/main.c 
   * @author  MCD Application Team
-  * @version V1.3.2
-  * @date    13-November-2015 
+  * @version V1.4.0
+  * @date    17-February-2017 
   * @brief   Main program body
   *          This sample code shows how to compress BMP file to JPEG file.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright © 2017 STMicroelectronics International N.V. 
+  * All rights reserved.</center></h2>
   *
-  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-  * You may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at:
+  * Redistribution and use in source and binary forms, with or without 
+  * modification, are permitted, provided that the following conditions are met:
   *
-  *        http://www.st.com/software_license_agreement_liberty_v2
+  * 1. Redistribution of source code must retain the above copyright notice, 
+  *    this list of conditions and the following disclaimer.
+  * 2. Redistributions in binary form must reproduce the above copyright notice,
+  *    this list of conditions and the following disclaimer in the documentation
+  *    and/or other materials provided with the distribution.
+  * 3. Neither the name of STMicroelectronics nor the names of other 
+  *    contributors to this software may be used to endorse or promote products 
+  *    derived from this software without specific written permission.
+  * 4. This software, including modifications and/or derivative works of this 
+  *    software, must execute solely and exclusively on microcontroller or
+  *    microprocessor devices manufactured by or for STMicroelectronics.
+  * 5. Redistribution and use of this software other than as permitted under 
+  *    this license is void and will automatically terminate your rights under 
+  *    this license. 
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
+  * THIS SOFTWARE IS PROVIDED BY STMICROELECTRONICS AND CONTRIBUTORS "AS IS" 
+  * AND ANY EXPRESS, IMPLIED OR STATUTORY WARRANTIES, INCLUDING, BUT NOT 
+  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+  * PARTICULAR PURPOSE AND NON-INFRINGEMENT OF THIRD PARTY INTELLECTUAL PROPERTY
+  * RIGHTS ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED BY LAW. IN NO EVENT 
+  * SHALL STMICROELECTRONICS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, 
+  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
+  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
   */
-
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
 /* Private typedef -----------------------------------------------------------*/
 typedef enum
 {
-  APPLICATION_IDLE = 0,  
-  APPLICATION_START    
-} MSC_ApplicationTypeDef; 
+  APPLICATION_IDLE = 0,
+  APPLICATION_START
+} MSC_ApplicationTypeDef;
 
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 FATFS USBDISK_FatFs;  /* File system object for USB logical drive */
-FIL MyFile, MyFile1;   /* File object */
+FIL MyFile, MyFile1;  /* File object */
 char USBDISKPath[4];  /* USB disk logical drive path */
 
 RGB_typedef *RGB_matrix;
-  
 uint8_t  _aucLine[2048];
 uint32_t counter = 0, bytesread;
 uint32_t offset = 0;
@@ -77,31 +95,31 @@ int main(void)
        - Global MSP (MCU Support Package) initialization
      */
   HAL_Init();
-  
+
   /* Configure the system clock to 180 MHz */
   SystemClock_Config();
-  
+
   /*##-1- LCD Configuration ##################################################*/
   LCD_Config();    
-  
+
   /*##-2- Link the USB Host disk I/O driver ##################################*/
   if(FATFS_LinkDriver(&USBH_Driver, USBDISKPath) == 0)
   {
     /*##-3- Init Host Library ################################################*/
     USBH_Init(&hUSB_Host, USBH_UserProcess, 0);
-    
+
     /*##-4- Add Supported Class ##############################################*/
     USBH_RegisterClass(&hUSB_Host, USBH_MSC_CLASS);
-    
+
     /*##-5- Start Host Process ###############################################*/
     USBH_Start(&hUSB_Host);
-    
+
     /*##-6- Run Application (Blocking mode) ##################################*/
     while (1)
     {
       /* USB Host Background task */
       USBH_Process(&hUSB_Host);
-      
+
       /* Mass Storage Application State Machine */
       switch(Appli_state)
       {
@@ -131,18 +149,18 @@ int main(void)
               f_close(&MyFile1);  
             }
           }
-        }        
+        }
         
         Appli_state = APPLICATION_IDLE;
         break;
-        
+
       case APPLICATION_IDLE:
       default:
         break;      
       }
     }
-  }  
-  
+  }
+
   /* Infinite loop */
   while (1)
   {
@@ -155,10 +173,8 @@ int main(void)
   * @param  DataLength: Row width in output buffer
   * @retval None
   */
-
 static uint8_t Jpeg_CallbackFunction(uint8_t* Row, uint32_t DataLength)
 {
-    
 #ifdef DONT_USE_DMA2D
   uint32_t  ARGB32Buffer[IMAGE_WIDTH];
   RGB_matrix =  (RGB_typedef*)Row;
@@ -172,27 +188,26 @@ static uint8_t Jpeg_CallbackFunction(uint8_t* Row, uint32_t DataLength)
       (RGB_matrix[counter].R) | 0xFF000000)
     );
 
-    *(__IO uint32_t *)(LCD_BUFFER + (counter*4) + (IMAGE_WIDTH * (IMAGE_HEIGHT - line_counter - 1) * 4)) = ARGB32Buffer[counter];
+    *(__IO uint32_t *)(LCD_BUFFER + (counter*4) + (IMAGE_WIDTH * line_counter * 4)) = ARGB32Buffer[counter];
   }
 #endif
 
-#ifdef USE_DMA2D  
-  
+#ifdef USE_DMA2D
   offset = LCD_BUFFER + (IMAGE_WIDTH * (IMAGE_HEIGHT - line_counter - 1) * 4);
-  
-/* Configure the DMA2D Mode, Color Mode and output offset */
+
+  /* Configure the DMA2D Mode, Color Mode and output offset */
   DMA2DHandle.Init.Mode         = DMA2D_M2M_PFC;
   DMA2DHandle.Init.ColorMode    = DMA2D_ARGB8888;
   DMA2DHandle.Init.OutputOffset = 0;     
-  
+
   /* Foreground Configuration */
   DMA2DHandle.LayerCfg[1].AlphaMode = DMA2D_NO_MODIF_ALPHA;
   DMA2DHandle.LayerCfg[1].InputAlpha = 0xFF;
-  DMA2DHandle.LayerCfg[1].InputColorMode = CM_RGB888;
+  DMA2DHandle.LayerCfg[1].InputColorMode = DMA2D_INPUT_RGB888;
   DMA2DHandle.LayerCfg[1].InputOffset = 0;
-  
+
   DMA2DHandle.Instance = DMA2D; 
-  
+
   /* DMA2D Initialization */
   if(HAL_DMA2D_Init(&DMA2DHandle) == HAL_OK) 
   {
@@ -209,16 +224,15 @@ static uint8_t Jpeg_CallbackFunction(uint8_t* Row, uint32_t DataLength)
 
 #ifdef SWAP_RB
   uint32_t pixel = 0, result = 0, result1 = 0;
-  
-   for(counter = 0; counter < IMAGE_WIDTH; counter++)
-   {
-     pixel = *(__IO uint32_t *)(LCD_BUFFER + (counter*4) + (IMAGE_WIDTH * (IMAGE_HEIGHT - line_counter - 1) * 4)); 
-     result1 = (((pixel & 0x00FF0000) >> 16) | ((pixel & 0x000000FF) << 16));
-     pixel = pixel & 0xFF00FF00;
-     result = (result1 | pixel);
-     *(__IO uint32_t *)(LCD_BUFFER + (counter*4) + (IMAGE_WIDTH * (IMAGE_HEIGHT - line_counter - 1) * 4)) = result;
-     
-   }  
+
+  for(counter = 0; counter < IMAGE_WIDTH; counter++)
+  {
+    pixel = *(__IO uint32_t *)(LCD_BUFFER + (counter*4) + (IMAGE_WIDTH * line_counter * 4)); 
+    result1 = (((pixel & 0x00FF0000) >> 16) | ((pixel & 0x000000FF) << 16));
+    pixel = pixel & 0xFF00FF00;
+    result = (result1 | pixel);
+    *(__IO uint32_t *)(LCD_BUFFER + (counter*4) + (IMAGE_WIDTH * line_counter * 4)) = result;
+  }  
 #endif
 
   line_counter++;
@@ -257,16 +271,24 @@ static void LCD_Config(void)
   * @retval None
   */
 static void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8_t id)
-{  
+{
   switch (id)
   { 
   case HOST_USER_DISCONNECTION:
+    Appli_state = APPLICATION_IDLE;
+    if (f_mount(0, "", 0) != FR_OK)
+    {
+      /* FatFs Initialization Error */
+    }
+    break;
+  
+  case HOST_USER_CONNECTION:
     Appli_state = APPLICATION_IDLE;
     if (f_mount(&USBDISK_FatFs, "", 0) != FR_OK)
     {
       /* FatFs Initialization Error */
     }
-    break;
+    break;    
     
   case HOST_USER_CLASS_ACTIVE:
     Appli_state = APPLICATION_START;

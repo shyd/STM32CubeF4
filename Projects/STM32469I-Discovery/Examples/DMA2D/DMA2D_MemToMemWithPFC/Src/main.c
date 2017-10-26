@@ -2,15 +2,15 @@
  ******************************************************************************
  * @file    DMA2D/DMA2D_MemToMemWithPFC/Src/main.c
  * @author  MCD Application Team
-  * @version V1.0.1
-  * @date  09-October-2015
+  * @version V1.1.0
+  * @date    17-February-2017
  * @brief   This example provides a description of how to configure DMA2D peripheral in
  *          Memory to Memory with pixel format conversion transfer mode and display the
  *          result on LCD.
  ******************************************************************************
  * @attention
  *
- * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
  *
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -200,7 +200,7 @@ static void DMA2D_Config(void)
   /* Foreground layer Configuration : layer 1 */
   Dma2dHandle.LayerCfg[1].AlphaMode = DMA2D_NO_MODIF_ALPHA;
   Dma2dHandle.LayerCfg[1].InputAlpha = 0xFF; /* Alpha fully opaque */
-  Dma2dHandle.LayerCfg[1].InputColorMode = CM_ARGB8888; /* Layer 1 input format is ARGB8888 (32 bpp) */
+  Dma2dHandle.LayerCfg[1].InputColorMode = DMA2D_INPUT_ARGB8888; /* Layer 1 input format is ARGB8888 (32 bpp) */
   Dma2dHandle.LayerCfg[1].InputOffset = 0x0; /* No offset in input */
 
   Dma2dHandle.Instance = DMA2D;

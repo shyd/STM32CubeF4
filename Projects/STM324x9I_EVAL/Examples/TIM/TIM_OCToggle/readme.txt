@@ -2,11 +2,11 @@
   @page TIM_OCToggle TIM Output Compare Toggle example
 
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    TIM/TIM_OCToggle/readme.txt 
   * @author  MCD Application Team
-  * @version V1.3.2
-  * @date    13-November-2015
+  * @version V1.4.0
+  * @date    17-February-2017
   * @brief   This example shows how to configure the Timer to generate four 
   *          delayed signals.
   ******************************************************************************
@@ -38,7 +38,7 @@
 
 @par Example Description 
 
-This example shows how to configure the TIM3 peripheral to generate four different 
+This example shows how to configure the TIM peripheral to generate four different 
 signals with four different frequencies.
 
 The TIM3CLK frequency is set to SystemCoreClock / 2 (Hz), and we want to get TIM3

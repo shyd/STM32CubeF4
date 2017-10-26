@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm324xg_eval_audio.h
   * @author  MCD Application Team
-  * @version V2.1.0
-  * @date    14-August-2015
+  * @version V3.0.0
+  * @date    27-January-2017
   * @brief   This file contains the common defines and functions prototypes for
   *          the stm324xg_eval_audio.c driver.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -56,18 +56,11 @@
   * @{
   */
     
-/** @defgroup STM324xG_EVAL_AUDIO
+/** @addtogroup STM324xG_EVAL_AUDIO
   * @{
   */
 
-/** @defgroup STM324xG_EVAL_AUDIO_Exported_Types
-  * @{
-  */
-/**
-  * @}
-  */ 
-
-/** @defgroup STM324xG_EVAL_AUDIO_Exported_Constants
+/** @defgroup STM324xG_EVAL_AUDIO_Exported_Constants STM324xG EVAL AUDIO Exported Constants
   * @{
   */
 /* Audio Reset Pin definition */
@@ -75,10 +68,11 @@
     
 /* I2S peripheral configuration defines */
 #define AUDIO_I2Sx                          SPI2
-#define AUDIO_I2Sx_CLK_ENABLE()             __SPI2_CLK_ENABLE()
+#define AUDIO_I2Sx_CLK_ENABLE()             __HAL_RCC_SPI2_CLK_ENABLE()
+#define AUDIO_I2Sx_CLK_DISABLE()            __HAL_RCC_SPI2_CLK_DISABLE()   
 #define AUDIO_I2Sx_SCK_SD_WS_AF             GPIO_AF5_SPI2
-#define AUDIO_I2Sx_SCK_SD_WS_CLK_ENABLE()   __GPIOI_CLK_ENABLE()
-#define AUDIO_I2Sx_MCK_CLK_ENABLE()         __GPIOC_CLK_ENABLE()
+#define AUDIO_I2Sx_SCK_SD_WS_CLK_ENABLE()   __HAL_RCC_GPIOI_CLK_ENABLE()
+#define AUDIO_I2Sx_MCK_CLK_ENABLE()         __HAL_RCC_GPIOC_CLK_ENABLE()
 #define AUDIO_I2Sx_WS_PIN                   GPIO_PIN_0
 #define AUDIO_I2Sx_SCK_PIN                  GPIO_PIN_1
 #define AUDIO_I2Sx_SD_PIN                   GPIO_PIN_3
@@ -87,7 +81,7 @@
 #define AUDIO_I2Sx_MCK_GPIO_PORT            GPIOC
 
 /* I2S DMA Stream definitions */
-#define AUDIO_I2Sx_DMAx_CLK_ENABLE()        __DMA1_CLK_ENABLE()
+#define AUDIO_I2Sx_DMAx_CLK_ENABLE()        __HAL_RCC_DMA1_CLK_ENABLE()
 #define AUDIO_I2Sx_DMAx_STREAM              DMA1_Stream4
 #define AUDIO_I2Sx_DMAx_CHANNEL             DMA_CHANNEL_0
 #define AUDIO_I2Sx_DMAx_IRQ                 DMA1_Stream4_IRQn
@@ -101,7 +95,7 @@
              CONFIGURATION: Audio Driver Configuration parameters
 ------------------------------------------------------------------------------*/
 /* Select the interrupt preemption priority for the DMA interrupt */
-#define AUDIO_IRQ_PREPRIO           5   /* Select the preemption priority level(0 is the highest) */
+#define AUDIO_IRQ_PREPRIO           0x0F   /* Select the preemption priority level(0 is the highest) */
 
 #define AUDIODATA_SIZE              2   /* 16-bits audio data size */
 
@@ -120,7 +114,7 @@
   * @}
   */ 
 
-/** @defgroup STM324xG_EVAL_AUDIO_Exported_Macros
+/** @defgroup STM324xG_EVAL_AUDIO_Exported_Macros STM324xG EVAL AUDIO Exported Macros
   * @{
   */
 #define DMA_MAX(x)           (((x) <= DMA_MAX_SZE)? (x):DMA_MAX_SZE)
@@ -128,10 +122,11 @@
   * @}
   */ 
 
-/** @defgroup STM324xG_EVAL_AUDIO_Exported_Functions
+/** @defgroup STM324xG_EVAL_AUDIO_Exported_Functions STM324xG EVAL AUDIO Exported Functions
   * @{
   */
 uint8_t BSP_AUDIO_OUT_Init(uint16_t OutputDevice, uint8_t Volume, uint32_t AudioFreq);
+void    BSP_AUDIO_OUT_DeInit(void);    
 uint8_t BSP_AUDIO_OUT_Play(uint16_t *pBuffer, uint32_t Size);
 void    BSP_AUDIO_OUT_ChangeBuffer(uint16_t *pData, uint16_t Size);
 uint8_t BSP_AUDIO_OUT_Pause(void);
@@ -152,6 +147,12 @@ void    BSP_AUDIO_OUT_HalfTransfer_CallBack(void);
 /* This function is called when an Interrupt due to transfer error on or peripheral
    error occurs. */
 void    BSP_AUDIO_OUT_Error_CallBack(void);
+
+/* These function can be modified in case the current settings (e.g. DMA stream)
+   need to be changed for specific application needs */
+void  BSP_AUDIO_OUT_ClockConfig(I2S_HandleTypeDef *hi2s, uint32_t AudioFreq, void *Params);
+void  BSP_AUDIO_OUT_MspInit(I2S_HandleTypeDef *hi2s, void *Params);
+void  BSP_AUDIO_OUT_MspDeInit(I2S_HandleTypeDef *hi2s, void *Params);
 
 /**
   * @}

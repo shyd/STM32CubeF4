@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    FMC/FMC_SDRAM/Src/main.c 
   * @author  MCD Application Team
-  * @version V1.2.4
-  * @date    13-November-2015 
+  * @version V1.2.8
+  * @date    17-February-2017 
   * @brief   This sample code shows how to use STM32F4xx FMC HAL API to access 
   *          by read and write operation the SDRAM external memory device.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -51,7 +51,7 @@
 /* Private define ------------------------------------------------------------*/
 #define BUFFER_SIZE         ((uint32_t)0x0100)
 #define WRITE_READ_ADDR     ((uint32_t)0x0800)
-#define REFRESH_COUNT       ((uint32_t)0x0569)   /* SDRAM refresh counter (90MHz SD clock) */
+#define REFRESH_COUNT       ((uint32_t)0x056A)   /* SDRAM refresh counter (90MHz SDRAM clock) */
     
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
@@ -104,7 +104,7 @@ int main(void)
   /* SDRAM device configuration */ 
   hsdram.Instance = FMC_SDRAM_DEVICE;
   
-  /* Timing configuration for 90 MHz of SD clock frequency (180MHz/2) */
+  /* Timing configuration for 90 MHz of SDRAM clock frequency (180MHz/2) */
   /* TMRD: 2 Clock cycles */
   SDRAM_Timing.LoadToActiveDelay    = 2;
   /* TXSR: min=70ns (6x11.90ns) */

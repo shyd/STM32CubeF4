@@ -2,11 +2,11 @@
   @page LCD_DSI_CmdMode_PartialRefresh : LCD DSI examples in DSI command mode
 
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    LCD_DSI/LCD_DSI_CmdMode_PartialRefresh/readme.txt
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date  09-October-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the LCD DSI in command mode example.
   ******************************************************************************
   *
@@ -37,7 +37,7 @@
 
 @par Example Description
 
-This example provides a description of how to use the embedded LCD DSI controller 
+This example describes how to use the embedded LCD DSI controller 
 (using IPs LTDC and DSI Host) to drive the KoD LCD mounted on board.
 
 The goal of this example is to display a QVGA landscape (320x240) images on LCD glass

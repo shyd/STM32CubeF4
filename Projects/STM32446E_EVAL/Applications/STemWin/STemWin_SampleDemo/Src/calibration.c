@@ -76,7 +76,7 @@ static const char * _acPos[] = {
   "(lower right position)"
 };
 
-int32_t  A1, A2, B1, B2;
+int16_t  A1, A2, B1, B2;
   CALIBRATION_Data1Typedef data1;
   CALIBRATION_Data2Typedef data2;
 /*********************************************************************
@@ -162,9 +162,9 @@ static void _GetPhysValues(int LogX, int LogY, int * pPhysX, int * pPhysY, const
   GUI_DispStringInRect(acText, &Rect, Align | GUI_TA_TOP);
   GUI_DispStringInRect(pString, &Rect, Align | GUI_TA_BOTTOM);
   /* Draw the ring */
-  GUI_FillCircle(LogX, LogY, 5);
+  GUI_FillCircle(LogX - 5, LogY - 5, 5);
   GUI_SetColor(GUI_WHITE);
-  GUI_FillCircle(LogX, LogY, 2);
+  GUI_FillCircle(LogX + 5, LogY + 5, 2);
   GUI_SetColor(GUI_BLACK);
   /* Wait until touch is pressed */
   _WaitForPressedState(1);
@@ -248,18 +248,9 @@ void CALIBRATION_Check(void)
     data2.b.B2 = B2;
     data2.b.IsCalibrated = 1;
     BACKUP_SaveParameter(RTC_BKP_DR1, data2.d32);  
-    
-    /* Display the result */
-    GUI_CURSOR_Show();
-    GUI_Clear();
-    _DispStringCentered("Touch screen has been\n"
-                        "calibrated. Please use\n"
-                          "the cursor to test\n"
-                            "the calibration...");
-    
 
+    GUI_Clear();
   }
-  
   CALIBRATION_Done = 1;
   
   GUI_Delay(1000);
@@ -272,7 +263,7 @@ uint8_t CALIBRATION_IsDone(void)
 
 uint16_t CALIBRATION_GetX(uint16_t x)
 {
-  return (((A1 * x) + B1)/1000);
+  return ((((A1 * x) + B1)/1000));
 }
 
 uint16_t CALIBRATION_GetY(uint16_t y)

@@ -2,11 +2,11 @@
   @page QSPI_ExecuteInPlace QSPI execute in place example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    QSPI/QSPI_ExecuteInPlace/readme.txt 
   * @author  MCD Application Team
-  * @version V1.1.2
-  * @date    13-November-2015
+  * @version V1.2.0
+  * @date    17-February-2017
   * @brief   Description of the code execution from QSPI memory example.
   ******************************************************************************
   *
@@ -37,8 +37,8 @@
 
 @par Example Description
 
-This example describes how to erase part of the QSPI memory, write data in DMA mode and access to QSPI memory 
-in memory-mapped mode to check the data in a forever loop.
+This example describes how to execute a part of the code from the QSPI memory. To do this, 
+a section is created where the function is stored.
 
 At the startup, the QSPI memory is erased, then the data are copied from the initialization
 section of the flash to the QSPI memory. And finally the QSPI is configured in memory-mapped 

@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32446e_eval_sdram.c
   * @author  MCD Application Team
-  * @version V1.1.0
-  * @date    14-August-2015
+  * @version V2.0.0
+  * @date    27-January-2017
   * @brief   This file includes the SDRAM driver for the MT48LC4M32B2B5-7 memory 
   *          device mounted on STM32446E-EVAL evaluation board.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -88,32 +88,32 @@
   * @{
   */ 
   
-/** @defgroup STM32446E_EVAL_SDRAM STM32446E-EVAL SDRAM
+/** @defgroup STM32446E_EVAL_SDRAM STM32446E EVAL SDRAM
   * @{
   */ 
 
-/** @defgroup STM32446E_EVAL_SDRAM_Private_Types_Definitions STM32446E Eval SDRAM Private TypesDef
+/** @defgroup STM32446E_EVAL_SDRAM_Private_Types_Definitions STM32446E EVAL SDRAM Private Types Definitions
   * @{
   */ 
 /**
   * @}
   */
 
-/** @defgroup STM32446E_EVAL_SDRAM_Private_Defines STM32446E Eval SDRAM Private Defines
+/** @defgroup STM32446E_EVAL_SDRAM_Private_Defines STM32446E EVAL SDRAM Private Defines
   * @{
   */
 /**
   * @}
   */
 
-/** @defgroup STM32446E_EVAL_SDRAM_Private_Macros STM32446E Eval SDRAM Private Macros
+/** @defgroup STM32446E_EVAL_SDRAM_Private_Macros STM32446E EVAL SDRAM Private Macros
   * @{
   */  
 /**
   * @}
   */
 
-/** @defgroup STM32446E_EVAL_SDRAM_Private_Variables STM32446E Eval SDRAM Private Variables
+/** @defgroup STM32446E_EVAL_SDRAM_Private_Variables STM32446E EVAL SDRAM Private Variables
   * @{
   */       
 static SDRAM_HandleTypeDef sdramHandle;
@@ -123,20 +123,19 @@ static FMC_SDRAM_CommandTypeDef Command;
   * @}
   */ 
 
-/** @defgroup STM32446E_EVAL_SDRAM_Private_Function_Prototypes STM32446E Eval SDRAM Private Prototypes
+/** @defgroup STM32446E_EVAL_SDRAM_Private_Function_Prototypes STM32446E EVAL SDRAM Private Function Prototypes
   * @{
   */ 
 /**
   * @}
   */
     
-/** @defgroup STM32446E_EVAL_SDRAM_Private_Functions STM32446E Eval SDRAM Private Functions
+/** @defgroup STM32446E_EVAL_SDRAM_Private_Functions STM32446E EVAL SDRAM Private Functions
   * @{
   */ 
 
 /**
   * @brief  Initializes the SDRAM device.
-  * @param  None
   * @retval SDRAM status
   */
 uint8_t BSP_SDRAM_Init(void)
@@ -186,7 +185,6 @@ uint8_t BSP_SDRAM_Init(void)
 
 /**
   * @brief  DeInitializes the SDRAM device.
-  * @param  None
   * @retval SDRAM status
   */
 uint8_t BSP_SDRAM_DeInit(void)
@@ -213,7 +211,6 @@ uint8_t BSP_SDRAM_DeInit(void)
 /**
   * @brief  Programs the SDRAM device.
   * @param  RefreshCount: SDRAM refresh counter value 
-  * @retval None
   */
 void BSP_SDRAM_Initialization_sequence(uint32_t RefreshCount)
 {
@@ -365,8 +362,6 @@ uint8_t BSP_SDRAM_Sendcmd(FMC_SDRAM_CommandTypeDef *SdramCmd)
 
 /**
   * @brief  Handles SDRAM DMA transfer interrupt request.
-  * @param  None
-  * @retval None
   */
 void BSP_SDRAM_DMA_IRQHandler(void)
 {
@@ -376,7 +371,7 @@ void BSP_SDRAM_DMA_IRQHandler(void)
 /**
   * @brief  Initializes SDRAM MSP.
   * @param  hsdram: SDRAM handle
-  * @retval None
+  * @param  Params: pointer on additional configuration parameters, can be NULL.
   */
 __weak void BSP_SDRAM_MspInit(SDRAM_HandleTypeDef  *hsdram, void *Params)
 {  
@@ -471,7 +466,7 @@ __weak void BSP_SDRAM_MspInit(SDRAM_HandleTypeDef  *hsdram, void *Params)
 /**
   * @brief  DeInitializes SDRAM MSP.
   * @param  hsdram: SDRAM handle
-  * @retval None
+  * @param  Params: pointer on additional configuration parameters, can be NULL.
   */
 __weak void BSP_SDRAM_MspDeInit(SDRAM_HandleTypeDef  *hsdram, void *Params)
 {  

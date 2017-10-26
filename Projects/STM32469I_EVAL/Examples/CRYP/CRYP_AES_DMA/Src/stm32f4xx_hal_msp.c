@@ -2,13 +2,13 @@
   ******************************************************************************
   * @file    CRYP/CRYP_AES_DMA/Src/stm32f4xx_hal_msp.c
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   HAL MSP module.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -89,8 +89,8 @@ void HAL_CRYP_MspInit(CRYP_HandleTypeDef *hcryp)
   hdmaIn.Init.MemDataAlignment    = DMA_MDATAALIGN_WORD;
   hdmaIn.Init.Mode                = DMA_NORMAL;
   hdmaIn.Init.Priority            = DMA_PRIORITY_HIGH;
-  hdmaIn.Init.FIFOMode            = DMA_FIFOMODE_ENABLE;
-  hdmaIn.Init.FIFOThreshold       = DMA_FIFO_THRESHOLD_HALFFULL;
+  hdmaIn.Init.FIFOMode            = DMA_FIFOMODE_DISABLE;
+  hdmaIn.Init.FIFOThreshold       = DMA_FIFO_THRESHOLD_FULL;
   hdmaIn.Init.MemBurst            = DMA_MBURST_SINGLE;
   hdmaIn.Init.PeriphBurst         = DMA_PBURST_SINGLE;
   hdmaIn.Instance = DMA2_Stream6;
@@ -114,8 +114,8 @@ void HAL_CRYP_MspInit(CRYP_HandleTypeDef *hcryp)
   hdmaOut.Init.MemDataAlignment    = DMA_MDATAALIGN_WORD;
   hdmaOut.Init.Mode                = DMA_NORMAL;
   hdmaOut.Init.Priority            = DMA_PRIORITY_VERY_HIGH;
-  hdmaOut.Init.FIFOMode            = DMA_FIFOMODE_ENABLE;
-  hdmaOut.Init.FIFOThreshold       = DMA_FIFO_THRESHOLD_HALFFULL;
+  hdmaOut.Init.FIFOMode            = DMA_FIFOMODE_DISABLE;
+  hdmaOut.Init.FIFOThreshold       = DMA_FIFO_THRESHOLD_FULL;
   hdmaOut.Init.MemBurst            = DMA_MBURST_SINGLE;
   hdmaOut.Init.PeriphBurst         = DMA_PBURST_SINGLE;
   hdmaOut.Instance = DMA2_Stream5;

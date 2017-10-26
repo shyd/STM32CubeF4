@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    LCD_DSI/LCD_DSI_VideoMode_DoubleBuffering/Src/main.c
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date  09-October-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   This example describes how to configure and use LCD DSI to display an image
   *          of size WVGA in mode landscape (800x480) using the STM32F4xx HAL API and BSP.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -173,7 +173,7 @@ void HAL_LTDC_LineEventCallback(LTDC_HandleTypeDef *hltdc)
   if(pend_buffer >= 0)
   {  
     LTDC_LAYER(hltdc, 0)->CFBAR = ((uint32_t)Buffers[pend_buffer]);
-    __HAL_LTDC_RELOAD_CONFIG(hltdc); 
+    __HAL_LTDC_RELOAD_IMMEDIATE_CONFIG(hltdc); 
     
     front_buffer = pend_buffer;  
     pend_buffer = -1;
@@ -301,17 +301,17 @@ static void CopyBuffer(uint32_t *pSrc, uint32_t *pDst, uint16_t x, uint16_t y, u
   hdma2d.XferCpltCallback  = NULL;
   
   /*##-3- Foreground Configuration ###########################################*/
-  hdma2d.LayerCfg[0].AlphaMode = DMA2D_NO_MODIF_ALPHA;
-  hdma2d.LayerCfg[0].InputAlpha = 0xFF;
-  hdma2d.LayerCfg[0].InputColorMode = CM_ARGB8888;
-  hdma2d.LayerCfg[0].InputOffset = 0;
+  hdma2d.LayerCfg[1].AlphaMode = DMA2D_NO_MODIF_ALPHA;
+  hdma2d.LayerCfg[1].InputAlpha = 0xFF;
+  hdma2d.LayerCfg[1].InputColorMode = DMA2D_INPUT_ARGB8888;
+  hdma2d.LayerCfg[1].InputOffset = 0;
 
   hdma2d.Instance          = DMA2D; 
    
   /* DMA2D Initialization */
   if(HAL_DMA2D_Init(&hdma2d) == HAL_OK) 
   {
-    if(HAL_DMA2D_ConfigLayer(&hdma2d, 0) == HAL_OK) 
+    if(HAL_DMA2D_ConfigLayer(&hdma2d, 1) == HAL_OK) 
     {
       if (HAL_DMA2D_Start(&hdma2d, source, destination, xsize, ysize) == HAL_OK)
       {

@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32469i_eval_eeprom.c
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    29-September-2015
+  * @version V2.0.0
+  * @date    27-January-2017
   * @brief   This file provides a set of functions needed to manage an I2C M24LR64 
   *          EEPROM memory.
   *          To be able to use this driver, the switch EE_M24LR64 must be defined
@@ -59,7 +59,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -92,37 +92,37 @@
   * @{
   */
   
-/** @addtogroup STM32469I-EVAL
+/** @addtogroup STM32469I_EVAL
   * @{
   */ 
   
-/** @addtogroup STM32469I-EVAL_EEPROM
+/** @defgroup STM32469I-EVAL_EEPROM STM32469I EVAL EEPROM
   * @brief This file includes the I2C EEPROM driver of STM32469I-EVAL evaluation board.
   * @{
   */ 
 
-/** @defgroup STM32469I-EVAL_EEPROM_Private_Types STM32469I Eval Eeprom Private Types
+/** @defgroup STM32469I-EVAL_EEPROM_Private_Types STM32469I EVAL EEPROM Private Types
   * @{
   */ 
 /**
   * @}
   */ 
 
-/** @defgroup STM32469I-EVAL_EEPROM_Private_Defines STM32469I Eval Eeprom Private Defines
+/** @defgroup STM32469I-EVAL_EEPROM_Private_Defines STM32469I EVAL EEPROM Private Defines
   * @{
   */  
 /**
   * @}
   */ 
 
-/** @defgroup STM32469I-EVAL_EEPROM_Private_Macros STM32469I Eval Eeprom Private Macros
+/** @defgroup STM32469I-EVAL_EEPROM_Private_Macros STM32469I EVAL EEPROM Private Macros
   * @{
   */
 /**
   * @}
   */ 
   
-/** @defgroup STM32469I-EVAL_EEPROM_Private_Variables STM32469I Eval Eeprom Private Variables
+/** @defgroup STM32469I-EVAL_EEPROM_Private_Variables STM32469I EVAL EEPROM Private Variables
   * @{
   */
 __IO uint16_t EEPROMAddress = 0;
@@ -133,14 +133,14 @@ __IO uint8_t  EEPROMDataWrite;
   * @}
   */ 
 
-/** @defgroup STM32469I-EVAL_EEPROM_Private_Function_Prototypes STM32469I Eval Eeprom Private Prototypes
+/** @defgroup STM32469I-EVAL_EEPROM_Private_Function_Prototypes STM32469I EVAL EEPROM Private Prototypes
   * @{
   */ 
 /**
   * @}
   */ 
 
-/** @defgroup STM32469I-EVAL_EEPROM_Private_Functions STM32469I Eval Eeprom Private Functions
+/** @defgroup STM32469I-EVAL_EEPROM_Private_Functions STM32469I EVAL EEPROM Private Functions
   * @{
   */ 
 

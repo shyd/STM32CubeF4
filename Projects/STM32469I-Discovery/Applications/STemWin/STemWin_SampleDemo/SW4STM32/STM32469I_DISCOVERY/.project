@@ -36,19 +36,9 @@
 			<locationURI>PARENT-2-PROJECT_LOC/Demo/GUIDEMO.c</locationURI>
 		</link>
 		<link>
-			<name>Application/Demo/GUIDEMO_AntialiasedText.c</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Demo/GUIDEMO_AntialiasedText.c</locationURI>
-		</link>
-		<link>
 			<name>Application/Demo/GUIDEMO_Automotive.c</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/Demo/GUIDEMO_Automotive.c</locationURI>
-		</link>
-		<link>
-			<name>Application/Demo/GUIDEMO_BarGraph.c</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Demo/GUIDEMO_BarGraph.c</locationURI>
 		</link>
 		<link>
 			<name>Application/Demo/GUIDEMO_Bitmap.c</name>
@@ -71,11 +61,6 @@
 			<locationURI>PARENT-2-PROJECT_LOC/Demo/GUIDEMO_Cursor.c</locationURI>
 		</link>
 		<link>
-			<name>Application/Demo/GUIDEMO_Fading.c</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Demo/GUIDEMO_Fading.c</locationURI>
-		</link>
-		<link>
 			<name>Application/Demo/GUIDEMO_Graph.c</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/Demo/GUIDEMO_Graph.c</locationURI>
@@ -84,11 +69,6 @@
 			<name>Application/Demo/GUIDEMO_IconView.c</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/Demo/GUIDEMO_IconView.c</locationURI>
-		</link>
-		<link>
-			<name>Application/Demo/GUIDEMO_ImageFlow.c</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Demo/GUIDEMO_ImageFlow.c</locationURI>
 		</link>
 		<link>
 			<name>Application/Demo/GUIDEMO_Intro.c</name>
@@ -111,19 +91,9 @@
 			<locationURI>PARENT-2-PROJECT_LOC/Demo/GUIDEMO_Resource.c</locationURI>
 		</link>
 		<link>
-			<name>Application/Demo/GUIDEMO_Skinning.c</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Demo/GUIDEMO_Skinning.c</locationURI>
-		</link>
-		<link>
 			<name>Application/Demo/GUIDEMO_Speed.c</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/Demo/GUIDEMO_Speed.c</locationURI>
-		</link>
-		<link>
-			<name>Application/Demo/GUIDEMO_Speedometer.c</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Demo/GUIDEMO_Speedometer.c</locationURI>
 		</link>
 		<link>
 			<name>Application/Demo/GUIDEMO_Start.c</name>
@@ -144,16 +114,6 @@
 			<name>Application/Demo/GUIDEMO_VScreen.c</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/Demo/GUIDEMO_VScreen.c</locationURI>
-		</link>
-		<link>
-			<name>Application/Demo/GUIDEMO_WashingMachine.c</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Demo/GUIDEMO_WashingMachine.c</locationURI>
-		</link>
-		<link>
-			<name>Application/Demo/GUIDEMO_ZoomAndRotate.c</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Demo/GUIDEMO_ZoomAndRotate.c</locationURI>
 		</link>
 		<link>
 			<name>Application/SW4STM32/startup_stm32f469xx.s</name>

@@ -2,11 +2,11 @@
   @page TIM_ParallelSynchro Timers Parallel Synchronization example
 
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    TIM/TIM_ParallelSynchro/readme.txt 
   * @author  MCD Application Team
-  * @version V1.2.4
-  * @date    13-November-2015
+  * @version V1.3.0
+  * @date    17-February-2017
   * @brief   This example shows how to command 2 Timers as slaves (TIM3 & TIM4) 
   *          using a Timer as master (TIM2).
   ******************************************************************************

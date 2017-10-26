@@ -2,11 +2,11 @@
   @page PWR_STANDBY PWR standby example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    PWR/PWR_STANDBY/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the PWR STANDBY example.
   ******************************************************************************
   *
@@ -38,7 +38,7 @@
 @par Example Description 
  
 This example shows how to enters the system to STANDBY mode and wake-up from this
-mode using external RESET or WKUP pin.
+mode using external RESET, RTC Alarm A or WKUP pin.
 
 In the associated software, the system clock is set to 180 MHz, an EXTI line
 is configured to generate an interrupt on falling edge and the SysTick is programmed
@@ -46,15 +46,13 @@ to generate an interrupt each 250 ms. In the SysTick interrupt handler, the LED1
 toggled, this is used to indicate whether the MCU is in STANDBY or RUN mode.
 
 When a falling edge is detected on the EXTI line an interrupt is generated. In the 
-EXTI handler routine, the system enters STANDBY mode causing the LED1 to stop toggling.
-
+EXTI handler routine the RTC is configured to generate an Alarm event in 5 second
+then the system enters STANDBY mode causing the LED1 to stop toggling. 
 A rising edge on WKUP pin or an external RESET will wake-up the system from
-STANDBY.
+STANDBY. If within 5 second neither rising edge on WKUP pin nor external RESET
+are generated, the RTC Alarm A will wake-up the system. 
 
-After wake-up from STANDBY mode, program execution restarts in the same way as after
-a RESET and LED1 restarts toggling.
-
-Two leds LED1 and LED3 are used to monitor the system's state as following:
+Two LEDs LED1 and LED3 are used to monitor the system's state as following:
  - LED3 ON: configuration failed (system will go to an infinite loop)
  - LED1 toggling: system in RUN mode
  - LED1 OFF: system in STANDBY mode
@@ -76,6 +74,10 @@ These steps are repeated in an infinite loop.
       
 @note The application needs to ensure that the SysTick time base is always set to 1 millisecond
       to have correct HAL operation.
+      
+@note  Care must be taken when HAL_RCCEx_PeriphCLKConfig() is used to select the RTC clock source; in this 
+       case the Backup domain will be reset in order to modify the RTC Clock source, as consequence RTC  
+       registers (including the backup registers) and RCC_BDCR register are set to their reset values.
 
 @note The connection of the LCD reset pin to a dedicated GPIO PK7 instead of the STM32F469 NRST pin may cause residual display on LCD with applications/examples that do not require display.
 	  The LCD clear can be ensured by hardware through the board's power off/power on or by software calling the BSP_LCD_Reset() function.
@@ -94,7 +96,7 @@ These steps are repeated in an infinite loop.
 
   - This example runs on STM32F469xx/STM32F479xx devices.
 
-  - This example has been tested and validated with STMicroelectronics STM32469I-EVAL revB 
+  - This example has been tested and validated with STMicroelectronics STM32469I-EVAL RevC 
     board and can be easily tailored to any other supported device 
     and development board.
 

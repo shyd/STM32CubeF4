@@ -12,8 +12,9 @@ LR_IROM1 0x08000000 0x00200000  {    ; load region size_region
    .ANY (+RW +ZI)
   }
 }
-LR_QSPI 0x90000000 0x1FFFFFF  {
-	ER_QSPI 0x90000000 0x1FFFFFF {
+LR_QSPI 0x90000000 0xFFFFFF  {
+	ER_QSPI 0x90000000 0xFFFFFF{
 	*.o (.ExtQSPIFlashSection)
  }
 }
+

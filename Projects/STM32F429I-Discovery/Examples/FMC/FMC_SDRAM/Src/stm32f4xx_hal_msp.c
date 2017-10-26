@@ -2,13 +2,13 @@
   ******************************************************************************
   * @file    FMC/FMC_SDRAM/Src/stm32f4xx_hal_msp.c
   * @author  MCD Application Team
-  * @version V1.2.4
-  * @date    13-November-2015 
+  * @version V1.2.8
+  * @date    17-February-2017 
   * @brief   HAL MSP module.    
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -88,11 +88,11 @@ void HAL_SDRAM_MspInit(SDRAM_HandleTypeDef *hsdram)
  +-------------------+--------------------+--------------------+--------------------+
  | PD0  <-> FMC_D2   | PE0  <-> FMC_NBL0  | PF0  <-> FMC_A0    | PG0  <-> FMC_A10   |
  | PD1  <-> FMC_D3   | PE1  <-> FMC_NBL1  | PF1  <-> FMC_A1    | PG1  <-> FMC_A11   |
- | PD8  <-> FMC_D13  | PE7  <-> FMC_D4    | PF2  <-> FMC_A2    | PG8  <-> FMC_SDCLK |
- | PD9  <-> FMC_D14  | PE8  <-> FMC_D5    | PF3  <-> FMC_A3    | PG15 <-> FMC_NCAS  |
- | PD10 <-> FMC_D15  | PE9  <-> FMC_D6    | PF4  <-> FMC_A4    |--------------------+ 
- | PD14 <-> FMC_D0   | PE10 <-> FMC_D7    | PF5  <-> FMC_A5    |   
- | PD15 <-> FMC_D1   | PE11 <-> FMC_D8    | PF11 <-> FMC_NRAS  | 
+ | PD8  <-> FMC_D13  | PE7  <-> FMC_D4    | PF2  <-> FMC_A2    | PG4  <-> FMC_BA0   |
+ | PD9  <-> FMC_D14  | PE8  <-> FMC_D5    | PF3  <-> FMC_A3    | PG5  <-> FMC_BA1   |
+ | PD10 <-> FMC_D15  | PE9  <-> FMC_D6    | PF4  <-> FMC_A4    | PG8  <-> FMC_SDCLK |
+ | PD14 <-> FMC_D0   | PE10 <-> FMC_D7    | PF5  <-> FMC_A5    | PG15 <-> FMC_NCAS  |  
+ | PD15 <-> FMC_D1   | PE11 <-> FMC_D8    | PF11 <-> FMC_NRAS  |--------------------+
  +-------------------| PE12 <-> FMC_D9    | PF12 <-> FMC_A6    | 
                      | PE13 <-> FMC_D10   | PF13 <-> FMC_A7    |    
                      | PE14 <-> FMC_D11   | PF14 <-> FMC_A8    |
@@ -107,7 +107,7 @@ void HAL_SDRAM_MspInit(SDRAM_HandleTypeDef *hsdram)
   
   /* Common GPIO configuration */
   GPIO_Init_Structure.Mode  = GPIO_MODE_AF_PP;
-  GPIO_Init_Structure.Speed = GPIO_SPEED_FAST;
+  GPIO_Init_Structure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
   GPIO_Init_Structure.Pull  = GPIO_NOPULL;
   GPIO_Init_Structure.Alternate = GPIO_AF12_FMC;
 
@@ -121,27 +121,27 @@ void HAL_SDRAM_MspInit(SDRAM_HandleTypeDef *hsdram)
   
   /* GPIOD configuration */
   GPIO_Init_Structure.Pin = GPIO_PIN_0 | GPIO_PIN_1  | GPIO_PIN_8 |
-                                GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_14 |
-                                GPIO_PIN_15;
+                            GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_14 |
+                            GPIO_PIN_15;
   HAL_GPIO_Init(GPIOD, &GPIO_Init_Structure);
 
   /* GPIOE configuration */
   GPIO_Init_Structure.Pin = GPIO_PIN_0  | GPIO_PIN_1  | GPIO_PIN_7 |
-                                GPIO_PIN_8  | GPIO_PIN_9  | GPIO_PIN_10 |
-                                GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_13 |
-                                GPIO_PIN_14 | GPIO_PIN_15;
+                            GPIO_PIN_8  | GPIO_PIN_9  | GPIO_PIN_10 |
+                            GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_13 |
+                            GPIO_PIN_14 | GPIO_PIN_15;
   HAL_GPIO_Init(GPIOE, &GPIO_Init_Structure);
 
   /* GPIOF configuration */
   GPIO_Init_Structure.Pin = GPIO_PIN_0  | GPIO_PIN_1 | GPIO_PIN_2 | 
-                                GPIO_PIN_3  | GPIO_PIN_4 | GPIO_PIN_5 |
-                                GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_13 |
-                                GPIO_PIN_14 | GPIO_PIN_15;      
+                            GPIO_PIN_3  | GPIO_PIN_4 | GPIO_PIN_5 |
+                            GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_13 |
+                            GPIO_PIN_14 | GPIO_PIN_15;      
   HAL_GPIO_Init(GPIOF, &GPIO_Init_Structure);
 
   /* GPIOG configuration */
   GPIO_Init_Structure.Pin = GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_4 |
-                                GPIO_PIN_5 | GPIO_PIN_8 | GPIO_PIN_15;
+                            GPIO_PIN_5 | GPIO_PIN_8 | GPIO_PIN_15;
   HAL_GPIO_Init(GPIOG, &GPIO_Init_Structure);    
 }
 

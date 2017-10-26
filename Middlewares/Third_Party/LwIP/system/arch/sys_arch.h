@@ -58,7 +58,5 @@ typedef struct _sys_arch_state_t
 //void sys_set_default_state();
 //void sys_set_state(signed char *pTaskName, unsigned short nStackSize);
 
-/* Message queue constants. */
-#define archMESG_QUEUE_LENGTH	( 6 )
 #endif /* __SYS_RTXC_H__ */
 

@@ -2,15 +2,15 @@
   ******************************************************************************
   * @file    stm32446e_eval.c
   * @author  MCD Application Team
-  * @version V1.1.0
-  * @date    14-August-2015
+  * @version V2.0.0
+  * @date    27-January-2017
   * @brief   This file provides a set of firmware functions to manage LEDs, 
   *          push-buttons and COM ports available on STM32446E-EVAL evaluation
   *          board(MB1045) RevB from STMicroelectronics.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -35,8 +35,8 @@
   * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
-  */ 
-  
+  */
+
 /* File Info: ------------------------------------------------------------------
                                    User NOTE
 
@@ -51,19 +51,19 @@
 #endif /* USE_IOEXPANDER */
 
 
-/** @addtogroup BSP
+/** @defgroup BSP BSP
   * @{
   */ 
 
-/** @addtogroup STM32446E_EVAL
+/** @defgroup STM32446E_EVAL STM32446E EVAL
   * @{
   */
 
-/** @defgroup STM32446E_EVAL_LOW_LEVEL STM32446E-EVAL LOW LEVEL
+/** @defgroup STM32446E_EVAL_LOW_LEVEL STM32446E EVAL LOW LEVEL
   * @{
   */
 
-/** @defgroup STM32446E_EVAL_LOW_LEVEL_Private_TypesDefinitions STM32446E Eval Low Level Private Typedef
+/** @defgroup STM32446E_EVAL_LOW_LEVEL_Private_TypesDefinitions STM32446E EVAL LOW LEVEL Private TypesDefinitions
   * @{
   */
 typedef struct
@@ -75,38 +75,39 @@ typedef struct
   * @}
   */
 
-/** @defgroup STM32446E_EVAL_LOW_LEVEL_Private_Defines STM32446E Eval Low Level Private Def
+/** @defgroup STM32446E_EVAL_LOW_LEVEL_Private_Defines STM32446E EVAL LOW LEVEL Private Defines
   * @{
   */
+
 /**
- * @brief STM32446E EVAL BSP Driver version number V1.1.0
-   */
-#define __STM32446E_EVAL_BSP_VERSION_MAIN   (0x01) /*!< [31:24] main version */
-#define __STM32446E_EVAL_BSP_VERSION_SUB1   (0x01) /*!< [23:16] sub1 version */
+  * @brief STM32446E EVAL BSP Driver version number V2.0.0
+  */
+#define __STM32446E_EVAL_BSP_VERSION_MAIN   (0x02) /*!< [31:24] main version */
+#define __STM32446E_EVAL_BSP_VERSION_SUB1   (0x00) /*!< [23:16] sub1 version */
 #define __STM32446E_EVAL_BSP_VERSION_SUB2   (0x00) /*!< [15:8]  sub2 version */
 #define __STM32446E_EVAL_BSP_VERSION_RC     (0x00) /*!< [7:0]  release candidate */
 #define __STM32446E_EVAL_BSP_VERSION         ((__STM32446E_EVAL_BSP_VERSION_MAIN << 24)\
                                              |(__STM32446E_EVAL_BSP_VERSION_SUB1 << 16)\
                                              |(__STM32446E_EVAL_BSP_VERSION_SUB2 << 8 )\
                                              |(__STM32446E_EVAL_BSP_VERSION_RC))
-											                                    
-/* compared to F4xG we use BANK1 rather then BANK3 since we use FMC_NE1 signal (not FMC_NE3) */																				
-#define FMC_BANK1_BASE  ((uint32_t)(0x60000000 | 0x00000000))  
-#define FMC_BANK3_BASE  ((uint32_t)(0x60000000 | 0x08000000))  
+
+/* Compared to F4xG we use BANK1 rather then BANK3 since we use FMC_NE1 signal (not FMC_NE3) */
+#define FMC_BANK1_BASE  ((uint32_t)(0x60000000 | 0x00000000))
+#define FMC_BANK3_BASE  ((uint32_t)(0x60000000 | 0x08000000))
 #define FMC_BANK1       ((LCD_CONTROLLER_TypeDef *) FMC_BANK1_BASE)
 
 /**
   * @}
   */
 
-/** @defgroup STM32446E_EVAL_LOW_LEVEL_Private_Macros STM32446E Eval Low Level Private Macro
+/** @defgroup STM32446E_EVAL_LOW_LEVEL_Private_Macros STM32446E EVAL LOW LEVEL Private Macros
   * @{
   */
 /**
   * @}
   */
 
-/** @defgroup STM32446E_EVAL_LOW_LEVEL_Private_Variables STM32446E Eval Low Level Variables 
+/** @defgroup STM32446E_EVAL_LOW_LEVEL_Private_Variables STM32446E EVAL LOW LEVEL Private Variables 
   * @{
   */
 
@@ -153,7 +154,7 @@ static FMPI2C_HandleTypeDef hEvalI2c;
   * @}
   */
 
-/** @defgroup STM32446E_EVAL_LOW_LEVEL_Private_FunctionPrototypes STM32446E Eval Low Level Private Prototypes
+/** @defgroup STM32446E_EVAL_LOW_LEVEL_Private_FunctionPrototypes STM32446E EVAL LOW LEVEL Private FunctionPrototypes
   * @{
   */
 static void     I2Cx_MspInit(void);
@@ -189,9 +190,10 @@ void            MFX_IO_EnableWakeupPin(void);
 
 /* LCD IO functions */
 void            LCD_IO_Init(void);
-void            LCD_IO_WriteData(uint16_t RegValue);
+void            LCD_IO_WriteData(uint16_t Data); 
+void            LCD_IO_WriteMultipleData(uint8_t *pData, uint32_t Size);
 void            LCD_IO_WriteReg(uint8_t Reg);
-uint16_t        LCD_IO_ReadData(void);
+uint16_t        LCD_IO_ReadData(uint16_t Reg);
 
 /* AUDIO IO functions */
 void            AUDIO_IO_Init(void);
@@ -219,13 +221,12 @@ HAL_StatusTypeDef   EEPROM_IO_IsDeviceReady(uint16_t DevAddress, uint32_t Trials
     
 
 
-/** @defgroup STM32446E_EVAL_LOW_LEVEL_Private_Functions STM32446E Eval Low Level Private Functions
+/** @defgroup STM32446E_EVAL_LOW_LEVEL_Private_Functions STM32446E EVAL LOW LEVEL Private Functions
   * @{
   */ 
 
   /**
   * @brief  This method returns the STM32446E EVAL BSP Driver revision
-  * @param  None
   * @retval version: 0xXYZR (8bits for each decimal, R for RC)
   */
 uint32_t BSP_GetVersion(void)
@@ -241,7 +242,6 @@ uint32_t BSP_GetVersion(void)
   *            @arg  LED2
   *            @arg  LED3
   *            @arg  LED4
-  * @retval None
   */
 void BSP_LED_Init(Led_TypeDef Led)
 {
@@ -284,7 +284,6 @@ void BSP_LED_Init(Led_TypeDef Led)
 #endif /* !USE_STM32446E_EVAL_REVA */
 }
 
-
 /**
   * @brief  DeInit LEDs.
   * @param  Led: LED to be configured. 
@@ -294,7 +293,6 @@ void BSP_LED_Init(Led_TypeDef Led)
   *            @arg  LED3
   *            @arg  LED4
   * @note Led DeInit does not disable the GPIO clock nor disable the Mfx 
-  * @retval None
   */
 void BSP_LED_DeInit(Led_TypeDef Led)
 {
@@ -334,7 +332,6 @@ void BSP_LED_DeInit(Led_TypeDef Led)
   *            @arg  LED2
   *            @arg  LED3
   *            @arg  LED4
-  * @retval None
   */
 void BSP_LED_On(Led_TypeDef Led)
 {
@@ -369,7 +366,6 @@ void BSP_LED_On(Led_TypeDef Led)
   *            @arg  LED2
   *            @arg  LED3
   *            @arg  LED4
-  * @retval None
   */
 void BSP_LED_Off(Led_TypeDef Led)
 {
@@ -405,7 +401,6 @@ void BSP_LED_Off(Led_TypeDef Led)
   *            @arg  LED2
   *            @arg  LED3
   *            @arg  LED4
-  * @retval None
   */
 void BSP_LED_Toggle(Led_TypeDef Led)
 {
@@ -447,7 +442,6 @@ void BSP_LED_Toggle(Led_TypeDef Led)
   * @note On STM32446E-EVAL evaluation board, the three buttons (Wakeup, Tamper
   *       and key buttons) are mapped on the same push button named "Wakeup/Tamper"
   *       on the board serigraphy.
-  * @retval None
   */
 void BSP_PB_Init(Button_TypeDef Button, ButtonMode_TypeDef ButtonMode)
 {
@@ -501,7 +495,6 @@ void BSP_PB_Init(Button_TypeDef Button, ButtonMode_TypeDef ButtonMode)
   *       and key buttons) are mapped on the same push button nammed "Wakeup/Tamper"
   *       on the board serigraphy.
   * @note PB DeInit does not disable the GPIO clock
-  * @retval None
   */
 void BSP_PB_DeInit(Button_TypeDef Button)
 {
@@ -511,7 +504,6 @@ void BSP_PB_DeInit(Button_TypeDef Button)
     HAL_NVIC_DisableIRQ((IRQn_Type)(BUTTON_IRQn[Button]));
     HAL_GPIO_DeInit(BUTTON_PORT[Button], gpio_init_structure.Pin);
 }
-
 
 /**
   * @brief  Returns the selected button state.
@@ -538,7 +530,6 @@ uint32_t BSP_PB_GetState(Button_TypeDef Button)
   *            @arg  COM2 
   * @param  huart: Pointer to a UART_HandleTypeDef structure that contains the
   *                configuration information for the specified USART peripheral.
-  * @retval None
   */
 void BSP_COM_Init(COM_TypeDef COM, UART_HandleTypeDef *huart)
 {
@@ -578,7 +569,6 @@ void BSP_COM_Init(COM_TypeDef COM, UART_HandleTypeDef *huart)
   *            @arg  COM2 
   * @param  huart: Pointer to a UART_HandleTypeDef structure that contains the
   *                configuration information for the specified USART peripheral.
-  * @retval None
   */
 void BSP_COM_DeInit(COM_TypeDef COM, UART_HandleTypeDef *huart)
 {
@@ -597,7 +587,6 @@ void BSP_COM_DeInit(COM_TypeDef COM, UART_HandleTypeDef *huart)
 }
 
 #if defined(USE_IOEXPANDER)
-
 /**
   * @brief  Configures joystick GPIO and EXTI modes.
   * @param  JoyMode: Button mode.
@@ -632,7 +621,6 @@ uint8_t BSP_JOY_Init(JOYMode_TypeDef JoyMode)
 /**
   * @brief  DeInit joystick GPIOs.
   * @note   JOY DeInit does not disable the Mfx, just set the Mfx pins in Off mode
-  * @retval None.
   */
 void BSP_JOY_DeInit(void)
 {
@@ -641,7 +629,6 @@ void BSP_JOY_DeInit(void)
 
 /**
   * @brief  Returns the current joystick status.
-  * @param  None
   * @retval Code of the joystick key pressed
   *          This code can be one of the following values:
   *            @arg  JOY_NONE
@@ -691,7 +678,6 @@ JOYState_TypeDef BSP_JOY_GetState(void)
 
 #endif /* USE_IOEXPANDER */
 
-
 /*******************************************************************************
                             BUS OPERATIONS
 *******************************************************************************/
@@ -699,8 +685,6 @@ JOYState_TypeDef BSP_JOY_GetState(void)
 /******************************* I2C Routines *********************************/
 /**
   * @brief  Initializes I2C MSP.
-  * @param  None
-  * @retval None
   */
 static void I2Cx_MspInit(void)
 {
@@ -743,8 +727,6 @@ static void I2Cx_MspInit(void)
 
 /**
   * @brief  Initializes I2C HAL.
-  * @param  None
-  * @retval None
   */
 static void I2Cx_Init(void)
 {
@@ -773,7 +755,6 @@ static void I2Cx_Init(void)
   * @param  Addr: I2C address
   * @param  Reg: Register address 
   * @param  Value: Data to be written
-  * @retval None
   */
 static void I2Cx_Write(uint8_t Addr, uint8_t Reg, uint8_t Value)
 {
@@ -817,6 +798,7 @@ static uint8_t I2Cx_Read(uint8_t Addr, uint8_t Reg)
   * @brief  Reads multiple data.
   * @param  Addr: I2C address
   * @param  Reg: Reg address 
+  * @param  MemAddSize: address size
   * @param  Buffer: Pointer to data buffer
   * @param  Length: Length of the data
   * @retval Number of read data
@@ -840,7 +822,8 @@ static HAL_StatusTypeDef I2Cx_ReadMultiple(uint8_t Addr, uint16_t Reg, uint16_t 
   * @brief  Writes a value in a register of the device through BUS in using DMA mode.
   * @param  Addr: Device address on BUS Bus.  
   * @param  Reg: The target register address to write
-  * @param  pBuffer: The target register value to be written 
+  * @param  MemAddSize: address size
+  * @param  Buffer: The target register value to be written 
   * @param  Length: buffer size to be written
   * @retval HAL status
   */
@@ -874,7 +857,6 @@ static HAL_StatusTypeDef I2Cx_IsDeviceReady(uint16_t DevAddress, uint32_t Trials
 /**
   * @brief  Manages error callback by re-initializing I2C.
   * @param  Addr: I2C Address
-  * @retval None
   */
 static void I2Cx_Error(uint8_t Addr)
 {
@@ -888,8 +870,6 @@ static void I2Cx_Error(uint8_t Addr)
 /*************************** FMC Routines ************************************/
 /**
   * @brief  Initializes FMC_BANK1 MSP.
-  * @param  None
-  * @retval None
   */
 static void FMC_BANK1_MspInit(void)
 {
@@ -929,8 +909,6 @@ static void FMC_BANK1_MspInit(void)
 
 /**
   * @brief  Initializes LCD IO.
-  * @param  None
-  * @retval None
   */
 static void FMC_BANK1_Init(void) 
 {  
@@ -976,7 +954,6 @@ static void FMC_BANK1_Init(void)
 /**
   * @brief  Writes register value.
   * @param  Data: Data to be written 
-  * @retval None
   */
 static void FMC_BANK1_WriteData(uint16_t Data) 
 {
@@ -987,7 +964,6 @@ static void FMC_BANK1_WriteData(uint16_t Data)
 /**
   * @brief  Writes register address.
   * @param  Reg: Register to be written
-  * @retval None
   */
 static void FMC_BANK1_WriteReg(uint8_t Reg) 
 {
@@ -997,7 +973,6 @@ static void FMC_BANK1_WriteReg(uint8_t Reg)
 
 /**
   * @brief  Reads register value.
-  * @param  None
   * @retval Read value
   */
 static uint16_t FMC_BANK1_ReadData(void) 
@@ -1015,8 +990,6 @@ static uint16_t FMC_BANK1_ReadData(void)
 
 /**
   * @brief  Initializes MFX low level.
-  * @param  None
-  * @retval None
   */
 void MFX_IO_Init(void)
 {
@@ -1025,8 +998,6 @@ void MFX_IO_Init(void)
 
 /**
   * @brief  DeInitializes MFX low level.
-  * @param  None
-  * @retval None
   */
 void MFX_IO_DeInit(void)
 {
@@ -1034,8 +1005,6 @@ void MFX_IO_DeInit(void)
 
 /**
   * @brief  Configures MFX low level interrupt.
-  * @param  None
-  * @retval None
   */
 void MFX_IO_ITConfig(void)
 {
@@ -1062,7 +1031,6 @@ void MFX_IO_ITConfig(void)
   * @param  Addr: I2C address
   * @param  Reg: Register address 
   * @param  Value: Data to be written
-  * @retval None
   */
 void MFX_IO_Write(uint16_t Addr, uint8_t Reg, uint8_t Value)
 {
@@ -1096,7 +1064,6 @@ uint16_t MFX_IO_ReadMultiple(uint16_t Addr, uint8_t Reg, uint8_t *Buffer, uint16
 /**
   * @brief  MFX delay 
   * @param  Delay: Delay in ms
-  * @retval None
   */
 void MFX_IO_Delay(uint32_t Delay)
 {
@@ -1105,8 +1072,6 @@ void MFX_IO_Delay(uint32_t Delay)
 
 /**
   * @brief  Used by Lx family but requested for MFX component compatibility.
-  * @param  None
-  * @retval None
   */
 void MFX_IO_Wakeup(void) 
 {
@@ -1114,8 +1079,6 @@ void MFX_IO_Wakeup(void)
 
 /**
   * @brief  Used by Lx family but requested for MXF component compatibility.
-  * @param  None
-  * @retval None
   */
 void MFX_IO_EnableWakeupPin(void) 
 {
@@ -1127,8 +1090,6 @@ void MFX_IO_EnableWakeupPin(void)
 
 /**
   * @brief  Initializes LCD low level.
-  * @param  None
-  * @retval None
   */
 void LCD_IO_Init(void) 
 {
@@ -1138,18 +1099,35 @@ void LCD_IO_Init(void)
 /**
   * @brief  Writes data on LCD data register.
   * @param  Data: Data to be written
-  * @retval None
   */
-void LCD_IO_WriteData(uint16_t RegValue) 
+void LCD_IO_WriteData(uint16_t Data) 
 {
   /* Write 16-bit Reg */
-  FMC_BANK1_WriteData(RegValue);
+  FMC_BANK1_WriteData(Data);
+}
+
+/**
+  * @brief  Writes multiple data on LCD data register.
+  * @param  pData Pointer on the register value
+  * @param  Size Size of byte to transmit to the register
+  * @retval None
+  */
+void LCD_IO_WriteMultipleData(uint8_t *pData, uint32_t Size)
+{
+  uint32_t counter;
+  uint16_t *ptr = (uint16_t *) pData;
+  
+  for (counter = 0; counter < Size; counter+=2)
+  {  
+    /* Write 16-bit Reg */
+    FMC_BANK1_WriteData(*ptr);
+    ptr++;
+  }
 }
 
 /**
   * @brief  Writes register on LCD register.
   * @param  Reg: Register to be written
-  * @retval None
   */
 void LCD_IO_WriteReg(uint8_t Reg) 
 {
@@ -1159,11 +1137,14 @@ void LCD_IO_WriteReg(uint8_t Reg)
 
 /**
   * @brief  Reads data from LCD data register.
-  * @param  None
+  * @param  Reg: Register to be read
   * @retval Read data.
   */
-uint16_t LCD_IO_ReadData(void) 
+uint16_t LCD_IO_ReadData(uint16_t Reg)
 {
+  FMC_BANK1_WriteReg(Reg);
+  
+  /* Read 16-bit Reg */  
   return FMC_BANK1_ReadData();
 }
 
@@ -1171,8 +1152,6 @@ uint16_t LCD_IO_ReadData(void)
 
 /**
   * @brief  Initializes Audio low level.
-  * @param  None
-  * @retval None
   */
 void AUDIO_IO_Init(void) 
 {
@@ -1184,7 +1163,6 @@ void AUDIO_IO_Init(void)
   */
 void AUDIO_IO_DeInit(void)
 {
-
 }
 
 /**
@@ -1192,7 +1170,6 @@ void AUDIO_IO_DeInit(void)
   * @param  Addr: I2C address
   * @param  Reg: Reg address 
   * @param  Value: Data to be written
-  * @retval None
   */
 void AUDIO_IO_Write(uint8_t Addr, uint16_t Reg, uint16_t Value)
 {
@@ -1229,7 +1206,6 @@ uint16_t AUDIO_IO_Read(uint8_t Addr, uint16_t Reg)
 /**
   * @brief  AUDIO Codec delay 
   * @param  Delay: Delay in ms
-  * @retval None
   */
 void AUDIO_IO_Delay(uint32_t Delay)
 {
@@ -1240,8 +1216,6 @@ void AUDIO_IO_Delay(uint32_t Delay)
 
 /**
   * @brief  Initializes Camera low level.
-  * @param  None
-  * @retval None
   */
 void CAMERA_IO_Init(void) 
 {
@@ -1253,7 +1227,6 @@ void CAMERA_IO_Init(void)
   * @param  Addr: I2C address
   * @param  Reg: Register address 
   * @param  Value: Data to be written
-  * @retval None
   */
 void CAMERA_IO_Write(uint8_t Addr, uint16_t Reg, uint16_t Value)
 {
@@ -1284,7 +1257,6 @@ uint16_t CAMERA_IO_Read(uint8_t Addr, uint16_t Reg)
 /**
   * @brief  Camera delay 
   * @param  Delay: Delay in ms
-  * @retval None
   */
 void CAMERA_Delay(uint32_t Delay)
 {
@@ -1295,8 +1267,6 @@ void CAMERA_Delay(uint32_t Delay)
 
 /**
   * @brief  Initializes peripherals used by the I2C EEPROM driver.
-  * @param  None
-  * @retval None
   */
 void EEPROM_IO_Init(void)
 {
@@ -1341,8 +1311,6 @@ HAL_StatusTypeDef EEPROM_IO_IsDeviceReady(uint16_t DevAddress, uint32_t Trials)
   return (I2Cx_IsDeviceReady(DevAddress, Trials));
 }
 
-
-
 /**
   * @}
   */
@@ -1357,6 +1325,6 @@ HAL_StatusTypeDef EEPROM_IO_IsDeviceReady(uint16_t DevAddress, uint32_t Trials)
 
 /**
   * @}
-  */    
-    
+  */
+
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

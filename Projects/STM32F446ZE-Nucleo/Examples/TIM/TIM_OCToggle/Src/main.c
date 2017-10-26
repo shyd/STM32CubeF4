@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    TIM/TIM_OCToggle/Src/main.c
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   This example shows how to configure the Timer to generate four different 
   *          signals with four different frequencies.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -51,7 +51,7 @@
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-__IO uint32_t uhCCR1_Val =  23076 ; 
+__IO uint32_t uhCCR1_Val = 23076 ; 
 __IO uint32_t uhCCR2_Val = 11538 ;  
 __IO uint32_t uhCCR3_Val = 5769 ;  
 __IO uint32_t uhCCR4_Val = 2884 ; 
@@ -135,7 +135,7 @@ int main(void)
 
   --------------------------------------------------------------------------- */
 
-  /* Compute the prescaler value to have TIM3 counter clock equal to 12.5 MHz */
+  /* Compute the prescaler value to have TIM3 counter clock equal to 9 MHz */
    uwPrescalerValue = (uint32_t)(((SystemCoreClock/2) / 9000000) - 1); 
   
   TimHandle.Instance = TIM3;

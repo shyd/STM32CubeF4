@@ -207,12 +207,12 @@ static err_t http_recv(void *arg, struct tcp_pcb *pcb,  struct pbuf *p, err_t er
 {
   int32_t i,len=0;
   uint32_t DataOffset, FilenameOffset;
-  char *data, *ptr, filename[13], login[LOGIN_SIZE];
+  char *data, *ptr, filename[40], login[LOGIN_SIZE];
   struct fs_file file = {0, 0};
   struct http_state *hs;
 
 #ifdef USE_LCD
-  char message[20];
+  char message[46];
 #endif
   
   hs = arg;
@@ -323,7 +323,7 @@ static err_t http_recv(void *arg, struct tcp_pcb *pcb,  struct pbuf *p, err_t er
                break;
              }
           }  
-          /* case of MSIE8 : we do not receive data in the POST packet*/ 
+          /* case of MSIE8 : we do not receive data in the POST packet */ 
           if (DataOffset==0)
           {
              DataFlag++;
@@ -373,7 +373,7 @@ static err_t http_recv(void *arg, struct tcp_pcb *pcb,  struct pbuf *p, err_t er
            i =0;
            if (FilenameOffset)
            {
-             while((*(data+FilenameOffset + i)!=0x22 )&&(i<13))
+             while((*(data+FilenameOffset + i)!=0x22 )&&(i < 40))
              {
                filename[i] = *(data+FilenameOffset + i);
                i++;
@@ -439,7 +439,7 @@ static err_t http_recv(void *arg, struct tcp_pcb *pcb,  struct pbuf *p, err_t er
            /* if last packet need to remove the http boundary tag */
            /* parse packet for "\r\n--" starting from end of data */
            i=4; 
-           while (strncmp ((char*)(data+ p->tot_len -i),http_crnl_2 , 4))
+           while (strncmp ((char*)(data+ p->tot_len -i),http_crnl_2 , 4) && (p->tot_len -i > 0))
            {
              i++;
            }

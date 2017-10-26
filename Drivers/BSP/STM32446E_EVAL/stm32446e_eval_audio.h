@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32446e_eval_audio.h
   * @author  MCD Application Team
-  * @version V1.1.0
-  * @date    14-August-2015
+  * @version V2.0.0
+  * @date    27-January-2017
   * @brief   This file contains the common defines and functions prototypes for
   *          the stm32446e_eval_audio.c driver.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -58,18 +58,18 @@
   * @{
   */
     
-/** @defgroup STM32446E_EVAL_AUDIO STM32446E-EVAL AUDIO
+/** @addtogroup STM32446E_EVAL_AUDIO 
   * @{
   */
 
-/** @defgroup STM32446E_EVAL_AUDIO_Exported_Types STM32446E EVAL Audio Exported Types
+/** @defgroup STM32446E_EVAL_AUDIO_Exported_Types STM32446E EVAL AUDIO Exported Types
   * @{
   */
 /**
   * @}
   */ 
 
-/** @defgroup STM32446E_EVAL_AUDIO_Exported_Constants  STM32446E EVAL Audio Exported Constants
+/** @defgroup STM32446E_EVAL_AUDIO_Exported_Constants  STM32446E EVAL AUDIO Exported Constants
   * @{
   */
  
@@ -223,7 +223,7 @@
   * @}
   */
  
-/** @defgroup STM32446E_EVAL_AUDIO_Exported_Variables  STM32446E EVAL Audio Exported Variables
+/** @defgroup STM32446E_EVAL_AUDIO_Exported_Variables  STM32446E EVAL AUDIO Exported Variables
   * @{
   */
 extern __IO uint16_t AudioInVolume;
@@ -231,7 +231,7 @@ extern __IO uint16_t AudioInVolume;
   * @}
   */
    
-/** @defgroup STM32446E_EVAL_AUDIO_Exported_Macros  STM32446E EVAL Audio Exported Macros
+/** @defgroup STM32446E_EVAL_AUDIO_Exported_Macros  STM32446E EVAL AUDIO Exported Macros
   * @{
   */
 #define DMA_MAX(x)           (((x) <= DMA_MAX_SZE)? (x):DMA_MAX_SZE)
@@ -239,7 +239,7 @@ extern __IO uint16_t AudioInVolume;
   * @}
   */ 
 
-/** @defgroup STM32446E_EVAL_AUDIO_OUT_Exported_Functions  STM32446E EVAL AudioOUT Exported Functions
+/** @defgroup STM32446E_EVAL_AUDIO_OUT_Exported_Functions  STM32446E EVAL AUDIO OUT Exported Functions
   * @{
   */
 uint8_t BSP_AUDIO_OUT_Init(uint16_t OutputDevice, uint8_t Volume, uint32_t AudioFreq);
@@ -268,15 +268,14 @@ void    BSP_AUDIO_OUT_Error_CallBack(void);
 
 /* These function can be modified in case the current settings (e.g. DMA stream)
    need to be changed for specific application needs */
-void  BSP_AUDIO_OUT_ClockConfig(SAI_HandleTypeDef *hsai, uint32_t AudioFreq, void *Params);
-void  BSP_AUDIO_OUT_MspInit(SAI_HandleTypeDef *hsai, void *Params);
-void  BSP_AUDIO_OUT_MspDeInit(SAI_HandleTypeDef *hsai, void *Params);
-
+void    BSP_AUDIO_OUT_ClockConfig(SAI_HandleTypeDef *hsai, uint32_t AudioFreq, void *Params);
+void    BSP_AUDIO_OUT_MspInit(SAI_HandleTypeDef *hsai, void *Params);
+void    BSP_AUDIO_OUT_MspDeInit(SAI_HandleTypeDef *hsai, void *Params);
 /**
   * @}
   */ 
 
-/** @defgroup STM32446E_EVAL_AUDIO_IN_Exported_Functions  STM32446E EVAL AudioIN Exported Functions
+/** @defgroup STM32446E_EVAL_AUDIO_IN_Exported_Functions  STM32446E EVAL AUDIO IN Exported Functions
   * @{
   */
 uint8_t BSP_AUDIO_IN_Init(uint32_t AudioFreq, uint32_t BitRes, uint32_t ChnlNbr);
@@ -300,9 +299,9 @@ void    BSP_AUDIO_IN_Error_Callback(void);
 
 /* These function can be modified in case the current settings (e.g. DMA stream)
    need to be changed for specific application needs */
-void  BSP_AUDIO_IN_MspInit(I2S_HandleTypeDef *hi2s, void *Params);
-void  BSP_AUDIO_IN_MspDeInit(I2S_HandleTypeDef *hi2s, void *Params);
-
+void    BSP_AUDIO_IN_ClockConfig(I2S_HandleTypeDef *hi2s, void *Params);
+void    BSP_AUDIO_IN_MspInit(I2S_HandleTypeDef *hi2s, void *Params);
+void    BSP_AUDIO_IN_MspDeInit(I2S_HandleTypeDef *hi2s, void *Params);
 /**
   * @}
   */ 

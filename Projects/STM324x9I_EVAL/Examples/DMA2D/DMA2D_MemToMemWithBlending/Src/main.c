@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    DMA2D/DMA2D_MemToMemWithBlending/Src/main.c 
   * @author  MCD Application Team
-  * @version V1.3.2
-  * @date    13-November-2015
+  * @version V1.4.0
+  * @date    17-February-2017
   * @brief   This example provides a description of how to configure 
   *          DMA2D peripheral in Memory to Memory with blending transfer mode.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -140,13 +140,13 @@ static void DMA2D_Config(void)
   /* Foreground Configuration */
   Dma2dHandle.LayerCfg[1].AlphaMode = DMA2D_REPLACE_ALPHA;
   Dma2dHandle.LayerCfg[1].InputAlpha = 0x7F;
-  Dma2dHandle.LayerCfg[1].InputColorMode = CM_RGB565;
+  Dma2dHandle.LayerCfg[1].InputColorMode = DMA2D_INPUT_RGB565;
   Dma2dHandle.LayerCfg[1].InputOffset = 0x0;
 
   /* Background Configuration */
   Dma2dHandle.LayerCfg[0].AlphaMode = DMA2D_REPLACE_ALPHA;
   Dma2dHandle.LayerCfg[0].InputAlpha = 0x7F;
-  Dma2dHandle.LayerCfg[0].InputColorMode = CM_RGB565;
+  Dma2dHandle.LayerCfg[0].InputColorMode = DMA2D_INPUT_RGB565;
   Dma2dHandle.LayerCfg[0].InputOffset = 0x0;
   
   Dma2dHandle.Instance          = DMA2D; 

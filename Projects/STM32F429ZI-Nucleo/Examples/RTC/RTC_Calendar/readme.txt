@@ -2,11 +2,11 @@
   @page RTC_Calendar RTC Calendar Example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    RTC/RTC_Calendar/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the RTC Calendar example.
   ******************************************************************************
   *
@@ -102,7 +102,7 @@ and aShowDate variables.
 @par Hardware and Software environment
 
   - This example runs on STM32F429ZI Devices.
-  - This example has been tested with STMicroelectronics NUCLEO-429ZI  Rev.B
+  - This example has been tested with STMicroelectronics NUCLEO-F429ZI  Rev.B
     board and can be easily tailored to any other supported device and 
     development board. 
 

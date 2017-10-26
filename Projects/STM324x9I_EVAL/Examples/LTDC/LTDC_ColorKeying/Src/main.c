@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    LTDC/LTDC_ColorKeying/Src/main.c 
   * @author  MCD Application Team
-  * @version V1.3.2
-  * @date    13-November-2015
+  * @version V1.4.0
+  * @date    17-February-2017
   * @brief   This example describes how to enable and use 
-  *          the color keying functionality.
+  *          the LTDC color keying functionality.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -52,10 +52,13 @@
 /* Private define ------------------------------------------------------------*/
 #define PRESSED_FIRST    0x00
 #define PRESSED_SECOND   0x01
+#define RGB565_COLOR_KEY 0xFFFFFF
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 LTDC_HandleTypeDef LtdcHandle;
 uint8_t ubPressedButton = PRESSED_FIRST;
+
+__IO uint32_t ReloadFlag = 0;
 
 /* Private function prototypes -----------------------------------------------*/
 static void LCD_Config(void);
@@ -71,6 +74,7 @@ static void Error_Handler(void);
   */
 int main(void)
 {
+  static uint8_t buttonState = 0;
   /* STM32F4xx HAL library initialization:
        - Configure the Flash prefetch, instruction and Data caches
        - Configure the Systick to generate an interrupt each 1 msec
@@ -92,33 +96,43 @@ int main(void)
   LCD_Config();
 
   /*##-3- Configure Color Keying  ############################################*/
-  HAL_LTDC_ConfigColorKeying(&LtdcHandle, 0xFFFFFF, 1);  
+  HAL_LTDC_ConfigColorKeying_NoReload(&LtdcHandle, RGB565_COLOR_KEY, LTDC_LAYER_1);  
 
   /* Infinite loop */
   while (1)
   {
-    /* Wait for tamper button is pressed */
-    while (BSP_PB_GetState(BUTTON_TAMPER) != RESET)
-    {
-    }
 
-    /* Wait for tamper button is released */
-    while (BSP_PB_GetState(BUTTON_TAMPER) != SET)
+    if(BSP_PB_GetState(BUTTON_TAMPER) == GPIO_PIN_SET)
     {
+      /* user button is pressed     */
+      buttonState = 1;
     }
-  
-    if(ubPressedButton == PRESSED_FIRST)
+    else if(buttonState == 1)
     {
-      /* Enable Color Keying */
-      HAL_LTDC_EnableColorKeying(&LtdcHandle, 1);
-      ubPressedButton = PRESSED_SECOND;  
+      /* user button is released     */
+      buttonState = 0;
+    
+      if(ubPressedButton == PRESSED_FIRST)
+      {
+        /* Enable Color Keying on layer 1 */
+        HAL_LTDC_EnableColorKeying_NoReload(&LtdcHandle, LTDC_LAYER_1);
+        ubPressedButton = PRESSED_SECOND;  
+      }
+      else
+      {
+        /* Disable Color Keying on layer 1 */
+        HAL_LTDC_DisableColorKeying_NoReload(&LtdcHandle, LTDC_LAYER_1);
+        ubPressedButton = PRESSED_FIRST; 
+      }
+      
+      ReloadFlag = 0;
+      HAL_LTDC_Reload(&LtdcHandle,LTDC_SRCR_VBR);
+      
+      while(ReloadFlag == 0)
+      {
+        /* wait till reload takes effect (in the next vertical blanking period) */
+      }    
     }
-    else
-    {
-      /* Enable Color Keying */
-      HAL_LTDC_DisableColorKeying(&LtdcHandle, 1);
-      ubPressedButton = PRESSED_FIRST; 
-    }  
   }
 }
 
@@ -220,12 +234,23 @@ static void LCD_Config(void)
   }
   
   /* Configure the Layer */
-  if(HAL_LTDC_ConfigLayer(&LtdcHandle, &pLayerCfg, 1) != HAL_OK)
+  if(HAL_LTDC_ConfigLayer(&LtdcHandle, &pLayerCfg, LTDC_LAYER_1) != HAL_OK)
   {
     /* Initialization Error */
     Error_Handler(); 
   }    
 }  
+
+/**
+  * @brief  Reload Event callback.
+  * @param  hltdc: pointer to a LTDC_HandleTypeDef structure that contains
+  *                the configuration information for the LTDC.
+  * @retval None
+  */
+void HAL_LTDC_ReloadEventCallback(LTDC_HandleTypeDef *hltdc)
+{
+  ReloadFlag = 1;
+}
 
 /**
   * @brief  System and LTDC Clocks Configuration

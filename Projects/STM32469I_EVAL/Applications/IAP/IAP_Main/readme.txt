@@ -1,17 +1,17 @@
 /**
   @page IAP AN3965 STM32F4xx In-Application Programming using the USART Readme file
 
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    IAP/IAP_Main/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of implementation of the AN3965 (in-application programming
   *          using the USART (IAP)) on STM32F4xx devices.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -87,11 +87,11 @@ In-Application Programming (IAP, through USART).
 
   - This application runs on STM32F469xx and STM32F479xx devices.
     
-  - This application has been tested with STMicroelectronics STM32469I-EVAL RevB
+  - This application has been tested with STMicroelectronics STM32469I-EVAL RevC
     evaluation boards and can be easily tailored to any other supported device 
     and development board.
 
-Table 1. IAP implementation on STM32469I-EVAL RevB
+Table 1. IAP implementation on STM32469I-EVAL RevC
 /*** Platform ***|************* Implementation **************************|***** Configuration *****\
 ****************************************************************************************************
 |    Firmware    | The IAP program is located at 0x08000000. The Flash   |                         |
@@ -146,7 +146,7 @@ Figure 2. Flash memory usage
                           |          Vector table                     |
                           \-------------------------------------------/	 0x08000000					  
    
-  - STM32469I-EVAL RevB Set-up
+  - STM32469I-EVAL RevC Set-up
     - Connect a null-modem female/female RS232 cable between the boards DB9 connector 
       CN7 (USART) and PC serial port.
       (make sure that jumper JP8 is RS232_RX position pos 1-2).
@@ -192,6 +192,13 @@ In order to load the IAP code, you have do the following:
       - Browse to the SW4STM32 workspace directory, select the project (.project file in \IAP_Main\SW4STM32 \STM32469I-EVAL directory).
       - Rebuild all project files: Select the project in the "Project explorer" window then click on Project->build project menu.
       - Run program: Run->Debug
+
+
+   - TrueSTUDO 
+      - Open the TrueSTUDIO toolchain. 
+      - Browse to the TrueSTUDIO workspace directory, select the project (.project file in \IAP_Main\TrueSTUDIO\STM32469I-EVAL directory). 
+      - Rebuild all project files: Select the project in the "Project explorer" window then click on Project->build project menu. 
+      - Run program: Run->Debug (F11)
 
  * <h3><center>&copy; COPYRIGHT STMicroelectronics</center></h3>
  */

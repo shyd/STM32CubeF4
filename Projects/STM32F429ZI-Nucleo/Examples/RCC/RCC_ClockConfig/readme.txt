@@ -2,11 +2,11 @@
   @page RCC_ClockConfig RCC Clock Config example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    RCC/RCC_ClockConfig/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the RCC Clock Config example.
   ******************************************************************************
   *
@@ -38,7 +38,7 @@
 @par Example Description 
 
 This example describes how to use the RCC HAL API to configure the system clock (SYSCLK) 
-and modify the clock settings in run mode.
+and modify the clock settings on run mode.
 
 In this example, after startup SYSCLK is configured to the max frequency using the PLL with
 HSI as clock source, the User push-button (connected to EXTI_Line15_10) will be 
@@ -97,7 +97,7 @@ LED1 is toggled with a timing defined by the HAL_Delay() API.
 
   - This example runs on STM32F429ZI devices.
     
-  - This example has been tested with NUCLEO-429ZI  Rev.B 
+  - This example has been tested with NUCLEO-F429ZI  Rev.B 
     board and can be easily tailored to any other supported device
     and development board.
     

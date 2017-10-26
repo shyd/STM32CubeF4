@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm324x9i_eval_nor.h
   * @author  MCD Application Team
-  * @version V2.2.1
-  * @date    07-October-2015
+  * @version V3.0.0
+  * @date    27-January-2017
   * @brief   This file contains the common defines and functions prototypes for
   *          the stm324x9i_eval_nor.c driver.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -55,26 +55,16 @@
   * @{
   */
     
-/** @defgroup STM324x9I_EVAL_NOR
+/** @addtogroup STM324x9I_EVAL_NOR
   * @{
   */    
-
-/** @defgroup STM324x9I_EVAL_NOR_Exported_Types
-  * @{
-  */
-/**
-  * @}
-  */ 
     
-/** 
-  * @brief  NOR status structure definition  
-  */     
+/** @defgroup STM324x9I_EVAL_NOR_Exported_Constants STM324x9I EVAL NOR Exported Constants
+  * @{
+  */    
 #define   NOR_STATUS_OK         0x00
 #define   NOR_STATUS_ERROR      0x01
-
-/** @defgroup STM324x9I_EVAL_NOR_Exported_Constants
-  * @{
-  */  
+    
 #define NOR_DEVICE_ADDR  ((uint32_t)0x60000000)  
   
 /* #define NOR_MEMORY_WIDTH    FMC_NORSRAM_MEM_BUS_WIDTH_8  */
@@ -103,14 +93,7 @@
   * @}
   */ 
     
-/** @defgroup STM324x9I_EVAL_NOR_Exported_Macro
-  * @{
-  */ 
-/**
-  * @}
-  */ 
-    
-/** @defgroup STM324x9I_EVAL_NOR_Exported_Functions
+/** @defgroup STM324x9I_EVAL_NOR_Exported_Functions STM324x9I EVAL NOR Exported Functions
   * @{
   */  
 uint8_t BSP_NOR_Init(void);
@@ -120,8 +103,8 @@ uint8_t BSP_NOR_ProgramData(uint32_t uwStartAddress, uint16_t *pData, uint32_t u
 uint8_t BSP_NOR_Erase_Block(uint32_t BlockAddress);
 uint8_t BSP_NOR_Erase_Chip(void);
 uint8_t BSP_NOR_Read_ID(NOR_IDTypeDef *pNOR_ID);
-void BSP_NOR_ReturnToReadMode(void);  
-
+void    BSP_NOR_ReturnToReadMode(void);  
+void    BSP_NOR_MspInit(void);
 /**
   * @}
   */ 

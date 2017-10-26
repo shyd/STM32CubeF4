@@ -2,11 +2,11 @@
   @page I2C_TwoBoards_ComIT I2C Two Boards Communication IT example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    I2C/I2C_TwoBoards_ComIT/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    13-November-2015
+  * @version V1.0.4
+  * @date    17-February-2017
   * @brief   Description of the I2C Two Boards IT Communication example.
   ******************************************************************************
   *

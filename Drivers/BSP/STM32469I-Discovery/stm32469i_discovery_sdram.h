@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32469i_discovery_sdram.h
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    29-September-2015
+  * @version V2.0.0
+  * @date    27-January-2017
   * @brief   This file contains the common defines and functions prototypes for
   *          the stm32469i_discovery_sdram.c driver.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -51,7 +51,7 @@
   * @{
   */
 
-/** @addtogroup STM32469I-Discovery
+/** @addtogroup STM32469I_Discovery
   * @{
   */
 
@@ -69,13 +69,17 @@
 #define   SDRAM_OK         ((uint8_t)0x00)
 #define   SDRAM_ERROR      ((uint8_t)0x01)
 
+/**
+  * @}
+  */
+
 /** @defgroup STM32469I-Discovery_SDRAM_Exported_Constants STM32469I Discovery SDRAM Exported Constants
   * @{
   */
 #define SDRAM_DEVICE_ADDR  ((uint32_t)0xC0000000)
 
- /* SDRAM device size in MBytes */
- #define SDRAM_DEVICE_SIZE  ((uint32_t)0x800000)
+ /* SDRAM device size in Bytes */
+ #define SDRAM_DEVICE_SIZE  ((uint32_t)0x1000000)
 
 #define SDRAM_MEMORY_WIDTH FMC_SDRAM_MEM_BUS_WIDTH_32
 #define SDCLOCK_PERIOD     FMC_SDRAM_CLOCK_PERIOD_2
@@ -91,9 +95,7 @@
 #define SDRAM_DMAx_STREAM     DMA2_Stream0
 #define SDRAM_DMAx_IRQn       DMA2_Stream0_IRQn
 #define SDRAM_DMAx_IRQHandler DMA2_Stream0_IRQHandler
-/**
-  * @}
-  */
+
 
 /**
   * @brief  FMC SDRAM Mode definition register defines
@@ -120,7 +122,7 @@
   * @}
   */
 
-/** @defgroup STM32469I-Discovery_SDRAM_Exported_Functions STM32469I Discovery SDRAM Exported Functions
+/** @addtogroup STM32469I_Discovery_SDRAM_Exported_Functions 
   * @{
   */
 uint8_t BSP_SDRAM_Init(void);
@@ -138,6 +140,10 @@ void    BSP_SDRAM_DMA_IRQHandler(void);
 void    BSP_SDRAM_MspInit(SDRAM_HandleTypeDef  *hsdram, void *Params);
 void    BSP_SDRAM_MspDeInit(SDRAM_HandleTypeDef  *hsdram, void *Params);
 
+/**
+  * @}
+  */
+  
 /**
   * @}
   */

@@ -2,29 +2,48 @@
   ******************************************************************************
   * @file    k_menu.c
   * @author  MCD Application Team
-  * @version V1.4.2
-  * @date    13-November-2015   
+  * @version V1.4.7
+  * @date    17-February-2017 
   * @brief   This file provides the kernel menu functions 
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics International N.V. 
+  * All rights reserved.</center></h2>
   *
-  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-  * You may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at:
+  * Redistribution and use in source and binary forms, with or without 
+  * modification, are permitted, provided that the following conditions are met:
   *
-  *        http://www.st.com/software_license_agreement_liberty_v2
+  * 1. Redistribution of source code must retain the above copyright notice, 
+  *    this list of conditions and the following disclaimer.
+  * 2. Redistributions in binary form must reproduce the above copyright notice,
+  *    this list of conditions and the following disclaimer in the documentation
+  *    and/or other materials provided with the distribution.
+  * 3. Neither the name of STMicroelectronics nor the names of other 
+  *    contributors to this software may be used to endorse or promote products 
+  *    derived from this software without specific written permission.
+  * 4. This software, including modifications and/or derivative works of this 
+  *    software, must execute solely and exclusively on microcontroller or
+  *    microprocessor devices manufactured by or for STMicroelectronics.
+  * 5. Redistribution and use of this software other than as permitted under 
+  *    this license is void and will automatically terminate your rights under 
+  *    this license. 
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
+  * THIS SOFTWARE IS PROVIDED BY STMICROELECTRONICS AND CONTRIBUTORS "AS IS" 
+  * AND ANY EXPRESS, IMPLIED OR STATUTORY WARRANTIES, INCLUDING, BUT NOT 
+  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+  * PARTICULAR PURPOSE AND NON-INFRINGEMENT OF THIRD PARTY INTELLECTUAL PROPERTY
+  * RIGHTS ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED BY LAW. IN NO EVENT 
+  * SHALL STMICROELECTRONICS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, 
+  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
+  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
-  */
-  
+  */  
 /* Includes ------------------------------------------------------------------*/
 #include <stddef.h>
 #include <stdlib.h>
@@ -555,7 +574,7 @@ static void _cbBk(WM_MESSAGE * pMsg) {
   
   MENU_MSG_DATA* pData;
   uint32_t NCode, Id;
-  static int sel = 0;
+  static int sel = (-1);
   
   switch (pMsg->MsgId) 
   {
@@ -658,7 +677,7 @@ static void _cbBk(WM_MESSAGE * pMsg) {
           WM_HideWindow(hPerformance);
         } 
         
-        if(sel < k_ModuleGetNumber())
+        if((sel >= 0) && (sel < k_ModuleGetNumber()))
         {    
           if(sel < 8)
           {
@@ -676,7 +695,7 @@ static void _cbBk(WM_MESSAGE * pMsg) {
       if (Id == ID_ICONVIEW_MENU)
       {
         
-        if(sel < k_ModuleGetNumber())
+        if((sel >= 0) && (sel < k_ModuleGetNumber()))
         { 
           SpriteDisabled = 1;
           GUI_SPRITE_Hide(_aSprite[0].hSprite);
@@ -905,6 +924,17 @@ void k_SetGuiProfile(void)
   }
   else
   {
+    FRAMEWIN_SetDefaultSkinClassic();
+    PROGBAR_SetDefaultSkinClassic();
+    RADIO_SetDefaultSkinClassic();
+    SCROLLBAR_SetDefaultSkinClassic();
+    SLIDER_SetDefaultSkinClassic();
+    SPINBOX_SetDefaultSkinClassic();
+    BUTTON_SetDefaultSkinClassic();
+    DROPDOWN_SetDefaultSkinClassic();
+    MULTIPAGE_SetDefaultSkinClassic();
+    CHECKBOX_SetDefaultSkinClassic();
+
     FRAMEWIN_SetDefaultTextColor(0, GUI_WHITE);
     FRAMEWIN_SetDefaultTextColor(1, GUI_WHITE);   
   }
@@ -976,6 +1006,9 @@ void k_InitMenu(void)
                             ID_ICONVIEW_MENU, 
                             112, 
                             105);
+  
+  /* Initialise the selection number */
+  ICONVIEW_SetSel(hIcon, (-1));
   
   ICONVIEW_SetFont(hIcon, &GUI_Font13B_ASCII);
   

@@ -2,13 +2,13 @@
   ******************************************************************************
   * @file    SPI/SPI_FullDuplex_ComDMA/Inc/main.h
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date  09-October-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Header for main.c module
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -77,6 +77,9 @@
 
 
 /* Definition for SPIx's NVIC */
+#define SPIx_IRQn                        SPI2_IRQn
+#define SPIx_IRQHandler                  SPI2_IRQHandler
+
 #define SPIx_DMA_TX_IRQn                 DMA1_Stream4_IRQn
 #define SPIx_DMA_RX_IRQn                 DMA1_Stream3_IRQn
 

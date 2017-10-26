@@ -2,11 +2,11 @@
   @page UART_Printf UART Printf example
   
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    UART/UART_Printf/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the UART Printf example.
   ******************************************************************************
   *
@@ -37,6 +37,9 @@
 
 @par Example Description 
 
+This example shows how to reroute the C library printf function to the UART. It 
+outputs a message sent by the UART on the HyperTerminal.
+
 Board: STM32469I-EVAL
 Tx Pin: PA.09
 Rx Pin: PA.10
@@ -57,8 +60,6 @@ Rx Pin: PA.10
   |                         |                      
   |_STM32_Board_____________|                      
 
-This example shows how to retarget the C library printf function to the UART. 
-This implementation output the printf message on the Hyperterminal using USART1.
 
 The USART is configured as follows:
     - BaudRate = 9600 baud  
@@ -101,7 +102,7 @@ position of the transmitted data.
 
   - This example runs on STM32F469xx/STM32F479xx devices.
 
-  - This example has been tested and validated with STMicroelectronics STM32469I-EVAL revB board and can be
+  - This example has been tested and validated with STMicroelectronics STM32469I-EVAL RevC board and can be
     easily tailored to any other supported device and development board.    
 
   - TARGET_STM32469I_EVAL Set-up

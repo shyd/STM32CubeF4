@@ -1,13 +1,13 @@
 /**
-  @page FSMC_SRAM FSMC SRAM memory basic functionalities use example
+  @page FSMC_SRAM FSMC SRAM basic functionalities use example
   
   @verbatim
-  ******************* (C) COPYRIGHT 2015 STMicroelectronics ********************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    FSMC/FSMC_SRAM/readme.txt 
   * @author  MCD Application Team
-  * @version V1.2.4
-  * @date    13-November-2015
-  * @brief   Description of the FSMC SRAM memory basic functionalities use example.
+  * @version V1.3.0
+  * @date    17-February-2017
+  * @brief   Description of the FSMC SRAM basic functionalities use example.
   ******************************************************************************
   *
   * Redistribution and use in source and binary forms, with or without modification,
@@ -41,7 +41,7 @@ This example describes how to configure the FSMC controller to access the SRAM
 memory.
 
 This example guides you through the different configuration steps by mean of HAL API
-to configure the FMC controller to access the IS61WV102416BLL-10MLI SRAM memory mounted 
+to configure the FMC controller to access the IS61WV102416BLL-10MLI SRAM mounted 
 on STM324xG-EVAL evaluation board.
  
 At the beginning of the main program the HAL_Init() function is called to reset 

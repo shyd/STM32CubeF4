@@ -4,11 +4,11 @@
   in landscape mode in DSI mode Video Burst on LCD screen.
 
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    LCD_DSI/LCD_DSI_ULPM_DataClock/readme.txt
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the LCD DSI enter and exit DSI ULPM Mode on data lane 
   *          and clock lane example.
   ******************************************************************************
@@ -51,11 +51,11 @@ When exiting from ULPM, the PLL DPHY is first switched back on and locked, then 
 power down and display again as before.
 
 In this example a WVGA landscape picture (800x480) is displayed on LCD in DSI Mode Video Burst.
-On a Tamper button press from the user, the LCD display will be switched off. One second later, 
+On a Tamper button press from the user, the LCD display will be switched off. 100ms later, 
 the DSI PHY Data and clock lane will enter ULPM mode. DphyClk is derived from PLL.PLLR, then
 DPHY PLL is switched Off.
 
-After 6 seconds in Off mode, The PLL DPHY is switched back on and locked,
+After 2 seconds in Off mode, The PLL DPHY is switched back on and locked,
 then the ULPM on data and clock lanes will be exited in DPHY DSI state machine.
 The LCD will then be switched back on and display the same image as before 
 with a text notifying that the exit from ULPM was successful. 
@@ -97,7 +97,7 @@ LED3 ON: an error occured.
 
   - This example runs on STM32F469xx/STM32F479xx devices.
 
-  - This example has been tested and validated with STMicroelectronics STM32469I-EVAL revB 
+  - This example has been tested and validated with STMicroelectronics STM32469I-EVAL RevC 
     board and can be easily tailored to any other supported device
     and development board.
 

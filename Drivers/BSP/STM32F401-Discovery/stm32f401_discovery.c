@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32f401_discovery.c
   * @author  MCD Application Team
-  * @version V2.2.0
-  * @date    14-August-2015
+  * @version V2.2.2
+  * @date    27-January-2017
   * @brief   This file provides set of firmware functions to manage LEDs and
   *          push-button available on STM32F401-Discovery Kit from STMicroelectronics.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2014 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -39,37 +39,37 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f401_discovery.h"
 
-/** @addtogroup BSP
+/** @defgroup BSP BSP
   * @{
   */ 
 
-/** @addtogroup STM32F401_DISCOVERY
+/** @defgroup STM32F401_DISCOVERY STM32F401 DISCOVERY
   * @{
   */   
     
-/** @addtogroup STM32F401_DISCOVERY_LOW_LEVEL 
+/** @defgroup STM32F401_DISCOVERY_LOW_LEVEL STM32F401 DISCOVERY LOW LEVEL
   * @brief This file provides set of firmware functions to manage Leds and push-button
   *        available on STM32F401-Discovery Kit from STMicroelectronics.
   * @{
   */ 
 
-/** @defgroup STM32F401_DISCOVERY_LOW_LEVEL_Private_TypesDefinitions
+/** @defgroup STM32F401_DISCOVERY_LOW_LEVEL_Private_TypesDefinitions STM32F401 DISCOVERY LOW LEVEL Private TypesDefinitions
   * @{
   */ 
 /**
   * @}
   */ 
 
-/** @defgroup STM32F401_DISCOVERY_LOW_LEVEL_Private_Defines
+/** @defgroup STM32F401_DISCOVERY_LOW_LEVEL_Private_Defines STM32F401 DISCOVERY LOW LEVEL Private Defines
   * @{
   */ 
   
 /**
-  * @brief STM32F401 DISCO BSP Driver version number V2.2.0
+  * @brief STM32F401 DISCO BSP Driver version number V2.2.2
   */
 #define __STM32F401_DISCO_BSP_VERSION_MAIN   (0x02) /*!< [31:24] main version */
 #define __STM32F401_DISCO_BSP_VERSION_SUB1   (0x02) /*!< [23:16] sub1 version */
-#define __STM32F401_DISCO_BSP_VERSION_SUB2   (0x00) /*!< [15:8]  sub2 version */
+#define __STM32F401_DISCO_BSP_VERSION_SUB2   (0x02) /*!< [15:8]  sub2 version */
 #define __STM32F401_DISCO_BSP_VERSION_RC     (0x00) /*!< [7:0]  release candidate */ 
 #define __STM32F401_DISCO_BSP_VERSION         ((__STM32F401_DISCO_BSP_VERSION_MAIN << 24)\
                                              |(__STM32F401_DISCO_BSP_VERSION_SUB1 << 16)\
@@ -79,14 +79,14 @@
   * @}
   */ 
 
-/** @defgroup STM32F401_DISCOVERY_LOW_LEVEL_Private_Macros
+/** @defgroup STM32F401_DISCOVERY_LOW_LEVEL_Private_Macros STM32F401 DISCOVERY LOW LEVEL Private Macros
   * @{
   */ 
 /**
   * @}
   */ 
 
-/** @defgroup STM32F401_DISCOVERY_LOW_LEVEL_Private_Variables
+/** @defgroup STM32F401_DISCOVERY_LOW_LEVEL_Private_Variables STM32F401 DISCOVERY LOW LEVEL Private Variables
   * @{
   */ 
 GPIO_TypeDef* GPIO_PORT[LEDn] = {LED4_GPIO_PORT, 
@@ -112,7 +112,7 @@ static SPI_HandleTypeDef SpiHandle;
   * @}
   */ 
 
-/** @defgroup STM32F401_DISCOVERY_LOW_LEVEL_Private_FunctionPrototypes
+/** @defgroup STM32F401_DISCOVERY_LOW_LEVEL_Private_FunctionPrototypes STM32F401 DISCOVERY LOW LEVEL Private FunctionPrototypes
   * @{
   */
 /* I2Cx bus function */
@@ -148,13 +148,12 @@ uint8_t COMPASSACCELERO_IO_Read(uint16_t DeviceAddr, uint8_t RegisterAddr);
   * @}
   */ 
 
-/** @defgroup STM32F401_DISCOVERY_LOW_LEVEL_Private_Functions
+/** @defgroup STM32F401_DISCOVERY_LOW_LEVEL_Private_Functions STM32F401 DISCOVERY LOW LEVEL Private Functions
   * @{
   */ 
   
 /**
   * @brief  This method returns the STM32F401 DISCO BSP Driver revision
-  * @param  None
   * @retval version: 0xXYZR (8bits for each decimal, R for RC)
   */
 uint32_t BSP_GetVersion(void)
@@ -170,7 +169,6 @@ uint32_t BSP_GetVersion(void)
   *     @arg LED3
   *     @arg LED5
   *     @arg LED6
-  * @retval None
   */
 void BSP_LED_Init(Led_TypeDef Led)
 {
@@ -198,7 +196,6 @@ void BSP_LED_Init(Led_TypeDef Led)
   *     @arg LED3
   *     @arg LED5
   *     @arg LED6  
-  * @retval None
   */
 void BSP_LED_On(Led_TypeDef Led)
 {
@@ -213,7 +210,6 @@ void BSP_LED_On(Led_TypeDef Led)
   *     @arg LED3
   *     @arg LED5
   *     @arg LED6 
-  * @retval None
   */
 void BSP_LED_Off(Led_TypeDef Led)
 {
@@ -228,7 +224,6 @@ void BSP_LED_Off(Led_TypeDef Led)
   *     @arg LED3
   *     @arg LED5
   *     @arg LED6  
-  * @retval None
   */
 void BSP_LED_Toggle(Led_TypeDef Led)
 {
@@ -244,7 +239,6 @@ void BSP_LED_Toggle(Led_TypeDef Led)
   *     @arg BUTTON_MODE_GPIO: Button will be used as simple IO 
   *     @arg BUTTON_MODE_EXTI: Button will be connected to EXTI line with interrupt
   *                            generation capability  
-  * @retval None
   */
 void BSP_PB_Init(Button_TypeDef Button, ButtonMode_TypeDef ButtonMode)
 {
@@ -296,8 +290,6 @@ uint32_t BSP_PB_GetState(Button_TypeDef Button)
 
 /**
   * @brief  I2Cx Bus initialization.
-  * @param  None
-  * @retval None
   */
 static void I2Cx_Init(void)
 {
@@ -324,7 +316,6 @@ static void I2Cx_Init(void)
   * @param  Addr: Device address on BUS Bus.  
   * @param  Reg: The target register address to write
   * @param  Value: The target register value to be written 
-  * @retval None
   */
 static void I2Cx_WriteData(uint16_t Addr, uint8_t Reg, uint8_t Value)
 {
@@ -364,8 +355,6 @@ static uint8_t I2Cx_ReadData(uint16_t Addr, uint8_t Reg)
 
 /**
   * @brief  I2Cx error treatment function.
-  * @param  None
-  * @retval None
   */
 static void I2Cx_Error(void)
 {
@@ -379,7 +368,6 @@ static void I2Cx_Error(void)
 /**
   * @brief  I2Cx MSP Init.
   * @param  hi2c: I2C handle
-  * @retval None
   */
 static void I2Cx_MspInit(I2C_HandleTypeDef *hi2c)
 {
@@ -419,8 +407,6 @@ static void I2Cx_MspInit(I2C_HandleTypeDef *hi2c)
 
 /**
   * @brief  SPIx Bus initialization.
-  * @param  None
-  * @retval None
   */
 static void SPIx_Init(void)
 {
@@ -473,8 +459,6 @@ static uint8_t SPIx_WriteRead(uint8_t Byte)
 
 /**
   * @brief  SPIx error treatment function.
-  * @param  None
-  * @retval None
   */
 static void SPIx_Error (void)
 {
@@ -488,7 +472,6 @@ static void SPIx_Error (void)
 /**
   * @brief  SPI MSP Init.
   * @param  hspi: SPI handle
-  * @retval None
   */
 static void SPIx_MspInit(SPI_HandleTypeDef *hspi)
 {
@@ -516,8 +499,6 @@ static void SPIx_MspInit(SPI_HandleTypeDef *hspi)
 /********************************* LINK GYROSCOPE *****************************/
 /**
   * @brief  Configures the GYRO SPI interface.
-  * @param  None
-  * @retval None
   */
 void GYRO_IO_Init(void)
 {
@@ -551,7 +532,6 @@ void GYRO_IO_Init(void)
   * @param  pBuffer: pointer to the buffer  containing the data to be written to the GYRO.
   * @param  WriteAddr : GYRO's internal address to write to.
   * @param  NumByteToWrite: Number of bytes to write.
-  * @retval None
   */
 void GYRO_IO_Write(uint8_t* pBuffer, uint8_t WriteAddr, uint16_t NumByteToWrite)
 {
@@ -586,7 +566,6 @@ void GYRO_IO_Write(uint8_t* pBuffer, uint8_t WriteAddr, uint16_t NumByteToWrite)
   * @param  pBuffer: pointer to the buffer that receives the data read from the GYRO.
   * @param  ReadAddr: GYRO's internal address to read from.
   * @param  NumByteToRead: Number of bytes to read from the GYRO.
-  * @retval None
   */
 void GYRO_IO_Read(uint8_t* pBuffer, uint8_t ReadAddr, uint16_t NumByteToRead)
 {  
@@ -622,8 +601,6 @@ void GYRO_IO_Read(uint8_t* pBuffer, uint8_t ReadAddr, uint16_t NumByteToRead)
 
 /**
   * @brief  Initializes Audio low level.
-  * @param  None
-  * @retval None
   */
 void AUDIO_IO_Init(void) 
 {
@@ -656,8 +633,6 @@ void AUDIO_IO_Init(void)
 
 /**
   * @brief  DeInitializes Audio low level.
-  * @param  None
-  * @retval None
   */
 void AUDIO_IO_DeInit(void) 
 {
@@ -669,7 +644,6 @@ void AUDIO_IO_DeInit(void)
   * @param  Addr: I2C address
   * @param  Reg: Reg address 
   * @param  Value: Data to be written
-  * @retval None
   */
 void AUDIO_IO_Write (uint8_t Addr, uint8_t Reg, uint8_t Value)
 {
@@ -691,8 +665,6 @@ uint8_t AUDIO_IO_Read (uint8_t Addr, uint8_t Reg)
 
 /**
   * @brief  Configures COMPASS / ACCELERO I2C interface.
-  * @param  None
-  * @retval None
   */
 void COMPASSACCELERO_IO_Init(void)
 {
@@ -713,8 +685,6 @@ void COMPASSACCELERO_IO_Init(void)
 
 /**
   * @brief  Configures COMPASS / ACCELERO click IT.
-  * @param  None
-  * @retval None
   */
 void COMPASSACCELERO_IO_ITConfig(void)
 {
@@ -740,7 +710,6 @@ void COMPASSACCELERO_IO_ITConfig(void)
   * @param  DeviceAddr: the slave address to be programmed
   * @param  RegisterAddr: the COMPASS / ACCELERO register to be written
   * @param  Value: Data to be written
-  * @retval None
  */
 void COMPASSACCELERO_IO_Write(uint16_t DeviceAddr, uint8_t RegisterAddr, uint8_t Value)
 {

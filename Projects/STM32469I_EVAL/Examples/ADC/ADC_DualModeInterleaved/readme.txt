@@ -2,11 +2,11 @@
   @page ADC_DualModeInterleaved  ADC1 and ADC2 in Dual interleaved mode and DMA mode3 example
 
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    ADC/ADC_DualModeInterleaved/readme.txt 
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the Dual interleaved mode and DMA mode3 example.
   ******************************************************************************
   *
@@ -37,8 +37,8 @@
 
 @par Example Description 
 
-This example provides a short description of how to use the ADC peripheral to
-convert a regular channel in Dual interleaved mode using DMA in mode 3 with 5Msps.
+This example provides a short description of how to use two ADC peripherals 
+to perform conversions in interleaved dual-mode.
 
 DMA mode 3 is used in interleaved mode in 6-bit and 8-bit resolutions.
 
@@ -46,6 +46,7 @@ The Dual interleaved delay is configured to 6 ADC clk cycles.
 
 On each DMA request (two data items are available) two bytes representing two 
 ADC-converted data items are transferred as a half word.
+The converted data is stored in the uhADCDualConvertedValue variable.
 The data transfer order is similar to that of the DMA mode 2.
 
 A DMA request is generated each time 2 data items are available
@@ -96,10 +97,10 @@ STM32 Eval board's LEDs can be used to monitor the transfer status:
 
   - This example runs on STM32F469xx/STM32F479xx devices.
     
-  - This example has been tested and validated  with STM32469I-EVAL RevB evaluation board and can be
+  - This example has been tested and validated  with STM32469I-EVAL RevC evaluation board and can be
     easily tailored to any other supported device and development board. 
 
-  - STM32469i-EVAL RevB Set-up
+  - STM32469i-EVAL RevC Set-up
     - Connect PC.2 to a power supply (do not forget to connect the power supply 
       GND to the EVAL board GND)
 

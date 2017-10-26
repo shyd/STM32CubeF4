@@ -2,16 +2,16 @@
   @page LwIP_TFTP_Server LwIP_TFTP_Server application
  
   @verbatim
-  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
   * @file    LwIP/LwIP_TFTP_Server/readme.txt
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    13-November-2015
+  * @version V1.1.0
+  * @date    17-February-2017
   * @brief   Description of the tftp server demonstration.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
   * You may not use this file except in compliance with the License.
@@ -48,10 +48,16 @@ will be ensured by LEDs:
 If a DHCP server is available, a dynamic IP address can be allocated by enabling 
 the DHCP process (#define USE_DHCP in main.h) 
 
-Note: In this application the Ethernet Link ISR need the System tick interrupt 
-to configure the Ethernet MAC, so the Ethernet Link interrupt priority must be 
-set lower (numerically greater) than the Systick interrupt priority to ensure 
-that the System tick increments while executing the Ethernet Link ISR.
+Note: Files to be transferred must have a short file name format (8.3), 
+      maximum 8 characters for name and 3 characters for type, example:
+       image.jpg => valid name
+       image.jpeg => invalid name 
+       image1234.jpg => invalid name 
+
+Note: In this application the Ethernet Link ISR need the HAL time base to configure 
+the Ethernet MAC, so the Ethernet Link interrupt priority must be set lower (numerically greater) 
+than the HAL tick interrupt priority to ensure that the System tick increments while executing 
+the Ethernet Link ISR.
 
 Note: By default, the Ethernet Half duplex mode is not supported in the 
 STM32469I-EVAL board, for more information refer to the HAL_ETH_MspInit() 
@@ -99,7 +105,7 @@ For more details about this application, refer to UM1713 "STM32Cube interfacing 
   - This application runs on STM32F469xx and STM32F479xx devices.
   
   - This application has been tested with the following environments:
-     - STM32469I-EVAL revB board
+     - STM32469I-EVAL RevC board
      - TFTP client and DHCP server: PC utility TFTPD32 (http://tftpd32.jounin.net/)
 
   - STM32469I-EVAL Set-up

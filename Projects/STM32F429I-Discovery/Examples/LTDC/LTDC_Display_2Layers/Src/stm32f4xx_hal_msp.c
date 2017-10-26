@@ -2,13 +2,13 @@
   ******************************************************************************
   * @file    LTDC/LTDC_Display_2Layers/Src/stm32f4xx_hal_msp.c
   * @author  MCD Application Team
-  * @version V1.2.4
-  * @date    13-November-2015 
+  * @version V1.2.8
+  * @date    17-February-2017 
   * @brief   HAL MSP module.       
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -122,18 +122,18 @@ void HAL_LTDC_MspInit(LTDC_HandleTypeDef *hltdc)
   GPIO_Init_Structure.Pin = GPIO_PIN_3 | GPIO_PIN_6;
   HAL_GPIO_Init(GPIOD, &GPIO_Init_Structure);
   
-  /* LTDC pins configuraiton: PF10*/  
+  /* LTDC pins configuraiton: PF10 */  
   GPIO_Init_Structure.Pin = GPIO_PIN_10;
   HAL_GPIO_Init(GPIOF, &GPIO_Init_Structure);     
 
-  /* LTDC pins configuraiton: PG6 -- 7 */  
+  /* LTDC pins configuraiton: PG6 -- 11 */  
   GPIO_Init_Structure.Pin = GPIO_PIN_6 | GPIO_PIN_7 | \
                              GPIO_PIN_11;
   HAL_GPIO_Init(GPIOG, &GPIO_Init_Structure);
  
-  /* LTDC pins configuraiton: PB1 -- 1 */  
+  /* LTDC pins configuraiton: PB0 -- 1 */  
   GPIO_Init_Structure.Pin = GPIO_PIN_0 | GPIO_PIN_1;
-  GPIO_Init_Structure.Alternate= GPIO_AF14_LTDC;
+  GPIO_Init_Structure.Alternate = GPIO_AF9_LTDC;
   HAL_GPIO_Init(GPIOB, &GPIO_Init_Structure);
 
   /* LTDC pins configuraiton: PG10 -- 12 */  

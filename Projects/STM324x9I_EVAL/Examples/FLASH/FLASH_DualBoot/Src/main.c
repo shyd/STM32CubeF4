@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    FLASH/FLASH_WriteProtection/Src/main.c 
   * @author  MCD Application Team
-  * @version V1.3.2
-  * @date    13-November-2015
+  * @version V1.4.0
+  * @date    17-February-2017
   * @brief   This example provides a description of how to erase and program the 
   *			     STM32F4xx FLASH.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -49,18 +49,18 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
-#define MESSAGE1     "        STM32F429X         " 
-#define MESSAGE2     "      Device running on    " 
+#define MESSAGE1     "STM32F429X" 
+#define MESSAGE2     "Device running on" 
 
 #ifdef FLASH_BANK1
- #define MESSAGE3    "        FLASH BANK1        "
- #define MESSAGE7     "         Swap BFB2         "
+ #define MESSAGE3    "FLASH BANK1"
+ #define MESSAGE7    "Swap BFB2"
 #else
- #define MESSAGE3    "        FLASH BANK2        "
- #define MESSAGE7     "         Swap BFB1         "
+ #define MESSAGE3    "FLASH BANK2"
+ #define MESSAGE7    "Swap BFB1"
 #endif
-
-#define MESSAGE5     "      PUSH Key button      "
+ 
+#define MESSAGE5     "PUSH Key button"
 
 
 
@@ -124,19 +124,22 @@ int main(void)
   
 #ifdef FLASH_BANK1
   BSP_LCD_SetBackColor(LCD_COLOR_BLUE);
+  BSP_LCD_SetTextColor(LCD_COLOR_BLUE);
 #else
   BSP_LCD_SetBackColor(LCD_COLOR_RED);
+  BSP_LCD_SetTextColor(LCD_COLOR_RED);
 #endif /* BOOT_FROM_BANK1 */
   
+  BSP_LCD_FillRect(0, 0, BSP_LCD_GetXSize(), 100);
   /* Set the LCD Text Color */
   BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
   
-  /* Display LCD messages */
-  BSP_LCD_DisplayStringAtLine(0, (uint8_t *)MESSAGE1);
-  BSP_LCD_DisplayStringAtLine(1, (uint8_t *)MESSAGE3);
-  BSP_LCD_DisplayStringAtLine(2, (uint8_t *)MESSAGE5);
-  BSP_LCD_DisplayStringAtLine(3, (uint8_t *)MESSAGE7);
-  
+  /* Display LCD messages */  
+  BSP_LCD_DisplayStringAt(0, 0, (uint8_t *)MESSAGE1, CENTER_MODE);
+  BSP_LCD_DisplayStringAt(0, 20, (uint8_t *)MESSAGE3, CENTER_MODE);
+  BSP_LCD_DisplayStringAt(0, 40, (uint8_t *)MESSAGE5, CENTER_MODE);
+  BSP_LCD_DisplayStringAt(0, 60, (uint8_t *)MESSAGE7, CENTER_MODE);
+    
   /* Turn on LEDs */
   BSP_LED_On(LED3);
   BSP_LED_On(LED4);
